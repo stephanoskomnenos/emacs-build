@@ -1,0 +1,969 @@
+{
+  "method": "Same master and Clang, O2 ThinLTO; CPU 0; warm cache; A B B A groups with one excluded warmup and five samples each; user configuration used only for validation. PTY, no terminal rendering latency.",
+  "variants": {
+    "llvm": [
+      {
+        "label": "llvm-round1",
+        "runs": [
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.11821579933166504
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.23077034950256348
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.048299551010131836
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.038162946701049805
+              }
+            ],
+            "window_seconds": 0.4568443298339844,
+            "ready_seconds": 0.4570436477661133,
+            "emacs": "32.0.50"
+          },
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.11769771575927734
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.23438811302185059
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.049041748046875
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.0389556884765625
+              }
+            ],
+            "window_seconds": 0.452756404876709,
+            "ready_seconds": 0.45296382904052734,
+            "emacs": "32.0.50"
+          },
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.11876845359802246
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.23086047172546387
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.04805135726928711
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.03764510154724121
+              }
+            ],
+            "window_seconds": 0.45064830780029297,
+            "ready_seconds": 0.45092320442199707,
+            "emacs": "32.0.50"
+          },
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.11896681785583496
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.23191380500793457
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.049549102783203125
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.03822636604309082
+              }
+            ],
+            "window_seconds": 0.45008397102355957,
+            "ready_seconds": 0.450298547744751,
+            "emacs": "32.0.50"
+          },
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.11943435668945312
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.23357725143432617
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.0481109619140625
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.03768515586853027
+              }
+            ],
+            "window_seconds": 0.45890116691589355,
+            "ready_seconds": 0.4590883255004883,
+            "emacs": "32.0.50"
+          }
+        ],
+        "warmup_runs": 1,
+        "cpu": 0,
+        "terminal": "PTY with device-attributes and Kitty keyboard query replies",
+        "build": {
+          "emacs": "32.0.50.20260916175219.git82f763756c71",
+          "sources": {
+            "emacs": {
+              "version": "32.0.50.20260916175219.git82f763756c71",
+              "emacs_version": "32.0.50",
+              "branch": "master",
+              "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+              "commit_date": "2026-09-16T17:52:19Z",
+              "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+              "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+            },
+            "ncurses": {
+              "version": "6.6",
+              "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+              "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+            },
+            "zlib": {
+              "version": "1.3.2",
+              "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+              "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+            },
+            "gmp": {
+              "version": "6.3.0",
+              "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+              "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+            },
+            "nettle": {
+              "version": "4.0",
+              "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+              "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+            },
+            "libunistring": {
+              "version": "1.4.2",
+              "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+              "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+            },
+            "libidn2": {
+              "version": "2.3.8",
+              "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+              "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+            },
+            "gnutls": {
+              "version": "3.8.13",
+              "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+              "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+            },
+            "libxml2": {
+              "version": "2.15.4",
+              "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+              "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+            },
+            "sqlite": {
+              "version": "3.53.4",
+              "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+              "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+            },
+            "tree-sitter": {
+              "version": "0.27.0",
+              "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+              "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+            }
+          },
+          "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+          "glibc": "glibc 2.41",
+          "configure": [
+            "--prefix=/opt/emacs",
+            "--without-all",
+            "--without-x",
+            "--without-native-compilation",
+            "--with-modules",
+            "--with-threads",
+            "--with-file-notification=inotify",
+            "--with-gnutls",
+            "--with-libgmp",
+            "--with-xml2",
+            "--with-sqlite3",
+            "--with-tree-sitter",
+            "--with-zlib",
+            "--without-compress-install",
+            "--disable-build-details"
+          ],
+          "lto": true,
+          "pgo": "off",
+          "profile_sha256": null,
+          "build_id": "858de949fd57",
+          "cpu_baseline": "x86-64-v3",
+          "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+          "ldflags": "-L/work/build/858de949fd57/deps/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23"
+        },
+        "config_sha256": {
+          "init.el": "c8f8edbdad072af0c8321586fc3e4e02dcd7faf2eef0dc26a0a96536311cd5fd",
+          "early-init.el": "1dee280bfce47295f64015ee6c23ce99f8e302449b61f43ef5345d87d40f9045",
+          "elpaca-lock.el": "d9f563a25242233078fa642929ced399e67b914af038c8f24817fe5fcaefccba"
+        },
+        "median_window_seconds": 0.452756404876709,
+        "median_ready_seconds": 0.45296382904052734
+      },
+      {
+        "label": "llvm-round2",
+        "runs": [
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.12044954299926758
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.2338700294494629
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.04794669151306152
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.03787350654602051
+              }
+            ],
+            "window_seconds": 0.45067429542541504,
+            "ready_seconds": 0.45087099075317383,
+            "emacs": "32.0.50"
+          },
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.12057018280029297
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.23742198944091797
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.04848337173461914
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.03857898712158203
+              }
+            ],
+            "window_seconds": 0.44991159439086914,
+            "ready_seconds": 0.4502601623535156,
+            "emacs": "32.0.50"
+          },
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.11940193176269531
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.2346324920654297
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.0482792854309082
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.03883814811706543
+              }
+            ],
+            "window_seconds": 0.45060062408447266,
+            "ready_seconds": 0.45091962814331055,
+            "emacs": "32.0.50"
+          },
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.11960172653198242
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.23525381088256836
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.047515869140625
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.037412405014038086
+              }
+            ],
+            "window_seconds": 0.4578108787536621,
+            "ready_seconds": 0.4580850601196289,
+            "emacs": "32.0.50"
+          },
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.11908984184265137
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.23640751838684082
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.048004865646362305
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.03801393508911133
+              }
+            ],
+            "window_seconds": 0.44927310943603516,
+            "ready_seconds": 0.4495961666107178,
+            "emacs": "32.0.50"
+          }
+        ],
+        "warmup_runs": 1,
+        "cpu": 0,
+        "terminal": "PTY with device-attributes and Kitty keyboard query replies",
+        "build": {
+          "emacs": "32.0.50.20260916175219.git82f763756c71",
+          "sources": {
+            "emacs": {
+              "version": "32.0.50.20260916175219.git82f763756c71",
+              "emacs_version": "32.0.50",
+              "branch": "master",
+              "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+              "commit_date": "2026-09-16T17:52:19Z",
+              "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+              "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+            },
+            "ncurses": {
+              "version": "6.6",
+              "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+              "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+            },
+            "zlib": {
+              "version": "1.3.2",
+              "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+              "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+            },
+            "gmp": {
+              "version": "6.3.0",
+              "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+              "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+            },
+            "nettle": {
+              "version": "4.0",
+              "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+              "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+            },
+            "libunistring": {
+              "version": "1.4.2",
+              "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+              "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+            },
+            "libidn2": {
+              "version": "2.3.8",
+              "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+              "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+            },
+            "gnutls": {
+              "version": "3.8.13",
+              "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+              "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+            },
+            "libxml2": {
+              "version": "2.15.4",
+              "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+              "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+            },
+            "sqlite": {
+              "version": "3.53.4",
+              "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+              "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+            },
+            "tree-sitter": {
+              "version": "0.27.0",
+              "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+              "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+            }
+          },
+          "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+          "glibc": "glibc 2.41",
+          "configure": [
+            "--prefix=/opt/emacs",
+            "--without-all",
+            "--without-x",
+            "--without-native-compilation",
+            "--with-modules",
+            "--with-threads",
+            "--with-file-notification=inotify",
+            "--with-gnutls",
+            "--with-libgmp",
+            "--with-xml2",
+            "--with-sqlite3",
+            "--with-tree-sitter",
+            "--with-zlib",
+            "--without-compress-install",
+            "--disable-build-details"
+          ],
+          "lto": true,
+          "pgo": "off",
+          "profile_sha256": null,
+          "build_id": "858de949fd57",
+          "cpu_baseline": "x86-64-v3",
+          "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+          "ldflags": "-L/work/build/858de949fd57/deps/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23"
+        },
+        "config_sha256": {
+          "init.el": "c8f8edbdad072af0c8321586fc3e4e02dcd7faf2eef0dc26a0a96536311cd5fd",
+          "early-init.el": "1dee280bfce47295f64015ee6c23ce99f8e302449b61f43ef5345d87d40f9045",
+          "elpaca-lock.el": "d9f563a25242233078fa642929ced399e67b914af038c8f24817fe5fcaefccba"
+        },
+        "median_window_seconds": 0.45060062408447266,
+        "median_ready_seconds": 0.45087099075317383
+      }
+    ],
+    "pgo": [
+      {
+        "label": "pgo-round1",
+        "runs": [
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.12005496025085449
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.2224283218383789
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.047621965408325195
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.035803794860839844
+              }
+            ],
+            "window_seconds": 0.43418240547180176,
+            "ready_seconds": 0.434497594833374,
+            "emacs": "32.0.50"
+          },
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.10734748840332031
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.21198153495788574
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.04635334014892578
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.035521745681762695
+              }
+            ],
+            "window_seconds": 0.44322872161865234,
+            "ready_seconds": 0.4435417652130127,
+            "emacs": "32.0.50"
+          },
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.10706615447998047
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.2201070785522461
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.049471378326416016
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.03622913360595703
+              }
+            ],
+            "window_seconds": 0.4416341781616211,
+            "ready_seconds": 0.44195103645324707,
+            "emacs": "32.0.50"
+          },
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.10917830467224121
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.21134042739868164
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.047345638275146484
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.03515982627868652
+              }
+            ],
+            "window_seconds": 0.4375183582305908,
+            "ready_seconds": 0.4378058910369873,
+            "emacs": "32.0.50"
+          },
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.10854291915893555
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.21532654762268066
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.04642152786254883
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.03476309776306152
+              }
+            ],
+            "window_seconds": 0.44019579887390137,
+            "ready_seconds": 0.44057130813598633,
+            "emacs": "32.0.50"
+          }
+        ],
+        "warmup_runs": 1,
+        "cpu": 0,
+        "terminal": "PTY with device-attributes and Kitty keyboard query replies",
+        "build": {
+          "emacs": "32.0.50.20260916175219.git82f763756c71",
+          "sources": {
+            "emacs": {
+              "version": "32.0.50.20260916175219.git82f763756c71",
+              "emacs_version": "32.0.50",
+              "branch": "master",
+              "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+              "commit_date": "2026-09-16T17:52:19Z",
+              "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+              "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+            },
+            "ncurses": {
+              "version": "6.6",
+              "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+              "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+            },
+            "zlib": {
+              "version": "1.3.2",
+              "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+              "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+            },
+            "gmp": {
+              "version": "6.3.0",
+              "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+              "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+            },
+            "nettle": {
+              "version": "4.0",
+              "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+              "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+            },
+            "libunistring": {
+              "version": "1.4.2",
+              "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+              "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+            },
+            "libidn2": {
+              "version": "2.3.8",
+              "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+              "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+            },
+            "gnutls": {
+              "version": "3.8.13",
+              "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+              "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+            },
+            "libxml2": {
+              "version": "2.15.4",
+              "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+              "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+            },
+            "sqlite": {
+              "version": "3.53.4",
+              "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+              "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+            },
+            "tree-sitter": {
+              "version": "0.27.0",
+              "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+              "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+            }
+          },
+          "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+          "glibc": "glibc 2.41",
+          "configure": [
+            "--prefix=/opt/emacs",
+            "--without-all",
+            "--without-x",
+            "--without-native-compilation",
+            "--with-modules",
+            "--with-threads",
+            "--with-file-notification=inotify",
+            "--with-gnutls",
+            "--with-libgmp",
+            "--with-xml2",
+            "--with-sqlite3",
+            "--with-tree-sitter",
+            "--with-zlib",
+            "--without-compress-install",
+            "--disable-build-details"
+          ],
+          "lto": true,
+          "pgo": "use",
+          "profile_sha256": "a2139d92a240e0477eabcaa965639da62a3de7b68fa349855c93cb1ca2d157d7",
+          "build_id": "858de949fd57",
+          "cpu_baseline": "x86-64-v3",
+          "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+          "ldflags": "-L/work/build/858de949fd57/deps/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23"
+        },
+        "config_sha256": {
+          "init.el": "c8f8edbdad072af0c8321586fc3e4e02dcd7faf2eef0dc26a0a96536311cd5fd",
+          "early-init.el": "1dee280bfce47295f64015ee6c23ce99f8e302449b61f43ef5345d87d40f9045",
+          "elpaca-lock.el": "d9f563a25242233078fa642929ced399e67b914af038c8f24817fe5fcaefccba"
+        },
+        "median_window_seconds": 0.44019579887390137,
+        "median_ready_seconds": 0.44057130813598633
+      },
+      {
+        "label": "pgo-round2",
+        "runs": [
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.10675883293151855
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.21287202835083008
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.046964168548583984
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.036071062088012695
+              }
+            ],
+            "window_seconds": 0.4369051456451416,
+            "ready_seconds": 0.43721890449523926,
+            "emacs": "32.0.50"
+          },
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.10769152641296387
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.21331214904785156
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.04745006561279297
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.03609323501586914
+              }
+            ],
+            "window_seconds": 0.43788909912109375,
+            "ready_seconds": 0.43818211555480957,
+            "emacs": "32.0.50"
+          },
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.10782909393310547
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.21173477172851562
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.0468897819519043
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.03537607192993164
+              }
+            ],
+            "window_seconds": 0.43995189666748047,
+            "ready_seconds": 0.44028401374816895,
+            "emacs": "32.0.50"
+          },
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.10756993293762207
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.21271538734436035
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.04662370681762695
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.034458160400390625
+              }
+            ],
+            "window_seconds": 0.43506813049316406,
+            "ready_seconds": 0.43527650833129883,
+            "emacs": "32.0.50"
+          },
+          {
+            "files": [
+              {
+                "file": "user-init.el",
+                "mode": "emacs-lisp-mode",
+                "open_seconds": 0.10843348503112793
+              },
+              {
+                "file": "user-config.org",
+                "mode": "org-mode",
+                "open_seconds": 0.21508312225341797
+              },
+              {
+                "file": "build-container.sh",
+                "mode": "bash-ts-mode",
+                "open_seconds": 0.046614646911621094
+              },
+              {
+                "file": "large-log.txt",
+                "mode": "text-mode",
+                "open_seconds": 0.03458738327026367
+              }
+            ],
+            "window_seconds": 0.4358499050140381,
+            "ready_seconds": 0.4361703395843506,
+            "emacs": "32.0.50"
+          }
+        ],
+        "warmup_runs": 1,
+        "cpu": 0,
+        "terminal": "PTY with device-attributes and Kitty keyboard query replies",
+        "build": {
+          "emacs": "32.0.50.20260916175219.git82f763756c71",
+          "sources": {
+            "emacs": {
+              "version": "32.0.50.20260916175219.git82f763756c71",
+              "emacs_version": "32.0.50",
+              "branch": "master",
+              "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+              "commit_date": "2026-09-16T17:52:19Z",
+              "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+              "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+            },
+            "ncurses": {
+              "version": "6.6",
+              "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+              "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+            },
+            "zlib": {
+              "version": "1.3.2",
+              "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+              "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+            },
+            "gmp": {
+              "version": "6.3.0",
+              "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+              "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+            },
+            "nettle": {
+              "version": "4.0",
+              "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+              "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+            },
+            "libunistring": {
+              "version": "1.4.2",
+              "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+              "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+            },
+            "libidn2": {
+              "version": "2.3.8",
+              "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+              "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+            },
+            "gnutls": {
+              "version": "3.8.13",
+              "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+              "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+            },
+            "libxml2": {
+              "version": "2.15.4",
+              "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+              "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+            },
+            "sqlite": {
+              "version": "3.53.4",
+              "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+              "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+            },
+            "tree-sitter": {
+              "version": "0.27.0",
+              "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+              "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+            }
+          },
+          "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+          "glibc": "glibc 2.41",
+          "configure": [
+            "--prefix=/opt/emacs",
+            "--without-all",
+            "--without-x",
+            "--without-native-compilation",
+            "--with-modules",
+            "--with-threads",
+            "--with-file-notification=inotify",
+            "--with-gnutls",
+            "--with-libgmp",
+            "--with-xml2",
+            "--with-sqlite3",
+            "--with-tree-sitter",
+            "--with-zlib",
+            "--without-compress-install",
+            "--disable-build-details"
+          ],
+          "lto": true,
+          "pgo": "use",
+          "profile_sha256": "a2139d92a240e0477eabcaa965639da62a3de7b68fa349855c93cb1ca2d157d7",
+          "build_id": "858de949fd57",
+          "cpu_baseline": "x86-64-v3",
+          "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+          "ldflags": "-L/work/build/858de949fd57/deps/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23"
+        },
+        "config_sha256": {
+          "init.el": "c8f8edbdad072af0c8321586fc3e4e02dcd7faf2eef0dc26a0a96536311cd5fd",
+          "early-init.el": "1dee280bfce47295f64015ee6c23ce99f8e302449b61f43ef5345d87d40f9045",
+          "elpaca-lock.el": "d9f563a25242233078fa642929ced399e67b914af038c8f24817fe5fcaefccba"
+        },
+        "median_window_seconds": 0.4369051456451416,
+        "median_ready_seconds": 0.43721890449523926
+      }
+    ]
+  }
+}

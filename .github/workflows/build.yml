@@ -5,7 +5,7 @@ on:
     # Monday 01:23 Asia/Shanghai (Sunday 17:23 UTC).
     - cron: '23 17 * * 0'
   push:
-    paths: ['scripts/**', 'containers/**', 'tests/**', 'packaging/**', '*sources.json', '.github/workflows/build.yml']
+    paths: ['scripts/**', 'benchmarks/**', 'containers/**', 'tests/**', 'packaging/**', '*sources.json', '.github/workflows/build.yml']
   pull_request:
 permissions:
   contents: read
@@ -27,10 +27,15 @@ jobs:
           python3 scripts/fetch.py
           python3 scripts/fetch.py --tests
           python3 scripts/fetch.py --toolchain
-      - name: Build with prebuilt GCC 16.2 and LTO
+          python3 scripts/fetch.py --benchmarks
+      - name: Build instrumented Emacs with Clang and ThinLTO
         run: |
           bash scripts/container.sh image
-          JOBS=2 bash scripts/container.sh build
+          JOBS=2 PGO=generate bash scripts/container.sh build
+      - name: Train on generic terminal workflows and ELPA benchmarks
+        run: bash scripts/container.sh train
+      - name: Build with the fresh PGO profile
+        run: JOBS=2 PGO=use bash scripts/container.sh build
       - name: Verify in builder and clean Debian 13
         run: bash scripts/container.sh test
       - name: Package binary and sources
@@ -69,4 +74,5 @@ jobs:
           name: acceptance-logs
           path: |
             build/acceptance/*.log
+            build/pgo-training/*.log
             build/*/logs/*.log

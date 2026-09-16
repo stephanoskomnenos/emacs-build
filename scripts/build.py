@@ -5,6 +5,7 @@ import json
 import os
 import pathlib
 import shutil
+import shlex
 import subprocess
 import sys
 
@@ -12,10 +13,19 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 manifest = json.loads((ROOT / 'sources.json').read_text())
 jobs = os.environ.get('JOBS', '6')
 lto = os.environ.get('LTO', '1') == '1'
-compiler = subprocess.check_output(['gcc', '-dumpfullversion'], text=True).strip()
+llvm = os.environ.get('TOOLCHAIN', 'gcc') == 'llvm'
+profile_mode = os.environ.get('PGO', 'off')
+if profile_mode not in ('off', 'generate', 'use') or (profile_mode != 'off' and not llvm):
+    raise RuntimeError('PGO must be off, or generate/use with TOOLCHAIN=llvm')
+cc = 'clang-23 --gcc-toolchain=/usr/local' if llvm else 'gcc'
+cxx = 'clang++-23 --gcc-toolchain=/usr/local' if llvm else 'g++'
+ar = 'llvm-ar-23' if llvm else 'gcc-ar'
+ranlib = 'llvm-ranlib-23' if llvm else 'gcc-ranlib'
+compiler = subprocess.check_output(shlex.split(cc) + ['--version'], text=True).splitlines()[0]
+gcc_version = subprocess.check_output(['gcc', '-dumpfullversion'], text=True).strip()
 expected_compiler = json.loads((ROOT / 'toolchain-sources.json').read_text())['gcc']['version']
-if compiler != expected_compiler:
-    raise RuntimeError(f'Expected GCC {expected_compiler}, found {compiler}')
+if gcc_version != expected_compiler:
+    raise RuntimeError(f'Expected GCC {expected_compiler}, found {gcc_version}')
 identity = hashlib.sha256((json.dumps(manifest, sort_keys=True) + str(lto)
                           + compiler + pathlib.Path(__file__).read_text()
                           + (ROOT / 'containers/Containerfile').read_text()).encode()).hexdigest()[:12]
@@ -25,11 +35,13 @@ logs = work / 'logs'
 logs.mkdir(parents=True, exist_ok=True)
 prefix.mkdir(exist_ok=True)
 env = dict(os.environ)
-env.update(CC='gcc', CXX='g++', AR='gcc-ar', RANLIB='gcc-ranlib',
-           CFLAGS='-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic' + (' -flto=' + jobs if lto else ''),
-           CXXFLAGS='-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic' + (' -flto=' + jobs if lto else ''),
+lto_flags = (' -flto=thin' if llvm else ' -flto=' + jobs) if lto else ''
+linker_flags = ' --ld-path=/usr/bin/ld.lld-23' if llvm else ''
+env.update(CC=cc, CXX=cxx, AR=ar, RANLIB=ranlib,
+           CFLAGS='-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic' + lto_flags,
+           CXXFLAGS='-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic' + lto_flags,
            CPPFLAGS='-I' + str(prefix / 'include'),
-           LDFLAGS='-L' + str(prefix / 'lib') + ' -Wl,-z,relro,-z,now' + (' -flto=' + jobs if lto else ''),
+           LDFLAGS='-L' + str(prefix / 'lib') + ' -Wl,-z,relro,-z,now' + lto_flags + linker_flags,
            PKG_CONFIG_PATH='',
            PKG_CONFIG_LIBDIR=str(prefix / 'lib/pkgconfig') + ':' + str(prefix / 'share/pkgconfig'),
            PKG_CONFIG='pkg-config --static', LC_ALL='C.UTF-8', TZ='UTC')
@@ -82,7 +94,7 @@ for name in ['ncurses', 'zlib', 'gmp', 'nettle', 'libunistring', 'libidn2', 'gnu
         continue
     print(name + ': building', flush=True)
     if name == 'tree-sitter':
-        run(['make', '-j' + jobs, 'libtree-sitter.a', 'AR=gcc-ar', 'RANLIB=gcc-ranlib'], src, log)
+        run(['make', '-j' + jobs, 'libtree-sitter.a', 'AR=' + ar, 'RANLIB=' + ranlib], src, log)
         (prefix / 'include/tree_sitter').mkdir(parents=True, exist_ok=True)
         shutil.copy2(src / 'libtree-sitter.a', prefix / 'lib')
         shutil.copy2(src / 'lib/include/tree_sitter/api.h', prefix / 'include/tree_sitter')
@@ -107,31 +119,48 @@ if not atomic.is_file():
 shutil.copy2(atomic, prefix / 'lib/libatomic.a')
 
 src = source('emacs')
-obj = work / 'emacs-build'
+variant = ('llvm-' + profile_mode) if llvm else 'gcc'
+profile = pathlib.Path(os.environ.get('PROFILE_FILE', str(work / 'merged.profdata'))).resolve()
+if profile_mode == 'use' and not profile.is_file():
+    raise RuntimeError('Missing merged profile: ' + str(profile))
+pgo_flags = (' -fprofile-generate=' + str(work / 'profiles') if profile_mode == 'generate' else
+             ' -fprofile-use=' + str(profile) if profile_mode == 'use' else '')
+if profile_mode == 'use':
+    variant += '-' + hashlib.sha256(profile.read_bytes()).hexdigest()[:12]
+obj = work / ('emacs-build-' + variant)
 obj.mkdir(exist_ok=True)
-log = logs / 'emacs.log'
-stage = work / 'stage'
+log = logs / ('emacs-' + variant + '.log')
+stage = work / ('stage-' + variant)
 options = ['--prefix=/opt/emacs', '--without-all', '--without-x', '--without-native-compilation',
            '--with-modules', '--with-threads', '--with-file-notification=inotify',
            '--with-gnutls', '--with-libgmp', '--with-xml2', '--with-sqlite3',
            '--with-tree-sitter', '--with-zlib', '--without-compress-install',
            '--disable-build-details']
-if not (work / 'emacs.done').exists():
+if not (work / ('emacs-' + variant + '.done')).exists():
     if not (src / 'configure').exists():
         run(['sh', 'autogen.sh', 'autoconf'], src, log)
     run([str(src / 'configure'), *options], obj, log,
-        {'LDFLAGS': env['LDFLAGS'] + ' -Wl,--exclude-libs,ALL' + (' -flto-report' if lto else ''), 'LIBS': '-lm',
+        {'LDFLAGS': env['LDFLAGS'] + ' -Wl,--exclude-libs,ALL' + (' -Wl,--save-temps' if llvm and lto else ' -flto-report' if lto else '') + pgo_flags, 'LIBS': '-lm',
          'emacs_cv_tputs_lib': '-lncursesw',
-         'CFLAGS': env['CFLAGS'].replace('-fPIC', '-fPIE')})
+         'CFLAGS': env['CFLAGS'].replace('-fPIC', '-fPIE') + pgo_flags})
     run(['make', '-j' + jobs], obj, log)
     run(['make', 'install', 'DESTDIR=' + str(stage)], obj, log)
-    (work / 'emacs.done').touch()
+    (work / ('emacs-' + variant + '.done')).touch()
 # Slim GCC LTO objects require the linker plugin; retain evidence from the build.
-if lto:
+if lto and llvm:
+    if not list((obj / 'src').glob('*.index.bc')) or not list((obj / 'src').glob('*.3.import.bc')):
+        raise RuntimeError('Missing lld ThinLTO link output')
+    print('PASS: lld ThinLTO link output', flush=True)
+elif lto:
     sections = subprocess.check_output(['readelf', '-SW', str(obj / 'src/emacs.o')], text=True)
     if '.gnu.lto_' not in sections or '[WPA] # of input files:' not in log.read_text(errors='replace'):
         raise RuntimeError('Missing GCC LTO object or whole-program analysis evidence')
     print('PASS: GCC LTO object sections and linker WPA report', flush=True)
+if llvm and profile_mode == 'use' and lto:
+    ir = subprocess.check_output(['llvm-dis-23', str(obj / 'src/bytecode.o.0.preopt.bc'), '-o', '-'], text=True)
+    if 'function_entry_count' not in ir or 'ProfileSummary' not in ir:
+        raise RuntimeError('Missing LLVM profile metadata in bytecode interpreter')
+    print('PASS: LLVM profile counts and summary in bytecode interpreter', flush=True)
 bundle = stage / 'opt/emacs'
 # Emacs embeds absolute data and dump paths; resolve the launcher even through
 # user-created symlinks and pass the relocated installation explicitly.
@@ -153,9 +182,10 @@ exec "$root/bin/emacs-{version}" --dump-file="$root/{execdir}/{dump}" "$@"
 ''')
 launcher.chmod(0o755)
 info = {'emacs': manifest['emacs']['version'], 'sources': manifest,
-        'compiler': subprocess.check_output(['gcc', '--version'], text=True).splitlines()[0],
+        'compiler': compiler,
         'glibc': subprocess.check_output(['getconf', 'GNU_LIBC_VERSION'], text=True).strip(),
-        'configure': options, 'lto': lto, 'build_id': identity,
+        'configure': options, 'lto': lto, 'pgo': profile_mode,
+        'profile_sha256': hashlib.sha256(profile.read_bytes()).hexdigest() if profile_mode == 'use' else None, 'build_id': identity,
         'cpu_baseline': 'x86-64-v3', 'cflags': env['CFLAGS'], 'ldflags': env['LDFLAGS'],
         'packages': subprocess.check_output(['dpkg-query', '-W'], text=True)}
 (bundle / 'BUILD-INFO.json').write_text(json.dumps(info, indent=2) + '\n')

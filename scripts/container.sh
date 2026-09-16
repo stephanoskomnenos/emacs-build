@@ -2,14 +2,32 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 image=localhost/emacs-nox-builder:gcc16
+if [[ ${TOOLCHAIN:-llvm} == llvm ]]; then image=localhost/emacs-nox-builder:llvm23; fi
 case "${1:-build}" in
   image)
-    podman build -t "$image" -f containers/Containerfile .
+    if [[ ${TOOLCHAIN:-llvm} == llvm ]]; then
+      TOOLCHAIN=gcc bash scripts/container.sh image
+      podman build -t "$image" -f containers/LLVM.Containerfile .
+    else
+      podman build -t "$image" -f containers/Containerfile .
+    fi
+    ;;
+  llvm-image)
+    TOOLCHAIN=gcc bash scripts/container.sh image
+    podman build -t localhost/emacs-nox-builder:llvm23 -f containers/LLVM.Containerfile .
     ;;
   build)
     podman run --rm --userns=keep-id --network=none \
       -e JOBS="${JOBS:-6}" -e LTO="${LTO:-1}" \
+      -e TOOLCHAIN="${TOOLCHAIN:-llvm}" -e PGO="${PGO:-off}" \
+      -e PROFILE_FILE="${PROFILE_FILE:-/work/build/merged.profdata}" \
       -v "$PWD:/work:Z" -w /work "$image" python3 scripts/build.py
+    ;;
+  train)
+    bundle=$(cat build/current-bundle)
+    podman run --rm --userns=keep-id --network=none \
+      -v "$PWD:/work:Z" -w /work localhost/emacs-nox-builder:llvm23 \
+      python3 scripts/pgo-train.py "$bundle"
     ;;
   test)
     bundle=$(cat build/current-bundle)
@@ -46,5 +64,5 @@ PY
     podman run --rm --network=none -v "$PWD:/work:ro,Z" \
       localhost/emacs-nox-rpm-test:fedora44 bash tests/rpm.sh 2>&1 | tee build/acceptance/rpm.log
     ;;
-  *) echo 'usage: bash scripts/container.sh [image|build|test|package [--force]|rpm|test-rpm]' >&2; exit 2 ;;
+  *) echo 'usage: bash scripts/container.sh [image|llvm-image|build|train|test|package [--force]|rpm|test-rpm]' >&2; exit 2 ;;
 esac

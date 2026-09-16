@@ -31,7 +31,7 @@ Conflicts:      emacs-pgtk
 Conflicts:      emacsclient
 
 %description
-GNU Emacs for terminals, built with GCC 16.2 with LTO and without native compilation.
+GNU Emacs for terminals, built with Clang, ThinLTO and PGO and without native compilation.
 Requires an x86-64-v3 CPU. Foundation libraries are statically linked;
 glibc, terminfo, CA certificates, modules and language grammars use the host.
 Component license notices are included under the installation's licenses tree.

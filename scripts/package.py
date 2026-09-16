@@ -71,7 +71,7 @@ source_release = dist / source_name
 if source_release.exists() and args.force:
     shutil.rmtree(source_release)
 source_release.mkdir()
-for item in ('scripts', 'containers', 'tests', '.github', 'packaging'):
+for item in ('scripts', 'containers', 'tests', '.github', 'packaging', 'benchmarks'):
     if (ROOT / item).exists():
         shutil.copytree(ROOT / item, source_release / item,
                         ignore=shutil.ignore_patterns('__pycache__'))
@@ -79,12 +79,23 @@ for item in ('sources.json', 'test-sources.json', 'toolchain-sources.json', 'REA
     shutil.copy2(ROOT / item, source_release / item)
 inputs = source_release / 'cache/sources'
 inputs.mkdir(parents=True)
-for lock in ('sources.json', 'test-sources.json', 'toolchain-sources.json'):
+for lock in ('sources.json', 'test-sources.json', 'toolchain-sources.json', 'benchmarks/sources.json'):
     for dep, spec in json.loads((ROOT / lock).read_text()).items():
         source = ROOT / 'cache/sources' / (dep + '-' + spec['version'] + '.tar')
         if hashlib.sha256(source.read_bytes()).hexdigest() != spec['sha256']:
             raise SystemExit('Source checksum mismatch: ' + str(source))
         shutil.copy2(source, inputs / source.name)
+if info.get('pgo') == 'use':
+    profile = ROOT / 'build/merged.profdata'
+    provenance = ROOT / 'build/pgo-training/provenance.json'
+    digest = hashlib.sha256(profile.read_bytes()).hexdigest()
+    if digest != info['profile_sha256'] or json.loads(provenance.read_text())['profile_sha256'] != digest:
+        raise SystemExit('Profile does not match the accepted binary')
+    destination = source_release / 'build'
+    (destination / 'pgo-training').mkdir(parents=True)
+    shutil.copy2(profile, destination / 'merged.profdata')
+    shutil.copy2(provenance, destination / 'pgo-training/provenance.json')
+    shutil.copy2(ROOT / 'build/pgo-training/profile-summary.txt', destination / 'pgo-training/profile-summary.txt')
 source_archive = dist / (source_name + '.tar.zst')
 subprocess.run(['tar', '--sort=name', '--mtime=@' + epoch, '--owner=0', '--group=0',
                 '--numeric-owner', '--zstd', '-cf', str(source_archive), '-C', str(dist), source_name], check=True)

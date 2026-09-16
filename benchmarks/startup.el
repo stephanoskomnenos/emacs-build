@@ -1,0 +1,32 @@
+;;; startup.el --- Observe a real configured terminal startup -*- lexical-binding: t; -*-
+(require 'json)
+(load (expand-file-name "files.el" (file-name-directory load-file-name)) nil t)
+(defvar benchmark-window-seconds nil)
+(defun benchmark--finish ()
+  (when (fboundp 'elpaca-wait) (elpaca-wait))
+  (when init-file-had-error (error "User init failed"))
+  (when (boundp 'elpaca--queues)
+    (dolist (queue elpaca--queues)
+      (dolist (entry (elpaca-q<-elpacas queue))
+        (when (eq (elpaca<-status (cdr entry)) 'failed)
+          (error "Elpaca package failed: %S" (car entry))))))
+  (let ((ready (- (float-time) (string-to-number (getenv "BENCHMARK_START")))))
+    (let ((files (when (getenv "BENCHMARK_FILES")
+                   (benchmark-files (append (json-parse-string (getenv "BENCHMARK_FILES")) nil)))))
+     (with-temp-file (getenv "BENCHMARK_RESULT")
+      (insert (json-serialize `((files . ,(or files [])) (window_seconds . ,benchmark-window-seconds)
+                                (ready_seconds . ,ready)
+                                (emacs . ,emacs-version)))))))
+  (kill-emacs 0))
+(add-hook 'window-setup-hook
+          (lambda ()
+            (setq benchmark-window-seconds
+                  (- (float-time) (string-to-number (getenv "BENCHMARK_START"))))
+            (run-at-time 0 nil #'benchmark-finish)) t)
+
+(defun benchmark-finish ()
+  (condition-case err (benchmark--finish)
+    (error
+     (with-temp-file (getenv "BENCHMARK_RESULT")
+       (insert (json-serialize `((error . ,(error-message-string err))))))
+     (kill-emacs 1))))
