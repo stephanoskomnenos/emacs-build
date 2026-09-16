@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-image=localhost/emacs-nox-builder:gcc15
+image=localhost/emacs-nox-builder:gcc16
 case "${1:-build}" in
   image)
     podman build -t "$image" -f containers/Containerfile .
     ;;
   build)
     podman run --rm --userns=keep-id --network=none \
-      -e JOBS="${JOBS:-6}" -e LTO="${LTO:-0}" \
+      -e JOBS="${JOBS:-6}" -e LTO="${LTO:-1}" \
       -v "$PWD:/work:Z" -w /work "$image" python3 scripts/build.py
     ;;
   test)

@@ -156,6 +156,7 @@ with tempfile.TemporaryDirectory(prefix='emacs acceptance ') as tmpstr:
     print('PASS: relocated daemon/emacsclient', flush=True)
 
     class Handler(http.server.BaseHTTPRequestHandler):
+        protocol_version = "HTTP/1.1"
         def handle(self):
             try:
                 super().handle()
@@ -164,6 +165,7 @@ with tempfile.TemporaryDirectory(prefix='emacs acceptance ') as tmpstr:
                 pass
         def do_GET(self):
             self.send_response(200)
+            self.send_header("Content-Length", str(len(b'portable-tls-ok')))
             self.end_headers()
             self.wfile.write(b'portable-tls-ok')
         def log_message(self, *args):

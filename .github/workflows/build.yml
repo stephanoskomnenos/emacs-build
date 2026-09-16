@@ -1,4 +1,4 @@
-name: Build and verify portable Emacs
+name: Build and verify Emacs nox
 on:
   workflow_dispatch:
   push:
@@ -22,7 +22,7 @@ jobs:
           python3 scripts/fetch.py
           python3 scripts/fetch.py --tests
           python3 scripts/fetch.py --toolchain
-      - name: Build with prebuilt GCC
+      - name: Build with prebuilt GCC 16.2 and LTO
         run: |
           bash scripts/container.sh image
           JOBS=2 bash scripts/container.sh build
@@ -46,4 +46,6 @@ jobs:
         if: always()
         with:
           name: acceptance-logs
-          path: build/acceptance/*.log
+          path: |
+            build/acceptance/*.log
+            build/*/logs/*.log

@@ -24,7 +24,7 @@ with tempfile.TemporaryDirectory(prefix='rpm-', dir=ROOT / 'build') as tmp:
     shutil.copy2(archive, top / 'SOURCES' / archive.name)
     subprocess.run(['rpmbuild', '-bb', '--define', '_topdir ' + str(top),
                     '--define', 'emacs_version ' + info['emacs'],
-                    str(ROOT / 'packaging/emacs-nox-portable.spec')], check=True)
+                    str(ROOT / 'packaging/emacs-nox.spec')], check=True)
     products = list((top / 'RPMS/x86_64').glob('*.rpm'))
     if len(products) != 1:
         raise SystemExit('Expected exactly one binary RPM')

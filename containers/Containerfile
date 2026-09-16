@@ -1,4 +1,4 @@
-FROM docker.io/library/gcc:15.3.0@sha256:6c9a0a0c980050f3735505bec7f5d1a13c313b17c9e74275aac9a745213e7fde
+FROM docker.io/library/gcc:16.2.0-trixie@sha256:b98be39c2378222af9dcab6a5b1707d74b47d7c413c8569d5429a4cbfefbe981
 
 # GCC is already built in the base image. Only install build utilities here.
 RUN apt-get update && apt-get install -y --no-install-recommends \

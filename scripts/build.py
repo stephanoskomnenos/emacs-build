@@ -11,9 +11,14 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 manifest = json.loads((ROOT / 'sources.json').read_text())
 jobs = os.environ.get('JOBS', '6')
-lto = os.environ.get('LTO', '0') == '1'
+lto = os.environ.get('LTO', '1') == '1'
+compiler = subprocess.check_output(['gcc', '-dumpfullversion'], text=True).strip()
+expected_compiler = json.loads((ROOT / 'toolchain-sources.json').read_text())['gcc']['version']
+if compiler != expected_compiler:
+    raise RuntimeError(f'Expected GCC {expected_compiler}, found {compiler}')
 identity = hashlib.sha256((json.dumps(manifest, sort_keys=True) + str(lto)
-                          + 'gcc15-x86-64-v3-deps-v2').encode()).hexdigest()[:12]
+                          + compiler + pathlib.Path(__file__).read_text()
+                          + (ROOT / 'containers/Containerfile').read_text()).encode()).hexdigest()[:12]
 work = ROOT / 'build' / identity
 prefix = work / 'deps'
 logs = work / 'logs'
@@ -21,10 +26,10 @@ logs.mkdir(parents=True, exist_ok=True)
 prefix.mkdir(exist_ok=True)
 env = dict(os.environ)
 env.update(CC='gcc', CXX='g++', AR='gcc-ar', RANLIB='gcc-ranlib',
-           CFLAGS='-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic' + (' -flto=auto' if lto else ''),
-           CXXFLAGS='-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic' + (' -flto=auto' if lto else ''),
+           CFLAGS='-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic' + (' -flto=' + jobs if lto else ''),
+           CXXFLAGS='-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic' + (' -flto=' + jobs if lto else ''),
            CPPFLAGS='-I' + str(prefix / 'include'),
-           LDFLAGS='-L' + str(prefix / 'lib') + ' -Wl,-z,relro,-z,now',
+           LDFLAGS='-L' + str(prefix / 'lib') + ' -Wl,-z,relro,-z,now' + (' -flto=' + jobs if lto else ''),
            PKG_CONFIG_PATH='',
            PKG_CONFIG_LIBDIR=str(prefix / 'lib/pkgconfig') + ':' + str(prefix / 'share/pkgconfig'),
            PKG_CONFIG='pkg-config --static', LC_ALL='C.UTF-8', TZ='UTC')
@@ -77,7 +82,7 @@ for name in ['ncurses', 'zlib', 'gmp', 'nettle', 'libunistring', 'libidn2', 'gnu
         continue
     print(name + ': building', flush=True)
     if name == 'tree-sitter':
-        run(['make', '-j' + jobs, 'libtree-sitter.a'], src, log)
+        run(['make', '-j' + jobs, 'libtree-sitter.a', 'AR=gcc-ar', 'RANLIB=gcc-ranlib'], src, log)
         (prefix / 'include/tree_sitter').mkdir(parents=True, exist_ok=True)
         shutil.copy2(src / 'libtree-sitter.a', prefix / 'lib')
         shutil.copy2(src / 'lib/include/tree_sitter/api.h', prefix / 'include/tree_sitter')
@@ -113,12 +118,18 @@ options = ['--prefix=/opt/emacs', '--without-all', '--without-x', '--without-nat
            '--disable-build-details']
 if not (work / 'emacs.done').exists():
     run([str(src / 'configure'), *options], obj, log,
-        {'LDFLAGS': env['LDFLAGS'] + ' -Wl,--exclude-libs,ALL', 'LIBS': '-lm',
+        {'LDFLAGS': env['LDFLAGS'] + ' -Wl,--exclude-libs,ALL' + (' -flto-report' if lto else ''), 'LIBS': '-lm',
          'emacs_cv_tputs_lib': '-lncursesw',
          'CFLAGS': env['CFLAGS'].replace('-fPIC', '-fPIE')})
     run(['make', '-j' + jobs], obj, log)
     run(['make', 'install', 'DESTDIR=' + str(stage)], obj, log)
     (work / 'emacs.done').touch()
+# Slim GCC LTO objects require the linker plugin; retain evidence from the build.
+if lto:
+    sections = subprocess.check_output(['readelf', '-SW', str(obj / 'src/emacs.o')], text=True)
+    if '.gnu.lto_' not in sections or '[WPA] # of input files:' not in log.read_text(errors='replace'):
+        raise RuntimeError('Missing GCC LTO object or whole-program analysis evidence')
+    print('PASS: GCC LTO object sections and linker WPA report', flush=True)
 bundle = stage / 'opt/emacs'
 # Emacs embeds absolute data and dump paths; resolve the launcher even through
 # user-created symlinks and pass the relocated installation explicitly.
@@ -143,7 +154,7 @@ info = {'emacs': manifest['emacs']['version'], 'sources': manifest,
         'compiler': subprocess.check_output(['gcc', '--version'], text=True).splitlines()[0],
         'glibc': subprocess.check_output(['getconf', 'GNU_LIBC_VERSION'], text=True).strip(),
         'configure': options, 'lto': lto, 'build_id': identity,
-        'cpu_baseline': 'x86-64-v3', 'cflags': env['CFLAGS'],
+        'cpu_baseline': 'x86-64-v3', 'cflags': env['CFLAGS'], 'ldflags': env['LDFLAGS'],
         'packages': subprocess.check_output(['dpkg-query', '-W'], text=True)}
 (bundle / 'BUILD-INFO.json').write_text(json.dumps(info, indent=2) + '\n')
 (ROOT / 'build/current-bundle').write_text(str(bundle.relative_to(ROOT)) + '\n')
