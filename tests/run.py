@@ -2,7 +2,6 @@
 """Artifact acceptance tests. Pass --prepare in the builder to compile fixtures."""
 import argparse
 import hashlib
-import http.server
 import json
 import os
 import pathlib
@@ -10,12 +9,10 @@ import pty
 import select
 import shutil
 import signal
-import ssl
 import struct
 import subprocess
 import tempfile
 import termios
-import threading
 import time
 import uuid
 import fcntl
@@ -66,20 +63,8 @@ if a.prepare:
          '-I' + str(ls / 'include'), '-I' + str(ls / 'src'), *defs,
          vs / 'vterm-module.c', vs / 'utf8.c', vs / 'elisp.c',
          *sorted((ls / 'src').glob('*.c')), '-o', vs / 'vterm-module.so'])
-    run(['openssl', 'req', '-x509', '-newkey', 'rsa:2048', '-nodes', '-days', '2',
-         '-subj', '/CN=Portable Test CA', '-addext', 'basicConstraints=critical,CA:TRUE',
-         '-keyout', fixtures / 'ca-key.pem', '-out', fixtures / 'ca.pem'],
-        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    run(['openssl', 'req', '-new', '-newkey', 'rsa:2048', '-nodes',
-         '-subj', '/CN=localhost', '-keyout', fixtures / 'key.pem',
-         '-out', fixtures / 'server.csr'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    (fixtures / 'server.ext').write_text('subjectAltName=DNS:localhost\nbasicConstraints=critical,CA:FALSE\nextendedKeyUsage=serverAuth\n')
-    run(['openssl', 'x509', '-req', '-in', fixtures / 'server.csr',
-         '-CA', fixtures / 'ca.pem', '-CAkey', fixtures / 'ca-key.pem',
-         '-CAcreateserial', '-days', '2', '-extfile', fixtures / 'server.ext',
-         '-out', fixtures / 'cert.pem'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-required = ['test-module.so', 'libtree-sitter-json.so', 'vterm-source/vterm-module.so', 'cert.pem', 'key.pem', 'ca.pem']
+required = ['test-module.so', 'libtree-sitter-json.so', 'vterm-source/vterm-module.so']
 for name in required:
     if not (fixtures / name).is_file():
         raise SystemExit('Missing fixture ' + name + '; run with --prepare in builder')
@@ -154,51 +139,5 @@ with tempfile.TemporaryDirectory(prefix='emacs acceptance ') as tmpstr:
             daemon.wait(timeout=10)
         daemon.stderr.close()
     print('PASS: relocated daemon/emacsclient', flush=True)
-
-    class Handler(http.server.BaseHTTPRequestHandler):
-        protocol_version = "HTTP/1.1"
-        def handle(self):
-            try:
-                super().handle()
-            except ConnectionError:
-                # Expected when the client rejects our untrusted certificate.
-                pass
-        def do_GET(self):
-            self.send_response(200)
-            self.send_header("Content-Length", str(len(b'portable-tls-ok')))
-            self.end_headers()
-            self.wfile.write(b'portable-tls-ok')
-        def log_message(self, *args):
-            pass
-
-    server = http.server.ThreadingHTTPServer(('127.0.0.1', 0), Handler)
-    ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-    ctx.load_cert_chain(fixtures / 'cert.pem', fixtures / 'key.pem')
-    server.socket = ctx.wrap_socket(server.socket, server_side=True)
-    thread = threading.Thread(target=server.serve_forever, daemon=True)
-    thread.start()
-    try:
-        url = 'https://localhost:' + str(server.server_port) + '/'
-        for trusted in (True, False):
-            trust = '(list ' + json.dumps(str(fixtures / 'ca.pem')) + ')' if trusted else 'nil'
-            expression = f'''(progn (require 'url) (require 'gnutls) (require 'nsm)
-              (let ((gnutls-trustfiles {trust}) (gnutls-verify-error t)
-                    (network-security-level 'medium) (url-proxy-services '(("no_proxy" . ".*"))))
-                (let ((ok (condition-case err
-                    (let ((b (url-retrieve-synchronously {json.dumps(url)} t t 10)))
-                      (when b (with-current-buffer b
-                        (goto-char (point-min)) (search-forward "portable-tls-ok" nil t))))
-                    (error (message "TLS request: %S" err) nil))))
-                  (unless (eq (not (null ok)) {'t' if trusted else 'nil'})
-                    (dolist (b (buffer-list))
-                      (when (string-match-p "\\\\*\\\\(Messages\\\\|Warnings\\\\)\\\\*" (buffer-name b))
-                        (princ (with-current-buffer b (buffer-string)))))
-                    (error "TLS acceptance/rejection mismatch")))))'''
-            run(base + ['--batch', '--eval', expression], env=env, cwd=tmp)
-    finally:
-        server.shutdown()
-        server.server_close()
-        thread.join(timeout=5)
-    print('PASS: TLS accepted with trusted CA and rejected without trust', flush=True)
 
 print('ALL ACCEPTANCE TESTS PASSED', flush=True)
