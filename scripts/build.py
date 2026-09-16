@@ -117,6 +117,8 @@ options = ['--prefix=/opt/emacs', '--without-all', '--without-x', '--without-nat
            '--with-tree-sitter', '--with-zlib', '--without-compress-install',
            '--disable-build-details']
 if not (work / 'emacs.done').exists():
+    if not (src / 'configure').exists():
+        run(['sh', 'autogen.sh', 'autoconf'], src, log)
     run([str(src / 'configure'), *options], obj, log,
         {'LDFLAGS': env['LDFLAGS'] + ' -Wl,--exclude-libs,ALL' + (' -flto-report' if lto else ''), 'LIBS': '-lm',
          'emacs_cv_tputs_lib': '-lncursesw',
@@ -136,7 +138,7 @@ bundle = stage / 'opt/emacs'
 launcher = bundle / 'bin/emacs'
 if launcher.is_symlink():
     launcher.unlink()
-version = manifest['emacs']['version']
+version = manifest['emacs'].get('emacs_version', manifest['emacs']['version'])
 execdir = next((bundle / 'libexec/emacs' / version).iterdir()).relative_to(bundle)
 dump = next((bundle / execdir).glob('emacs-*.pdmp')).name
 launcher.write_text(f'''#!/bin/sh

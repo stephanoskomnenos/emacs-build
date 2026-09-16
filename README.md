@@ -1,6 +1,6 @@
 # emacs-nox-build
 
-Emacs 31.1，禁用 native-comp，使用预编译 GCC 16.2 + LTO。
+Emacs master，禁用 native-comp，使用预编译 GCC 16.2 + LTO。
 基础第三方库静态链接，glibc 动态链接；要求 x86-64-v3、glibc ≥ 2.41。
 terminfo、CA 证书、外置模块及 tree-sitter grammar 由系统或用户提供。
 
@@ -9,6 +9,7 @@ terminfo、CA 证书、外置模块及 tree-sitter grammar 由系统或用户提
 需要 Podman、Python 3、curl，以及支持 x86-64-v3 的 Linux 主机。
 
 ```sh
+python3 scripts/update-master.py  # 更新到当前 master；复现已有快照时跳过
 python3 scripts/fetch.py
 python3 scripts/fetch.py --tests
 python3 scripts/fetch.py --toolchain  # 仅为源码包下载 GCC，不编译
@@ -22,14 +23,15 @@ bash scripts/container.sh test-rpm
 
 产物在 `dist/`：便携包、源码包、RPM 和 SHA256 校验文件。
 默认 `JOBS=6`、`LTO=1`；重新打包可用 `package --force`。
-GitHub Actions 自动执行同一流程并上传产物，也支持手动触发。
+GitHub Actions 每周一北京时间 01:23 构建 master，也支持手动触发。
+每次锁定 commit 和源码校验值；RPM、二进制包、源码包分别下载，安装只需 RPM。
 
 ## 安装
 
 RPM 提供标准 `emacs` / `emacsclient` 命令，替换 Fedora 自带 Emacs：
 
 ```sh
-sudo dnf install --allowerasing ./dist/emacs-nox-31.1-1.v3.x86_64.rpm
+sudo dnf install --allowerasing ./dist/emacs-nox-*.x86_64.rpm
 emacs -nw
 ```
 

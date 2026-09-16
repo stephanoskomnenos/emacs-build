@@ -1,6 +1,9 @@
 name: Build and verify Emacs nox
 on:
   workflow_dispatch:
+  schedule:
+    # Monday 01:23 Asia/Shanghai (Sunday 17:23 UTC).
+    - cron: '23 17 * * 0'
   push:
     paths: ['scripts/**', 'containers/**', 'tests/**', 'packaging/**', '*sources.json', '.github/workflows/build.yml']
   pull_request:
@@ -17,6 +20,8 @@ jobs:
       - name: Verify runner supports x86-64-v3
         run: |
           /lib64/ld-linux-x86-64.so.2 --help | grep -F 'x86-64-v3 (supported, searched)'
+      - name: Resolve and lock Emacs master
+        run: python3 scripts/update-master.py
       - name: Fetch locked sources and fixtures
         run: |
           python3 scripts/fetch.py
@@ -36,14 +41,30 @@ jobs:
         run: bash scripts/container.sh test-rpm
       - uses: actions/upload-artifact@v4
         with:
-          name: emacs-nox-x86-64-v3
+          name: emacs-nox-rpm-x86-64-v3
+          compression-level: 0
+          if-no-files-found: error
           path: |
-            dist/*.tar.zst
-            dist/*.sha256
             dist/*.rpm
-            dist/*.requires.txt
+            dist/*.rpm.sha256
       - uses: actions/upload-artifact@v4
-        if: always()
+        with:
+          name: emacs-nox-tar-x86-64-v3
+          compression-level: 0
+          if-no-files-found: error
+          path: |
+            dist/*-linux-x86-64-v3.tar.zst
+            dist/*-linux-x86-64-v3.tar.zst.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: emacs-nox-sources
+          compression-level: 0
+          if-no-files-found: error
+          path: |
+            dist/*-sources.tar.zst
+            dist/*-sources.tar.zst.sha256
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
           name: acceptance-logs
           path: |

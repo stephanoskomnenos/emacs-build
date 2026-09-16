@@ -1,8 +1,12 @@
 {
   "emacs": {
-    "version": "31.1",
-    "url": "https://ftp.gnu.org/gnu/emacs/emacs-31.1.tar.xz",
-    "sha256": "1da5790d9580c81932b5bf700633114468da7b3412d69faa767daebf974f4586"
+    "version": "32.0.50.20260916175219.git82f763756c71",
+    "emacs_version": "32.0.50",
+    "branch": "master",
+    "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+    "commit_date": "2026-09-16T17:52:19Z",
+    "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+    "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
   },
   "ncurses": {
     "version": "6.6",

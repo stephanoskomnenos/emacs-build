@@ -1,4 +1,4 @@
-%{!?emacs_version:%global emacs_version 31.1}
+# emacs_version is supplied by scripts/rpm.py from the locked snapshot.
 %global debug_package %{nil}
 %global _build_id_links none
 # Preserve the already tested executable and its matching portable dump.
