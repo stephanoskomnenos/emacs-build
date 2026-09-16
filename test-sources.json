@@ -1,0 +1,17 @@
+{
+  "tree-sitter-json": {
+    "version": "0.24.8",
+    "url": "https://codeload.github.com/tree-sitter/tree-sitter-json/tar.gz/refs/tags/v0.24.8",
+    "sha256": "acf6e8362457e819ed8b613f2ad9a0e1b621a77556c296f3abea58f7880a9213"
+  },
+  "vterm": {
+    "version": "6d715a9",
+    "url": "https://codeload.github.com/akermu/emacs-libvterm/tar.gz/6d715a93fa0e5182bc137d4db09f376e06938aa5",
+    "sha256": "879fae6c6472afd103e908f8a9f661392cefab7fcf0e3a15fa1dbc420f95578d"
+  },
+  "libvterm": {
+    "version": "0.3.3",
+    "url": "https://www.leonerd.org.uk/code/libvterm/libvterm-0.3.3.tar.gz",
+    "sha256": "09156f43dd2128bd347cbeebe50d9a571d32c64e0cf18d211197946aff7226e0"
+  }
+}

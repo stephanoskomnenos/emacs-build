@@ -1,0 +1,49 @@
+name: Build and verify portable Emacs
+on:
+  workflow_dispatch:
+  push:
+    paths: ['scripts/**', 'containers/**', 'tests/**', 'packaging/**', '*sources.json', '.github/workflows/build.yml']
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Podman
+        run: sudo apt-get update && sudo apt-get install -y podman
+      - name: Verify runner supports x86-64-v3
+        run: |
+          /lib64/ld-linux-x86-64.so.2 --help | grep -F 'x86-64-v3 (supported, searched)'
+      - name: Fetch locked sources and fixtures
+        run: |
+          python3 scripts/fetch.py
+          python3 scripts/fetch.py --tests
+          python3 scripts/fetch.py --toolchain
+      - name: Build with prebuilt GCC
+        run: |
+          bash scripts/container.sh image
+          JOBS=2 bash scripts/container.sh build
+      - name: Verify in builder and clean Debian 13
+        run: bash scripts/container.sh test
+      - name: Package binary and sources
+        run: bash scripts/container.sh package
+      - name: Package RPM
+        run: bash scripts/container.sh rpm
+      - name: Verify RPM replaces Fedora Emacs and can be removed
+        run: bash scripts/container.sh test-rpm
+      - uses: actions/upload-artifact@v4
+        with:
+          name: emacs-nox-x86-64-v3
+          path: |
+            dist/*.tar.zst
+            dist/*.sha256
+            dist/*.rpm
+            dist/*.requires.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: acceptance-logs
+          path: build/acceptance/*.log

@@ -1,0 +1,8 @@
+FROM docker.io/library/gcc:15.3.0@sha256:6c9a0a0c980050f3735505bec7f5d1a13c313b17c9e74275aac9a745213e7fde
+
+# GCC is already built in the base image. Only install build utilities here.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    make autoconf automake libtool pkg-config texinfo gettext \
+    python3 curl ca-certificates xz-utils zstd patch file gnutls-bin \
+    && rm -rf /var/lib/apt/lists/*
+WORKDIR /work
