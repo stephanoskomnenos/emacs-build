@@ -18,13 +18,11 @@ weights target equal 12.5% execution-count shares for the six scenarios and 25%
 for the suite. This initial choice controls domination by individual scenarios;
 it is neither a wall-time ratio nor evidence of optimal weights. Both sides can
 be scaled, with actual shares, counters, input/script hashes and assertions
-recorded in `build/pgo-training/provenance.json`. Package preparation, cancellation preflight
-and build-bootstrap profiles are excluded from the merge.
+recorded in `build/pgo-training/provenance.json`. Package preparation and build-bootstrap profiles are excluded from the merge.
 
 The [independent interaction suite](interactive/README.md) is frozen before new
 training. It tests real input, minibuffer, processes/JSON, regexp, allocation/GC,
-and a different Magit repository/operation sequence. Its functional assertions
-also run in CI; CI does not impose timing thresholds on shared runners.
+and a different Magit repository/operation sequence. It is used for local comparisons; shared CI runners do not impose timing thresholds.
 
 Validation uses a separate copy of the user's config and installed packages;
 absolutely linked package files are relocated inside that copy. It checks init
@@ -204,3 +202,18 @@ assertions pass, and original config hashes remain unchanged during the run.
 O2 and all-O3 executable hashes match the first experiment; Emacs-only O3 was
 rebuilt under a different build prefix with the same effective options. The
 same profile-compatibility limitations described above still apply.
+
+## Compiler and macOS follow-up (2026-09-18)
+
+[Two-round local Full LTO/CSPGO results and investigation](results/compiler-20260918/README.md):
+keep ordinary PGO + ThinLTO. Full LTO regressed; the experimental CSPGO build
+has partial CS profile coverage, so its regexp regression does not establish
+that a correctly matched CSPGO build is slower. Raw samples and reproduction
+notes are included.
+
+[macOS GUI comparison](results/macos-pgo-20260918.json): ten warm-cache samples
+per variant, same source, Apple Clang and `-Q`; personal config is not used.
+PGO improves several medians, but startup samples overlap heavily and JSON/text
+regress. The 29% startup median difference is not a stable-gain claim. Timing
+ends after first redisplay, before dependency smoke checks. Final macOS static
+link audit and Linux build/package acceptance passed on commit `09735b4`.

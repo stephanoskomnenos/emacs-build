@@ -1,0 +1,237 @@
+{
+  "base_commit": "09735b4",
+  "source_commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+  "rounds": {
+    "first": "A B B A",
+    "repeat": "B A A B"
+  },
+  "samples": "Each block: one excluded warmup, five measured runs; 20 measured runs per variant across two rounds per comparison.",
+  "config_original_unchanged": true,
+  "config_sha256": {
+    "init.el": "3c1806544ee764779248e40ccbaadfd265e63cf29c84f0f025f362d543db1f60",
+    "early-init.el": "1dee280bfce47295f64015ee6c23ce99f8e302449b61f43ef5345d87d40f9045",
+    "elpaca-lock.el": "d9f563a25242233078fa642929ced399e67b914af038c8f24817fe5fcaefccba"
+  },
+  "validation_files": {
+    "held-out.txt": "6bcca71b8e30fdbff22b866d3d2028996b90f6ea4a65ab4fb06dad492db20eb6",
+    "held-out.sh": "1c6451de489a1e0c7a589af54a71cb96fa983f8727bd8522994bba2c699545e2",
+    "held-out.org": "a0b514bd91676a67504dc617690db587a9e00b0250c3321f6ec5f8b7e15fd583",
+    "held-out.el": "9aa0f40bdc445eb84e66b8ba54bfcdf2477a18f2c6cb6b68ecd0595715ee4046"
+  },
+  "profile_sha256": {
+    "merged.profdata": "dd596f5767861f1f9c51ff373432c9d4d0714deacb4432769fe7d1ccf41eb842",
+    "cs.profdata": "347c5a17efdb50fdde570bd50c3851b4ebc55af292ae72fcead0ea94f7ffd584",
+    "combined.profdata": "aeb5b6d17ace69899d5ec4133658ad382077445b3719326bd99b369d86e6f5c1"
+  },
+  "costs": {
+    "cs-pgo-cost.json": {
+      "label": "cs-pgo",
+      "elapsed_seconds": 59.58959141500236,
+      "max_rss_kib": 653624,
+      "user_seconds": 125.985294,
+      "system_seconds": 10.668417999999999,
+      "exit_code": 0
+    },
+    "cs-generate-cost.json": {
+      "label": "cs-generate",
+      "elapsed_seconds": 64.74072435499693,
+      "max_rss_kib": 818264,
+      "user_seconds": 148.563306,
+      "system_seconds": 11.145456,
+      "exit_code": 0
+    },
+    "full-pgo-cost.json": {
+      "label": "full-pgo",
+      "elapsed_seconds": 293.654470968002,
+      "max_rss_kib": 690588,
+      "user_seconds": 774.64738,
+      "system_seconds": 109.59162,
+      "exit_code": 1
+    },
+    "thin-pgo-cost.json": {
+      "label": "thin-pgo",
+      "elapsed_seconds": 59.595853199003614,
+      "max_rss_kib": 641732,
+      "user_seconds": 127.490915,
+      "system_seconds": 10.223728,
+      "exit_code": 0
+    },
+    "initial-dependency-build-cost.json": {
+      "label": "thin-generate",
+      "elapsed_seconds": 155.31556488000206,
+      "max_rss_kib": 280616,
+      "user_seconds": 384.825316,
+      "system_seconds": 68.534682,
+      "exit_code": 1
+    },
+    "thin-generate-cost.json": {
+      "label": "thin-generate",
+      "elapsed_seconds": 105.70060741099587,
+      "max_rss_kib": 592636,
+      "user_seconds": 561.955485,
+      "system_seconds": 44.375315,
+      "exit_code": 0
+    }
+  },
+  "cost_notes": [
+    "Full build elapsed time includes dependencies; exit code 1 came from a post-build IR filename check, subsequently fixed in memory and finalized without recompiling.",
+    "Emacs compile/install log duration approximately 60s Thin versus 126s Full; max_rss is largest child, not all parallel memory.",
+    "CS extra generation approximately 65s plus 31s training; ordinary training approximately 27s."
+  ],
+  "profile_ir_check": {
+    "thin": {
+      "profile_summary": true,
+      "cs_profile_summary": false,
+      "function_counts": true,
+      "ir_sha256": "524be25bc654a1f7036a24cd3c6517b68f4af4ca620321d6d2cee3a7cfd4e9a5"
+    },
+    "cs": {
+      "profile_summary": true,
+      "cs_profile_summary": true,
+      "function_counts": true,
+      "ir_sha256": "8633b71dd441368a283e68fb0e737810159d10f7b5cfc72be1af3aba76cdf7f2"
+    }
+  },
+  "audit": {
+    "cs-pgo-audit.json": [
+      {
+        "file": "bin/ebrowse",
+        "needed": [
+          "libc.so.6"
+        ],
+        "max_glibc": "2.38"
+      },
+      {
+        "file": "bin/emacs-32.0.50",
+        "needed": [
+          "libm.so.6",
+          "libanl.so.1",
+          "libc.so.6",
+          "ld-linux-x86-64.so.2"
+        ],
+        "max_glibc": "2.38"
+      },
+      {
+        "file": "bin/emacsclient",
+        "needed": [
+          "libc.so.6"
+        ],
+        "max_glibc": "2.38"
+      },
+      {
+        "file": "bin/etags",
+        "needed": [
+          "libc.so.6"
+        ],
+        "max_glibc": "2.38"
+      },
+      {
+        "file": "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/hexl",
+        "needed": [
+          "libc.so.6"
+        ],
+        "max_glibc": "2.34"
+      },
+      {
+        "file": "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/movemail",
+        "needed": [
+          "libc.so.6"
+        ],
+        "max_glibc": "2.34"
+      }
+    ],
+    "full-pgo-audit.json": [
+      {
+        "file": "bin/ebrowse",
+        "needed": [
+          "libc.so.6"
+        ],
+        "max_glibc": "2.38"
+      },
+      {
+        "file": "bin/emacs-32.0.50",
+        "needed": [
+          "libm.so.6",
+          "libanl.so.1",
+          "libc.so.6"
+        ],
+        "max_glibc": "2.38"
+      },
+      {
+        "file": "bin/emacsclient",
+        "needed": [
+          "libc.so.6"
+        ],
+        "max_glibc": "2.38"
+      },
+      {
+        "file": "bin/etags",
+        "needed": [
+          "libc.so.6"
+        ],
+        "max_glibc": "2.38"
+      },
+      {
+        "file": "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/hexl",
+        "needed": [
+          "libc.so.6"
+        ],
+        "max_glibc": "2.34"
+      },
+      {
+        "file": "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/movemail",
+        "needed": [
+          "libc.so.6"
+        ],
+        "max_glibc": "2.34"
+      }
+    ],
+    "thin-pgo-audit.json": [
+      {
+        "file": "bin/ebrowse",
+        "needed": [
+          "libc.so.6"
+        ],
+        "max_glibc": "2.38"
+      },
+      {
+        "file": "bin/emacs-32.0.50",
+        "needed": [
+          "libm.so.6",
+          "libanl.so.1",
+          "libc.so.6",
+          "ld-linux-x86-64.so.2"
+        ],
+        "max_glibc": "2.38"
+      },
+      {
+        "file": "bin/emacsclient",
+        "needed": [
+          "libc.so.6"
+        ],
+        "max_glibc": "2.38"
+      },
+      {
+        "file": "bin/etags",
+        "needed": [
+          "libc.so.6"
+        ],
+        "max_glibc": "2.38"
+      },
+      {
+        "file": "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/hexl",
+        "needed": [
+          "libc.so.6"
+        ],
+        "max_glibc": "2.34"
+      },
+      {
+        "file": "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/movemail",
+        "needed": [
+          "libc.so.6"
+        ],
+        "max_glibc": "2.34"
+      }
+    ]
+  }
+}

@@ -1,0 +1,481 @@
+
+/work/build/26b26a7cfa49/stage-llvm-use-aeb5b6d17ace/opt/emacs/bin/emacs-32.0.50:	file format elf64-x86-64
+
+Disassembly of section .text:
+
+0000000000265c10 <buf_bytepos_to_charpos>:
+  265c10:      	pushq	%rbp
+  265c11:      	pushq	%r15
+  265c13:      	pushq	%r14
+  265c15:      	pushq	%r12
+  265c17:      	pushq	%rbx
+  265c18:      	movq	0x2f8(%rdi), %rcx
+  265c1f:      	movq	0x10(%rcx), %r8
+  265c23:      	movq	0x20(%rcx), %r14
+  265c27:      	cmpq	%r14, %r8
+  265c2a:      	je	0x265e5c <buf_bytepos_to_charpos+0x24c>
+  265c30:      	movq	0x5298f9(%rip), %rax    # 0x78f530 <current_thread>
+  265c37:      	movq	0x98(%rax), %r9
+  265c3e:      	cmpq	%r9, %rdi
+  265c41:      	jne	0x26605a <buf_bytepos_to_charpos+0x44a>
+  265c47:      	movq	0x308(%r9), %rdx
+  265c4e:      	cmpq	%rsi, %rdx
+  265c51:      	je	0x265f14 <buf_bytepos_to_charpos+0x304>
+  265c57:      	cmpq	%rsi, %rdx
+  265c5a:      	jg	0x265eac <buf_bytepos_to_charpos+0x29c>
+  265c60:      	cmpq	$0x2, %rdx
+  265c64:      	jl	0x265f98 <buf_bytepos_to_charpos+0x388>
+  265c6a:      	cmpq	%r9, %rdi
+  265c6d:      	jne	0x2661f1 <buf_bytepos_to_charpos+0x5e1>
+  265c73:      	leaq	0x300(%r9), %rax
+  265c7a:      	movq	(%rax), %rax
+  265c7d:      	movq	%rdx, %rbx
+  265c80:      	movq	%r14, %rdx
+  265c83:      	movq	%r8, %r10
+  265c86:      	subq	%rax, %r10
+  265c89:      	movq	%rdx, %r11
+  265c8c:      	subq	%rbx, %r11
+  265c8f:      	cmpq	%r11, %r10
+  265c92:      	je	0x265f01 <buf_bytepos_to_charpos+0x2f1>
+  265c98:      	movq	%rdx, %r14
+  265c9b:      	movq	0x18(%rcx), %rdx
+  265c9f:      	cmpq	%rsi, %rdx
+  265ca2:      	je	0x265fc2 <buf_bytepos_to_charpos+0x3b2>
+  265ca8:      	jle	0x265edc <buf_bytepos_to_charpos+0x2cc>
+  265cae:      	cmpq	%r14, %rdx
+  265cb1:      	jl	0x265fb6 <buf_bytepos_to_charpos+0x3a6>
+  265cb7:      	cmpq	%r9, %rdi
+  265cba:      	jne	0x266098 <buf_bytepos_to_charpos+0x488>
+  265cc0:      	movq	0x318(%r9), %r10
+  265cc7:      	cmpq	%rsi, %r10
+  265cca:      	je	0x265fe3 <buf_bytepos_to_charpos+0x3d3>
+  265cd0:      	cmpq	%rsi, %r10
+  265cd3:      	jg	0x2660cf <buf_bytepos_to_charpos+0x4bf>
+  265cd9:      	cmpq	%rbx, %r10
+  265cdc:      	jg	0x26610f <buf_bytepos_to_charpos+0x4ff>
+  265ce2:      	cmpq	%r9, %rdi
+  265ce5:      	jne	0x26616a <buf_bytepos_to_charpos+0x55a>
+  265ceb:      	movq	0x328(%r9), %r10
+  265cf2:      	cmpq	%rsi, %r10
+  265cf5:      	je	0x265fcb <buf_bytepos_to_charpos+0x3bb>
+  265cfb:      	cmpq	%rsi, %r10
+  265cfe:      	jle	0x2661a8 <buf_bytepos_to_charpos+0x598>
+  265d04:      	cmpq	%r14, %r10
+  265d07:      	jl	0x26601e <buf_bytepos_to_charpos+0x40e>
+  265d0d:      	cmpq	0x59e6ac(%rip), %rdi    # 0x8043c0 <cached_buffer.llvm.5183502382525059866>
+  265d14:      	jne	0x265d63 <buf_bytepos_to_charpos+0x153>
+  265d16:      	movq	0x30(%rcx), %r9
+  265d1a:      	cmpq	0x59e6a7(%rip), %r9     # 0x8043c8 <cached_modiff.llvm.5183502382525059866>
+  265d21:      	jne	0x265d63 <buf_bytepos_to_charpos+0x153>
+  265d23:      	movq	0x59e6ae(%rip), %r9     # 0x8043d8 <cached_bytepos.llvm.5183502382525059866>
+  265d2a:      	cmpq	%rsi, %r9
+  265d2d:      	je	0x265f8c <buf_bytepos_to_charpos+0x37c>
+  265d33:      	jg	0x265e97 <buf_bytepos_to_charpos+0x287>
+  265d39:      	cmpq	%rbx, %r9
+  265d3c:      	jle	0x265d63 <buf_bytepos_to_charpos+0x153>
+  265d3e:      	movq	0x59e68b(%rip), %rax    # 0x8043d0 <cached_charpos.llvm.5183502382525059866>
+  265d45:      	movq	%r9, %rbx
+  265d48:      	movq	%r14, %r9
+  265d4b:      	movq	%r8, %r10
+  265d4e:      	subq	%rax, %r10
+  265d51:      	movq	%r9, %r11
+  265d54:      	subq	%rbx, %r11
+  265d57:      	cmpq	%r11, %r10
+  265d5a:      	je	0x265f01 <buf_bytepos_to_charpos+0x2f1>
+  265d60:      	movq	%r9, %r14
+  265d63:      	movq	0x80(%rcx), %r9
+  265d6a:      	testq	%r9, %r9
+  265d6d:      	je	0x265dd6 <buf_bytepos_to_charpos+0x1c6>
+  265d6f:      	movl	$0x32, %r11d
+  265d75:      	movq	%r9, %r10
+  265d78:      	movq	%r14, %r15
+  265d7b:      	subq	%rsi, %r15
+  265d7e:      	cmpq	%r11, %r15
+  265d81:      	jl	0x265dd6 <buf_bytepos_to_charpos+0x1c6>
+  265d83:      	movq	%rsi, %r15
+  265d86:      	subq	%rbx, %r15
+  265d89:      	cmpq	%r11, %r15
+  265d8c:      	jl	0x265dd6 <buf_bytepos_to_charpos+0x1c6>
+  265d8e:      	movq	0x28(%r10), %r15
+  265d92:      	cmpq	%rsi, %r15
+  265d95:      	je	0x265fda <buf_bytepos_to_charpos+0x3ca>
+  265d9b:      	jle	0x265dc0 <buf_bytepos_to_charpos+0x1b0>
+  265d9d:      	cmpq	%r14, %r15
+  265da0:      	jge	0x265dc9 <buf_bytepos_to_charpos+0x1b9>
+  265da2:      	movq	0x20(%r10), %r8
+  265da6:      	movq	%r8, %r14
+  265da9:      	subq	%rax, %r14
+  265dac:      	movq	%r15, %r12
+  265daf:      	subq	%rbx, %r12
+  265db2:      	cmpq	%r12, %r14
+  265db5:      	je	0x265f01 <buf_bytepos_to_charpos+0x2f1>
+  265dbb:      	jmp	0x265f0c <buf_bytepos_to_charpos+0x2fc>
+  265dc0:      	cmpq	%rbx, %r15
+  265dc3:      	jg	0x265fa7 <buf_bytepos_to_charpos+0x397>
+  265dc9:      	addq	$0x32, %r11
+  265dcd:      	movq	0x18(%r10), %r10
+  265dd1:      	testq	%r10, %r10
+  265dd4:      	jne	0x265d78 <buf_bytepos_to_charpos+0x168>
+  265dd6:      	movq	%rsi, %r10
+  265dd9:      	subq	%rbx, %r10
+  265ddc:      	movq	%r14, %r11
+  265ddf:      	subq	%rsi, %r11
+  265de2:      	cmpq	%r11, %r10
+  265de5:      	jge	0x265f23 <buf_bytepos_to_charpos+0x313>
+  265deb:      	cmpq	%rbx, %rsi
+  265dee:      	jle	0x265e68 <buf_bytepos_to_charpos+0x258>
+  265df0:      	movq	(%rcx), %r8
+  265df3:      	nopw	%cs:(%rax,%rax)
+  265e00:      	cmpq	%rdx, %rbx
+  265e03:      	jge	0x265e2a <buf_bytepos_to_charpos+0x21a>
+  265e05:      	xorl	%r11d, %r11d
+  265e08:      	leaq	(%r8,%rbx), %r14
+  265e0c:      	movzbl	-0x1(%r11,%r14), %ebp
+  265e12:      	movl	$0x1, %r11d
+  265e18:      	testb	%bpl, %bpl
+  265e1b:      	js	0x265e30 <buf_bytepos_to_charpos+0x220>
+  265e1d:      	addq	%r11, %rbx
+  265e20:      	incq	%rax
+  265e23:      	cmpq	%rsi, %rbx
+  265e26:      	jl	0x265e00 <buf_bytepos_to_charpos+0x1f0>
+  265e28:      	jmp	0x265e68 <buf_bytepos_to_charpos+0x258>
+  265e2a:      	movq	0x28(%rcx), %r11
+  265e2e:      	jmp	0x265e08 <buf_bytepos_to_charpos+0x1f8>
+  265e30:      	movl	$0x2, %r11d
+  265e36:      	testb	$0x20, %bpl
+  265e3a:      	je	0x265e1d <buf_bytepos_to_charpos+0x20d>
+  265e3c:      	movl	$0x3, %r11d
+  265e42:      	testb	$0x10, %bpl
+  265e46:      	je	0x265e1d <buf_bytepos_to_charpos+0x20d>
+  265e48:      	movl	$0x4, %r11d
+  265e4e:      	testb	$0x8, %bpl
+  265e52:      	je	0x265e1d <buf_bytepos_to_charpos+0x20d>
+  265e54:      	movl	$0x5, %r11d
+  265e5a:      	jmp	0x265e1d <buf_bytepos_to_charpos+0x20d>
+  265e5c:      	movq	%rsi, %rax
+  265e5f:      	popq	%rbx
+  265e60:      	popq	%r12
+  265e62:      	popq	%r14
+  265e64:      	popq	%r15
+  265e66:      	popq	%rbp
+  265e67:      	retq
+  265e68:      	cmpq	$0x1389, %r10           # imm = 0x1389
+  265e6f:      	jge	0x265ff2 <buf_bytepos_to_charpos+0x3e2>
+  265e75:      	movq	%rdi, 0x59e544(%rip)    # 0x8043c0 <cached_buffer.llvm.5183502382525059866>
+  265e7c:      	movq	0x30(%rcx), %rcx
+  265e80:      	movq	%rcx, 0x59e541(%rip)    # 0x8043c8 <cached_modiff.llvm.5183502382525059866>
+  265e87:      	movq	%rax, 0x59e542(%rip)    # 0x8043d0 <cached_charpos.llvm.5183502382525059866>
+  265e8e:      	movq	%rbx, 0x59e543(%rip)    # 0x8043d8 <cached_bytepos.llvm.5183502382525059866>
+  265e95:      	jmp	0x265e5f <buf_bytepos_to_charpos+0x24f>
+  265e97:      	cmpq	%r14, %r9
+  265e9a:      	jge	0x265d63 <buf_bytepos_to_charpos+0x153>
+  265ea0:      	movq	0x59e529(%rip), %r8     # 0x8043d0 <cached_charpos.llvm.5183502382525059866>
+  265ea7:      	jmp	0x265d4b <buf_bytepos_to_charpos+0x13b>
+  265eac:      	movl	$0x1, %ebx
+  265eb1:      	movl	$0x1, %eax
+  265eb6:      	cmpq	%r14, %rdx
+  265eb9:      	jge	0x265c9b <buf_bytepos_to_charpos+0x8b>
+  265ebf:      	cmpq	%r9, %rdi
+  265ec2:      	jne	0x2662dc <buf_bytepos_to_charpos+0x6cc>
+  265ec8:      	leaq	0x300(%r9), %rax
+  265ecf:      	movq	(%rax), %r8
+  265ed2:      	movl	$0x1, %eax
+  265ed7:      	jmp	0x265c83 <buf_bytepos_to_charpos+0x73>
+  265edc:      	cmpq	%rbx, %rdx
+  265edf:      	jle	0x265cb7 <buf_bytepos_to_charpos+0xa7>
+  265ee5:      	movq	0x8(%rcx), %rax
+  265ee9:      	movq	%rdx, %rbx
+  265eec:      	movq	%r8, %r10
+  265eef:      	subq	%rax, %r10
+  265ef2:      	movq	%r14, %r11
+  265ef5:      	subq	%rbx, %r11
+  265ef8:      	cmpq	%r11, %r10
+  265efb:      	jne	0x265cb7 <buf_bytepos_to_charpos+0xa7>
+  265f01:      	subq	%rbx, %rsi
+  265f04:      	addq	%rsi, %rax
+  265f07:      	jmp	0x265e5f <buf_bytepos_to_charpos+0x24f>
+  265f0c:      	movq	%r15, %r14
+  265f0f:      	jmp	0x265dc9 <buf_bytepos_to_charpos+0x1b9>
+  265f14:      	addq	$0x300, %r9             # imm = 0x300
+  265f1b:      	movq	(%r9), %rax
+  265f1e:      	jmp	0x265e5f <buf_bytepos_to_charpos+0x24f>
+  265f23:      	cmpq	%rsi, %r14
+  265f26:      	jle	0x266306 <buf_bytepos_to_charpos+0x6f6>
+  265f2c:      	movq	(%rcx), %r10
+  265f2f:      	movq	%r8, %rax
+  265f32:      	jmp	0x265f63 <buf_bytepos_to_charpos+0x353>
+  265f34:      	nopw	%cs:(%rax,%rax)
+  265f40:      	xorl	%r8d, %r8d
+  265f43:      	leaq	(%r10,%r14), %r15
+  265f47:      	movl	$0x1, %ebx
+  265f4c:      	cmpb	$-0x41, -0x2(%r8,%r15)
+  265f52:      	jle	0x265f6e <buf_bytepos_to_charpos+0x35e>
+  265f54:      	decq	%rax
+  265f57:      	subq	%rbx, %r14
+  265f5a:      	cmpq	%rsi, %r14
+  265f5d:      	jle	0x266309 <buf_bytepos_to_charpos+0x6f9>
+  265f63:      	cmpq	%rdx, %r14
+  265f66:      	jle	0x265f40 <buf_bytepos_to_charpos+0x330>
+  265f68:      	movq	0x28(%rcx), %r8
+  265f6c:      	jmp	0x265f43 <buf_bytepos_to_charpos+0x333>
+  265f6e:      	addq	%r14, %r8
+  265f71:      	addq	%r10, %r8
+  265f74:      	movq	$-0x1, %rbx
+  265f7b:      	cmpb	$-0x40, -0x2(%r8,%rbx)
+  265f81:      	leaq	-0x1(%rbx), %rbx
+  265f85:      	jl	0x265f7b <buf_bytepos_to_charpos+0x36b>
+  265f87:      	negq	%rbx
+  265f8a:      	jmp	0x265f54 <buf_bytepos_to_charpos+0x344>
+  265f8c:      	movq	0x59e43d(%rip), %rax    # 0x8043d0 <cached_charpos.llvm.5183502382525059866>
+  265f93:      	jmp	0x265e5f <buf_bytepos_to_charpos+0x24f>
+  265f98:      	movl	$0x1, %ebx
+  265f9d:      	movl	$0x1, %eax
+  265fa2:      	jmp	0x265c9b <buf_bytepos_to_charpos+0x8b>
+  265fa7:      	movq	0x20(%r10), %rax
+  265fab:      	movq	%r15, %rbx
+  265fae:      	movq	%r14, %r15
+  265fb1:      	jmp	0x265da6 <buf_bytepos_to_charpos+0x196>
+  265fb6:      	movq	0x8(%rcx), %r8
+  265fba:      	movq	%rdx, %r14
+  265fbd:      	jmp	0x265eec <buf_bytepos_to_charpos+0x2dc>
+  265fc2:      	movq	0x8(%rcx), %rax
+  265fc6:      	jmp	0x265e5f <buf_bytepos_to_charpos+0x24f>
+  265fcb:      	addq	$0x320, %r9             # imm = 0x320
+  265fd2:      	movq	(%r9), %rax
+  265fd5:      	jmp	0x265e5f <buf_bytepos_to_charpos+0x24f>
+  265fda:      	movq	0x20(%r10), %rax
+  265fde:      	jmp	0x265e5f <buf_bytepos_to_charpos+0x24f>
+  265fe3:      	addq	$0x310, %r9             # imm = 0x310
+  265fea:      	movq	(%r9), %rax
+  265fed:      	jmp	0x265e5f <buf_bytepos_to_charpos+0x24f>
+  265ff2:      	testq	%r9, %r9
+  265ff5:      	je	0x265e75 <buf_bytepos_to_charpos+0x265>
+  265ffb:      	movq	%rdi, %r14
+  265ffe:      	movq	%rax, %rsi
+  266001:      	movq	%rbx, %rdx
+  266004:      	movq	%rax, %r15
+  266007:      	callq	0x24cb10 <build_marker>
+  26600c:      	movq	%r15, %rax
+  26600f:      	movq	%r14, %rdi
+  266012:      	movq	0x2f8(%r14), %rcx
+  266019:      	jmp	0x265e75 <buf_bytepos_to_charpos+0x265>
+  26601e:      	movq	%rax, %r11
+  266021:      	movq	%rdi, %rax
+  266024:      	cmpq	%r9, %rdi
+  266027:      	jne	0x26636b <buf_bytepos_to_charpos+0x75b>
+  26602d:      	addq	$0x320, %r9             # imm = 0x320
+  266034:      	movq	(%r9), %r8
+  266037:      	movq	%r8, %rdi
+  26603a:      	subq	%r11, %rdi
+  26603d:      	movq	%r10, %r9
+  266040:      	subq	%rbx, %r9
+  266043:      	cmpq	%r9, %rdi
+  266046:      	jne	0x26638b <buf_bytepos_to_charpos+0x77b>
+  26604c:      	subq	%rbx, %rsi
+  26604f:      	movq	%r11, %rax
+  266052:      	addq	%rsi, %rax
+  266055:      	jmp	0x265e5f <buf_bytepos_to_charpos+0x24f>
+  26605a:      	movq	%rdi, %r10
+  26605d:      	movq	0x180(%rdi), %rax
+  266064:      	testq	%rax, %rax
+  266067:      	je	0x26621f <buf_bytepos_to_charpos+0x60f>
+  26606d:      	cmpq	$0x0, 0x3(%rax)
+  266072:      	je	0x266399 <buf_bytepos_to_charpos+0x789>
+  266078:      	addq	$-0x5, %rax
+  26607c:      	movq	0x28(%rax), %rdx
+  266080:      	cmpq	%rsi, %rdx
+  266083:      	movq	%r10, %rdi
+  266086:      	jne	0x265c57 <buf_bytepos_to_charpos+0x47>
+  26608c:      	addq	$0x20, %rax
+  266090:      	movq	(%rax), %rax
+  266093:      	jmp	0x265e5f <buf_bytepos_to_charpos+0x24f>
+  266098:      	movq	%rdi, %r15
+  26609b:      	movq	0x188(%rdi), %r11
+  2660a2:      	testq	%r11, %r11
+  2660a5:      	je	0x266241 <buf_bytepos_to_charpos+0x631>
+  2660ab:      	cmpq	$0x0, 0x3(%r11)
+  2660b0:      	je	0x266399 <buf_bytepos_to_charpos+0x789>
+  2660b6:      	addq	$-0x5, %r11
+  2660ba:      	movq	0x28(%r11), %r10
+  2660be:      	cmpq	%rsi, %r10
+  2660c1:      	movq	%r15, %rdi
+  2660c4:      	jne	0x265cd0 <buf_bytepos_to_charpos+0xc0>
+  2660ca:      	jmp	0x26619c <buf_bytepos_to_charpos+0x58c>
+  2660cf:      	movq	%rax, %r11
+  2660d2:      	movq	%rdi, %rax
+  2660d5:      	cmpq	%r14, %r10
+  2660d8:      	jge	0x26615f <buf_bytepos_to_charpos+0x54f>
+  2660de:      	cmpq	%r9, %rax
+  2660e1:      	je	0x2662ac <buf_bytepos_to_charpos+0x69c>
+  2660e7:      	movq	0x188(%rax), %rdi
+  2660ee:      	testq	%rdi, %rdi
+  2660f1:      	je	0x2662c4 <buf_bytepos_to_charpos+0x6b4>
+  2660f7:      	cmpq	$0x0, 0x3(%rdi)
+  2660fc:      	je	0x266399 <buf_bytepos_to_charpos+0x789>
+  266102:      	addq	$-0x5, %rdi
+  266106:      	addq	$0x20, %rdi
+  26610a:      	movq	(%rdi), %r8
+  26610d:      	jmp	0x266147 <buf_bytepos_to_charpos+0x537>
+  26610f:      	movq	%rdi, %rax
+  266112:      	cmpq	%r9, %rdi
+  266115:      	je	0x266263 <buf_bytepos_to_charpos+0x653>
+  26611b:      	movq	0x188(%rax), %rdi
+  266122:      	testq	%rdi, %rdi
+  266125:      	je	0x2662a0 <buf_bytepos_to_charpos+0x690>
+  26612b:      	cmpq	$0x0, 0x3(%rdi)
+  266130:      	je	0x266399 <buf_bytepos_to_charpos+0x789>
+  266136:      	addq	$-0x5, %rdi
+  26613a:      	addq	$0x20, %rdi
+  26613e:      	movq	(%rdi), %r11
+  266141:      	movq	%r10, %rbx
+  266144:      	movq	%r14, %r10
+  266147:      	movq	%r8, %rdi
+  26614a:      	subq	%r11, %rdi
+  26614d:      	movq	%r10, %r14
+  266150:      	subq	%rbx, %r14
+  266153:      	cmpq	%r14, %rdi
+  266156:      	je	0x26604c <buf_bytepos_to_charpos+0x43c>
+  26615c:      	movq	%r10, %r14
+  26615f:      	movq	%rax, %rdi
+  266162:      	movq	%r11, %rax
+  266165:      	jmp	0x265ce2 <buf_bytepos_to_charpos+0xd2>
+  26616a:      	movq	%rdi, %r15
+  26616d:      	movq	0x190(%rdi), %r11
+  266174:      	testq	%r11, %r11
+  266177:      	je	0x26626f <buf_bytepos_to_charpos+0x65f>
+  26617d:      	cmpq	$0x0, 0x3(%r11)
+  266182:      	je	0x266399 <buf_bytepos_to_charpos+0x789>
+  266188:      	addq	$-0x5, %r11
+  26618c:      	movq	0x28(%r11), %r10
+  266190:      	cmpq	%rsi, %r10
+  266193:      	movq	%r15, %rdi
+  266196:      	jne	0x265cfb <buf_bytepos_to_charpos+0xeb>
+  26619c:      	addq	$0x20, %r11
+  2661a0:      	movq	(%r11), %rax
+  2661a3:      	jmp	0x265e5f <buf_bytepos_to_charpos+0x24f>
+  2661a8:      	movq	%rax, %r11
+  2661ab:      	movq	%rdi, %rax
+  2661ae:      	cmpq	%rbx, %r10
+  2661b1:      	jle	0x26638e <buf_bytepos_to_charpos+0x77e>
+  2661b7:      	cmpq	%r9, %rax
+  2661ba:      	je	0x2662b8 <buf_bytepos_to_charpos+0x6a8>
+  2661c0:      	movq	0x190(%rax), %r9
+  2661c7:      	testq	%r9, %r9
+  2661ca:      	je	0x2662d0 <buf_bytepos_to_charpos+0x6c0>
+  2661d0:      	cmpq	$0x0, 0x3(%r9)
+  2661d5:      	je	0x266399 <buf_bytepos_to_charpos+0x789>
+  2661db:      	addq	$-0x5, %r9
+  2661df:      	addq	$0x20, %r9
+  2661e3:      	movq	(%r9), %r11
+  2661e6:      	movq	%r10, %rbx
+  2661e9:      	movq	%r14, %r10
+  2661ec:      	jmp	0x266037 <buf_bytepos_to_charpos+0x427>
+  2661f1:      	movq	%rdi, %r10
+  2661f4:      	movq	0x180(%rdi), %rax
+  2661fb:      	testq	%rax, %rax
+  2661fe:      	je	0x266291 <buf_bytepos_to_charpos+0x681>
+  266204:      	cmpq	$0x0, 0x3(%rax)
+  266209:      	je	0x266399 <buf_bytepos_to_charpos+0x789>
+  26620f:      	addq	$-0x5, %rax
+  266213:      	addq	$0x20, %rax
+  266217:      	movq	%r10, %rdi
+  26621a:      	jmp	0x265c7a <buf_bytepos_to_charpos+0x6a>
+  26621f:      	movq	%r10, %rdi
+  266222:      	movq	0x308(%r10), %rdx
+  266229:      	cmpq	%rsi, %rdx
+  26622c:      	jne	0x265c57 <buf_bytepos_to_charpos+0x47>
+  266232:      	addq	$0x300, %rdi            # imm = 0x300
+  266239:      	movq	(%rdi), %rax
+  26623c:      	jmp	0x265e5f <buf_bytepos_to_charpos+0x24f>
+  266241:      	movq	%r15, %rdi
+  266244:      	movq	0x318(%r15), %r10
+  26624b:      	cmpq	%rsi, %r10
+  26624e:      	jne	0x265cd0 <buf_bytepos_to_charpos+0xc0>
+  266254:      	addq	$0x310, %rdi            # imm = 0x310
+  26625b:      	movq	(%rdi), %rax
+  26625e:      	jmp	0x265e5f <buf_bytepos_to_charpos+0x24f>
+  266263:      	leaq	0x310(%r9), %rdi
+  26626a:      	jmp	0x26613e <buf_bytepos_to_charpos+0x52e>
+  26626f:      	movq	%r15, %rdi
+  266272:      	movq	0x328(%r15), %r10
+  266279:      	cmpq	%rsi, %r10
+  26627c:      	jne	0x265cfb <buf_bytepos_to_charpos+0xeb>
+  266282:      	addq	$0x320, %rdi            # imm = 0x320
+  266289:      	movq	(%rdi), %rax
+  26628c:      	jmp	0x265e5f <buf_bytepos_to_charpos+0x24f>
+  266291:      	movq	%r10, %rdi
+  266294:      	leaq	0x300(%r10), %rax
+  26629b:      	jmp	0x265c7a <buf_bytepos_to_charpos+0x6a>
+  2662a0:      	leaq	0x310(%rax), %rdi
+  2662a7:      	jmp	0x26613e <buf_bytepos_to_charpos+0x52e>
+  2662ac:      	leaq	0x310(%r9), %rdi
+  2662b3:      	jmp	0x26610a <buf_bytepos_to_charpos+0x4fa>
+  2662b8:      	addq	$0x320, %r9             # imm = 0x320
+  2662bf:      	jmp	0x2661e3 <buf_bytepos_to_charpos+0x5d3>
+  2662c4:      	leaq	0x310(%rax), %rdi
+  2662cb:      	jmp	0x26610a <buf_bytepos_to_charpos+0x4fa>
+  2662d0:      	leaq	0x320(%rax), %r9
+  2662d7:      	jmp	0x2661e3 <buf_bytepos_to_charpos+0x5d3>
+  2662dc:      	movq	%rdi, %r8
+  2662df:      	movq	0x180(%rdi), %rax
+  2662e6:      	testq	%rax, %rax
+  2662e9:      	je	0x26635c <buf_bytepos_to_charpos+0x74c>
+  2662eb:      	cmpq	$0x0, 0x3(%rax)
+  2662f0:      	je	0x266399 <buf_bytepos_to_charpos+0x789>
+  2662f6:      	addq	$-0x5, %rax
+  2662fa:      	addq	$0x20, %rax
+  2662fe:      	movq	%r8, %rdi
+  266301:      	jmp	0x265ecf <buf_bytepos_to_charpos+0x2bf>
+  266306:      	movq	%r8, %rax
+  266309:      	cmpq	$0x1389, %r11           # imm = 0x1389
+  266310:      	jge	0x266337 <buf_bytepos_to_charpos+0x727>
+  266312:      	movq	%rdi, 0x59e0a7(%rip)    # 0x8043c0 <cached_buffer.llvm.5183502382525059866>
+  266319:      	movq	0x30(%rcx), %rcx
+  26631d:      	movq	%rcx, 0x59e0a4(%rip)    # 0x8043c8 <cached_modiff.llvm.5183502382525059866>
+  266324:      	movq	%rax, 0x59e0a5(%rip)    # 0x8043d0 <cached_charpos.llvm.5183502382525059866>
+  26632b:      	movq	%r14, 0x59e0a6(%rip)    # 0x8043d8 <cached_bytepos.llvm.5183502382525059866>
+  266332:      	jmp	0x265e5f <buf_bytepos_to_charpos+0x24f>
+  266337:      	testq	%r9, %r9
+  26633a:      	je	0x266312 <buf_bytepos_to_charpos+0x702>
+  26633c:      	movq	%rdi, %rbx
+  26633f:      	movq	%rax, %rsi
+  266342:      	movq	%r14, %rdx
+  266345:      	movq	%rax, %r15
+  266348:      	callq	0x24cb10 <build_marker>
+  26634d:      	movq	%r15, %rax
+  266350:      	movq	%rbx, %rdi
+  266353:      	movq	0x2f8(%rbx), %rcx
+  26635a:      	jmp	0x266312 <buf_bytepos_to_charpos+0x702>
+  26635c:      	movq	%r8, %rdi
+  26635f:      	leaq	0x300(%r8), %rax
+  266366:      	jmp	0x265ecf <buf_bytepos_to_charpos+0x2bf>
+  26636b:      	movq	0x190(%rax), %r9
+  266372:      	testq	%r9, %r9
+  266375:      	je	0x2663a7 <buf_bytepos_to_charpos+0x797>
+  266377:      	cmpq	$0x0, 0x3(%r9)
+  26637c:      	je	0x266399 <buf_bytepos_to_charpos+0x789>
+  26637e:      	addq	$-0x5, %r9
+  266382:      	addq	$0x20, %r9
+  266386:      	jmp	0x266034 <buf_bytepos_to_charpos+0x424>
+  26638b:      	movq	%r10, %r14
+  26638e:      	movq	%rax, %rdi
+  266391:      	movq	%r11, %rax
+  266394:      	jmp	0x265d0d <buf_bytepos_to_charpos+0xfd>
+  266399:      	leaq	-0x1f5c94(%rip), %rdi   # 0x7070c <.str.llvm.5183502382525059866>
+  2663a0:      	xorl	%eax, %eax
+  2663a2:      	callq	0x3a60c8 <error>
+  2663a7:      	leaq	0x320(%rax), %r9
+  2663ae:      	jmp	0x266034 <buf_bytepos_to_charpos+0x424>
+  2663b3:      	int3
+  2663b4:      	int3
+  2663b5:      	int3
+  2663b6:      	int3
+  2663b7:      	int3
+  2663b8:      	int3
+  2663b9:      	int3
+  2663ba:      	int3
+  2663bb:      	int3
+  2663bc:      	int3
+  2663bd:      	int3
+  2663be:      	int3
+  2663bf:      	int3

@@ -1,0 +1,29 @@
+{
+  "profiled_branch_sites": {
+    "thin": 655,
+    "cs": 655
+  },
+  "changed_sites": 0,
+  "changes_over_10_percentage_points": 0,
+  "attributes": {
+    "thin": {
+      "32": "{ nounwind allocsize(0) }",
+      "30": "{ nounwind }",
+      "34": "{ nounwind allocsize(1,2) }",
+      "31": "{ cold noreturn nounwind }",
+      "2": "{ inlinehint nounwind uwtable \"min-legal-vector-width\"=\"0\" \"no-trapping-math\"=\"true\" \"stack-protector-buffer-size\"=\"8\" \"target-cpu\"=\"x86-64-v3\" \"target-features\"=\"+avx,+avx2,+bmi,+bmi2,+cmov,+crc32,+cx16,+cx8,+f16c,+fma,+fxsr,+lzcnt,+mmx,+movbe,+popcnt,+sahf,+sse,+sse2,+sse3,+sse4.1,+sse4.2,+ssse3,+x87,+xsave\" \"tune-cpu\"=\"generic\" }",
+      "33": "{ cold noreturn }",
+      "35": "{ nounwind \"function-inline-cost-multiplier\"=\"2\" }"
+    },
+    "cs": {
+      "32": "{ nounwind allocsize(0) }",
+      "30": "{ nounwind }",
+      "34": "{ nounwind allocsize(1,2) }",
+      "31": "{ cold noreturn nounwind }",
+      "2": "{ inlinehint nounwind uwtable \"min-legal-vector-width\"=\"0\" \"no-trapping-math\"=\"true\" \"stack-protector-buffer-size\"=\"8\" \"target-cpu\"=\"x86-64-v3\" \"target-features\"=\"+avx,+avx2,+bmi,+bmi2,+cmov,+crc32,+cx16,+cx8,+f16c,+fma,+fxsr,+lzcnt,+mmx,+movbe,+popcnt,+sahf,+sse,+sse2,+sse3,+sse4.1,+sse4.2,+ssse3,+x87,+xsave\" \"tune-cpu\"=\"generic\" }",
+      "33": "{ cold noreturn }",
+      "35": "{ nounwind \"function-inline-cost-multiplier\"=\"2\" }"
+    }
+  },
+  "changes": []
+}

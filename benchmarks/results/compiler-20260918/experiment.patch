@@ -1,0 +1,127 @@
+diff --git a/scripts/build.py b/scripts/build.py
+index 6313883..218700e 100644
+--- a/scripts/build.py
++++ b/scripts/build.py
+@@ -11,15 +11,17 @@ import sys
+ ROOT = pathlib.Path(__file__).resolve().parents[1]
+ manifest = json.loads((ROOT / 'sources.json').read_text())
+ jobs = os.environ.get('JOBS', str(len(os.sched_getaffinity(0))))
+-lto = os.environ.get('LTO', '1') == '1'
++lto_mode = os.environ.get('LTO_MODE', 'thin')
++assert lto_mode in ('thin', 'full')
++lto = True
+ profile_mode = os.environ.get('PGO', 'off')
+-if profile_mode not in ('off', 'generate', 'use'):
++if profile_mode not in ('off', 'generate', 'use', 'cs-generate'):
+     raise RuntimeError('PGO must be off, generate or use')
+ cc, cxx = 'clang-23', 'clang++-23'
+ ar, ranlib = 'llvm-ar-23', 'llvm-ranlib-23'
+ compiler = subprocess.check_output([cc, '--version'], text=True).splitlines()[0]
+ packages = subprocess.check_output(['dpkg-query', '-W'], text=True)
+-build_settings = (str(lto) + compiler + packages + pathlib.Path(__file__).read_text()
++build_settings = (lto_mode + compiler + packages + pathlib.Path(__file__).read_text()
+                   + (ROOT / 'containers/Containerfile').read_text())
+ identity = hashlib.sha256((json.dumps(manifest, sort_keys=True) + build_settings).encode()).hexdigest()[:12]
+ dependency_manifest = {name: spec for name, spec in manifest.items() if name != 'emacs'}
+@@ -31,7 +33,7 @@ logs = work / 'logs'
+ logs.mkdir(parents=True, exist_ok=True)
+ prefix.mkdir(parents=True, exist_ok=True)
+ env = dict(os.environ)
+-lto_flags = ' -flto=thin' if lto else ''
++lto_flags = ' -flto=' + lto_mode
+ linker_flags = ' --ld-path=/usr/bin/ld.lld-23'
+ env.update(CC=cc, CXX=cxx, AR=ar, RANLIB=ranlib,
+            CFLAGS='-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic' + lto_flags,
+@@ -126,11 +128,13 @@ shutil.copy2(atomic, prefix / 'lib/libatomic.a')
+ src = source('emacs')
+ variant = 'llvm-' + profile_mode
+ profile = pathlib.Path(os.environ.get('PROFILE_FILE', str(work / 'merged.profdata'))).resolve()
+-if profile_mode == 'use' and not profile.is_file():
++if profile_mode in ('use', 'cs-generate') and not profile.is_file():
+     raise RuntimeError('Missing merged profile: ' + str(profile))
+ pgo_flags = (' -fprofile-generate=' + str(work / 'profiles') if profile_mode == 'generate' else
+              ' -fprofile-use=' + str(profile) if profile_mode == 'use' else '')
+-if profile_mode == 'use':
++if profile_mode == 'cs-generate':
++    pgo_flags = ' -fprofile-use=' + str(profile) + ' -fcs-profile-generate=' + str(work / 'cs-bootstrap-profiles')
++if profile_mode in ('use', 'cs-generate'):
+     variant += '-' + hashlib.sha256(profile.read_bytes()).hexdigest()[:12]
+ obj = work / ('emacs-build-' + variant)
+ obj.mkdir(exist_ok=True)
+@@ -151,15 +155,20 @@ if not (work / ('emacs-' + variant + '.done')).exists():
+     run(['make', '-j' + jobs], obj, log)
+     run(['make', 'install', 'DESTDIR=' + str(stage)], obj, log)
+     (work / ('emacs-' + variant + '.done')).touch()
+-if lto:
+-    if not list((obj / 'src').glob('*.index.bc')) or not list((obj / 'src').glob('*.3.import.bc')):
+-        raise RuntimeError('Missing lld ThinLTO link output')
+-    print('PASS: lld ThinLTO link output', flush=True)
+-if profile_mode == 'use' and lto:
+-    ir = subprocess.check_output(['llvm-dis-23', str(obj / 'src/bytecode.o.0.preopt.bc'), '-o', '-'], text=True)
++# Both link modes retain LLVM link intermediates; inspect their profile metadata.
++if lto_mode == 'thin':
++    evidence = list((obj / 'src').glob('*.index.bc'))
++else:
++    evidence = list((obj / 'src').glob('*.preopt.bc'))
++if not evidence:
++    raise RuntimeError('Missing LLVM LTO link output')
++if profile_mode == 'use':
++    candidates = list((obj / 'src').glob('bytecode.o.0.preopt.bc')) if lto_mode == 'thin' else list((obj / 'src').glob('emacs*.preopt.bc'))
++    if not candidates:
++        raise RuntimeError('Missing profile inspection IR')
++    ir = subprocess.check_output(['llvm-dis-23', str(candidates[0]), '-o', '-'], text=True)
+     if 'function_entry_count' not in ir or 'ProfileSummary' not in ir:
+-        raise RuntimeError('Missing LLVM profile metadata in bytecode interpreter')
+-    print('PASS: LLVM profile counts and summary in bytecode interpreter', flush=True)
++        raise RuntimeError('Missing LLVM profile metadata')
+ bundle = stage / 'opt/emacs'
+ # Emacs embeds absolute data and dump paths; resolve the launcher even through
+ # user-created symlinks and pass the relocated installation explicitly.
+@@ -183,7 +192,7 @@ launcher.chmod(0o755)
+ info = {'emacs': manifest['emacs']['version'], 'sources': manifest,
+         'compiler': compiler, 'dependency_build_id': dependency_id,
+         'glibc': subprocess.check_output(['getconf', 'GNU_LIBC_VERSION'], text=True).strip(),
+-        'configure': options, 'lto': lto, 'pgo': profile_mode,
++        'configure': options, 'lto': lto_mode, 'pgo': profile_mode,
+         'profile_sha256': hashlib.sha256(profile.read_bytes()).hexdigest() if profile_mode == 'use' else None, 'build_id': identity,
+         'cpu_baseline': 'x86-64-v3', 'cflags': env['CFLAGS'], 'ldflags': env['LDFLAGS'],
+         'packages': packages}
+diff --git a/scripts/pgo-train.py b/scripts/pgo-train.py
+index f0a953b..6d428f0 100644
+--- a/scripts/pgo-train.py
++++ b/scripts/pgo-train.py
+@@ -20,9 +20,10 @@ p.add_argument('--check-workloads',action='store_true',help='Check PTY assertion
+ a=p.parse_args()
+ a.bundle=a.bundle.resolve();info=json.loads((a.bundle/'BUILD-INFO.json').read_text())
+ if a.check_workloads:
+-    if info.get('pgo')=='generate':raise SystemExit('Use a non-instrumented build for workload checks')
+-elif info.get('pgo')!='generate':raise SystemExit('An instrumented build is required')
+-base=BUILD/('workload-checks' if a.check_workloads else 'pgo-training');profiles=base/'profiles';corpus=base/'corpus'
++    if info.get('pgo') in ('generate','cs-generate'):raise SystemExit('Use a non-instrumented build for workload checks')
++elif info.get('pgo') not in ('generate','cs-generate'):raise SystemExit('An instrumented build is required')
++cs=info.get('pgo')=='cs-generate'
++base=BUILD/('workload-checks' if a.check_workloads else 'pgo-training-cs' if cs else 'pgo-training');profiles=base/'profiles';corpus=base/'corpus'
+ if profiles.exists() and list(profiles.glob('*.profraw')):
+     raise SystemExit('Raw profiles already exist; use a fresh build/pgo-training directory')
+ for directory in (profiles,corpus,base/'home'):directory.mkdir(parents=True,exist_ok=True)
+@@ -85,7 +86,7 @@ def merge_case(name):
+     return output
+
+ def total_count(path):
+-    detail=subprocess.check_output([profdata,'show','--detailed-summary',str(path)],text=True)
++    detail=subprocess.check_output([profdata,'show','--detailed-summary',*(['--showcs'] if cs else []),str(path)],text=True)
+     return int(re.search(r'^Total count: (\d+)',detail,re.M)[1])
+
+ for group in targets:
+@@ -104,9 +105,9 @@ if 'gui' in groups:
+     if not any(int(n)>0 for values in blocks for value in values for n in re.findall(r'\d+',value)):
+         raise RuntimeError('GUI profile did not exercise Cocoa glyph drawing')
+ weights,shares=weights_for_counts(counts,targets)
+-merged=BUILD/'merged.profdata'
++merged=BUILD/('cs.profdata' if cs else 'merged.profdata')
+ subprocess.run([profdata,'merge','-o',str(merged),*[f'--weighted-input={weights[n]},{groups[n]}' for n in targets]],check=True)
+-summary=subprocess.check_output([profdata,'show',str(merged)],text=True)
++summary=subprocess.check_output([profdata,'show',*(['--showcs'] if cs else []),str(merged)],text=True)
+ (base/'profile-summary.txt').write_text(summary)
+ scripts=['scripts/training_fixtures.py','scripts/training_scenarios.py','scripts/prepare-workload-packages.py','scripts/pgo-train.py','scripts/profile_weights.py','scripts/pty_driver.py','benchmarks/interactive/training.el','benchmarks/interactive/training-producer.py','benchmarks/files.el','benchmarks/runtime.el']
+ if os.environ.get('EMACS_TRAIN_GUI')=='1':scripts+=['scripts/macos/gui.py','benchmarks/macos/gui.el']

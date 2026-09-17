@@ -1,0 +1,4 @@
+warning: build/26b26a7cfa49/emacs-build-llvm-use-aeb5b6d17ace/src/regex-emacs.o.3.import.bc: no profile data available for function re_match_2_internal.llvm.14539199657944892009 Hash = 1782233601460989934 up to 0 count discarded
+warning: build/26b26a7cfa49/emacs-build-llvm-use-aeb5b6d17ace/src/regex-emacs.o.3.import.bc: no profile data available for function analyze_first_fastmap.llvm.14539199657944892009 Hash = 1585795316990209478 up to 0 count discarded
+warning: build/26b26a7cfa49/emacs-build-llvm-use-aeb5b6d17ace/src/regex-emacs.o.3.import.bc: no profile data available for function forall_firstchar_1.llvm.14539199657944892009 Hash = 1706373188623364921 up to 0 count discarded
+warning: build/26b26a7cfa49/emacs-build-llvm-use-aeb5b6d17ace/src/regex-emacs.o.3.import.bc: no profile data available for function unwind_re_match.llvm.14539199657944892009 Hash = 1895182923573755903 up to 0 count discarded

@@ -1,0 +1,2702 @@
+[
+  {
+    "seconds": 0.068380332,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 1,
+      "gcs_done": 9,
+      "gc_elapsed": 0.029849245,
+      "commands": 3,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063519519,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 2,
+      "gcs_done": 15,
+      "gc_elapsed": 0.049620979,
+      "commands": 5,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062250106,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 3,
+      "gcs_done": 21,
+      "gc_elapsed": 0.068611518,
+      "commands": 7,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061583893,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 4,
+      "gcs_done": 27,
+      "gc_elapsed": 0.087496159,
+      "commands": 9,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062473596,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 5,
+      "gcs_done": 33,
+      "gc_elapsed": 0.106737506,
+      "commands": 11,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.064444409,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 6,
+      "gcs_done": 39,
+      "gc_elapsed": 0.126910748,
+      "commands": 13,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063052767,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 7,
+      "gcs_done": 45,
+      "gc_elapsed": 0.146459795,
+      "commands": 15,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.069139268,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 8,
+      "gcs_done": 52,
+      "gc_elapsed": 0.171584613,
+      "commands": 17,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.069183412,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 9,
+      "gcs_done": 58,
+      "gc_elapsed": 0.195113723,
+      "commands": 19,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.066073333,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 10,
+      "gcs_done": 64,
+      "gc_elapsed": 0.216901814,
+      "commands": 21,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.067453414,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 11,
+      "gcs_done": 70,
+      "gc_elapsed": 0.240028057,
+      "commands": 23,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.066416153,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 12,
+      "gcs_done": 76,
+      "gc_elapsed": 0.262850272,
+      "commands": 25,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.068636153,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 13,
+      "gcs_done": 82,
+      "gc_elapsed": 0.28656623,
+      "commands": 27,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.066384572,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 14,
+      "gcs_done": 88,
+      "gc_elapsed": 0.309547565,
+      "commands": 29,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.072468778,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 15,
+      "gcs_done": 95,
+      "gc_elapsed": 0.337253976,
+      "commands": 31,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.067199345,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 16,
+      "gcs_done": 101,
+      "gc_elapsed": 0.360288729,
+      "commands": 33,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.067353611,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 17,
+      "gcs_done": 107,
+      "gc_elapsed": 0.383314987,
+      "commands": 35,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.064716876,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 18,
+      "gcs_done": 113,
+      "gc_elapsed": 0.404361928,
+      "commands": 37,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.06488972,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 19,
+      "gcs_done": 119,
+      "gc_elapsed": 0.425471327,
+      "commands": 39,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.064028319,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 20,
+      "gcs_done": 125,
+      "gc_elapsed": 0.445643971,
+      "commands": 41,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063967486,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 21,
+      "gcs_done": 131,
+      "gc_elapsed": 0.465543666,
+      "commands": 43,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.066732508,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 22,
+      "gcs_done": 138,
+      "gc_elapsed": 0.488304208,
+      "commands": 45,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063746777,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 23,
+      "gcs_done": 144,
+      "gc_elapsed": 0.508122099,
+      "commands": 47,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063231012,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 24,
+      "gcs_done": 150,
+      "gc_elapsed": 0.527418091,
+      "commands": 49,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.065574661,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 25,
+      "gcs_done": 156,
+      "gc_elapsed": 0.548180783,
+      "commands": 51,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063904911,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 26,
+      "gcs_done": 162,
+      "gc_elapsed": 0.567853311,
+      "commands": 53,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.065110197,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 27,
+      "gcs_done": 168,
+      "gc_elapsed": 0.588130673,
+      "commands": 55,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063783067,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 28,
+      "gcs_done": 174,
+      "gc_elapsed": 0.608422263,
+      "commands": 57,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.065157428,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 29,
+      "gcs_done": 180,
+      "gc_elapsed": 0.6290203,
+      "commands": 59,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.066093512,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 30,
+      "gcs_done": 187,
+      "gc_elapsed": 0.651737142,
+      "commands": 61,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.06296278,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 31,
+      "gcs_done": 193,
+      "gc_elapsed": 0.671080603,
+      "commands": 63,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.065151232,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 32,
+      "gcs_done": 199,
+      "gc_elapsed": 0.691203572,
+      "commands": 65,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.064103773,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 33,
+      "gcs_done": 205,
+      "gc_elapsed": 0.711294155,
+      "commands": 67,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063580085,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 34,
+      "gcs_done": 211,
+      "gc_elapsed": 0.731270767,
+      "commands": 69,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061430085,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 35,
+      "gcs_done": 217,
+      "gc_elapsed": 0.749617398,
+      "commands": 71,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.06167828,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 36,
+      "gcs_done": 223,
+      "gc_elapsed": 0.768295289,
+      "commands": 73,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.064556484,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 37,
+      "gcs_done": 230,
+      "gc_elapsed": 0.790171297,
+      "commands": 75,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061293222,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 38,
+      "gcs_done": 236,
+      "gc_elapsed": 0.808711646,
+      "commands": 77,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062469228,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 39,
+      "gcs_done": 242,
+      "gc_elapsed": 0.827790698,
+      "commands": 79,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.064293999,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 40,
+      "gcs_done": 248,
+      "gc_elapsed": 0.847565501,
+      "commands": 81,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062538477,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 41,
+      "gcs_done": 254,
+      "gc_elapsed": 0.866746958,
+      "commands": 83,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063066924,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 42,
+      "gcs_done": 260,
+      "gc_elapsed": 0.886772473,
+      "commands": 85,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063490205,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 43,
+      "gcs_done": 266,
+      "gc_elapsed": 0.906447765,
+      "commands": 87,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.066009361,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 44,
+      "gcs_done": 273,
+      "gc_elapsed": 0.929241431,
+      "commands": 89,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063196001,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 45,
+      "gcs_done": 279,
+      "gc_elapsed": 0.948589466,
+      "commands": 91,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061942482,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 46,
+      "gcs_done": 285,
+      "gc_elapsed": 0.967202343,
+      "commands": 93,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061333069,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 47,
+      "gcs_done": 291,
+      "gc_elapsed": 0.986009035,
+      "commands": 95,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061241347,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 48,
+      "gcs_done": 297,
+      "gc_elapsed": 1.004748018,
+      "commands": 97,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.065046233,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 49,
+      "gcs_done": 303,
+      "gc_elapsed": 1.024899924,
+      "commands": 99,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061453413,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 50,
+      "gcs_done": 309,
+      "gc_elapsed": 1.043358711,
+      "commands": 101,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.06112851,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 51,
+      "gcs_done": 315,
+      "gc_elapsed": 1.061898049,
+      "commands": 103,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.066378555,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 52,
+      "gcs_done": 322,
+      "gc_elapsed": 1.084984083,
+      "commands": 105,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063785199,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 53,
+      "gcs_done": 328,
+      "gc_elapsed": 1.104587278,
+      "commands": 107,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063289117,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 54,
+      "gcs_done": 334,
+      "gc_elapsed": 1.124332502,
+      "commands": 109,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062971753,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 55,
+      "gcs_done": 340,
+      "gc_elapsed": 1.143851975,
+      "commands": 111,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062763124,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 56,
+      "gcs_done": 346,
+      "gc_elapsed": 1.16317477,
+      "commands": 113,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.060794796,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 57,
+      "gcs_done": 352,
+      "gc_elapsed": 1.181149886,
+      "commands": 115,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.060881839,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 58,
+      "gcs_done": 358,
+      "gc_elapsed": 1.1990274539999999,
+      "commands": 117,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.064223668,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 59,
+      "gcs_done": 365,
+      "gc_elapsed": 1.220741108,
+      "commands": 119,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062026493,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 60,
+      "gcs_done": 371,
+      "gc_elapsed": 1.238887904,
+      "commands": 121,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.060954177,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 61,
+      "gcs_done": 377,
+      "gc_elapsed": 1.257066661,
+      "commands": 123,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.060209133,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 62,
+      "gcs_done": 383,
+      "gc_elapsed": 1.27495129,
+      "commands": 125,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061562798,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 63,
+      "gcs_done": 389,
+      "gc_elapsed": 1.293197124,
+      "commands": 127,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.060766318,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 64,
+      "gcs_done": 395,
+      "gc_elapsed": 1.311593198,
+      "commands": 129,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.060723858,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 65,
+      "gcs_done": 401,
+      "gc_elapsed": 1.329467671,
+      "commands": 131,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063505136,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 66,
+      "gcs_done": 408,
+      "gc_elapsed": 1.3504173800000001,
+      "commands": 133,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061082403,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 67,
+      "gcs_done": 414,
+      "gc_elapsed": 1.368499376,
+      "commands": 135,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061232455,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 68,
+      "gcs_done": 420,
+      "gc_elapsed": 1.386823958,
+      "commands": 137,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.060611718,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 69,
+      "gcs_done": 426,
+      "gc_elapsed": 1.404880365,
+      "commands": 139,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.06100417,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 70,
+      "gcs_done": 432,
+      "gc_elapsed": 1.4229481050000001,
+      "commands": 141,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.059758236,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 71,
+      "gcs_done": 438,
+      "gc_elapsed": 1.440953741,
+      "commands": 143,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.060443799,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 72,
+      "gcs_done": 444,
+      "gc_elapsed": 1.458841082,
+      "commands": 145,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061094015,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 73,
+      "gcs_done": 450,
+      "gc_elapsed": 1.477142221,
+      "commands": 147,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.065341103,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 74,
+      "gcs_done": 457,
+      "gc_elapsed": 1.4986037300000001,
+      "commands": 149,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062062768,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 75,
+      "gcs_done": 463,
+      "gc_elapsed": 1.517104679,
+      "commands": 151,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.060963508,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 76,
+      "gcs_done": 469,
+      "gc_elapsed": 1.53514364,
+      "commands": 153,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062293613,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 77,
+      "gcs_done": 475,
+      "gc_elapsed": 1.554083476,
+      "commands": 155,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061971377,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 78,
+      "gcs_done": 481,
+      "gc_elapsed": 1.57295584,
+      "commands": 157,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062176114,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 79,
+      "gcs_done": 487,
+      "gc_elapsed": 1.592253033,
+      "commands": 159,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062610594,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 80,
+      "gcs_done": 493,
+      "gc_elapsed": 1.611291427,
+      "commands": 161,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.065727573,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 81,
+      "gcs_done": 500,
+      "gc_elapsed": 1.633414039,
+      "commands": 163,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062138852,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 82,
+      "gcs_done": 506,
+      "gc_elapsed": 1.652157476,
+      "commands": 165,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.060733734,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 83,
+      "gcs_done": 512,
+      "gc_elapsed": 1.670042539,
+      "commands": 167,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.060179889,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 84,
+      "gcs_done": 518,
+      "gc_elapsed": 1.687819977,
+      "commands": 169,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061177651,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 85,
+      "gcs_done": 524,
+      "gc_elapsed": 1.706156119,
+      "commands": 171,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061654864,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 86,
+      "gcs_done": 530,
+      "gc_elapsed": 1.724842147,
+      "commands": 173,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061824544,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 87,
+      "gcs_done": 536,
+      "gc_elapsed": 1.743367039,
+      "commands": 175,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063547396,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 88,
+      "gcs_done": 543,
+      "gc_elapsed": 1.7642825009999998,
+      "commands": 177,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063386379,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 89,
+      "gcs_done": 549,
+      "gc_elapsed": 1.7841830060000001,
+      "commands": 179,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061761876,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 90,
+      "gcs_done": 555,
+      "gc_elapsed": 1.802918593,
+      "commands": 181,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062130045,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 91,
+      "gcs_done": 561,
+      "gc_elapsed": 1.821934915,
+      "commands": 183,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062229307,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 92,
+      "gcs_done": 567,
+      "gc_elapsed": 1.8411635899999999,
+      "commands": 185,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062036506,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 93,
+      "gcs_done": 573,
+      "gc_elapsed": 1.8600187030000002,
+      "commands": 187,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061162188,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 94,
+      "gcs_done": 579,
+      "gc_elapsed": 1.878186358,
+      "commands": 189,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061444768,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 95,
+      "gcs_done": 585,
+      "gc_elapsed": 1.8965950870000001,
+      "commands": 191,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.065063792,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 96,
+      "gcs_done": 592,
+      "gc_elapsed": 1.918376956,
+      "commands": 193,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062222209,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 97,
+      "gcs_done": 598,
+      "gc_elapsed": 1.937304481,
+      "commands": 195,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061706101,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 98,
+      "gcs_done": 604,
+      "gc_elapsed": 1.955740741,
+      "commands": 197,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061471095,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 99,
+      "gcs_done": 610,
+      "gc_elapsed": 1.974225194,
+      "commands": 199,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063837685,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 100,
+      "gcs_done": 616,
+      "gc_elapsed": 1.993837217,
+      "commands": 201,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.06265022,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 101,
+      "gcs_done": 622,
+      "gc_elapsed": 2.012689997,
+      "commands": 203,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061817673,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 102,
+      "gcs_done": 628,
+      "gc_elapsed": 2.031529602,
+      "commands": 205,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.065336694,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 103,
+      "gcs_done": 635,
+      "gc_elapsed": 2.053443559,
+      "commands": 207,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061191833,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 104,
+      "gcs_done": 641,
+      "gc_elapsed": 2.071925288,
+      "commands": 209,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062270363,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 105,
+      "gcs_done": 647,
+      "gc_elapsed": 2.091059083,
+      "commands": 211,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062467932,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 106,
+      "gcs_done": 653,
+      "gc_elapsed": 2.110029505,
+      "commands": 213,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.060933979,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 107,
+      "gcs_done": 659,
+      "gc_elapsed": 2.128491058,
+      "commands": 215,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.064248862,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 108,
+      "gcs_done": 665,
+      "gc_elapsed": 2.148706513,
+      "commands": 217,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062409445,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 109,
+      "gcs_done": 671,
+      "gc_elapsed": 2.167776554,
+      "commands": 219,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061847725,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 110,
+      "gcs_done": 677,
+      "gc_elapsed": 2.186585464,
+      "commands": 221,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.06431111,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 111,
+      "gcs_done": 684,
+      "gc_elapsed": 2.208081913,
+      "commands": 223,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061179381,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 112,
+      "gcs_done": 690,
+      "gc_elapsed": 2.22626469,
+      "commands": 225,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061574243,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 113,
+      "gcs_done": 696,
+      "gc_elapsed": 2.244954115,
+      "commands": 227,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061076552,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 114,
+      "gcs_done": 702,
+      "gc_elapsed": 2.2632671970000002,
+      "commands": 229,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062406531,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 115,
+      "gcs_done": 708,
+      "gc_elapsed": 2.282251779,
+      "commands": 231,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061687172,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 116,
+      "gcs_done": 714,
+      "gc_elapsed": 2.30076288,
+      "commands": 233,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062745241,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 117,
+      "gcs_done": 720,
+      "gc_elapsed": 2.320516075,
+      "commands": 235,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.066991968,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 118,
+      "gcs_done": 727,
+      "gc_elapsed": 2.3439552839999998,
+      "commands": 237,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062922088,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 119,
+      "gcs_done": 733,
+      "gc_elapsed": 2.363705589,
+      "commands": 239,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.06255522,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 120,
+      "gcs_done": 739,
+      "gc_elapsed": 2.3834282509999998,
+      "commands": 241,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061830735,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 121,
+      "gcs_done": 745,
+      "gc_elapsed": 2.402970564,
+      "commands": 243,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063332791,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 122,
+      "gcs_done": 751,
+      "gc_elapsed": 2.422595125,
+      "commands": 245,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062801342,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 123,
+      "gcs_done": 757,
+      "gc_elapsed": 2.442576383,
+      "commands": 247,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.065791322,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 124,
+      "gcs_done": 763,
+      "gc_elapsed": 2.4646322339999998,
+      "commands": 249,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.070472431,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 125,
+      "gcs_done": 770,
+      "gc_elapsed": 2.491103673,
+      "commands": 251,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.064497213,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 126,
+      "gcs_done": 776,
+      "gc_elapsed": 2.511739044,
+      "commands": 253,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.06284423,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 127,
+      "gcs_done": 782,
+      "gc_elapsed": 2.5307845110000002,
+      "commands": 255,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062397615,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 128,
+      "gcs_done": 788,
+      "gc_elapsed": 2.549501645,
+      "commands": 257,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063604901,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 129,
+      "gcs_done": 794,
+      "gc_elapsed": 2.5689956179999998,
+      "commands": 259,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061969141,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 130,
+      "gcs_done": 800,
+      "gc_elapsed": 2.5879918440000003,
+      "commands": 261,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062059022,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 131,
+      "gcs_done": 806,
+      "gc_elapsed": 2.606788164,
+      "commands": 263,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.060793197,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 132,
+      "gcs_done": 812,
+      "gc_elapsed": 2.625012826,
+      "commands": 265,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.064850805,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 133,
+      "gcs_done": 819,
+      "gc_elapsed": 2.6469215569999998,
+      "commands": 267,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061038489,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 134,
+      "gcs_done": 825,
+      "gc_elapsed": 2.66529491,
+      "commands": 269,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061306661,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 135,
+      "gcs_done": 831,
+      "gc_elapsed": 2.684164898,
+      "commands": 271,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061320432,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 136,
+      "gcs_done": 837,
+      "gc_elapsed": 2.702655429,
+      "commands": 273,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062042734,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 137,
+      "gcs_done": 843,
+      "gc_elapsed": 2.721638854,
+      "commands": 275,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062973928,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 138,
+      "gcs_done": 849,
+      "gc_elapsed": 2.741333843,
+      "commands": 277,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063335787,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 139,
+      "gcs_done": 855,
+      "gc_elapsed": 2.761525194,
+      "commands": 279,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.067858631,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 140,
+      "gcs_done": 862,
+      "gc_elapsed": 2.785020879,
+      "commands": 281,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.064062864,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 141,
+      "gcs_done": 868,
+      "gc_elapsed": 2.805249165,
+      "commands": 283,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.06335128,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 142,
+      "gcs_done": 874,
+      "gc_elapsed": 2.825174026,
+      "commands": 285,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061007117,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 143,
+      "gcs_done": 880,
+      "gc_elapsed": 2.843667734,
+      "commands": 287,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061597409,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 144,
+      "gcs_done": 886,
+      "gc_elapsed": 2.862529402,
+      "commands": 289,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.061579633,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 145,
+      "gcs_done": 892,
+      "gc_elapsed": 2.880929483,
+      "commands": 291,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062507831,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 146,
+      "gcs_done": 898,
+      "gc_elapsed": 2.90017175,
+      "commands": 293,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.065023531,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 147,
+      "gcs_done": 905,
+      "gc_elapsed": 2.922247624,
+      "commands": 295,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063053296,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 148,
+      "gcs_done": 911,
+      "gc_elapsed": 2.9417006580000002,
+      "commands": 297,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.063927709,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 149,
+      "gcs_done": 917,
+      "gc_elapsed": 2.9618046160000002,
+      "commands": 299,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  },
+  {
+    "seconds": 0.062438004,
+    "state": {
+      "kind": "checkpoint",
+      "sequence": 150,
+      "gcs_done": 923,
+      "gc_elapsed": 2.98119123,
+      "commands": 301,
+      "buffer": "*scratch*",
+      "mode": "lisp-interaction-mode",
+      "point": 148,
+      "text": ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with \u2018C-x C-f\u2019 and enter text in its buffer.\n\n",
+      "size": 147,
+      "value": 86649000,
+      "frames": 0,
+      "error": null
+    }
+  }
+]
