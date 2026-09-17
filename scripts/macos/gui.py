@@ -36,7 +36,7 @@ def run(bundle, label, index):
     home = output / 'home'
     home.mkdir()
     env = dict(os.environ, HOME=str(home), GUI_MODE=a.mode, GUI_OUTPUT=str(output),
-               GUI_CORPUS=str(corpus), LC_ALL='en_US.UTF-8')
+               GUI_CORPUS=str(corpus), GUI_APP=str(bundle / 'Emacs.app'), LC_ALL='en_US.UTF-8')
     for key in ('EMACSLOADPATH','EMACSDATA','EMACSDOC','EMACSPATH','DYLD_LIBRARY_PATH'):
         env.pop(key, None)
     if a.mode != 'train':

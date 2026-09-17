@@ -30,6 +30,8 @@ jobs:
           sudo rm -rf /opt/homebrew
           # Persist a clean PATH across steps, including Python from Xcode.
           echo 'PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin' >> "$GITHUB_ENV"
+      - name: Verify Apple Clang ThinLTO and PGO
+        run: python3 scripts/macos/toolchain.py
       - name: Install ebuild dependencies
         run: bash scripts/macos/dependencies.sh
       - name: Lock master and fetch training fixtures
@@ -78,6 +80,8 @@ jobs:
           path: |
             dist/macos/*.json
             /tmp/emacs-build/comparison.json
+            /tmp/emacs-build/toolchain/result.json
+            /tmp/emacs-build/pgo-training/gui-profile.txt
             /tmp/emacs-build/*/build.log
             /tmp/emacs-build/pgo-training/provenance.json
             /tmp/emacs-build/pgo-training/profile-summary.txt

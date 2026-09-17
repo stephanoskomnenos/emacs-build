@@ -121,7 +121,7 @@ for name in targets:
     if not raw:raise RuntimeError('Missing profile for '+name)
     groups[name]=base/(name+'.profdata')
     subprocess.run([profdata,'merge','-o',str(groups[name]),*map(str,raw)],check=True)
-    detail=subprocess.check_output([profdata,'show',str(groups[name])],text=True)
+    detail=subprocess.check_output([profdata,'show','--detailed-summary',str(groups[name])],text=True)
     counts[name]=int(re.search(r'^Total count: (\d+)',detail,re.M)[1])
 if 'gui' in groups:
     gui_counts=subprocess.check_output([profdata,'show','--counts','--function=ns_draw_glyph_string',str(groups['gui'])],text=True)
