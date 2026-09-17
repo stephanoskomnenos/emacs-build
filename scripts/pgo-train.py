@@ -123,6 +123,12 @@ for name in targets:
     subprocess.run([profdata,'merge','-o',str(groups[name]),*map(str,raw)],check=True)
     detail=subprocess.check_output([profdata,'show',str(groups[name])],text=True)
     counts[name]=int(re.search(r'^Total count: (\d+)',detail,re.M)[1])
+if 'gui' in groups:
+    gui_counts=subprocess.check_output([profdata,'show','--counts','--function=ns_draw_glyph_string',str(groups['gui'])],text=True)
+    (base/'gui-profile.txt').write_text(gui_counts)
+    blocks=re.findall(r'(?:Function count:|Block counts:)\s*(?:\[([^]]+)\]|(\d+))',gui_counts)
+    if not any(int(n)>0 for values in blocks for value in values for n in re.findall(r'\d+',value)):
+        raise RuntimeError('GUI profile did not exercise Cocoa glyph drawing')
 weights,shares=weights_for_counts(counts,targets)
 merged=BUILD/'merged.profdata'
 subprocess.run([profdata,'merge','-o',str(merged),*[f'--weighted-input={weights[n]},{groups[n]}' for n in targets]],check=True)

@@ -11,10 +11,15 @@
 (defun eb-run ()
   (condition-case err
       (progn
-        (unless (and (eq window-system 'ns) (display-graphic-p) (frame-visible-p))
+        (unless (and (eq window-system 'ns) (display-graphic-p) (eq (frame-visible-p (selected-frame)) t))
           (error "A visible Cocoa frame is required"))
         (when (and (fboundp 'native-comp-available-p) (native-comp-available-p))
           (error "Native compilation must be disabled"))
+        (dolist (feature '("NS" "GNUTLS" "LIBXML2" "TREE_SITTER" "ZLIB" "MODULES" "KQUEUE"))
+          (unless (member feature (split-string system-configuration-features))
+            (error "Missing required build feature: %s" feature)))
+        (unless (and (gnutls-available-p) (libxml-available-p) (treesit-available-p))
+          (error "A configured library is unavailable at runtime"))
         (redisplay t)
         (eb-write "ready.json" `((time . ,(float-time)) (window_system . ,window-system)))
         (let* ((training (equal (getenv "GUI_MODE") "train"))

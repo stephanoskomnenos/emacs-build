@@ -12,8 +12,9 @@ found = {}
 for path in sorted(a.app.rglob('*')):
     if not path.is_file():
         continue
-    kind = subprocess.check_output(['file', '-b', str(path)], text=True)
-    if 'Mach-O' not in kind:
+    with path.open('rb') as file:
+        magic = file.read(4)
+    if magic not in (bytes.fromhex(h) for h in ('feedface','cefaedfe','feedfacf','cffaedfe','cafebabe','bebafeca','cafebabf','bfbafeca')):
         continue
     deps = [line.strip().split(' (compatibility')[0]
             for line in subprocess.check_output(['otool', '-L', str(path)], text=True).splitlines()[1:]]
