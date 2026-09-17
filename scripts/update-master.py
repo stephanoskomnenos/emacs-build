@@ -3,32 +3,47 @@
 import datetime
 import hashlib
 import json
+import os
 import pathlib
 import re
 import subprocess
 import tarfile
 import tempfile
+import time
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
-def download(url, target=None):
-    cmd = ['curl', '--fail', '--location', '--retry', '3', '--silent',
-           '--show-error', '--connect-timeout', '30', '--max-time', '600', url]
-    if target is not None:
-        subprocess.run([*cmd, '-o', str(target)], check=True)
-    else:
-        return subprocess.check_output(cmd)
+def download(url, target):
+    subprocess.run(['curl', '--fail', '--location', '--retry', '3', '--silent',
+                    '--show-error', '--connect-timeout', '30', '--max-time', '600',
+                    url, '-o', str(target)], check=True)
 
-commit = json.loads(download('https://api.github.com/repos/emacs-mirror/emacs/commits/master'))
-sha = commit['sha']
-if not re.fullmatch(r'[0-9a-f]{40}', sha):
-    raise SystemExit('Invalid upstream commit')
-date = commit['commit']['committer']['date']
-stamp = datetime.datetime.fromisoformat(date.replace('Z', '+00:00')).strftime('%Y%m%d%H%M%S')
-url = f'https://codeload.github.com/emacs-mirror/emacs/tar.gz/{sha}'
 cache = ROOT / 'cache/sources'
 cache.mkdir(parents=True, exist_ok=True)
 with tempfile.TemporaryDirectory(dir=cache) as tmp:
+    repo = pathlib.Path(tmp) / 'repository'
+    subprocess.run(['git', 'init', '--quiet', str(repo)], check=True)
+    git = ['git', '-C', str(repo)]
+    fetch = [*git, '-c', 'http.lowSpeedLimit=1024', '-c', 'http.lowSpeedTime=30',
+             'fetch', '--quiet', '--depth=1', '--filter=blob:none', '--no-tags',
+             'https://github.com/emacs-mirror/emacs.git', 'master']
+    for attempt in range(3):
+        try:
+            subprocess.run(fetch, env=dict(os.environ, GIT_TERMINAL_PROMPT='0'),
+                           check=True, timeout=180)
+            break
+        except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
+            if attempt == 2:
+                raise
+            time.sleep(2 ** attempt)
+    sha = subprocess.check_output([*git, 'rev-parse', 'FETCH_HEAD'], text=True).strip()
+    if not re.fullmatch(r'[0-9a-f]{40}', sha):
+        raise SystemExit('Invalid upstream commit')
+    timestamp = int(subprocess.check_output([*git, 'show', '-s', '--format=%ct', sha], text=True))
+    committed = datetime.datetime.fromtimestamp(timestamp, datetime.timezone.utc)
+    date = committed.strftime('%Y-%m-%dT%H:%M:%SZ')
+    stamp = committed.strftime('%Y%m%d%H%M%S')
+    url = f'https://codeload.github.com/emacs-mirror/emacs/tar.gz/{sha}'
     archive = pathlib.Path(tmp) / 'emacs.tar'
     download(url, archive)
     with tarfile.open(archive) as source:

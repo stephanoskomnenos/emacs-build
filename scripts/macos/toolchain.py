@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Check paired Apple tools before compiling dependencies."""
 import json
+import hashlib
 import os
 from pathlib import Path
 import re
@@ -35,6 +36,12 @@ report = dict(compiler=subprocess.check_output([clang, '--version'], text=True),
               objective_c_thinlto_pgo=True, profile_summary=summary)
 (base / 'result.json').write_text(json.dumps(report, indent=2) + '\n')
 print(json.dumps(report, indent=2))
+if os.environ.get('GITHUB_OUTPUT'):
+    identity = dict(compiler=report['compiler'], sdk=report['sdk'], architecture=os.uname().machine,
+                    system=subprocess.check_output(['sw_vers', '-buildVersion'], text=True).strip())
+    digest = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
+    with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+        output.write('identity=' + digest + '\n')
 # Retain only the small diagnostic report.
 for path in base.iterdir():
     if path.name != 'result.json':

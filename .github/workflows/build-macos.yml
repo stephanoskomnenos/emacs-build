@@ -21,6 +21,11 @@ jobs:
       JOBS: '3'
     steps:
       - uses: actions/checkout@v4
+      - name: Lock master and fetch training fixtures
+        run: |
+          python3 scripts/update-master.py
+          python3 scripts/fetch.py --benchmarks
+          echo "LLVM_PROFDATA=$(xcrun --find llvm-profdata)" >> "$GITHUB_ENV"
       - name: Remove Homebrew from disposable runner
         shell: bash
         run: |
@@ -31,14 +36,22 @@ jobs:
           # Persist a clean PATH across steps, including Python from Xcode.
           echo 'PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin' >> "$GITHUB_ENV"
       - name: Verify Apple Clang ThinLTO and PGO
+        id: toolchain
         run: python3 scripts/macos/toolchain.py
+      - uses: actions/cache/restore@v4
+        id: dependencies
+        with:
+          path: build/macos/dependencies.tar
+          key: macos-deps-v1-${{ steps.toolchain.outputs.identity }}-${{ hashFiles('scripts/macos/dependencies.sh', 'scripts/macos/dependency-cache.py') }}
       - name: Install ebuild dependencies
-        run: bash scripts/macos/dependencies.sh
-      - name: Lock master and fetch training fixtures
-        run: |
-          python3 scripts/update-master.py
-          python3 scripts/fetch.py --benchmarks
-          echo "LLVM_PROFDATA=$(xcrun --find llvm-profdata)" >> "$GITHUB_ENV"
+        env:
+          CACHE_HIT: ${{ steps.dependencies.outputs.cache-hit }}
+        run: python3 scripts/macos/dependency-cache.py
+      - uses: actions/cache/save@v4
+        if: steps.dependencies.outputs.cache-hit != 'true'
+        with:
+          path: build/macos/dependencies.tar
+          key: ${{ steps.dependencies.outputs.cache-primary-key }}
       - name: Build instrumented Cocoa Emacs
         run: python3 scripts/macos/build.py generate
       - name: Train generic PTY and GUI workloads
