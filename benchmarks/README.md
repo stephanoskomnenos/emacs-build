@@ -123,3 +123,7 @@ not the full personal config. The final explicit collection remains included.
 At 16 MB the overall workload is about 6.4% faster with PGO; the small GC-time
 difference does not demonstrate a regression. This does not establish results
 for a larger live heap or explain the low-threshold regression's root cause.
+
+The subsequent [configured LSP load experiment](lsp/README.md) uses the complete
+config copy and actual `lsp-mode` diagnostics handling under sustained traffic.
+It records input tails and per-collection times, not only total throughput.
