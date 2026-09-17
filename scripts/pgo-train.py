@@ -10,6 +10,7 @@ import shutil
 import subprocess
 from pty_driver import Session
 from profile_weights import weights_for_counts
+from training_input import cancel_minibuffer
 
 ROOT=Path(__file__).resolve().parents[1]
 p=argparse.ArgumentParser();p.add_argument('bundle',type=Path);a=p.parse_args()
@@ -23,6 +24,8 @@ source=a.bundle.parents[2]/'src/emacs'
 for original,target in [('src/buffer.c','buffer.c'),('lisp/files.el','files.el'),('etc/ORG-NEWS','org-news.org'),('etc/NEWS','news.txt')]:
     shutil.copy2(source/original,corpus/target)
 subprocess.run(['python3',str(ROOT/'scripts/prepare-workload-packages.py'),str(a.bundle)],check=True)
+# Preflight profiles use the compiler default directory, not the training groups.
+subprocess.run(['python3',str(ROOT/'tests/minibuffer-cancel.py'),str(a.bundle)],check=True)
 repo=base/'repository'
 if repo.exists():shutil.rmtree(repo)
 repo.mkdir()
@@ -73,8 +76,7 @@ for name in targets:
                 action(b'\x18\x06'+str(corpus/filename).encode()+b'\r',lambda s:s['buffer']==filename)
                 action(b'\x1bxend-of-buff\t\r',lambda s:s['point']==s['size']+1)
                 action(b'\x1bxbeginn\t\x1bOR',lambda s:s['minibuffer_depth']==1)
-                os.write(session.fd,b'\x07')
-                session.receive('cancelled')
+                cancel_minibuffer(session)
                 action(b'\x18b*scratch*\r',lambda s:s['buffer']=='*scratch*')
         elif name=='org':
             action(b'\x1b[20~',lambda s:s['mode']=='org-mode')
@@ -120,7 +122,7 @@ merged=ROOT/'build/merged.profdata'
 subprocess.run(['llvm-profdata-23','merge','-o',str(merged),*[f'--weighted-input={weights[n]},{groups[n]}' for n in targets]],check=True)
 summary=subprocess.check_output(['llvm-profdata-23','show',str(merged)],text=True)
 (base/'profile-summary.txt').write_text(summary)
-scripts=['scripts/prepare-workload-packages.py','scripts/pgo-train.py','scripts/profile_weights.py','scripts/pty_driver.py','benchmarks/interactive/training.el','benchmarks/interactive/training-producer.py','benchmarks/files.el','benchmarks/runtime.el']
+scripts=['scripts/training_input.py','scripts/prepare-workload-packages.py','scripts/pgo-train.py','scripts/profile_weights.py','scripts/pty_driver.py','benchmarks/interactive/training.el','benchmarks/interactive/training-producer.py','benchmarks/files.el','benchmarks/runtime.el']
 (base/'provenance.json').write_text(json.dumps({'build':info,'configuration':'generic built-in and locked Magit scenarios only; no user configuration or held-out inputs','group_execution_counts':counts,'target_share_units':targets,'group_merge_weights':weights,'actual_execution_shares':shares,'benchmark_sources':lock,'benchmark_selector':selector,'corpus_sha256':{f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in corpus.iterdir()},'training_script_sha256':{f:hashlib.sha256((ROOT/f).read_bytes()).hexdigest() for f in scripts},'scenario_checks':checks,'profile_sha256':hashlib.sha256(merged.read_bytes()).hexdigest()},indent=2)+'\n')
 print(summary,flush=True)
 print('Profile shares:',json.dumps(shares),flush=True)

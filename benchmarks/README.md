@@ -18,7 +18,7 @@ weights target equal 12.5% execution-count shares for the six scenarios and 25%
 for the suite. This initial choice controls domination by individual scenarios;
 it is neither a wall-time ratio nor evidence of optimal weights. Both sides can
 be scaled, with actual shares, counters, input/script hashes and assertions
-recorded in `build/pgo-training/provenance.json`. Package preparation profiles
+recorded in `build/pgo-training/provenance.json`. Package preparation, cancellation preflight
 and build-bootstrap profiles are excluded from the merge.
 
 The [independent interaction suite](interactive/README.md) is frozen before new
