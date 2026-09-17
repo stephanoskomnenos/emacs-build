@@ -66,29 +66,40 @@ skip the instrumented build and training and run `PGO=use ... build`.
 
 ## Diverse profile comparison (2026-09-17)
 
-[Raw three-way results](results/diverse-pgo-20260917.json), 12 measured samples
-per variant in A/B/C/C/B/A order. All variants use the same master, Clang,
-dependencies and build paths; the old profile was rebuilt in this environment.
-The separate config snapshot is used only by the noninstrumented validation.
+[Final revalidation](results/diverse-pgo-20260917-cancel-fix.json) follows the
+minibuffer cancellation fix. Each comparison has 12 measured samples per
+variant in A/B/C/C/B/A order, excluding warm-ups. Master, compiler, dependencies,
+CPU and validation inputs are identical; the old profile was rebuilt alongside
+the new one. The table uses the repeat with every bundle mounted at `/bundle`.
+The config snapshot is used only by noninstrumented validation.
 
 | Median milliseconds | No PGO | Old profile | Diverse profile |
 | --- | ---: | ---: | ---: |
-| PTY typing burst | 8.85 | 8.26 | 7.63 |
-| Minibuffer completion | 5.11 | 5.20 | 4.94 |
-| Regexp workload | 75.71 | 64.14 | 59.97 |
-| JSON workload | 99.05 | 97.94 | 98.28 |
-| Async process/JSON | 58.57 | 53.75 | 57.86 |
-| Allocation/GC workload | 341.90 | 356.89 | 346.01 |
-| Magit workflow | 289.81 | 280.39 | 275.98 |
-| User config ready | 458.94 | 453.79 | 445.59 |
-| Open user Elisp | 124.27 | 120.21 | 113.29 |
-| Open user Org | 241.58 | 237.78 | 219.15 |
+| PTY typing burst | 8.61 | 8.07 | 7.47 |
+| Minibuffer completion | 1.50 | 1.50 | 1.35 |
+| Regexp workload | 76.22 | 65.41 | 60.98 |
+| JSON workload | 93.00 | 91.79 | 92.41 |
+| Async process/JSON | 80.02 | 79.91 | 81.61 |
+| Allocation/GC workload | 333.83 | 351.95 | 360.28 |
+| Magit workflow | 273.70 | 270.29 | 265.56 |
+| User config ready | 448.94 | 443.06 | 435.75 |
+| Open user Elisp | 120.54 | 115.44 | 108.58 |
+| Open user Org | 233.37 | 225.67 | 210.56 |
 
-Select the diverse profile: input, regexp, Magit and user-config workloads
-improve in this run, while the allocation/GC difference from no PGO is about
-1.2%. Small differences and process scheduling variation are not proof of a
-speedup or regression. GC can move between adjacent Magit operations, so the
-workflow aggregate is more useful than an isolated stage/unstage timing.
+Keep diverse training for the startup, file-opening, input, regexp and Magit
+improvements, with a measured tradeoff: allocation/GC is about 8% slower than
+no PGO in both final comparisons. All variants perform 98 collections in the
+identical-path repeat; most of the difference is GC time. This deliberately
+GC-heavy test uses a 400 KB threshold and does not establish the same penalty
+for normal editing. Process/JSON varies between runs and has no demonstrated
+improvement. These results do not establish universally faster performance.
+Weights and training were not tuned against this frozen validation suite.
+
+[Earlier diverse-profile measurements](results/diverse-pgo-20260917.json) are
+retained as history; their smaller GC difference does not describe the final
+regenerated profile. GC can move between adjacent Magit operations, so the
+workflow aggregate is more useful than isolated stage/unstage timings. PTY
+round trips include harness overhead and exclude terminal-emulator rendering.
 
 LLVM IR confirms positive profile counts in bytecode, keyboard, process and
 Emacs-regexp code. Logs also contain discarded mismatched records when the
