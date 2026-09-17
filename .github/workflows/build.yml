@@ -38,6 +38,8 @@ jobs:
         run: JOBS=2 PGO=use bash scripts/container.sh build
       - name: Verify in builder and clean Debian 13
         run: bash scripts/container.sh test
+      - name: Verify real input, asynchronous output and Magit workflows
+        run: bash scripts/container.sh test-interactive
       - name: Package binary and sources
         run: bash scripts/container.sh package
       - name: Package RPM
@@ -75,4 +77,6 @@ jobs:
           path: |
             build/acceptance/*.log
             build/pgo-training/*.log
+            build/pgo-training/*/terminal.log
+            build/interactive-validation/*/terminal.log
             build/*/logs/*.log

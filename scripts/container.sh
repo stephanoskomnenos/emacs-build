@@ -49,6 +49,15 @@ hashes = {str(f.relative_to(bundle)): hashlib.sha256(f.read_bytes()).hexdigest()
 pathlib.Path('build/acceptance/bundle-hashes.json').write_text(json.dumps(hashes, indent=2) + '\n')
 PY
     ;;
+  test-interactive)
+    bundle=$(cat build/current-bundle)
+    podman run --rm --userns=keep-id --network=none \
+      -v "$PWD:/work:Z" -w /work "$image" \
+      python3 scripts/prepare-workload-packages.py "$bundle"
+    podman run --rm --userns=keep-id --network=none \
+      -v "$PWD:/work:Z" -w /work "$image" \
+      python3 scripts/benchmark-interactive.py "$bundle" --label ci --runs 1
+    ;;
   package)
     podman run --rm --userns=keep-id --network=none \
       -v "$PWD:/work:Z" -w /work "$image" python3 scripts/package.py "${@:2}"
@@ -64,5 +73,5 @@ PY
     podman run --rm --network=none -v "$PWD:/work:ro,Z" \
       localhost/emacs-nox-rpm-test:fedora44 bash tests/rpm.sh 2>&1 | tee build/acceptance/rpm.log
     ;;
-  *) echo 'usage: bash scripts/container.sh [image|llvm-image|build|train|test|package [--force]|rpm|test-rpm]' >&2; exit 2 ;;
+  *) echo 'usage: bash scripts/container.sh [image|llvm-image|build|train|test|test-interactive|package [--force]|rpm|test-rpm]' >&2; exit 2 ;;
 esac

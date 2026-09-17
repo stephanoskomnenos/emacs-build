@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "purpose": "Frozen held-out regression inputs, never training",
+  "seed": 92831,
+  "rows": 1700,
+  "regexp_repeats": 60,
+  "json_repeats": 45,
+  "gc_repeats": 35,
+  "gc_items": 6000,
+  "process_frames": 900,
+  "process_chunk": 137,
+  "typing_text": "Validation input: 字符串 and editing.\n",
+  "typing_repeats": 24,
+  "git_files": 13,
+  "git_commits": 6,
+  "git_lines": 73
+}

@@ -25,7 +25,7 @@ bash scripts/container.sh test-rpm
 ```
 
 产物在 `dist/`：便携包、源码包、RPM 和 SHA256 校验文件。
-每次用通用终端操作和 ELPA benchmark 重新训练，不使用个人配置。
+每次用通用终端操作、Magit 和 ELPA benchmark 重新训练，不使用个人配置。
 Clang 来自 apt.llvm.org 的 23 分支快照；训练方法与对照结果见 [benchmarks](benchmarks/README.md)。
 默认 `JOBS=6`、`LTO=1`；重新打包可用 `package --force`。
 GitHub Actions 每周一北京时间 01:23 构建 master，也支持手动触发。

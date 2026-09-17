@@ -3,5 +3,35 @@
     "version": "3d917d38d778f9577a2467c74f3b6b820b7926c4",
     "url": "https://codeload.github.com/emacs-straight/elisp-benchmarks/tar.gz/3d917d38d778f9577a2467c74f3b6b820b7926c4",
     "sha256": "875c2b88f792fb946067c09c80f822944ffebe55975404fb69e7181a080fc8ab"
+  },
+  "magit": {
+    "version": "83ba66c8ab6fcdbd809077ae4db1f7e2ed832655",
+    "url": "https://codeload.github.com/magit/magit/tar.gz/83ba66c8ab6fcdbd809077ae4db1f7e2ed832655",
+    "sha256": "3a7eca77848658a52b0f67507e55bea182b9421fd258f23f35477a3374e43eda"
+  },
+  "compat": {
+    "version": "90880f81419577e1d3f68424d2a3adf31e6d663e",
+    "url": "https://codeload.github.com/emacs-compat/compat/tar.gz/90880f81419577e1d3f68424d2a3adf31e6d663e",
+    "sha256": "91f010564b497328f1cf093de7b6f253d5f348c22a17e97e6cc1186b80a0de77"
+  },
+  "cond-let": {
+    "version": "3b88187fe067d4ca3dec3ef8a329b0ce18bdb356",
+    "url": "https://codeload.github.com/tarsius/cond-let/tar.gz/3b88187fe067d4ca3dec3ef8a329b0ce18bdb356",
+    "sha256": "d661f537320a4eeea43f1cb2a31093ea49ec34a35025a939bd735b15a39b0581"
+  },
+  "llama": {
+    "version": "cfea618f14bc8317f8e4947fe10000b229b9a447",
+    "url": "https://codeload.github.com/tarsius/llama/tar.gz/cfea618f14bc8317f8e4947fe10000b229b9a447",
+    "sha256": "6e9055d14a963900749d88e0264de958357d2c3f8afa811d3eac147d71ca3b2f"
+  },
+  "transient": {
+    "version": "03c8ccc6aab24021787aada2be12d64cb1f436e8",
+    "url": "https://codeload.github.com/magit/transient/tar.gz/03c8ccc6aab24021787aada2be12d64cb1f436e8",
+    "sha256": "fa739dea2739a0d9ae5699c1a15a4624bbd02347ed133fa2f612375c5b776b12"
+  },
+  "with-editor": {
+    "version": "5021ef6885381cf5b2852f7a3f67ca8c4be1dca2",
+    "url": "https://codeload.github.com/magit/with-editor/tar.gz/5021ef6885381cf5b2852f7a3f67ca8c4be1dca2",
+    "sha256": "496dfc1a40c65dc2b8ac6bb8301da99cbba25216806892c14db85352223fb0e9"
   }
 }

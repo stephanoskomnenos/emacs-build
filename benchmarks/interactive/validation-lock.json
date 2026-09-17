@@ -1,0 +1,8 @@
+{
+  "benchmarks/interactive/validation.json": "fd927c37b3581715b11b8fd15524bd59399897a9819c34df87ca9bceb34ec78d",
+  "benchmarks/interactive/observer.el": "299fbc5820609069d5ce6b789bf9a91a81a6716c5dcc7da2824228fc3cf2a95d",
+  "benchmarks/interactive/producer.py": "c6983d0def633e230a83889c95e775025fb33373dda94dd548b5e5318661c6a0",
+  "scripts/benchmark-interactive.py": "fb4c0baf86460ef95068c4fea63a10cfa63383be3dfffeb5b5b7465086bddf8c",
+  "scripts/pty_driver.py": "a607bf26e750be9814c3596e310a7f6b282a8c0e8d78d8cdac7aba2d2a8a8837",
+  "benchmarks/sources.json": "63ae7fcef5921100c803da9e0bac37e388afb6ae899f62aae9fe1276d7a72e4b"
+}
