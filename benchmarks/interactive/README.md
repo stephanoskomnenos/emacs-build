@@ -1,32 +1,27 @@
-# Independent interaction regression experiment
+# Training and validation
 
-`validation.json` and the validation sequence are fixed before new training.
-No instrumented binary is accepted. Runs use a private HOME, local files and a
-local Git repository, never the user's configuration or repository. Magit and
-its dependencies are locked in `../sources.json` and byte-compiled once.
+Training covers 12 real-PTY subscenarios: file opening, varied editing and
+completion inputs, Org, asynchronous JSON/compile output, and small/medium
+Magit repositories. Outer group weights are unchanged; subscenarios split
+execution-count shares equally within each group. Personal configuration
+is never used for training.
 
-The driver sends actual bytes through a PTY. F12 requests acknowledgement over
-an independent Unix socket after previous commands and redisplay. Subprocess
-checks wait for its output filter and sentinel, not just OS process exit.
-Every scenario checks its result; stage/unstage also checks the Git index.
-An empty acknowledgement measures harness overhead. Typing burst throughput
-and 40 individual stop-and-wait keystrokes are recorded separately.
+`pgo-train.py BUNDLE --check-workloads` verifies actions with a non-instrumented
+build without producing profiles. `EMACS_TRAIN_SOURCE` selects the Emacs source;
+`EMACS_BUILD_ROOT` optionally selects a separate output directory.
 
-Measurements include input dispatch, acknowledgement and OS scheduling. They
-exclude terminal-emulator rendering and are not pure command execution times.
-Package preparation and Git fixture setup occur outside measured intervals.
-Run comparisons with builds/training stopped, on a fixed CPU, in alternating
-variant order. Exclude each process group's first warm-up; retain raw samples.
-Do not choose new training inputs or weights by repeatedly tuning these results.
+Held-out validation inputs and scripts are pinned by `validation-lock.json`.
+Validation rejects instrumented builds and uses a private HOME. PTY actions
+check results after command execution and redisplay; process and Magit checks
+also verify asynchronous output and Git state. Timings include acknowledgement
+and scheduling, but exclude terminal-emulator rendering. Typing bursts and
+individual stop-and-wait keystrokes are measured separately.
+
+Measure with builds/training stopped, on a fixed CPU, in alternating variant
+order. Exclude warm-ups and retain raw samples. Do not tune training inputs or
+weights repeatedly against these held-out results.
 
 ```sh
-# In the LLVM container, after fetching the locked benchmark archives:
-python3 scripts/prepare-workload-packages.py /path/to/noninstrumented/bundle
+python3 scripts/prepare-workload-packages.py /path/to/bundle
 python3 scripts/benchmark-interactive.py /path/to/bundle --label baseline
 ```
-
-The first pilot exposed per-operation timing shifts. Before any new training,
-the observer was extended to record GC count/time, expansion now asserts a
-visible diff hunk, and the complete Magit workflow is reported as an aggregate.
-Pilot results are not the final comparison. The inputs and action sequence
-remain unchanged; `validation-lock.json` fixes the diagnostic version.
