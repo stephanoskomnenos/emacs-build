@@ -37,6 +37,7 @@
         (redisplay t)
         (eb-write "ready.json" `((time . ,(float-time)) (window_system . ,window-system)))
         (let* ((training (equal (getenv "GUI_MODE") "train"))
+               (comparing (equal (getenv "GUI_MODE") "compare"))
                (corpus (getenv "GUI_CORPUS"))
                (names (if training '("buffer.c" "files.el" "org-news.org" "news.txt")
                         '("held-out.el" "held-out.org" "held-out.txt"))))
@@ -46,7 +47,7 @@
                                  (font-lock-ensure) (goto-char (point-min)))))
           (eb-operation "scroll-edit"
                         (lambda ()
-                          (dotimes (_ (if training 60 30))
+                          (dotimes (_ (cond (training 60) (comparing 30) (t 1)))
                             (goto-char (point-min))
                             (forward-line 20)
                             ;; Keyboard macros exercise commands, not OS keyboard injection.
@@ -56,10 +57,10 @@
                             (scroll-up 5) (redisplay t))))
           (eb-operation "window-layout"
                         (lambda ()
-                          (dotimes (_ 10)
+                          (dotimes (_ (if (or training comparing) 10 1))
                             (split-window-right) (redisplay t) (delete-other-windows)
                             (text-scale-increase 1) (redisplay t) (text-scale-decrease 1))))
-          (unless training
+          (when comparing
             (eb-operation "regexp"
                           (lambda ()
                             (dotimes (_ 100)

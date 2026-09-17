@@ -7,4 +7,5 @@ RUN curl -fsSL https://apt.llvm.org/llvm-snapshot.gpg.key -o /usr/share/keyrings
     && apt-get install -y --no-install-recommends \
        clang-23=${LLVM_PACKAGE_VERSION} lld-23=${LLVM_PACKAGE_VERSION} \
        llvm-23=${LLVM_PACKAGE_VERSION} libclang-rt-23-dev=${LLVM_PACKAGE_VERSION} \
+       python3-pexpect \
     && rm -rf /var/lib/apt/lists/*

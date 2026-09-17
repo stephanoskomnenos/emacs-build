@@ -1,5 +1,9 @@
 """Real PTY actions and assertions for generic training subscenarios."""
-from training_input import cancel_minibuffer
+
+def cancel_minibuffer(session):
+    # Dispatch cancellation after the acknowledgement callback has returned.
+    session.send(b'\x1d')
+    session.receive('cancelled',10)
 
 # Outer group targets stay in pgo-train.py; each group's cases receive equal
 # execution-count shares, independently of file size or runtime.

@@ -6,7 +6,6 @@
 (setq inhibit-startup-screen t make-backup-files nil auto-save-default nil
       enable-local-variables nil ring-bell-function #'ignore)
 (icomplete-mode 1)
-(defvar train-connection nil)
 (defvar train-sequence 0)
 (defvar train-value 0)
 (defvar train-lines 0)
@@ -26,7 +25,8 @@
               (setq train-cancel-notify nil)
               (run-at-time 0 nil (lambda () (train-send '((kind . "cancelled"))))))))
 (defun train-send (message)
-  (process-send-string train-connection (concat (json-serialize message) "\n")))
+  (send-string-to-terminal
+   (concat "\e]777;emacs-workload;" (json-serialize message) "\a")))
 (defun train-report ()
   (if (or (not train-finished) compilation-in-progress)
       (run-at-time 0.001 nil #'train-report)
@@ -103,7 +103,4 @@
 (autoload 'magit-status "magit" nil t)
 (add-hook 'window-setup-hook
           (lambda ()
-            (setq train-connection (make-network-process :name "training-control" :family 'local
-                                                        :service (getenv "WORKLOAD_SOCKET")
-                                                        :coding 'utf-8-unix :noquery t))
             (train-send '((kind . "ready")))) t)

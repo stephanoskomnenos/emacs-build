@@ -12,7 +12,8 @@
 (defvar load-error nil)
 (defvar load-buffer nil)
 (defun load-send (data)
-  (process-send-string load-control (concat (json-serialize data) "\n")))
+  (send-string-to-terminal
+   (concat "\e]777;emacs-workload;" (json-serialize data) "\a")))
 (defun load-count-diagnostics (&rest _)
   (setq load-diagnostics (1+ load-diagnostics)))
 (defun load-record-gc ()
@@ -67,9 +68,7 @@
         (when (fboundp 'elpaca-wait) (elpaca-wait))
         (when init-file-had-error (error "User init failed"))
         (require 'lsp-mode)
-        (setq load-control (make-network-process :name "load-control" :family 'local
-                                                :service (getenv "WORKLOAD_SOCKET")
-                                                :coding 'utf-8-unix :noquery t))
+        (setq load-control t)
         (advice-add 'lsp--on-diagnostics :after #'load-count-diagnostics)
         (add-hook 'post-gc-hook #'load-record-gc)
         (setq lsp-auto-guess-root t lsp-enabled-clients '(pgo-load-test))

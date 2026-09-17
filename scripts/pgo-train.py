@@ -30,9 +30,8 @@ source=Path(os.environ.get('EMACS_TRAIN_SOURCE',a.bundle.parents[2]/'src/emacs')
 profdata=os.environ.get('LLVM_PROFDATA','llvm-profdata-23')
 for original,target in [('src/buffer.c','buffer.c'),('lisp/files.el','files.el'),('etc/ORG-NEWS','org-news.org'),('etc/NEWS','news.txt')]:
     shutil.copy2(source/original,corpus/target)
-subprocess.run(['python3',str(ROOT/'scripts/prepare-workload-packages.py'),str(a.bundle)],check=True)
-# Preflight profiles use the compiler default directory, not the training groups.
-subprocess.run(['python3',str(ROOT/'tests/minibuffer-cancel.py'),str(a.bundle)],check=True)
+print('Preparing workload packages',flush=True)
+subprocess.run(['python3',str(ROOT/'scripts/prepare-workload-packages.py'),str(a.bundle)],check=True,timeout=660)
 env=dict(os.environ,HOME=str(base/'home'),GIT_CONFIG_NOSYSTEM='1',GIT_CONFIG_GLOBAL='/dev/null',GIT_CEILING_DIRECTORIES=str(ROOT),
          GIT_AUTHOR_DATE='2025-03-04T05:06:07Z',GIT_COMMITTER_DATE='2025-03-04T05:06:07Z',
          TRAIN_CORPUS=str(corpus),TRAIN_PACKAGES=str(BUILD/'workload-packages/paths.json'),
@@ -48,6 +47,7 @@ targets['benchmark']=2
 checks={}
 for group,names in GROUPS.items():
     for name in names:
+        print('Starting training scenario',name,flush=True)
         session_env=dict(env,TRAIN_PROCESS_VARIANT=name.removeprefix('process-'))
         if not a.check_workloads:
             session_env['LLVM_PROFILE_FILE']=str(profiles/(name+'-%m-%p.profraw'))
@@ -68,9 +68,11 @@ subprocess.run(['tar','-xf',str(archive),'--strip-components=1','-C',str(suite)]
 selector='elb-bytecomp\\|elb-pcase\\|elb-smie\\|elb-scroll\\|inclist\\|map-closure\\|pack-unpack'
 env.update(LLVM_PROFILE_FILE=str(profiles/'benchmark-%m-%p.profraw'),BENCHMARK_SUITE=str(suite),BENCHMARK_SELECTOR=selector,BENCHMARK_RUNS='1',BENCHMARK_RESULT=str(base/'training-benchmarks.json'))
 with (base/'training-benchmarks.log').open('w') as log:
+    print('Starting ELPA benchmarks (timeout: 600 seconds)',flush=True)
     subprocess.run([str(a.bundle/'bin/emacs'),'-Q','--batch','-l',str(ROOT/'benchmarks/runtime.el')],env=env,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=600)
 print('Benchmark training passed',flush=True)
 if os.environ.get('EMACS_TRAIN_GUI')=='1':
+    print('Starting Cocoa GUI training',flush=True)
     targets['gui']=2
     subprocess.run(['python3',str(ROOT/'scripts/macos/gui.py'),'train',str(a.bundle)],
                    env=dict(env,LLVM_PROFILE_FILE=str(profiles/'gui-%m-%p.profraw')),check=True)
@@ -106,7 +108,7 @@ merged=BUILD/'merged.profdata'
 subprocess.run([profdata,'merge','-o',str(merged),*[f'--weighted-input={weights[n]},{groups[n]}' for n in targets]],check=True)
 summary=subprocess.check_output([profdata,'show',str(merged)],text=True)
 (base/'profile-summary.txt').write_text(summary)
-scripts=['scripts/training_fixtures.py','scripts/training_scenarios.py','scripts/training_input.py','scripts/prepare-workload-packages.py','scripts/pgo-train.py','scripts/profile_weights.py','scripts/pty_driver.py','benchmarks/interactive/training.el','benchmarks/interactive/training-producer.py','benchmarks/files.el','benchmarks/runtime.el']
+scripts=['scripts/training_fixtures.py','scripts/training_scenarios.py','scripts/prepare-workload-packages.py','scripts/pgo-train.py','scripts/profile_weights.py','scripts/pty_driver.py','benchmarks/interactive/training.el','benchmarks/interactive/training-producer.py','benchmarks/files.el','benchmarks/runtime.el']
 if os.environ.get('EMACS_TRAIN_GUI')=='1':scripts+=['scripts/macos/gui.py','benchmarks/macos/gui.el']
 (base/'provenance.json').write_text(json.dumps({'build':info,'configuration':'generic built-in and locked Magit scenarios only; no user configuration or held-out inputs','subscenario_profiles':inner,'group_execution_counts':counts,'target_share_units':targets,'group_merge_weights':weights,'actual_execution_shares':shares,'benchmark_sources':lock,'benchmark_selector':selector,'fixture_sha256':{str(f.relative_to(fixtures)):hashlib.sha256(f.read_bytes()).hexdigest() for f in sorted(fixtures.rglob('*')) if f.is_file() and '.git' not in f.parts},'corpus_sha256':{f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in corpus.iterdir()},'training_script_sha256':{f:hashlib.sha256((ROOT/f).read_bytes()).hexdigest() for f in scripts},'scenario_checks':checks,'profile_sha256':hashlib.sha256(merged.read_bytes()).hexdigest()},indent=2)+'\n')
 print(summary,flush=True)

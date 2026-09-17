@@ -29,7 +29,7 @@ if not (base/'compiled').exists():
  forms+=''.join('(byte-recompile-directory '+json.dumps(str(path))+' 0 t)' for path in paths)
  forms+=" (require 'magit) (princ (format \"MAGIT-READY %s\\n\" (symbol-file 'magit-status))))"
  with (base/'compile.log').open('w') as log:
-  subprocess.run([str(a.bundle.resolve()/'bin/emacs'),'-Q','--batch','--eval',forms],env=env,stdout=log,stderr=subprocess.STDOUT,check=True)
+  subprocess.run([str(a.bundle.resolve()/'bin/emacs'),'-Q','--batch','--eval',forms],env=env,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=600)
  if 'MAGIT-READY' not in (base/'compile.log').read_text():raise SystemExit('Magit failed to load')
  (base/'compiled').touch()
 (BUILD/'workload-packages/paths.json').write_text(json.dumps(list(map(str,paths)),indent=2)+'\n')

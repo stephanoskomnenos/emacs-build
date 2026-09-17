@@ -16,7 +16,6 @@ jobs:
     runs-on: macos-26
     timeout-minutes: 180
     env:
-      # Keep UNIX acknowledgement socket paths below Darwin's length limit.
       EMACS_BUILD_ROOT: /tmp/emacs-build
       JOBS: '3'
     steps:
@@ -56,7 +55,13 @@ jobs:
         run: python3 scripts/macos/sqlite.py
       - name: Build instrumented Cocoa Emacs
         run: python3 scripts/macos/build.py generate
+      - name: Install Pexpect
+        run: |
+          python3 -m venv "$RUNNER_TEMP/emacs-python"
+          "$RUNNER_TEMP/emacs-python/bin/pip" install -r requirements.txt
+          echo "$RUNNER_TEMP/emacs-python/bin" >> "$GITHUB_PATH"
       - name: Train generic PTY and GUI workloads
+        timeout-minutes: 25
         env:
           EMACS_TRAIN_SOURCE: /tmp/emacs-build/generate/source
           EMACS_TRAIN_GUI: '1'
@@ -101,5 +106,7 @@ jobs:
             /tmp/emacs-build/pgo-training/provenance.json
             /tmp/emacs-build/pgo-training/profile-summary.txt
             /tmp/emacs-build/pgo-training/*/terminal.log
+            /tmp/emacs-build/pgo-training/training-benchmarks.log
+            /tmp/emacs-build/workload-packages/*/compile.log
             /tmp/emacs-build/gui-*/*/*.json
             /tmp/emacs-build/gui-*/*/emacs.log

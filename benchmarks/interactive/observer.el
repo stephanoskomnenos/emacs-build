@@ -6,7 +6,6 @@
 (defvar workload-spec (json-parse-string (with-temp-buffer
                                          (insert-file-contents (getenv "WORKLOAD_SPEC"))
                                          (buffer-string)) :object-type 'alist))
-(defvar workload-connection nil)
 (defvar workload-sequence 0)
 (defvar workload-command-count 0)
 (defvar workload-value 0)
@@ -16,7 +15,8 @@
 (defvar workload-frames 0)
 (defvar workload-remainder "")
 (defun workload-send (data)
-  (process-send-string workload-connection (concat (json-serialize data) "\n")))
+  (send-string-to-terminal
+   (concat "\e]777;emacs-workload;" (json-serialize data) "\a")))
 (defun workload-report ()
   (if (not workload-process-finished)
       (run-at-time 0.001 nil #'workload-report)
@@ -100,7 +100,4 @@
 (icomplete-mode 1)
 (add-hook 'window-setup-hook
           (lambda ()
-            (setq workload-connection (make-network-process :name "workload-control" :family 'local
-                                                           :service (getenv "WORKLOAD_SOCKET")
-                                                           :coding 'utf-8-unix :noquery t))
             (workload-send '((kind . "ready")))) t)

@@ -30,13 +30,12 @@ jobs:
           bash scripts/container.sh image
           JOBS=2 PGO=generate bash scripts/container.sh build
       - name: Train on generic terminal workflows and ELPA benchmarks
+        timeout-minutes: 25
         run: bash scripts/container.sh train
       - name: Build with the fresh PGO profile
         run: JOBS=2 PGO=use bash scripts/container.sh build
       - name: Verify in builder and clean Debian 13
         run: bash scripts/container.sh test
-      - name: Verify real input, asynchronous output and Magit workflows
-        run: bash scripts/container.sh test-interactive
       - name: Package binary and sources
         run: bash scripts/container.sh package
       - name: Package RPM

@@ -75,7 +75,7 @@ for item in ('scripts', 'containers', 'tests', '.github', 'packaging', 'benchmar
     if (ROOT / item).exists():
         shutil.copytree(ROOT / item, source_release / item,
                         ignore=shutil.ignore_patterns('__pycache__'))
-for item in ('sources.json', 'test-sources.json', 'toolchain-sources.json', 'README.md', '.containerignore'):
+for item in ('sources.json', 'test-sources.json', 'toolchain-sources.json', 'requirements.txt', 'README.md', '.containerignore'):
     shutil.copy2(ROOT / item, source_release / item)
 inputs = source_release / 'cache/sources'
 inputs.mkdir(parents=True)

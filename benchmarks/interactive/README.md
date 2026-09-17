@@ -10,7 +10,12 @@ is never used for training.
 build without producing profiles. `EMACS_TRAIN_SOURCE` selects the Emacs source;
 `EMACS_BUILD_ROOT` optionally selects a separate output directory.
 
+Terminal sessions use Pexpect. Emacs emits completion messages through the
+terminal; no separate acknowledgement socket is needed.
+
 Held-out validation inputs and scripts are pinned by `validation-lock.json`.
+The Pexpect migration changes timing overhead: use the same driver for both
+variants and do not compare absolute timings with the older socket-based reports.
 Validation rejects instrumented builds and uses a private HOME. PTY actions
 check results after command execution and redisplay; process and Magit checks
 also verify asynchronous output and Git state. Timings include acknowledgement
