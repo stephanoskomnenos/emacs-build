@@ -1,4 +1,4 @@
-# emacs-nox-build
+# emacs-build
 
 Emacs master，禁用 native-comp，使用预编译 Clang 23 + ThinLTO + PGO。
 基础第三方库静态链接，glibc 动态链接；要求 x86-64-v3、glibc ≥ 2.41。
