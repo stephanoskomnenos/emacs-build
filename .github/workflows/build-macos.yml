@@ -52,6 +52,8 @@ jobs:
         with:
           path: build/macos/dependencies.tar
           key: ${{ steps.dependencies.outputs.cache-primary-key }}
+      - name: Add static SQLite
+        run: python3 scripts/macos/sqlite.py
       - name: Build instrumented Cocoa Emacs
         run: python3 scripts/macos/build.py generate
       - name: Train generic PTY and GUI workloads

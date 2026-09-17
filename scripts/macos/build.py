@@ -41,16 +41,16 @@ elif a.mode == 'use':
         raise SystemExit('Missing fresh training profile')
     flags += ' -fprofile-use=' + str(profile) + ' -Werror=profile-instr-out-of-date'
 env = dict(os.environ, CC=clang, OBJC=clang, CFLAGS=flags, OBJCFLAGS=flags,
-           LDFLAGS=flags, PKG_CONFIG='pkgconf -static',
+           CPPFLAGS='-I/usr/local/include', LDFLAGS=flags + ' -L/usr/local/lib', PKG_CONFIG='pkgconf -static',
            PKG_CONFIG_LIBDIR='/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig',
            LC_ALL='en_US.UTF-8')
 for key in ('LLVM_PROFILE_FILE', 'CPATH', 'LIBRARY_PATH', 'DYLD_LIBRARY_PATH', 'PKG_CONFIG_PATH'):
     env.pop(key, None)
 args = ['--prefix=' + str(stage / 'install'), '--disable-build-details', '--disable-gc-mark-trace',
-        '--without-all', '--with-compress-install', '--with-file-notification=kqueue',
+        '--without-all', '--without-native-compilation', '--with-compress-install', '--with-file-notification=kqueue',
         '--with-libgmp', '--with-gnutls', '--with-modules', '--with-native-image-api', '--with-ns',
-        '--with-small-ja-dic', '--with-threads', '--with-toolkit-scroll-bars', '--with-tree-sitter',
-        '--with-xml2', '--with-zlib']
+        '--without-small-ja-dic', '--with-threads', '--with-toolkit-scroll-bars', '--with-tree-sitter',
+        '--with-xml2', '--with-zlib', '--with-sqlite3']
 with (stage / 'build.log').open('w') as log:
     for command in [['./autogen.sh'], ['./configure', *args], ['make', '-j' + os.environ.get('JOBS', '3')], ['make', 'install']]:
         print(shlex.join(command), flush=True)
@@ -67,7 +67,7 @@ wrapper = bundle / 'bin/emacs'
 wrapper.write_text('#!/bin/sh\nexport LC_ALL=en_US.UTF-8\nexec "$(dirname "$0")/../Emacs.app/Contents/MacOS/Emacs" "$@"\n')
 wrapper.chmod(0o755)
 info = dict(platform='macOS', architecture=os.uname().machine, source=spec, pgo=a.mode,
-            flags=flags, configure=args, compiler=subprocess.check_output([clang, '--version'], text=True),
+            flags=flags, configure=args, extra_dependencies={'sqlite': json.loads((ROOT / 'sources.json').read_text())['sqlite']}, compiler=subprocess.check_output([clang, '--version'], text=True),
             profdata=xcrun('llvm-profdata', '--version'), sdk=xcrun('--show-sdk-version'),
             dependency_recipe='RadioNoiseE/ebuild@5f2e2c6229989d986f1072c7727a586d92bb8523')
 if a.mode == 'use':

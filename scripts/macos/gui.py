@@ -57,7 +57,7 @@ else:
         p.error('--baseline is required for compare')
     bundles = {'off': a.baseline.resolve(), 'use': a.bundle.resolve()}
     info = {label: json.loads((bundle / 'BUILD-INFO.json').read_text()) for label,bundle in bundles.items()}
-    for key in ('source', 'compiler', 'sdk', 'architecture', 'dependency_recipe'):
+    for key in ('source', 'compiler', 'sdk', 'architecture', 'dependency_recipe', 'extra_dependencies'):
         if info['off'][key] != info['use'][key]:
             raise RuntimeError('Unmatched builds: ' + key)
     if info['off']['pgo'] != 'off' or info['use']['pgo'] != 'use':

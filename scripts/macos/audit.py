@@ -11,7 +11,7 @@ p.add_argument('app', type=Path)
 a = p.parse_args()
 found = {}
 root = a.app.resolve()
-static_libraries = re.compile(r'^lib(?:xml2|iconv|charset|intl|unistring|ncursesw?|tinfow?|z|gmp|nettle|hogweed|idn2|gnutls|tree-sitter)(?:[.-])')
+static_libraries = re.compile(r'^lib(?:xml2|iconv|charset|intl|unistring|ncursesw?|tinfow?|z|gmp|nettle|hogweed|idn2|gnutls|sqlite3|tree-sitter)(?:[.-])')
 for path in sorted(a.app.rglob('*')):
     if path.is_symlink() and (not path.exists() or not path.resolve().is_relative_to(root)):
         raise SystemExit(f'{path}: broken or external bundle symlink')

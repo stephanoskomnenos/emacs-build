@@ -134,8 +134,8 @@ stage = work / ('stage-' + variant)
 options = ['--prefix=/opt/emacs', '--without-all', '--without-x', '--without-native-compilation',
            '--with-modules', '--with-threads', '--with-file-notification=inotify',
            '--with-gnutls', '--with-libgmp', '--with-xml2', '--with-sqlite3',
-           '--with-tree-sitter', '--with-zlib', '--without-compress-install',
-           '--disable-build-details']
+           '--with-tree-sitter', '--with-zlib', '--with-compress-install',
+           '--disable-build-details', '--disable-gc-mark-trace', '--without-small-ja-dic']
 if not (work / ('emacs-' + variant + '.done')).exists():
     if not (src / 'configure').exists():
         run(['sh', 'autogen.sh', 'autoconf'], src, log)
