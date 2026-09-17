@@ -37,7 +37,6 @@ python3 scripts/update-master.py
 python3 scripts/fetch.py
 python3 scripts/fetch.py --tests
 python3 scripts/fetch.py --benchmarks
-python3 scripts/fetch.py --toolchain
 bash scripts/container.sh image
 PGO=generate bash scripts/container.sh build
 bash scripts/container.sh train

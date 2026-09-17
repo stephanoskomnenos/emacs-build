@@ -32,17 +32,20 @@ jobs:
         run: |
           python3 scripts/fetch.py
           python3 scripts/fetch.py --tests
-          python3 scripts/fetch.py --toolchain
           python3 scripts/fetch.py --benchmarks
+      - name: Build Clang image
+        id: toolchain
+        run: |
+          bash scripts/container.sh image
+          identity=$(podman run --rm localhost/emacs-builder:clang23 dpkg-query -W | sha256sum | cut -d ' ' -f 1)
+          echo "identity=$identity" >> "$GITHUB_OUTPUT"
       - uses: actions/cache/restore@v4
         id: dependencies
         with:
           path: build/dependencies
-          key: linux-deps-v1-${{ runner.arch }}-${{ steps.sources.outputs.dependencies }}-${{ hashFiles('scripts/build.py', 'containers/Containerfile', 'containers/LLVM.Containerfile', 'toolchain-sources.json') }}
+          key: linux-deps-v2-${{ runner.arch }}-${{ steps.toolchain.outputs.identity }}-${{ steps.sources.outputs.dependencies }}-${{ hashFiles('scripts/build.py', 'containers/Containerfile') }}
       - name: Build instrumented Emacs with Clang and ThinLTO
-        run: |
-          bash scripts/container.sh image
-          PGO=generate bash scripts/container.sh build
+        run: PGO=generate bash scripts/container.sh build
       - uses: actions/cache/save@v4
         if: steps.dependencies.outputs.cache-hit != 'true'
         with:

@@ -78,7 +78,7 @@ else:
     for metric in samples['off'][0]:
         medians = {label:statistics.median(s[metric] for s in values) for label,values in samples.items()}
         summary[metric] = dict(medians, improvement_percent=100*(1-medians['use']/medians['off']))
-    report = dict(units='milliseconds', method='alternating warm-cache NS sessions; -Q fixed held-out fixtures; no personal configuration',
+    report = dict(units='milliseconds', method='alternating warm-cache NS sessions; -Q fixed held-out fixtures; ready after first redisplay, before smoke checks; no personal configuration',
                   builds=info, samples=samples, summary=summary)
     (BUILD / 'comparison.json').write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps(summary,indent=2))

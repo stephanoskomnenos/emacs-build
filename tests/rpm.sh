@@ -21,9 +21,8 @@ import hashlib, json, pathlib
 bundle = pathlib.Path('/opt/emacs-nox')
 for name, digest in json.loads((bundle / 'acceptance/bundle-hashes.json').read_text()).items():
     assert hashlib.sha256((bundle / name).read_bytes()).hexdigest() == digest, name
-print('\nRPM payload matches the tested portable installation')
+print('\nRPM payload matches the tested installation')
 PY
-python3 tests/run.py /opt/emacs-nox --fixtures build/test-fixtures
 rpm -V emacs-nox
 rpm -e emacs-nox
 test ! -e /opt/emacs-nox

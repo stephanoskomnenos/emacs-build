@@ -5,7 +5,6 @@ import json
 import os
 import pathlib
 import shutil
-import shlex
 import subprocess
 import sys
 
@@ -13,22 +12,15 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 manifest = json.loads((ROOT / 'sources.json').read_text())
 jobs = os.environ.get('JOBS', str(len(os.sched_getaffinity(0))))
 lto = os.environ.get('LTO', '1') == '1'
-llvm = os.environ.get('TOOLCHAIN', 'gcc') == 'llvm'
 profile_mode = os.environ.get('PGO', 'off')
-if profile_mode not in ('off', 'generate', 'use') or (profile_mode != 'off' and not llvm):
-    raise RuntimeError('PGO must be off, or generate/use with TOOLCHAIN=llvm')
-cc = 'clang-23 --gcc-toolchain=/usr/local' if llvm else 'gcc'
-cxx = 'clang++-23 --gcc-toolchain=/usr/local' if llvm else 'g++'
-ar = 'llvm-ar-23' if llvm else 'gcc-ar'
-ranlib = 'llvm-ranlib-23' if llvm else 'gcc-ranlib'
-compiler = subprocess.check_output(shlex.split(cc) + ['--version'], text=True).splitlines()[0]
-gcc_version = subprocess.check_output(['gcc', '-dumpfullversion'], text=True).strip()
-expected_compiler = json.loads((ROOT / 'toolchain-sources.json').read_text())['gcc']['version']
-if gcc_version != expected_compiler:
-    raise RuntimeError(f'Expected GCC {expected_compiler}, found {gcc_version}')
-build_settings = (str(lto) + compiler + pathlib.Path(__file__).read_text()
-                  + (ROOT / 'containers/Containerfile').read_text()
-                  + (ROOT / 'containers/LLVM.Containerfile').read_text())
+if profile_mode not in ('off', 'generate', 'use'):
+    raise RuntimeError('PGO must be off, generate or use')
+cc, cxx = 'clang-23', 'clang++-23'
+ar, ranlib = 'llvm-ar-23', 'llvm-ranlib-23'
+compiler = subprocess.check_output([cc, '--version'], text=True).splitlines()[0]
+packages = subprocess.check_output(['dpkg-query', '-W'], text=True)
+build_settings = (str(lto) + compiler + packages + pathlib.Path(__file__).read_text()
+                  + (ROOT / 'containers/Containerfile').read_text())
 identity = hashlib.sha256((json.dumps(manifest, sort_keys=True) + build_settings).encode()).hexdigest()[:12]
 dependency_manifest = {name: spec for name, spec in manifest.items() if name != 'emacs'}
 dependency_id = hashlib.sha256((json.dumps(dependency_manifest, sort_keys=True) + build_settings).encode()).hexdigest()[:12]
@@ -39,8 +31,8 @@ logs = work / 'logs'
 logs.mkdir(parents=True, exist_ok=True)
 prefix.mkdir(parents=True, exist_ok=True)
 env = dict(os.environ)
-lto_flags = (' -flto=thin' if llvm else ' -flto=' + jobs) if lto else ''
-linker_flags = ' --ld-path=/usr/bin/ld.lld-23' if llvm else ''
+lto_flags = ' -flto=thin' if lto else ''
+linker_flags = ' --ld-path=/usr/bin/ld.lld-23'
 env.update(CC=cc, CXX=cxx, AR=ar, RANLIB=ranlib,
            CFLAGS='-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic' + lto_flags,
            CXXFLAGS='-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic' + lto_flags,
@@ -116,7 +108,7 @@ for name in ['ncurses', 'zlib', 'gmp', 'nettle', 'libunistring', 'libidn2', 'gnu
     else:
         options = ['--static'] if name == 'zlib' else recipes[name]
         extra = None
-        # GMP 6.3's configure probes predate GCC 15's default C23 semantics.
+        # GMP 6.3's configure probes require pre-C23 semantics.
         if name == 'gmp':
             extra = {'CFLAGS': env['CFLAGS'] + ' -std=gnu17'}
         run(['./configure', '--prefix=' + str(prefix), '--libdir=' + str(prefix / 'lib'), *options], src, log, extra)
@@ -126,13 +118,13 @@ for name in ['ncurses', 'zlib', 'gmp', 'nettle', 'libunistring', 'libidn2', 'gnu
     stamp.touch()
 
 # GnuTLS uses compiler atomic helpers. Ship their code, not a libatomic.so dependency.
-atomic = pathlib.Path(subprocess.check_output(['gcc', '-print-file-name=libatomic.a'], text=True).strip())
+atomic = pathlib.Path(subprocess.check_output([cc, '-print-file-name=libatomic.a'], text=True).strip())
 if not atomic.is_file():
     raise RuntimeError('Compiler static atomic runtime missing')
 shutil.copy2(atomic, prefix / 'lib/libatomic.a')
 
 src = source('emacs')
-variant = ('llvm-' + profile_mode) if llvm else 'gcc'
+variant = 'llvm-' + profile_mode
 profile = pathlib.Path(os.environ.get('PROFILE_FILE', str(work / 'merged.profdata'))).resolve()
 if profile_mode == 'use' and not profile.is_file():
     raise RuntimeError('Missing merged profile: ' + str(profile))
@@ -153,23 +145,17 @@ if not (work / ('emacs-' + variant + '.done')).exists():
     if not (src / 'configure').exists():
         run(['sh', 'autogen.sh', 'autoconf'], src, log)
     run([str(src / 'configure'), *options], obj, log,
-        {'LDFLAGS': env['LDFLAGS'] + ' -Wl,--exclude-libs,ALL' + (' -Wl,--save-temps' if llvm and lto else ' -flto-report' if lto else '') + pgo_flags, 'LIBS': '-lm',
+        {'LDFLAGS': env['LDFLAGS'] + ' -Wl,--exclude-libs,ALL' + (' -Wl,--save-temps' if lto else '') + pgo_flags, 'LIBS': '-lm',
          'emacs_cv_tputs_lib': '-lncursesw',
          'CFLAGS': env['CFLAGS'].replace('-fPIC', '-fPIE') + pgo_flags})
     run(['make', '-j' + jobs], obj, log)
     run(['make', 'install', 'DESTDIR=' + str(stage)], obj, log)
     (work / ('emacs-' + variant + '.done')).touch()
-# Slim GCC LTO objects require the linker plugin; retain evidence from the build.
-if lto and llvm:
+if lto:
     if not list((obj / 'src').glob('*.index.bc')) or not list((obj / 'src').glob('*.3.import.bc')):
         raise RuntimeError('Missing lld ThinLTO link output')
     print('PASS: lld ThinLTO link output', flush=True)
-elif lto:
-    sections = subprocess.check_output(['readelf', '-SW', str(obj / 'src/emacs.o')], text=True)
-    if '.gnu.lto_' not in sections or '[WPA] # of input files:' not in log.read_text(errors='replace'):
-        raise RuntimeError('Missing GCC LTO object or whole-program analysis evidence')
-    print('PASS: GCC LTO object sections and linker WPA report', flush=True)
-if llvm and profile_mode == 'use' and lto:
+if profile_mode == 'use' and lto:
     ir = subprocess.check_output(['llvm-dis-23', str(obj / 'src/bytecode.o.0.preopt.bc'), '-o', '-'], text=True)
     if 'function_entry_count' not in ir or 'ProfileSummary' not in ir:
         raise RuntimeError('Missing LLVM profile metadata in bytecode interpreter')
@@ -200,7 +186,7 @@ info = {'emacs': manifest['emacs']['version'], 'sources': manifest,
         'configure': options, 'lto': lto, 'pgo': profile_mode,
         'profile_sha256': hashlib.sha256(profile.read_bytes()).hexdigest() if profile_mode == 'use' else None, 'build_id': identity,
         'cpu_baseline': 'x86-64-v3', 'cflags': env['CFLAGS'], 'ldflags': env['LDFLAGS'],
-        'packages': subprocess.check_output(['dpkg-query', '-W'], text=True)}
+        'packages': packages}
 (bundle / 'BUILD-INFO.json').write_text(json.dumps(info, indent=2) + '\n')
 (ROOT / 'build/current-bundle').write_text(str(bundle.relative_to(ROOT)) + '\n')
 print('Bundle staged at ' + str(bundle), flush=True)

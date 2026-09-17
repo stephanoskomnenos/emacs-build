@@ -31,7 +31,7 @@ def run(cmd, **kwargs):
 
 if a.prepare:
     fixtures.mkdir(parents=True, exist_ok=True)
-    run(['gcc', '-O2', '-fPIC', '-shared', '-I' + str(bundle / 'include'),
+    run(['clang-23', '-O2', '-fPIC', '-shared', '-I' + str(bundle / 'include'),
          ROOT / 'tests/module.c', '-o', fixtures / 'test-module.so'])
     spec = json.loads((ROOT / 'test-sources.json').read_text())['tree-sitter-json']
     archive = ROOT / 'cache/sources' / ('tree-sitter-json-' + spec['version'] + '.tar')
@@ -39,7 +39,7 @@ if a.prepare:
     grammar = fixtures / 'grammar-source'
     grammar.mkdir(exist_ok=True)
     run(['tar', '-xf', archive, '--strip-components=1', '-C', grammar])
-    run(['gcc', '-O2', '-fPIC', '-shared', '-I' + str(grammar / 'src'),
+    run(['clang-23', '-O2', '-fPIC', '-shared', '-I' + str(grammar / 'src'),
          grammar / 'src/parser.c', '-o', fixtures / 'libtree-sitter-json.so'])
     specs = json.loads((ROOT / 'test-sources.json').read_text())
     for name in ('vterm', 'libvterm'):
@@ -59,7 +59,7 @@ if a.prepare:
                           ('vterm_screen_enable_reflow', 'VTermScreenEnableReflowNotExists')]:
         if symbol not in header:
             defs.append('-D' + macro)
-    run(['gcc', '-std=gnu99', '-O2', '-fPIC', '-fvisibility=hidden', '-shared',
+    run(['clang-23', '-std=gnu99', '-O2', '-fPIC', '-fvisibility=hidden', '-shared',
          '-I' + str(ls / 'include'), '-I' + str(ls / 'src'), *defs,
          vs / 'vterm-module.c', vs / 'utf8.c', vs / 'elisp.c',
          *sorted((ls / 'src').glob('*.c')), '-o', vs / 'vterm-module.so'])

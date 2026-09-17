@@ -35,12 +35,12 @@ measurements do not include the rendering latency of a real terminal emulator.
 Instrumented binaries are rejected by the validation runner.
 
 ```sh
-bash scripts/container.sh llvm-image
+bash scripts/container.sh image
 python3 scripts/fetch.py --benchmarks
-TOOLCHAIN=llvm bash scripts/container.sh build
-TOOLCHAIN=llvm PGO=generate bash scripts/container.sh build
+bash scripts/container.sh build
+PGO=generate bash scripts/container.sh build
 bash scripts/container.sh train
-TOOLCHAIN=llvm PGO=use bash scripts/container.sh build
+PGO=use bash scripts/container.sh build
 ```
 
 ## Initial profile result (2026-09-17, before diverse training)

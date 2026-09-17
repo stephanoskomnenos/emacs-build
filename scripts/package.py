@@ -43,15 +43,10 @@ for dep in info['sources']:
         if f.is_file() and f.name.upper().startswith(('COPYING', 'LICENSE', 'COPYRIGHT', 'NOTICE')):
             shutil.copy2(f, dest / f.name)
 shutil.copy2(ROOT / 'README.md', release / 'README.md')
-gcc = json.loads((ROOT / 'toolchain-sources.json').read_text())['gcc']
-gcc_archive = ROOT / 'cache/sources' / ('gcc-' + gcc['version'] + '.tar')
-if hashlib.sha256(gcc_archive.read_bytes()).hexdigest() != gcc['sha256']:
-    raise SystemExit('GCC source checksum mismatch')
+runtime_source = pathlib.Path('/opt/gcc-runtime-source')
 (licenses / 'gcc-runtime').mkdir()
-with tarfile.open(gcc_archive) as source:
-    for item in ('COPYING3', 'COPYING.RUNTIME'):
-        member = source.extractfile('gcc-' + gcc['version'] + '/' + item)
-        (licenses / 'gcc-runtime' / item).write_bytes(member.read())
+for item in ('copyright', 'GPL-3'):
+    shutil.copy2(runtime_source / item, licenses / 'gcc-runtime' / item)
 shutil.copytree(ROOT / 'build/acceptance', release / 'acceptance',
                 ignore=shutil.ignore_patterns('rpm.log'))
 audit = subprocess.check_output(['python3', str(ROOT / 'scripts/audit.py'), str(release)], text=True)
@@ -75,11 +70,12 @@ for item in ('scripts', 'containers', 'tests', '.github', 'packaging', 'benchmar
     if (ROOT / item).exists():
         shutil.copytree(ROOT / item, source_release / item,
                         ignore=shutil.ignore_patterns('__pycache__'))
-for item in ('sources.json', 'test-sources.json', 'toolchain-sources.json', 'requirements.txt', 'README.md', '.containerignore'):
+for item in ('sources.json', 'test-sources.json', 'requirements.txt', 'README.md', '.containerignore'):
     shutil.copy2(ROOT / item, source_release / item)
+shutil.copytree(runtime_source, source_release / 'gcc-runtime-source')
 inputs = source_release / 'cache/sources'
 inputs.mkdir(parents=True)
-for lock in ('sources.json', 'test-sources.json', 'toolchain-sources.json', 'benchmarks/sources.json'):
+for lock in ('sources.json', 'test-sources.json', 'benchmarks/sources.json'):
     for dep, spec in json.loads((ROOT / lock).read_text()).items():
         source = ROOT / 'cache/sources' / (dep + '-' + spec['version'] + '.tar')
         if hashlib.sha256(source.read_bytes()).hexdigest() != spec['sha256']:
