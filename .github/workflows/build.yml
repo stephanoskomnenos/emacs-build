@@ -4,9 +4,6 @@ on:
   schedule:
     # Monday 01:23 Asia/Shanghai (Sunday 17:23 UTC).
     - cron: '23 17 * * 0'
-  push:
-    paths: ['scripts/**', 'benchmarks/**', 'containers/**', 'tests/**', 'packaging/**', '*sources.json', '.github/workflows/build.yml']
-  pull_request:
 permissions:
   contents: read
 jobs:

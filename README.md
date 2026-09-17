@@ -28,7 +28,7 @@ bash scripts/container.sh test-rpm
 每次用通用终端操作、Magit 和 ELPA benchmark 重新训练，不使用个人配置。
 Clang 来自 apt.llvm.org 的 23 分支快照；训练方法与对照结果见 [benchmarks](benchmarks/README.md)。
 默认 `JOBS=6`、`LTO=1`；重新打包可用 `package --force`。
-GitHub Actions 每周一北京时间 01:23 构建 master，也支持手动触发。
+GitHub Actions 仅每周一北京时间 01:23 定时构建 master，或手动触发；push 不触发构建。
 每次锁定 commit 和源码校验值；RPM、二进制包、源码包分别下载，安装只需 RPM。
 
 ## 安装

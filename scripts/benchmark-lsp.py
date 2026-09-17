@@ -45,8 +45,9 @@ for index in range(a.runs + 1):
         deadline = time.monotonic()
         result = start['state']['done']
         while not result:
-            if time.monotonic() - deadline < 0:
-                time.sleep(deadline-time.monotonic())
+            delay = deadline - time.monotonic()
+            if delay > 0:
+                time.sleep(delay)
             measurement = session.action(b'z')
             now = time.monotonic()
             latencies.append(measurement['seconds'])

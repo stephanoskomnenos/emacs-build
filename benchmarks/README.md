@@ -127,3 +127,80 @@ for a larger live heap or explain the low-threshold regression's root cause.
 The subsequent [configured LSP load experiment](lsp/README.md) uses the complete
 config copy and actual `lsp-mode` diagnostics handling under sustained traffic.
 It records input tails and per-collection times, not only total throughput.
+
+## O2/O3 comparison (2026-09-17)
+
+[Raw samples and metadata](results/o3-comparison-20260917.json). Same master
+`82f763756c71`, Clang 23, ThinLTO, x86-64-v3 and existing generic profile
+`7027ad479cce`. Dependencies' initial compilation is O2 or O3; ThinLTO can
+further optimize library IR at final link. Prebuilt glibc/libatomic are unchanged.
+
+A/B/C/C/B/A order on CPU 0, WSL2; 12 measured startup/interaction sessions per
+variant, six per LSP mode, one excluded warmup per group. Full user config is
+used only for startup/files and LSP validation. Filesystem caches are warm.
+
+| Median | Emacs O2 / libs O2 | Emacs O3 / libs O2 | Emacs O3 / libs O3 |
+| --- | ---: | ---: | ---: |
+| Config ready, ms | 457.75 | 457.34 | 454.97 |
+| Open Elisp, ms | 119.42 | 121.25 | 118.72 |
+| Open Org, ms | 235.71 | 239.22 | 234.36 |
+| Regexp, ms | 72.37 | 73.19 | 75.66 |
+| JSON, ms | 92.92 | 95.73 | 95.78 |
+| Allocation/GC, ms | 356.69 | 361.35 | 363.41 |
+| Magit workflow, ms | 278.69 | 284.76 | 280.56 |
+| Saturated LSP completion, s | 4.752 | 4.754 | 4.759 |
+| Saturated input P99, ms | 38.61 | 39.10 | 39.90 |
+| Executable, MiB | 9.39 | 9.45 | 9.80 |
+
+Keep O2 as default. The 0.4/2.8 ms startup differences do not establish a
+reliable improvement: the two O2 group medians differ by 7.2 ms and LSP times
+also drift during the experiment. All-O3 regexp is about 4.5% slower overall
+and slower in both groups; small differences elsewhere should not be treated
+as proven regressions. Functional acceptance passed for all three builds,
+including relocation, PTY, external module/grammar, vterm and daemon/client.
+
+This tests reusing the current profile, not separately retraining O3. LLVM
+reports three additional mismatched Emacs functions under O3: `Fclear_string`
+and `Fgnutls_ciphers` have zero counts, `compare_string_intervals` has nonzero
+counts that are discarded. Existing helper/gnulib mismatches also remain.
+The bytecode interpreter's profile metadata check passes in all variants.
+Warnings are retained with the results; this does not rule out a different
+result from an O3-specific profile or a different host.
+
+The temporary O3 build switches were removed after the experiment. Production
+builds remain O2; the reports retain the exact tested compiler options.
+
+## O3 balanced repeat (2026-09-17)
+
+[Second experiment](results/o3-repeat-20260917.json): six blocks in ABC, BCA,
+CAB, CBA, ACB, BAC order, with two startup/interaction measurements and one
+measurement per LSP mode per variant/block, plus excluded warmups. Same frozen
+workloads, compiler, source and profile. The user updated init/config.org after
+the first experiment; this repeat uses a fixed new copy, so compare variants
+within this experiment, not absolute file-opening times across experiments.
+
+| Median | O2 / O2 | O3 / O2 | O3 / O3 |
+| --- | ---: | ---: | ---: |
+| Config ready, ms | 454.35 | 456.51 | 452.37 |
+| Open Elisp, ms | 71.00 | 71.40 | 70.45 |
+| Open Org, ms | 202.45 | 202.59 | 199.48 |
+| Regexp, ms | 71.95 | 73.25 | 75.37 |
+| JSON, ms | 94.25 | 96.25 | 93.23 |
+| Allocation/GC, ms | 356.55 | 367.50 | 358.71 |
+| Magit workflow, ms | 281.21 | 286.91 | 281.18 |
+| Saturated LSP completion, s | 4.673 | 4.703 | 4.716 |
+| Saturated input P99, ms | 39.08 | 40.25 | 38.77 |
+
+Keep O2. All-O3 startup is only 2.0 ms (0.44%) lower, with paired block
+differences ranging from 10.8 ms faster to 6.7 ms slower. Emacs-only O3 startup
+is 2.2 ms slower overall. All-O3 regexp is 4.8% slower overall and slower in
+all six paired blocks, reproducing the first experiment's direction. Other
+small differences do not establish general gains or regressions.
+
+The initial attempt exposed a negative-sleep race in the LSP driver: two clock
+reads could cross the deadline. Compute the delay once, discard that attempt,
+freeze the updated harness and restart all variants. All restarted functional
+assertions pass, and original config hashes remain unchanged during the run.
+O2 and all-O3 executable hashes match the first experiment; Emacs-only O3 was
+rebuilt under a different build prefix with the same effective options. The
+same profile-compatibility limitations described above still apply.
