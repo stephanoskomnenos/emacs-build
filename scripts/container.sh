@@ -18,7 +18,7 @@ case "${1:-build}" in
     ;;
   build)
     podman run --rm --userns=keep-id --network=none \
-      -e JOBS="${JOBS:-6}" -e LTO="${LTO:-1}" \
+      -e JOBS="${JOBS:-$(nproc)}" -e LTO="${LTO:-1}" \
       -e TOOLCHAIN="${TOOLCHAIN:-llvm}" -e PGO="${PGO:-off}" \
       -e PROFILE_FILE="${PROFILE_FILE:-/work/build/merged.profdata}" \
       -v "$PWD:/work:Z" -w /work "$image" python3 scripts/build.py

@@ -17,6 +17,7 @@ jobs:
       - name: Verify runner supports x86-64-v3
         run: |
           /lib64/ld-linux-x86-64.so.2 --help | grep -F 'x86-64-v3 (supported, searched)'
+          echo "JOBS=$(nproc)" >> "$GITHUB_ENV"
       - name: Resolve and lock Emacs master
         id: sources
         run: |
@@ -41,7 +42,7 @@ jobs:
       - name: Build instrumented Emacs with Clang and ThinLTO
         run: |
           bash scripts/container.sh image
-          JOBS=2 PGO=generate bash scripts/container.sh build
+          PGO=generate bash scripts/container.sh build
       - uses: actions/cache/save@v4
         if: steps.dependencies.outputs.cache-hit != 'true'
         with:
@@ -51,7 +52,7 @@ jobs:
         timeout-minutes: 25
         run: bash scripts/container.sh train
       - name: Build with the fresh PGO profile
-        run: JOBS=2 PGO=use bash scripts/container.sh build
+        run: PGO=use bash scripts/container.sh build
       - name: Verify in builder and clean Debian 13
         run: bash scripts/container.sh test
       - name: Package binary and sources

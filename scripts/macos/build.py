@@ -52,7 +52,7 @@ args = ['--prefix=' + str(stage / 'install'), '--disable-build-details', '--disa
         '--with-threads', '--with-toolkit-scroll-bars', '--with-tree-sitter',
         '--with-xml2', '--with-zlib', '--with-sqlite3']
 with (stage / 'build.log').open('w') as log:
-    for command in [['./autogen.sh'], ['./configure', *args], ['make', '-j' + os.environ.get('JOBS', '3')], ['make', 'install']]:
+    for command in [['./autogen.sh'], ['./configure', *args], ['make', '-j' + os.environ.get('JOBS', str(os.cpu_count() or 1))], ['make', 'install']]:
         print(shlex.join(command), flush=True)
         result = subprocess.run(command, cwd=source, env=env, stdout=log, stderr=subprocess.STDOUT)
         if result.returncode:

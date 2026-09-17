@@ -17,12 +17,12 @@ jobs:
     timeout-minutes: 180
     env:
       EMACS_BUILD_ROOT: /tmp/emacs-build
-      JOBS: '3'
     steps:
       - uses: actions/checkout@v4
       - name: Lock master and fetch training fixtures
         id: sources
         run: |
+          echo "JOBS=$(sysctl -n hw.logicalcpu)" >> "$GITHUB_ENV"
           python3 scripts/update-master.py
           python3 scripts/fetch.py --benchmarks
           python3 -c 'import json; print("sqlite=" + json.load(open("sources.json"))["sqlite"]["sha256"])' >> "$GITHUB_OUTPUT"

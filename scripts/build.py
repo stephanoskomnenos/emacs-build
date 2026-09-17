@@ -11,7 +11,7 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 manifest = json.loads((ROOT / 'sources.json').read_text())
-jobs = os.environ.get('JOBS', '6')
+jobs = os.environ.get('JOBS', str(len(os.sched_getaffinity(0))))
 lto = os.environ.get('LTO', '1') == '1'
 llvm = os.environ.get('TOOLCHAIN', 'gcc') == 'llvm'
 profile_mode = os.environ.get('PGO', 'off')
