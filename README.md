@@ -20,6 +20,7 @@
 sudo dnf install --allowerasing ./emacs-nox-*.x86_64.rpm
 ```
 
+Linux 另启用 D-Bus 客户端支持；没有运行中的总线也可正常编辑。
 Linux 的 terminfo、CA 证书，以及两平台的外置模块和 tree-sitter grammar，由系统或用户提供。
 源码包和构建报告单独下载，安装无需下载它们。
 

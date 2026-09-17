@@ -2,7 +2,7 @@ FROM docker.io/library/gcc:16.2.0-trixie@sha256:b98be39c2378222af9dcab6a5b1707d7
 
 # GCC is already built in the base image. Only install build utilities here.
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    make autoconf automake libtool pkg-config texinfo gettext \
+    make autoconf automake libtool pkg-config texinfo gettext meson ninja-build \
     python3 curl ca-certificates xz-utils zstd patch file \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /work

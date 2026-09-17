@@ -85,7 +85,7 @@ recipes = {
     'sqlite': ['--disable-shared', '--enable-static'],
 }
 
-for name in ['ncurses', 'zlib', 'gmp', 'nettle', 'libunistring', 'libidn2', 'gnutls', 'libxml2', 'sqlite', 'tree-sitter']:
+for name in ['ncurses', 'zlib', 'gmp', 'nettle', 'libunistring', 'libidn2', 'gnutls', 'libxml2', 'sqlite', 'tree-sitter', 'dbus']:
     src = source(name)
     log = logs / (name + '.log')
     stamp = work / (name + '.done')
@@ -93,7 +93,16 @@ for name in ['ncurses', 'zlib', 'gmp', 'nettle', 'libunistring', 'libidn2', 'gnu
         print(name + ': cached', flush=True)
         continue
     print(name + ': building', flush=True)
-    if name == 'tree-sitter':
+    if name == 'dbus':
+        obj = src / '_build'
+        run(['meson', 'setup', str(obj), '--prefix=' + str(prefix), '--libdir=lib',
+             '--sysconfdir=/etc', '--localstatedir=/var', '--buildtype=plain',
+             '--default-library=static', '--auto-features=disabled', '--wrap-mode=nodownload',
+             '-Dmessage_bus=false', '-Dtools=false', '-Depoll=enabled',
+             '-Druntime_dir=/run', '-Dsystem_socket=/run/dbus/system_bus_socket'], src, log)
+        run(['meson', 'compile', '-C', str(obj), '-j', jobs], src, log)
+        run(['meson', 'install', '-C', str(obj)], src, log)
+    elif name == 'tree-sitter':
         run(['make', '-j' + jobs, 'libtree-sitter.a', 'AR=' + ar, 'RANLIB=' + ranlib], src, log)
         (prefix / 'include/tree_sitter').mkdir(parents=True, exist_ok=True)
         shutil.copy2(src / 'libtree-sitter.a', prefix / 'lib')
@@ -134,7 +143,7 @@ stage = work / ('stage-' + variant)
 options = ['--prefix=/opt/emacs', '--without-all', '--without-x', '--without-native-compilation',
            '--with-modules', '--with-threads', '--with-file-notification=inotify',
            '--with-gnutls', '--with-libgmp', '--with-xml2', '--with-sqlite3',
-           '--with-tree-sitter', '--with-zlib', '--with-compress-install',
+           '--with-tree-sitter', '--with-zlib', '--with-dbus', '--with-compress-install',
            '--disable-build-details', '--disable-gc-mark-trace']
 if not (work / ('emacs-' + variant + '.done')).exists():
     if not (src / 'configure').exists():

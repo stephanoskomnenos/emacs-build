@@ -5,13 +5,14 @@
 (require 'treesit)
 (require 'xml)
 (require 'filenotify)
+(require 'dbus)
 
 (ert-deftest portable-features ()
   (should (gnutls-available-p))
   (should-not (string-match-p "NATIVE_COMP" system-configuration-features))
   (should-not (and (fboundp 'native-comp-available-p) (native-comp-available-p)))
   (dolist (feature '("GNUTLS" "GMP" "LIBXML2" "SQLITE3" "TREE_SITTER"
-                     "MODULES" "THREADS" "INOTIFY" "ZLIB"))
+                     "MODULES" "THREADS" "INOTIFY" "ZLIB" "DBUS"))
     (should (member feature (split-string system-configuration-features))))
   (should-not (display-graphic-p)))
 
