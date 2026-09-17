@@ -1,0 +1,720 @@
+{
+  "purpose": "GC settings sensitivity test only; frozen validation and training remain unchanged",
+  "runtime_gc_cons_threshold": 16000000,
+  "runtime_gc_cons_percentage": 0.1,
+  "startup_gc_cons_threshold": 500000000,
+  "startup_gc_cons_percentage": 0.6,
+  "config_sha256": {
+    "init.el": "c8f8edbdad072af0c8321586fc3e4e02dcd7faf2eef0dc26a0a96536311cd5fd",
+    "early-init.el": "1dee280bfce47295f64015ee6c23ce99f8e302449b61f43ef5345d87d40f9045"
+  },
+  "original_runner_sha256": "fb4c0baf86460ef95068c4fea63a10cfa63383be3dfffeb5b5b7465086bddf8c",
+  "original_observer_sha256": "299fbc5820609069d5ce6b789bf9a91a81a6716c5dcc7da2824228fc3cf2a95d",
+  "runner": "#!/usr/bin/env python3\n\"\"\"Held-out real-PTY regression scenarios; never collects PGO profiles.\"\"\"\nimport argparse\nimport hashlib\nimport json\nimport os\nfrom pathlib import Path\nimport random\nimport statistics\nimport subprocess\nimport shutil\nfrom pty_driver import Session\n\nROOT=Path('/work')\np=argparse.ArgumentParser()\np.add_argument('bundle',type=Path)\np.add_argument('--label',required=True)\np.add_argument('--runs',type=int,default=7)\np.add_argument('--cpu',type=int,default=0)\np.add_argument('--workspace',type=Path,default=ROOT/'build/interactive-validation')\na=p.parse_args()\nif a.runs<1:p.error('--runs must be positive')\na.bundle=a.bundle.resolve();a.workspace=a.workspace.resolve()\ninfo=json.loads((a.bundle/'BUILD-INFO.json').read_text())\nif info.get('pgo')=='generate':raise SystemExit('Validation must never run an instrumented binary')\nos.sched_setaffinity(0,{a.cpu})\nspec_path=ROOT/'benchmarks/interactive/validation.json'\nspec=json.loads(spec_path.read_text())\na.workspace.mkdir(parents=True,exist_ok=True)\nvalues=list(range(spec['rows']));random.Random(spec['seed']).shuffle(values)\ntext_path=a.workspace/'held-out.txt';json_path=a.workspace/'held-out.json'\ntext_path.write_text(''.join(f'item-{i} description=\u9a8c\u8bc1 value={v}\\n' for i,v in enumerate(values)))\njson_path.write_text(json.dumps({'items':[{'value':v,'label':'\u6d4b\u8bd5-'+str(v)} for v in values]},ensure_ascii=False))\nenv=dict(os.environ,GIT_AUTHOR_DATE='2025-01-02T03:04:05Z',GIT_COMMITTER_DATE='2025-01-02T03:04:05Z',GIT_CEILING_DIRECTORIES=str(ROOT),GIT_CONFIG_NOSYSTEM='1',GIT_CONFIG_GLOBAL='/dev/null',WORKLOAD_PACKAGES=str(ROOT/'build/workload-packages/paths.json'),HOME=str(a.workspace/'home'),WORKLOAD_SPEC=str(spec_path),WORKLOAD_TEXT=str(text_path),WORKLOAD_JSON=str(json_path),WORKLOAD_PRODUCER=str(ROOT/'benchmarks/interactive/producer.py'))\nPath(env['HOME']).mkdir(exist_ok=True)\nfor key in ('LLVM_PROFILE_FILE','EMACSLOADPATH','EMACSDATA','EMACSDOC','EMACSPATH','LD_LIBRARY_PATH'):\n    env.pop(key,None)\nruns=[]\nfor index in range(a.runs+1):\n    repository=a.workspace/f'{a.label}-{index}-repo'\n    if repository.exists():shutil.rmtree(repository)\n    repository.mkdir()\n    def git(*args):\n        return subprocess.check_output(['git','-C',str(repository),*args],env=env,stderr=subprocess.STDOUT,text=True)\n    git('init','-q','-b','main');git('config','user.name','Workload Fixture');git('config','user.email','fixture@example.invalid')\n    git('config','commit.gpgsign','false')\n    for n in range(spec['git_files']):\n        (repository/f'module-{n}.el').write_text(''.join(f'(defvar fixture-{n}-{i} {i})\\n' for i in range(spec['git_lines'])))\n    git('add','.');git('commit','-qm','Initial fixture')\n    for n in range(spec['git_commits']):\n        path=repository/f'module-{n}.el';path.write_text(path.read_text()+f'; history {n}\\n')\n        git('add','.');git('commit','-qm',f'Fixture revision {n}')\n    for n in range(spec['git_files']):\n        path=repository/f'module-{n}.el';path.write_text(path.read_text().replace(' 12)',' 92831)')+f'; working change {n}\\n')\n    session=Session(a.bundle/'bin/emacs',a.workspace/f'{a.label}-{index}',ROOT/'build/gc-settings/observer.el',env)\n    result={}\n    try:\n        def action(name,keys,check):\n            measurement=session.action(keys)\n            if not check(measurement['state']):raise RuntimeError(f'{name}: invalid result {measurement}')\n            result[name]={'seconds':measurement['seconds'],'state':{k:v for k,v in measurement['state'].items() if k!='text'},'text_sha256':hashlib.sha256(measurement['state']['text'].encode()).hexdigest()}\n            return measurement['state']\n        action('acknowledgement-only',b'',lambda s:True)\n        action('open-file',b'\\x18\\x06'+str(text_path).encode()+b'\\r',lambda s:s['buffer']=='held-out.txt' and s['size']==len(text_path.read_text()))\n        action('new-buffer',b'\\x18bpgo-edit\\r\\x1bxtext-mode\\r',lambda s:s['mode']=='text-mode')\n        typed=spec['typing_text']*spec['typing_repeats']\n        action('typing-burst',typed.encode(),lambda s:s['text']==typed)\n        action('delete',b'\\x7f',lambda s:s['text']==typed[:-1])\n        action('undo',b'\\x1f',lambda s:s['text']==typed)\n        action('isearch',b'\\x1b<\\x13editing\\r',lambda s:s['point']==typed.index('editing')+len('editing')+1)\n        action('minibuffer-completion',b'\\x1b<\\x1bxforward-cha\\t\\r',lambda s:s['point']==2)\n        action('regexp',b'\\x1b[17~',lambda s:s['value']==sum(values)*spec['regexp_repeats'])\n        action('json',b'\\x1b[18~',lambda s:s['value']==sum(values)*spec['json_repeats'])\n        action('process-json',b'\\x1b[19~',lambda s:s['frames']==spec['process_frames'] and s['value']==spec['process_frames']*(spec['process_frames']-1)//2)\n        action('allocation-gc',b'\\x1b[20~',lambda s:s['value']==spec['gc_repeats']*spec['gc_items'])\n        action('magit-status',b'\\x15\\x1bxmagit-status\\r'+str(repository).encode()+b'\\r',lambda s:s['mode']=='magit-status-mode' and s['buffer']=='magit: '+repository.name and 'Unstaged changes' in s['text'])\n        action('magit-expand',b'\\x1bxmagit-jump-to-unstaged\\rn\\t',lambda s:s['mode']=='magit-status-mode' and 'module-' in s['text'] and '@@' in s['text'])\n        action('magit-stage',b'\\x1bxmagit-stage-modified\\r',lambda s:s['mode']=='magit-status-mode')\n        assert len(git('diff','--cached','--name-only').splitlines())==spec['git_files']\n        action('magit-unstage',b'\\x1bxmagit-unstage-all\\r',lambda s:s['mode']=='magit-status-mode')\n        assert not git('diff','--cached','--name-only').strip()\n        action('magit-log',b'\\x1bxmagit-log-current\\r',lambda s:s['mode']=='magit-log-mode' and 'Fixture revision' in s['text'])\n        action('magit-revision',b'\\r',lambda s:s['mode']=='magit-revision-mode')\n        result['magit-workflow']={'seconds':sum(result[k]['seconds'] for k in ('magit-status','magit-expand','magit-stage','magit-unstage','magit-log','magit-revision'))}\n        action('return-to-edit',b'\\x18bpgo-edit\\r',lambda s:s['buffer']=='pgo-edit')\n        # Separate stop-and-wait latency from queued typing throughput.\n        latency=[]\n        before=session.action(b'\\x1b>')['state']['size']\n        for n in range(40):\n            m=session.action(b'z')\n            assert m['state']['size']==before+n+1\n            latency.append(m['seconds'])\n        result['typing-latency']={'seconds':statistics.median(latency),'samples':latency}\n    finally:session.close()\n    (a.workspace/f'{a.label}-{index}.json').write_text(json.dumps(result,indent=2)+'\\n')\n    print(a.label,index,{k:round(v['seconds']*1000,3) for k,v in result.items()},flush=True)\n    if index:runs.append(result)\nreport={'label':a.label,'build':{k:v for k,v in info.items() if k!='packages'},'cpu':a.cpu,'warmup_runs':1,'runs':runs,'validation_sha256':hashlib.sha256(spec_path.read_bytes()).hexdigest(),'observer_sha256':hashlib.sha256((ROOT/'build/gc-settings/observer.el').read_bytes()).hexdigest(),'medians':{name:statistics.median(run[name]['seconds'] for run in runs) for name in runs[0]}}\n(a.workspace/f'{a.label}-summary.json').write_text(json.dumps(report,indent=2)+'\\n')\n",
+  "observer": ";;; observer.el --- PTY workload acknowledgements -*- lexical-binding: t; -*-\n(require 'json)\n(require 'cl-lib)\n(setq inhibit-startup-screen t make-backup-files nil auto-save-default nil\n      ring-bell-function #'ignore enable-local-variables nil)\n(defvar workload-spec (json-parse-string (with-temp-buffer\n                                         (insert-file-contents (getenv \"WORKLOAD_SPEC\"))\n                                         (buffer-string)) :object-type 'alist))\n(defvar workload-connection nil)\n(defvar workload-sequence 0)\n(defvar workload-command-count 0)\n(defvar workload-value 0)\n(defvar workload-process nil)\n(defvar workload-process-error nil)\n(defvar workload-process-finished t)\n(defvar workload-frames 0)\n(defvar workload-remainder \"\")\n(defun workload-send (data)\n  (process-send-string workload-connection (concat (json-serialize data) \"\\n\")))\n(defun workload-report ()\n  (if (not workload-process-finished)\n      (run-at-time 0.001 nil #'workload-report)\n    (redisplay t)\n    (workload-send `((kind . \"checkpoint\") (sequence . ,workload-sequence)\n                    (gcs_done . ,gcs-done) (gc_elapsed . ,gc-elapsed)\n                    (commands . ,workload-command-count) (buffer . ,(buffer-name))\n                    (mode . ,(symbol-name major-mode)) (point . ,(point))\n                    (text . ,(buffer-substring-no-properties (point-min) (min (point-max) (+ (point-min) 4096))))\n                    (size . ,(buffer-size)) (value . ,workload-value)\n                    (frames . ,workload-frames) (error . ,(or workload-process-error :null))))))\n(defun workload-checkpoint ()\n  (interactive)\n  (cl-incf workload-sequence)\n  (run-at-time 0 nil #'workload-report))\n(defun workload-exit ()\n  (interactive)\n  (workload-send '((kind . \"exit\")))\n  (kill-emacs 0))\n(defun workload-regexp ()\n  (interactive)\n  (setq workload-value 0)\n  (with-temp-buffer\n    (insert-file-contents (getenv \"WORKLOAD_TEXT\"))\n    (dotimes (_ (alist-get 'regexp_repeats workload-spec))\n      (goto-char (point-min))\n      (while (re-search-forward \"item-\\\\([0-9]+\\\\).*value=\\\\([0-9]+\\\\)\" nil t)\n        (cl-incf workload-value (string-to-number (match-string 2)))))))\n(defun workload-json ()\n  (interactive)\n  (setq workload-value 0)\n  (let ((data (with-temp-buffer (insert-file-contents (getenv \"WORKLOAD_JSON\")) (buffer-string))))\n    (dotimes (_ (alist-get 'json_repeats workload-spec))\n      (let* ((object (json-parse-string data)) (rows (gethash \"items\" object)))\n        (mapc (lambda (row) (cl-incf workload-value (gethash \"value\" row))) rows)\n        (json-serialize object)))))\n(defun workload-gc ()\n  (interactive)\n  (setq workload-value 0)\n  (let ((gc-cons-threshold (string-to-number (getenv \"GC_TEST_THRESHOLD\"))) (gc-cons-percentage 0.1))\n    (dotimes (_ (alist-get 'gc_repeats workload-spec))\n      (let ((items (cl-loop for i below (alist-get 'gc_items workload-spec)\n                            collect (list i (number-to-string i) (make-vector 8 i)))))\n        (cl-incf workload-value (length items))))\n    (garbage-collect)))\n(defun workload-process-filter (_process text)\n  (setq workload-remainder (concat workload-remainder text))\n  (while (string-match \"\\n\" workload-remainder)\n    (let* ((end (match-beginning 0)) (line (substring workload-remainder 0 end)))\n      (setq workload-remainder (substring workload-remainder (1+ end)))\n      (condition-case error\n          (let ((message (json-parse-string line)))\n            (cl-incf workload-value (gethash \"value\" message))\n            (cl-incf workload-frames))\n        (error (setq workload-process-error (error-message-string error)))))))\n(defun workload-process-start ()\n  (interactive)\n  (setq workload-value 0 workload-frames 0 workload-remainder \"\" workload-process-error nil workload-process-finished nil)\n  (setq workload-process\n        (make-process :name \"workload-producer\" :connection-type 'pipe :noquery t\n                      :coding 'utf-8-unix :filter #'workload-process-filter\n                      :sentinel (lambda (process _event)\n                                  (setq workload-process-finished t)\n                                  (unless (= (process-exit-status process) 0)\n                                    (setq workload-process-error \"Subprocess failed\")))\n                      :command (list \"python3\" (getenv \"WORKLOAD_PRODUCER\")\n                                     (number-to-string (alist-get 'process_frames workload-spec))\n                                     (number-to-string (alist-get 'process_chunk workload-spec))))))\n(dolist (entry '((\"<f4>\" . workload-exit) (\"<f6>\" . workload-regexp)\n                 (\"<f7>\" . workload-json) (\"<f8>\" . workload-process-start)\n                 (\"<f9>\" . workload-gc) (\"<f12>\" . workload-checkpoint)))\n  (keymap-global-set (car entry) (cdr entry)))\n(add-hook 'post-command-hook (lambda () (cl-incf workload-command-count)))\n(when (getenv \"WORKLOAD_PACKAGES\")\n  (dolist (directory (reverse (append (json-parse-string\n                                      (with-temp-buffer\n                                        (insert-file-contents (getenv \"WORKLOAD_PACKAGES\"))\n                                        (buffer-string))) nil)))\n    (add-to-list 'load-path directory))\n  (autoload 'magit-status \"magit\" nil t))\n(icomplete-mode 1)\n(add-hook 'window-setup-hook\n          (lambda ()\n            (setq workload-connection (make-network-process :name \"workload-control\" :family 'local\n                                                           :service (getenv \"WORKLOAD_SOCKET\")\n                                                           :coding 'utf-8-unix :noquery t))\n            (workload-send '((kind . \"ready\")))) t)\n",
+  "method": "Same held-out action sequence, only allocation-gc dynamic gc-cons-threshold changed. -Q sessions, not the full personal configuration. Fixed CPU 0, equal /bundle runtime path, no concurrent build; two groups per combination with six measured samples each and one excluded warmup per group. Original forced final garbage-collect retained; counts include it.",
+  "order": [
+    "off-400000",
+    "new-400000",
+    "off-16000000",
+    "new-16000000",
+    "new-16000000",
+    "off-16000000",
+    "new-400000",
+    "off-400000"
+  ],
+  "variants": {
+    "off-400000": {
+      "build": {
+        "emacs": "32.0.50.20260916175219.git82f763756c71",
+        "sources": {
+          "emacs": {
+            "version": "32.0.50.20260916175219.git82f763756c71",
+            "emacs_version": "32.0.50",
+            "branch": "master",
+            "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+            "commit_date": "2026-09-16T17:52:19Z",
+            "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+            "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+          },
+          "ncurses": {
+            "version": "6.6",
+            "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+            "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+          },
+          "zlib": {
+            "version": "1.3.2",
+            "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+            "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+          },
+          "gmp": {
+            "version": "6.3.0",
+            "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+            "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+          },
+          "nettle": {
+            "version": "4.0",
+            "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+            "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+          },
+          "libunistring": {
+            "version": "1.4.2",
+            "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+            "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+          },
+          "libidn2": {
+            "version": "2.3.8",
+            "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+            "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+          },
+          "gnutls": {
+            "version": "3.8.13",
+            "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+            "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+          },
+          "libxml2": {
+            "version": "2.15.4",
+            "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+            "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+          },
+          "sqlite": {
+            "version": "3.53.4",
+            "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+            "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+          },
+          "tree-sitter": {
+            "version": "0.27.0",
+            "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+            "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+          }
+        },
+        "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+        "glibc": "glibc 2.41",
+        "configure": [
+          "--prefix=/opt/emacs",
+          "--without-all",
+          "--without-x",
+          "--without-native-compilation",
+          "--with-modules",
+          "--with-threads",
+          "--with-file-notification=inotify",
+          "--with-gnutls",
+          "--with-libgmp",
+          "--with-xml2",
+          "--with-sqlite3",
+          "--with-tree-sitter",
+          "--with-zlib",
+          "--without-compress-install",
+          "--disable-build-details"
+        ],
+        "lto": true,
+        "pgo": "off",
+        "profile_sha256": null,
+        "build_id": "a5e324855811",
+        "cpu_baseline": "x86-64-v3",
+        "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+        "ldflags": "-L/work/build/a5e324855811/deps/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23"
+      },
+      "gc_cons_threshold": 400000,
+      "gc_cons_percentage": 0.1,
+      "samples": [
+        {
+          "total_ms": 335.630544,
+          "gc_ms": 314.30494100000004,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 339.827926,
+          "gc_ms": 317.823959,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 346.438333,
+          "gc_ms": 324.692523,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 339.553452,
+          "gc_ms": 318.024164,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 348.78719,
+          "gc_ms": 327.07977999999997,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 334.12455,
+          "gc_ms": 312.577432,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 358.38431199999997,
+          "gc_ms": 336.256909,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 352.704709,
+          "gc_ms": 330.908949,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 351.67880099999996,
+          "gc_ms": 329.790402,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 344.642876,
+          "gc_ms": 322.80697999999995,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 367.52723100000003,
+          "gc_ms": 344.860767,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 352.676024,
+          "gc_ms": 330.835314,
+          "collections": 98,
+          "value": 210000
+        }
+      ],
+      "medians": {
+        "total_ms": 347.61276150000003,
+        "gc_ms": 325.8861515,
+        "collections": 98.0
+      }
+    },
+    "new-400000": {
+      "build": {
+        "emacs": "32.0.50.20260916175219.git82f763756c71",
+        "sources": {
+          "emacs": {
+            "version": "32.0.50.20260916175219.git82f763756c71",
+            "emacs_version": "32.0.50",
+            "branch": "master",
+            "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+            "commit_date": "2026-09-16T17:52:19Z",
+            "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+            "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+          },
+          "ncurses": {
+            "version": "6.6",
+            "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+            "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+          },
+          "zlib": {
+            "version": "1.3.2",
+            "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+            "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+          },
+          "gmp": {
+            "version": "6.3.0",
+            "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+            "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+          },
+          "nettle": {
+            "version": "4.0",
+            "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+            "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+          },
+          "libunistring": {
+            "version": "1.4.2",
+            "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+            "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+          },
+          "libidn2": {
+            "version": "2.3.8",
+            "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+            "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+          },
+          "gnutls": {
+            "version": "3.8.13",
+            "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+            "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+          },
+          "libxml2": {
+            "version": "2.15.4",
+            "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+            "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+          },
+          "sqlite": {
+            "version": "3.53.4",
+            "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+            "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+          },
+          "tree-sitter": {
+            "version": "0.27.0",
+            "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+            "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+          }
+        },
+        "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+        "glibc": "glibc 2.41",
+        "configure": [
+          "--prefix=/opt/emacs",
+          "--without-all",
+          "--without-x",
+          "--without-native-compilation",
+          "--with-modules",
+          "--with-threads",
+          "--with-file-notification=inotify",
+          "--with-gnutls",
+          "--with-libgmp",
+          "--with-xml2",
+          "--with-sqlite3",
+          "--with-tree-sitter",
+          "--with-zlib",
+          "--without-compress-install",
+          "--disable-build-details"
+        ],
+        "lto": true,
+        "pgo": "use",
+        "profile_sha256": "7027ad479ccecccf37a79be4369958b177306ccb8cd7f2ece384c4367e42e119",
+        "build_id": "a5e324855811",
+        "cpu_baseline": "x86-64-v3",
+        "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+        "ldflags": "-L/work/build/a5e324855811/deps/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23"
+      },
+      "gc_cons_threshold": 400000,
+      "gc_cons_percentage": 0.1,
+      "samples": [
+        {
+          "total_ms": 359.34855100000004,
+          "gc_ms": 340.092823,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 360.574818,
+          "gc_ms": 341.092836,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 375.8014,
+          "gc_ms": 356.218578,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 371.213389,
+          "gc_ms": 351.984722,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 374.238144,
+          "gc_ms": 355.18974999999995,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 365.38673500000004,
+          "gc_ms": 346.67379,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 377.039003,
+          "gc_ms": 357.58764600000006,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 368.816461,
+          "gc_ms": 349.9059879999999,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 386.98657199999997,
+          "gc_ms": 367.252143,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 371.606616,
+          "gc_ms": 352.114365,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 379.517759,
+          "gc_ms": 359.819816,
+          "collections": 98,
+          "value": 210000
+        },
+        {
+          "total_ms": 364.823258,
+          "gc_ms": 345.82536799999997,
+          "collections": 98,
+          "value": 210000
+        }
+      ],
+      "medians": {
+        "total_ms": 371.4100025,
+        "gc_ms": 352.0495435,
+        "collections": 98.0
+      }
+    },
+    "off-16000000": {
+      "build": {
+        "emacs": "32.0.50.20260916175219.git82f763756c71",
+        "sources": {
+          "emacs": {
+            "version": "32.0.50.20260916175219.git82f763756c71",
+            "emacs_version": "32.0.50",
+            "branch": "master",
+            "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+            "commit_date": "2026-09-16T17:52:19Z",
+            "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+            "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+          },
+          "ncurses": {
+            "version": "6.6",
+            "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+            "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+          },
+          "zlib": {
+            "version": "1.3.2",
+            "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+            "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+          },
+          "gmp": {
+            "version": "6.3.0",
+            "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+            "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+          },
+          "nettle": {
+            "version": "4.0",
+            "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+            "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+          },
+          "libunistring": {
+            "version": "1.4.2",
+            "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+            "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+          },
+          "libidn2": {
+            "version": "2.3.8",
+            "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+            "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+          },
+          "gnutls": {
+            "version": "3.8.13",
+            "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+            "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+          },
+          "libxml2": {
+            "version": "2.15.4",
+            "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+            "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+          },
+          "sqlite": {
+            "version": "3.53.4",
+            "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+            "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+          },
+          "tree-sitter": {
+            "version": "0.27.0",
+            "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+            "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+          }
+        },
+        "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+        "glibc": "glibc 2.41",
+        "configure": [
+          "--prefix=/opt/emacs",
+          "--without-all",
+          "--without-x",
+          "--without-native-compilation",
+          "--with-modules",
+          "--with-threads",
+          "--with-file-notification=inotify",
+          "--with-gnutls",
+          "--with-libgmp",
+          "--with-xml2",
+          "--with-sqlite3",
+          "--with-tree-sitter",
+          "--with-zlib",
+          "--without-compress-install",
+          "--disable-build-details"
+        ],
+        "lto": true,
+        "pgo": "off",
+        "profile_sha256": null,
+        "build_id": "a5e324855811",
+        "cpu_baseline": "x86-64-v3",
+        "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+        "ldflags": "-L/work/build/a5e324855811/deps/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23"
+      },
+      "gc_cons_threshold": 16000000,
+      "gc_cons_percentage": 0.1,
+      "samples": [
+        {
+          "total_ms": 41.022481,
+          "gc_ms": 15.640229000000005,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 40.169046,
+          "gc_ms": 15.233103999999997,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 42.619151,
+          "gc_ms": 17.260894,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 43.383987999999995,
+          "gc_ms": 16.965648,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 42.706975,
+          "gc_ms": 16.844846999999994,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 42.240218000000006,
+          "gc_ms": 16.069532999999996,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 42.196867999999995,
+          "gc_ms": 16.68539699999999,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 44.359383,
+          "gc_ms": 18.151994000000006,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 42.944215,
+          "gc_ms": 16.89700600000002,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 41.187834,
+          "gc_ms": 16.125738000000002,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 40.686589000000005,
+          "gc_ms": 15.220868999999999,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 40.345437,
+          "gc_ms": 15.30395200000001,
+          "collections": 3,
+          "value": 210000
+        }
+      ],
+      "medians": {
+        "total_ms": 42.218543,
+        "gc_ms": 16.405567499999997,
+        "collections": 3.0
+      }
+    },
+    "new-16000000": {
+      "build": {
+        "emacs": "32.0.50.20260916175219.git82f763756c71",
+        "sources": {
+          "emacs": {
+            "version": "32.0.50.20260916175219.git82f763756c71",
+            "emacs_version": "32.0.50",
+            "branch": "master",
+            "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+            "commit_date": "2026-09-16T17:52:19Z",
+            "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+            "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+          },
+          "ncurses": {
+            "version": "6.6",
+            "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+            "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+          },
+          "zlib": {
+            "version": "1.3.2",
+            "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+            "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+          },
+          "gmp": {
+            "version": "6.3.0",
+            "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+            "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+          },
+          "nettle": {
+            "version": "4.0",
+            "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+            "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+          },
+          "libunistring": {
+            "version": "1.4.2",
+            "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+            "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+          },
+          "libidn2": {
+            "version": "2.3.8",
+            "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+            "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+          },
+          "gnutls": {
+            "version": "3.8.13",
+            "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+            "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+          },
+          "libxml2": {
+            "version": "2.15.4",
+            "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+            "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+          },
+          "sqlite": {
+            "version": "3.53.4",
+            "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+            "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+          },
+          "tree-sitter": {
+            "version": "0.27.0",
+            "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+            "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+          }
+        },
+        "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+        "glibc": "glibc 2.41",
+        "configure": [
+          "--prefix=/opt/emacs",
+          "--without-all",
+          "--without-x",
+          "--without-native-compilation",
+          "--with-modules",
+          "--with-threads",
+          "--with-file-notification=inotify",
+          "--with-gnutls",
+          "--with-libgmp",
+          "--with-xml2",
+          "--with-sqlite3",
+          "--with-tree-sitter",
+          "--with-zlib",
+          "--without-compress-install",
+          "--disable-build-details"
+        ],
+        "lto": true,
+        "pgo": "use",
+        "profile_sha256": "7027ad479ccecccf37a79be4369958b177306ccb8cd7f2ece384c4367e42e119",
+        "build_id": "a5e324855811",
+        "cpu_baseline": "x86-64-v3",
+        "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+        "ldflags": "-L/work/build/a5e324855811/deps/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23"
+      },
+      "gc_cons_threshold": 16000000,
+      "gc_cons_percentage": 0.1,
+      "samples": [
+        {
+          "total_ms": 41.075179000000006,
+          "gc_ms": 18.09196099999999,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 38.828085,
+          "gc_ms": 15.97979599999999,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 40.818153,
+          "gc_ms": 17.11000800000001,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 40.016909000000005,
+          "gc_ms": 16.559926000000004,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 39.076613,
+          "gc_ms": 16.294322,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 40.059359,
+          "gc_ms": 16.728039,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 39.261068,
+          "gc_ms": 16.58404399999999,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 39.777440999999996,
+          "gc_ms": 16.599628000000006,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 40.238503,
+          "gc_ms": 17.210642,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 38.623003000000004,
+          "gc_ms": 15.792223999999994,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 38.788562999999996,
+          "gc_ms": 16.179314,
+          "collections": 3,
+          "value": 210000
+        },
+        {
+          "total_ms": 38.700706000000004,
+          "gc_ms": 16.181064999999993,
+          "collections": 3,
+          "value": 210000
+        }
+      ],
+      "medians": {
+        "total_ms": 39.5192545,
+        "gc_ms": 16.571984999999998,
+        "collections": 3.0
+      }
+    }
+  }
+}

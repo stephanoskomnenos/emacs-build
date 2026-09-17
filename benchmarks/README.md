@@ -106,3 +106,20 @@ Emacs-regexp code. Logs also contain discarded mismatched records when the
 same profile is applied to helper-program `main` functions and the separate
 gnulib regex implementation; these are not claims of PGO coverage for every
 helper. The Emacs regexp implementation has matching positive counts.
+
+## Runtime GC settings sensitivity
+
+[Threshold-only follow-up](results/gc-settings-20260917.json): same validation
+sequence and builds, 12 measured samples per combination, fixed CPU and bundle
+path. The user's post-startup values are 16,000,000 bytes and 0.1; startup uses
+500,000,000 bytes and 0.6. These sessions use `-Q` with the runtime parameters,
+not the full personal config. The final explicit collection remains included.
+
+| Threshold | Collections (both) | Total ms, no PGO / PGO | GC ms, no PGO / PGO |
+| --- | ---: | ---: | ---: |
+| 400,000 bytes | 98 | 347.61 / 371.41 | 325.89 / 352.05 |
+| 16,000,000 bytes | 3 | 42.22 / 39.52 | 16.41 / 16.57 |
+
+At 16 MB the overall workload is about 6.4% faster with PGO; the small GC-time
+difference does not demonstrate a regression. This does not establish results
+for a larger live heap or explain the low-threshold regression's root cause.
