@@ -26,6 +26,9 @@ jobs:
           python3 scripts/update-master.py
           python3 scripts/fetch.py --benchmarks
           echo "LLVM_PROFDATA=$(xcrun --find llvm-profdata)" >> "$GITHUB_ENV"
+      - name: Verify Apple Clang ThinLTO and PGO
+        id: toolchain
+        run: python3 scripts/macos/toolchain.py
       - name: Remove Homebrew from disposable runner
         shell: bash
         run: |
@@ -35,9 +38,6 @@ jobs:
           sudo rm -rf /opt/homebrew
           # Persist a clean PATH across steps, including Python from Xcode.
           echo 'PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin' >> "$GITHUB_ENV"
-      - name: Verify Apple Clang ThinLTO and PGO
-        id: toolchain
-        run: python3 scripts/macos/toolchain.py
       - uses: actions/cache/restore@v4
         id: dependencies
         with:

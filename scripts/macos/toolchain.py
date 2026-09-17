@@ -17,7 +17,7 @@ profdata = xcrun('--find', 'llvm-profdata')
 source = base / 'probe.m'
 source.write_text('#import <Foundation/Foundation.h>\nint main(int argc, char **argv) {\n'
                   '  @autoreleasepool { NSLog(@"PGO probe: %d", argc); }\n  return 0;\n}\n')
-flags = [clang, '-O2', '-g0', '-flto=thin']
+flags = [clang, '-isysroot', xcrun('--sdk', 'macosx', '--show-sdk-path'), '-O2', '-g0', '-flto=thin']
 subprocess.run([*flags, '-fprofile-generate', str(source), '-framework', 'Foundation', '-o', str(base / 'generate')], check=True)
 subprocess.run([str(base / 'generate')], env=dict(os.environ, LLVM_PROFILE_FILE=str(base / 'probe-%m-%p.profraw')), check=True)
 profile = base / 'probe.profdata'

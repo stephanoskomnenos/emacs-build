@@ -32,7 +32,7 @@ configure.write_text(''.join(line.replace('lncurses', 'lncursesw') if 'darwin' i
 def xcrun(*args):
     return subprocess.check_output(['xcrun', *args], text=True).strip()
 clang = xcrun('--find', 'clang')
-flags = '-O2 -g0 -flto=thin'
+flags = '-O2 -g0 -flto=thin -isysroot ' + shlex.quote(xcrun('--sdk', 'macosx', '--show-sdk-path'))
 profile = BUILD / 'merged.profdata'
 if a.mode == 'generate':
     flags += ' -fprofile-generate=' + str(stage / 'bootstrap-profiles')
