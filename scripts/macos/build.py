@@ -49,7 +49,7 @@ for key in ('LLVM_PROFILE_FILE', 'CPATH', 'LIBRARY_PATH', 'DYLD_LIBRARY_PATH', '
 args = ['--prefix=' + str(stage / 'install'), '--disable-build-details', '--disable-gc-mark-trace',
         '--without-all', '--without-native-compilation', '--with-compress-install', '--with-file-notification=kqueue',
         '--with-libgmp', '--with-gnutls', '--with-modules', '--with-native-image-api', '--with-ns',
-        '--without-small-ja-dic', '--with-threads', '--with-toolkit-scroll-bars', '--with-tree-sitter',
+        '--with-threads', '--with-toolkit-scroll-bars', '--with-tree-sitter',
         '--with-xml2', '--with-zlib', '--with-sqlite3']
 with (stage / 'build.log').open('w') as log:
     for command in [['./autogen.sh'], ['./configure', *args], ['make', '-j' + os.environ.get('JOBS', '3')], ['make', 'install']]:
