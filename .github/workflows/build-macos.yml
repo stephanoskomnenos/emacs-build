@@ -1,0 +1,86 @@
+name: Build macOS Emacs
+on:
+  workflow_dispatch:
+    inputs:
+      compare:
+        description: Build a no-PGO baseline and measure GUI performance
+        type: boolean
+        default: false
+  schedule:
+    # Monday 01:23 Asia/Shanghai.
+    - cron: '23 17 * * 0'
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: macos-26
+    timeout-minutes: 180
+    env:
+      # Keep UNIX acknowledgement socket paths below Darwin's length limit.
+      EMACS_BUILD_ROOT: /tmp/emacs-build
+      JOBS: '3'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Remove Homebrew from disposable runner
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fL --retry 3 https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh -o "$RUNNER_TEMP/uninstall.sh"
+          sudo env NONINTERACTIVE=1 /bin/bash "$RUNNER_TEMP/uninstall.sh"
+          sudo rm -rf /opt/homebrew
+          # Persist a clean PATH across steps, including Python from Xcode.
+          echo 'PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin' >> "$GITHUB_ENV"
+      - name: Install ebuild dependencies
+        run: bash scripts/macos/dependencies.sh
+      - name: Lock master and fetch training fixtures
+        run: |
+          python3 scripts/update-master.py
+          python3 scripts/fetch.py --benchmarks
+          echo "LLVM_PROFDATA=$(xcrun --find llvm-profdata)" >> "$GITHUB_ENV"
+      - name: Build instrumented Cocoa Emacs
+        run: python3 scripts/macos/build.py generate
+      - name: Train generic PTY and GUI workloads
+        env:
+          EMACS_TRAIN_SOURCE: /tmp/emacs-build/generate/source
+          EMACS_TRAIN_GUI: '1'
+        run: python3 scripts/pgo-train.py /tmp/emacs-build/generate/bundle
+      - name: Build PGO Cocoa Emacs
+        run: python3 scripts/macos/build.py use
+      - name: Audit system-only dynamic dependencies and exercise GUI
+        run: |
+          python3 scripts/macos/audit.py /tmp/emacs-build/use/bundle/Emacs.app > /tmp/emacs-build/link-audit.json
+          python3 scripts/macos/gui.py smoke /tmp/emacs-build/use/bundle
+      - name: Build matched baseline
+        if: inputs.compare == true
+        run: python3 scripts/macos/build.py off
+      - name: Compare baseline and PGO
+        if: inputs.compare == true
+        run: python3 scripts/macos/gui.py compare /tmp/emacs-build/use/bundle --baseline /tmp/emacs-build/off/bundle
+      - name: Package app
+        run: |
+          mkdir -p dist/macos
+          cp /tmp/emacs-build/use/bundle/BUILD-INFO.json dist/macos/
+          cp /tmp/emacs-build/link-audit.json dist/macos/
+          cp /tmp/emacs-build/pgo-training/provenance.json dist/macos/
+          tar -C /tmp/emacs-build/use/bundle -Jcf dist/macos/Emacs-macos-arm64.tar.xz Emacs.app
+          cd dist/macos
+          shasum -a 256 Emacs-macos-arm64.tar.xz > Emacs-macos-arm64.tar.xz.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Emacs-macos-arm64
+          compression-level: 0
+          if-no-files-found: error
+          path: dist/macos/Emacs-*
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: macos-build-report
+          path: |
+            dist/macos/*.json
+            /tmp/emacs-build/comparison.json
+            /tmp/emacs-build/*/build.log
+            /tmp/emacs-build/pgo-training/provenance.json
+            /tmp/emacs-build/pgo-training/profile-summary.txt
+            /tmp/emacs-build/pgo-training/*/terminal.log
+            /tmp/emacs-build/gui-*/*/*.json
+            /tmp/emacs-build/gui-*/*/emacs.log

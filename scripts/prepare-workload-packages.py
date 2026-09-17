@@ -8,11 +8,12 @@ import os
 import subprocess
 
 ROOT=Path(__file__).resolve().parents[1]
+BUILD=Path(os.environ.get('EMACS_BUILD_ROOT',ROOT/'build'))
 p=argparse.ArgumentParser();p.add_argument('bundle',type=Path);a=p.parse_args()
 lock=json.loads((ROOT/'benchmarks/sources.json').read_text())
 names=['compat','cond-let','llama','transient','with-editor','magit']
 identity=hashlib.sha256(json.dumps({n:lock[n] for n in names},sort_keys=True).encode()).hexdigest()[:12]
-base=ROOT/'build/workload-packages'/identity;base.mkdir(parents=True,exist_ok=True)
+base=BUILD/'workload-packages'/identity;base.mkdir(parents=True,exist_ok=True)
 paths=[]
 for name in names:
  spec=lock[name];archive=ROOT/'cache/sources'/(name+'-'+spec['version']+'.tar')
@@ -31,5 +32,5 @@ if not (base/'compiled').exists():
   subprocess.run([str(a.bundle.resolve()/'bin/emacs'),'-Q','--batch','--eval',forms],env=env,stdout=log,stderr=subprocess.STDOUT,check=True)
  if 'MAGIT-READY' not in (base/'compile.log').read_text():raise SystemExit('Magit failed to load')
  (base/'compiled').touch()
-(ROOT/'build/workload-packages/paths.json').write_text(json.dumps(list(map(str,paths)),indent=2)+'\n')
+(BUILD/'workload-packages/paths.json').write_text(json.dumps(list(map(str,paths)),indent=2)+'\n')
 print(base)

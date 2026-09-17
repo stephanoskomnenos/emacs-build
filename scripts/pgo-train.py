@@ -13,14 +13,16 @@ from profile_weights import weights_for_counts
 from training_input import cancel_minibuffer
 
 ROOT=Path(__file__).resolve().parents[1]
+BUILD=Path(os.environ.get('EMACS_BUILD_ROOT',ROOT/'build'))
 p=argparse.ArgumentParser();p.add_argument('bundle',type=Path);a=p.parse_args()
 a.bundle=a.bundle.resolve();info=json.loads((a.bundle/'BUILD-INFO.json').read_text())
 if info.get('pgo')!='generate':raise SystemExit('An instrumented build is required')
-base=ROOT/'build/pgo-training';profiles=base/'profiles';corpus=base/'corpus'
+base=BUILD/'pgo-training';profiles=base/'profiles';corpus=base/'corpus'
 if profiles.exists() and list(profiles.glob('*.profraw')):
     raise SystemExit('Raw profiles already exist; use a fresh build/pgo-training directory')
 for directory in (profiles,corpus,base/'home'):directory.mkdir(parents=True,exist_ok=True)
-source=a.bundle.parents[2]/'src/emacs'
+source=Path(os.environ.get('EMACS_TRAIN_SOURCE',a.bundle.parents[2]/'src/emacs'))
+profdata=os.environ.get('LLVM_PROFDATA','llvm-profdata-23')
 for original,target in [('src/buffer.c','buffer.c'),('lisp/files.el','files.el'),('etc/ORG-NEWS','org-news.org'),('etc/NEWS','news.txt')]:
     shutil.copy2(source/original,corpus/target)
 subprocess.run(['python3',str(ROOT/'scripts/prepare-workload-packages.py'),str(a.bundle)],check=True)
@@ -31,7 +33,7 @@ if repo.exists():shutil.rmtree(repo)
 repo.mkdir()
 env=dict(os.environ,HOME=str(base/'home'),GIT_CONFIG_NOSYSTEM='1',GIT_CONFIG_GLOBAL='/dev/null',GIT_CEILING_DIRECTORIES=str(ROOT),
          GIT_AUTHOR_DATE='2025-03-04T05:06:07Z',GIT_COMMITTER_DATE='2025-03-04T05:06:07Z',
-         TRAIN_CORPUS=str(corpus),TRAIN_PACKAGES=str(ROOT/'build/workload-packages/paths.json'),
+         TRAIN_CORPUS=str(corpus),TRAIN_PACKAGES=str(BUILD/'workload-packages/paths.json'),
          TRAIN_PRODUCER=str(ROOT/'benchmarks/interactive/training-producer.py'))
 for key in ('LLVM_PROFILE_FILE','EMACSLOADPATH','EMACSDATA','EMACSDOC','EMACSPATH','LD_LIBRARY_PATH'):env.pop(key,None)
 def git(*args):return subprocess.check_output(['git','-C',str(repo),*args],env=env,stderr=subprocess.STDOUT,text=True)
@@ -109,20 +111,25 @@ env.update(LLVM_PROFILE_FILE=str(profiles/'benchmark-%m-%p.profraw'),BENCHMARK_S
 with (base/'training-benchmarks.log').open('w') as log:
     subprocess.run([str(a.bundle/'bin/emacs'),'-Q','--batch','-l',str(ROOT/'benchmarks/runtime.el')],env=env,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=600)
 print('Benchmark training passed',flush=True)
+if os.environ.get('EMACS_TRAIN_GUI')=='1':
+    targets['gui']=2
+    subprocess.run(['python3',str(ROOT/'scripts/macos/gui.py'),'train',str(a.bundle)],
+                   env=dict(env,LLVM_PROFILE_FILE=str(profiles/'gui-%m-%p.profraw')),check=True)
 counts={};groups={}
 for name in targets:
     raw=sorted(profiles.glob(name+'-*.profraw'))
     if not raw:raise RuntimeError('Missing profile for '+name)
     groups[name]=base/(name+'.profdata')
-    subprocess.run(['llvm-profdata-23','merge','-o',str(groups[name]),*map(str,raw)],check=True)
-    detail=subprocess.check_output(['llvm-profdata-23','show',str(groups[name])],text=True)
+    subprocess.run([profdata,'merge','-o',str(groups[name]),*map(str,raw)],check=True)
+    detail=subprocess.check_output([profdata,'show',str(groups[name])],text=True)
     counts[name]=int(re.search(r'^Total count: (\d+)',detail,re.M)[1])
 weights,shares=weights_for_counts(counts,targets)
-merged=ROOT/'build/merged.profdata'
-subprocess.run(['llvm-profdata-23','merge','-o',str(merged),*[f'--weighted-input={weights[n]},{groups[n]}' for n in targets]],check=True)
-summary=subprocess.check_output(['llvm-profdata-23','show',str(merged)],text=True)
+merged=BUILD/'merged.profdata'
+subprocess.run([profdata,'merge','-o',str(merged),*[f'--weighted-input={weights[n]},{groups[n]}' for n in targets]],check=True)
+summary=subprocess.check_output([profdata,'show',str(merged)],text=True)
 (base/'profile-summary.txt').write_text(summary)
 scripts=['scripts/training_input.py','scripts/prepare-workload-packages.py','scripts/pgo-train.py','scripts/profile_weights.py','scripts/pty_driver.py','benchmarks/interactive/training.el','benchmarks/interactive/training-producer.py','benchmarks/files.el','benchmarks/runtime.el']
+if os.environ.get('EMACS_TRAIN_GUI')=='1':scripts+=['scripts/macos/gui.py','benchmarks/macos/gui.el']
 (base/'provenance.json').write_text(json.dumps({'build':info,'configuration':'generic built-in and locked Magit scenarios only; no user configuration or held-out inputs','group_execution_counts':counts,'target_share_units':targets,'group_merge_weights':weights,'actual_execution_shares':shares,'benchmark_sources':lock,'benchmark_selector':selector,'corpus_sha256':{f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in corpus.iterdir()},'training_script_sha256':{f:hashlib.sha256((ROOT/f).read_bytes()).hexdigest() for f in scripts},'scenario_checks':checks,'profile_sha256':hashlib.sha256(merged.read_bytes()).hexdigest()},indent=2)+'\n')
 print(summary,flush=True)
 print('Profile shares:',json.dumps(shares),flush=True)
