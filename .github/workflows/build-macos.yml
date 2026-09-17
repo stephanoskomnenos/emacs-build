@@ -21,9 +21,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Lock master and fetch training fixtures
+        id: sources
         run: |
           python3 scripts/update-master.py
           python3 scripts/fetch.py --benchmarks
+          python3 -c 'import json; print("sqlite=" + json.load(open("sources.json"))["sqlite"]["sha256"])' >> "$GITHUB_OUTPUT"
           echo "LLVM_PROFDATA=$(xcrun --find llvm-profdata)" >> "$GITHUB_ENV"
       - name: Verify Apple Clang ThinLTO and PGO
         id: toolchain
@@ -41,8 +43,8 @@ jobs:
         id: dependencies
         with:
           path: build/macos/dependencies.tar
-          key: macos-deps-v1-${{ steps.toolchain.outputs.identity }}-${{ hashFiles('scripts/macos/dependencies.sh', 'scripts/macos/dependency-cache.py') }}
-      - name: Install ebuild dependencies
+          key: macos-deps-v1-${{ steps.toolchain.outputs.identity }}-${{ steps.sources.outputs.sqlite }}-${{ hashFiles('scripts/macos/dependencies.sh', 'scripts/macos/dependency-cache.py') }}
+      - name: Install static dependencies
         env:
           CACHE_HIT: ${{ steps.dependencies.outputs.cache-hit }}
         run: python3 scripts/macos/dependency-cache.py
@@ -51,8 +53,6 @@ jobs:
         with:
           path: build/macos/dependencies.tar
           key: ${{ steps.dependencies.outputs.cache-primary-key }}
-      - name: Add static SQLite
-        run: python3 scripts/macos/sqlite.py
       - name: Build instrumented Cocoa Emacs
         run: python3 scripts/macos/build.py generate
       - name: Install Pexpect

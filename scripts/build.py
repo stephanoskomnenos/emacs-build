@@ -26,14 +26,18 @@ gcc_version = subprocess.check_output(['gcc', '-dumpfullversion'], text=True).st
 expected_compiler = json.loads((ROOT / 'toolchain-sources.json').read_text())['gcc']['version']
 if gcc_version != expected_compiler:
     raise RuntimeError(f'Expected GCC {expected_compiler}, found {gcc_version}')
-identity = hashlib.sha256((json.dumps(manifest, sort_keys=True) + str(lto)
-                          + compiler + pathlib.Path(__file__).read_text()
-                          + (ROOT / 'containers/Containerfile').read_text()).encode()).hexdigest()[:12]
+build_settings = (str(lto) + compiler + pathlib.Path(__file__).read_text()
+                  + (ROOT / 'containers/Containerfile').read_text()
+                  + (ROOT / 'containers/LLVM.Containerfile').read_text())
+identity = hashlib.sha256((json.dumps(manifest, sort_keys=True) + build_settings).encode()).hexdigest()[:12]
+dependency_manifest = {name: spec for name, spec in manifest.items() if name != 'emacs'}
+dependency_id = hashlib.sha256((json.dumps(dependency_manifest, sort_keys=True) + build_settings).encode()).hexdigest()[:12]
 work = ROOT / 'build' / identity
-prefix = work / 'deps'
+dependency_work = ROOT / 'build/dependencies' / dependency_id
+prefix = dependency_work / 'prefix'
 logs = work / 'logs'
 logs.mkdir(parents=True, exist_ok=True)
-prefix.mkdir(exist_ok=True)
+prefix.mkdir(parents=True, exist_ok=True)
 env = dict(os.environ)
 lto_flags = (' -flto=thin' if llvm else ' -flto=' + jobs) if lto else ''
 linker_flags = ' --ld-path=/usr/bin/ld.lld-23' if llvm else ''
@@ -88,7 +92,7 @@ recipes = {
 for name in ['ncurses', 'zlib', 'gmp', 'nettle', 'libunistring', 'libidn2', 'gnutls', 'libxml2', 'sqlite', 'tree-sitter', 'dbus']:
     src = source(name)
     log = logs / (name + '.log')
-    stamp = work / (name + '.done')
+    stamp = dependency_work / (name + '.done')
     if stamp.exists():
         print(name + ': cached', flush=True)
         continue
@@ -191,7 +195,7 @@ exec "$root/bin/emacs-{version}" --dump-file="$root/{execdir}/{dump}" "$@"
 ''')
 launcher.chmod(0o755)
 info = {'emacs': manifest['emacs']['version'], 'sources': manifest,
-        'compiler': compiler,
+        'compiler': compiler, 'dependency_build_id': dependency_id,
         'glibc': subprocess.check_output(['getconf', 'GNU_LIBC_VERSION'], text=True).strip(),
         'configure': options, 'lto': lto, 'pgo': profile_mode,
         'profile_sha256': hashlib.sha256(profile.read_bytes()).hexdigest() if profile_mode == 'use' else None, 'build_id': identity,

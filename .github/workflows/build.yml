@@ -18,17 +18,35 @@ jobs:
         run: |
           /lib64/ld-linux-x86-64.so.2 --help | grep -F 'x86-64-v3 (supported, searched)'
       - name: Resolve and lock Emacs master
-        run: python3 scripts/update-master.py
+        id: sources
+        run: |
+          python3 scripts/update-master.py
+          python3 - <<'PYTHON' >> "$GITHUB_OUTPUT"
+          import hashlib, json
+          sources = json.load(open('sources.json'))
+          sources.pop('emacs')
+          print('dependencies=' + hashlib.sha256(json.dumps(sources, sort_keys=True).encode()).hexdigest())
+          PYTHON
       - name: Fetch locked sources and fixtures
         run: |
           python3 scripts/fetch.py
           python3 scripts/fetch.py --tests
           python3 scripts/fetch.py --toolchain
           python3 scripts/fetch.py --benchmarks
+      - uses: actions/cache/restore@v4
+        id: dependencies
+        with:
+          path: build/dependencies
+          key: linux-deps-v1-${{ runner.arch }}-${{ steps.sources.outputs.dependencies }}-${{ hashFiles('scripts/build.py', 'containers/Containerfile', 'containers/LLVM.Containerfile', 'toolchain-sources.json') }}
       - name: Build instrumented Emacs with Clang and ThinLTO
         run: |
           bash scripts/container.sh image
           JOBS=2 PGO=generate bash scripts/container.sh build
+      - uses: actions/cache/save@v4
+        if: steps.dependencies.outputs.cache-hit != 'true'
+        with:
+          path: build/dependencies
+          key: ${{ steps.dependencies.outputs.cache-primary-key }}
       - name: Train on generic terminal workflows and ELPA benchmarks
         timeout-minutes: 25
         run: bash scripts/container.sh train

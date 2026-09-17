@@ -3,6 +3,7 @@ set -euo pipefail
 # Recipes from RadioNoiseE/ebuild@5f2e2c6229989d986f1072c7727a586d92bb8523.
 # Run only on a disposable GitHub-hosted macOS runner.
 [[ "${GITHUB_ACTIONS:-}" == true && "${RUNNER_OS:-}" == macOS ]] || exit 1
+project_root=$PWD
 mkdir -p "$PWD/build/macos/dependencies"
 cd "$PWD/build/macos/dependencies"
 
@@ -167,6 +168,21 @@ echo "::group::Install GNU Gzip"
   curl -fO https://ftp.gnu.org/gnu/gzip/gzip-1.14.tar.xz --retry 3
   tar -Jxf gzip-1.14.tar.xz && cd gzip-1.14
   ./configure && make -j4
+  sudo make install
+)
+echo "::endgroup::"
+
+# SQLite uses the same pinned source as Linux.
+echo "::group::Install SQLite"
+(
+  read -r sqlite_url sqlite_sha < <(python3 -c 'import json, sys; s=json.load(open(sys.argv[1]))["sqlite"]; print(s["url"], s["sha256"])' "$project_root/sources.json")
+  curl -fL --retry 3 "$sqlite_url" -o sqlite.tar.gz
+  echo "$sqlite_sha  sqlite.tar.gz" | shasum -a 256 -c -
+  mkdir sqlite
+  tar -xf sqlite.tar.gz --strip-components=1 -C sqlite
+  cd sqlite
+  CC=/usr/bin/clang CFLAGS='-O2 -g0' ./configure --prefix=/usr/local --disable-shared --enable-static
+  make -j"${JOBS:-3}"
   sudo make install
 )
 echo "::endgroup::"
