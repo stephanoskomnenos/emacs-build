@@ -25,4 +25,4 @@ paced --runs 3` (or `saturated`). Alternate variants and keep other builds
 stopped. Require CPUs 0 and 1. The config copy and all fixtures are under
 `build/lsp-load`; original config and training inputs are never changed.
 
-Dated measurements are kept in [results/](../results/lsp-load-20260917.md).
+Earlier measurements are available in Git history.

@@ -64,6 +64,6 @@ PGO 使用通用编辑、补全、Org、进程、Magit 和 ELPA 负载，macOS �
 - `scripts/linux/`、`scripts/macos/`：平台专用构建与测量；`scripts/` 根目录保留共用训练、下载和素材处理。
 - `containers/`、`packaging/`：Linux 构建/验证环境与 RPM 配方。
 - `tests/`：正确性和安装检查；`benchmarks/`：训练负载与性能验证。
-- `benchmarks/results/`：历史测量与调查记录，不代表当前构建设置。
+- `benchmarks/results/`：最新性能对比和原始样本。
 - `.github/workflows/`：两平台自动构建；`sources.json`：Linux 与共享源码锁定；`sources-macos.json` 引用共享项并锁定 Mac 独有依赖；其余清单锁定测试输入。
 - `build/`、`cache/`、`dist/`：本地构建文件、缓存和产物，不纳入 Git。

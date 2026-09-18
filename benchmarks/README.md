@@ -1,9 +1,8 @@
 # PGO training and performance validation
 
-Linux defaults to O2 + ThinLTO + CSPGO; the Action's `cspgo` switch selects
-ordinary PGO when disabled. macOS defaults to ordinary PGO with Cocoa GUI
-training; its optional `cspgo` switch adds a second pass using pinned prebuilt LLVM Clang/LLD/profdata; a toolchain
-probe verifies CS collection and final-link application. Build commands are in the [project README](../README.md#构建).
+Both platforms use LLVM Clang, O2, ThinLTO and CSPGO by default. Disable the
+Action's `cspgo` switch for ordinary PGO. macOS includes Cocoa GUI training.
+Build commands are in the [project README](../README.md#构建).
 
 Cocoa training opens files, scrolls, edits, splits windows and changes text size;
 it also exercises search/completion candidates, Org structure, asynchronous
@@ -51,10 +50,6 @@ Correctness checks live in [tests/](../tests/).
 
 ## Results
 
-[results/](results/) contains dated measurements and investigation records,
-not build instructions. Start with the [CSPGO/BOLT report](results/compiler-followup-20260918/README.md)
-or [macOS CSPGO comparison](results/macos-cspgo-20260918/README.md).
-Earlier [macOS PGO measurements](results/macos-pgo-20260918.json) compare PGO with no PGO.
-Older PGO, GC and O3 findings are in the [historical notes](results/experiments-20260917-18.md).
-Compare results within an experiment: source, configuration and validation
-revisions can differ between reports.
+The [latest macOS comparison](results/macos-llvm-pgo-20260918/README.md) includes
+raw samples and build metadata. Earlier experiments remain in Git history;
+only current build and measurement procedures are maintained here.
