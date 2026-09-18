@@ -50,6 +50,9 @@ Correctness checks live in [tests/](../tests/).
 
 ## Results
 
-The [latest macOS comparison](results/macos-llvm-pgo-20260918/README.md) includes
-raw samples and build metadata. Earlier experiments remain in Git history;
-only current build and measurement procedures are maintained here.
+The [Linux CSPGO summary](results/linux-cspgo-20260918.md) records the measurements
+behind the default and links to the complete evidence in Git history.
+The [macOS three-way artifact comparison](results/macos-ebuild-20260918/README.md)
+compares ebuild, Apple PGO and LLVM CSPGO, including startup variability.
+The [earlier paired macOS comparisons](results/macos-llvm-pgo-20260918/README.md)
+include raw samples and build metadata. Other historical experiments remain in Git history.

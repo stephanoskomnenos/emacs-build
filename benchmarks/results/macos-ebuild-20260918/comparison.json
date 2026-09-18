@@ -1,0 +1,517 @@
+{
+  "units": "milliseconds",
+  "method": "three-way balanced-order warm-cache NS sessions; existing artifacts with different build configurations/revisions; -Q fixed held-out fixtures; ready after first redisplay, before smoke checks; no personal configuration",
+  "builds": {
+    "ebuild": {
+      "pgo": "off",
+      "artifact_repository": "RadioNoiseE/ebuild",
+      "artifact_run": 35302781912,
+      "archive_sha256": "45718297f58a4ea8539a4bdc50ff2f57f9e00390a9b2dbc22653b2e604b08b71",
+      "runtime": {
+        "version": "32.0.50",
+        "source": "adfbc0bbd9aebc7a24fb2728bf3aff85205ebe9f",
+        "configuration": "aarch64-apple-darwin25.6.0",
+        "features": "GMP GNUTLS LIBXML2 MODULES NOTIFY KQUEUE NS PDUMPER THREADS TOOLKIT_SCROLL_BARS TREE_SITTER ZLIB",
+        "configure": "'CFLAGS=-flto -g0 -O2' 'PKG_CONFIG=pkgconf -static' --disable-build-details --disable-gc-mark-trace --without-all --with-compress-install --with-file-notification=kqueue --with-libgmp --with-gnutls --with-modules --with-native-image-api --with-ns --with-small-ja-dic --with-threads --with-toolkit-scroll-bars --with-tree-sitter --with-xml2 --with-zlib"
+      },
+      "dynamic_libraries": "/tmp/emacs-compare/apps/ebuild/Emacs.app/Contents/MacOS/Emacs:\n\t/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit (compatibility version 45.0.0, current version 2685.60.104)\n\t/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit (compatibility version 1.0.0, current version 275.0.0)\n\t/System/Library/Frameworks/Carbon.framework/Versions/A/Carbon (compatibility version 2.0.0, current version 170.0.0)\n\t/System/Library/Frameworks/IOSurface.framework/Versions/A/IOSurface (compatibility version 1.0.0, current version 1.0.0)\n\t/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore (compatibility version 1.2.0, current version 1195.14.4)\n\t/System/Library/Frameworks/UniformTypeIdentifiers.framework/Versions/A/UniformTypeIdentifiers (compatibility version 1.0.0, current version 709.0.0)\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5026.5.4)\n\t/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices (compatibility version 1.0.0, current version 1226.0.0)\n\t/System/Library/Frameworks/Security.framework/Versions/A/Security (compatibility version 1.0.0, current version 61901.120.67)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)\n\t/System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices (compatibility version 1.0.0, current version 66.0.0)\n\t/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics (compatibility version 64.0.0, current version 1965.5.1)\n\t/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText (compatibility version 1.0.0, current version 877.4.0)\n\t/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 5026.5.4)\n\t/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)\n",
+      "measurement_host": "ProductName:\t\tmacOS\nProductVersion:\t\t26.6.2\nBuildVersion:\t\t25G83\n"
+    },
+    "apple-pgo": {
+      "pgo": "use",
+      "artifact_repository": "stephanoskomnenos/emacs-build",
+      "artifact_run": 35262660846,
+      "archive_sha256": "ce1e4ed71bfa8932cb454c0a1402b38f3987aedc075b5d95f9d223f3bb209746",
+      "runtime": {
+        "version": "32.0.50",
+        "source": null,
+        "configuration": "aarch64-apple-darwin25.6.0",
+        "features": "GMP GNUTLS LIBXML2 MODULES NOTIFY KQUEUE NS PDUMPER SQLITE3 THREADS TOOLKIT_SCROLL_BARS TREE_SITTER ZLIB",
+        "configure": "--prefix=/private/tmp/emacs-build/use/install --disable-build-details --disable-gc-mark-trace --without-all --without-native-compilation --with-compress-install --with-file-notification=kqueue --with-libgmp --with-gnutls --with-modules --with-native-image-api --with-ns --with-threads --with-toolkit-scroll-bars --with-tree-sitter --with-xml2 --with-zlib --with-sqlite3 'CFLAGS=-O2 -g0 -flto=thin -isysroot /Applications/Xcode_26.6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -fprofile-use=/private/tmp/emacs-build/merged.profdata -Werror=profile-instr-out-of-date' CPPFLAGS=-I/usr/local/include 'LDFLAGS=-O2 -g0 -flto=thin -isysroot /Applications/Xcode_26.6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -fprofile-use=/private/tmp/emacs-build/merged.profdata -Werror=profile-instr-out-of-date -L/usr/local/lib'"
+      },
+      "dynamic_libraries": "/tmp/emacs-compare/apps/apple-pgo/Emacs.app/Contents/MacOS/Emacs:\n\t/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit (compatibility version 45.0.0, current version 2685.60.104)\n\t/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit (compatibility version 1.0.0, current version 275.0.0)\n\t/System/Library/Frameworks/Carbon.framework/Versions/A/Carbon (compatibility version 2.0.0, current version 170.0.0)\n\t/System/Library/Frameworks/IOSurface.framework/Versions/A/IOSurface (compatibility version 1.0.0, current version 1.0.0)\n\t/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore (compatibility version 1.2.0, current version 1195.14.4)\n\t/System/Library/Frameworks/UniformTypeIdentifiers.framework/Versions/A/UniformTypeIdentifiers (compatibility version 1.0.0, current version 709.0.0)\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5026.5.4)\n\t/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices (compatibility version 1.0.0, current version 1226.0.0)\n\t/System/Library/Frameworks/Security.framework/Versions/A/Security (compatibility version 1.0.0, current version 61901.120.67)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)\n\t/System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices (compatibility version 1.0.0, current version 66.0.0)\n\t/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics (compatibility version 64.0.0, current version 1965.5.1)\n\t/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText (compatibility version 1.0.0, current version 877.4.0)\n\t/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 5026.5.4)\n\t/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)\n",
+      "measurement_host": "ProductName:\t\tmacOS\nProductVersion:\t\t26.6.2\nBuildVersion:\t\t25G83\n"
+    },
+    "llvm-cspgo": {
+      "pgo": "cs-use",
+      "artifact_repository": "stephanoskomnenos/emacs-build",
+      "artifact_run": 35350830348,
+      "archive_sha256": "6e8810deb59956d36ab2fff4b823dfcc01106005921f49c7440755a3cdedc95c",
+      "runtime": {
+        "version": "32.0.50",
+        "source": null,
+        "configuration": "aarch64-apple-darwin25.6.0",
+        "features": "GMP GNUTLS LIBXML2 MODULES NOTIFY KQUEUE NS PDUMPER SQLITE3 THREADS TOOLKIT_SCROLL_BARS TREE_SITTER ZLIB",
+        "configure": "--prefix=/private/tmp/emacs-build/cs-install --disable-build-details --disable-gc-mark-trace --without-all --without-native-compilation --with-compress-install --with-file-notification=kqueue --with-libgmp --with-gnutls --with-modules --with-native-image-api --with-ns --with-threads --with-toolkit-scroll-bars --with-tree-sitter --with-xml2 --with-zlib --with-sqlite3 'CFLAGS=-O2 -g0 -flto=thin -isysroot /Applications/Xcode_26.6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -fprofile-use=/private/tmp/emacs-build/merged.profdata -Xclang -fprofile-instrument=csllvm -Xclang -fprofile-instrument-path=/private/tmp/emacs-build/cs-bootstrap/default_%m.profraw -Werror=profile-instr-out-of-date' CPPFLAGS=-I/usr/local/include 'LDFLAGS=-O2 -g0 -flto=thin -isysroot /Applications/Xcode_26.6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -fuse-ld=lld --ld-path=/Users/runner/work/_temp/emacs-llvm/bin/ld64.lld -fprofile-use=/private/tmp/emacs-build/combined.profdata -Werror=profile-instr-out-of-date -L/usr/local/lib'"
+      },
+      "dynamic_libraries": "/tmp/emacs-compare/apps/llvm-cspgo/Emacs.app/Contents/MacOS/Emacs:\n\t/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit (compatibility version 45.0.0, current version 2685.60.104)\n\t/System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices (compatibility version 1.0.0, current version 66.0.0)\n\t/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics (compatibility version 64.0.0, current version 1965.5.1)\n\t/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices (compatibility version 1.0.0, current version 1226.0.0)\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5026.5.4)\n\t/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)\n\t/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText (compatibility version 1.0.0, current version 877.4.0)\n\t/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 5026.5.4)\n\t/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit (compatibility version 1.0.0, current version 275.0.0)\n\t/System/Library/Frameworks/Carbon.framework/Versions/A/Carbon (compatibility version 2.0.0, current version 170.0.0)\n\t/System/Library/Frameworks/IOSurface.framework/Versions/A/IOSurface (compatibility version 1.0.0, current version 1.0.0)\n\t/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore (compatibility version 1.2.0, current version 1195.14.4)\n\t/System/Library/Frameworks/UniformTypeIdentifiers.framework/Versions/A/UniformTypeIdentifiers (compatibility version 1.0.0, current version 709.0.0)\n\t/System/Library/Frameworks/Security.framework/Versions/A/Security (compatibility version 1.0.0, current version 61901.120.67)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)\n",
+      "measurement_host": "ProductName:\t\tmacOS\nProductVersion:\t\t26.6.2\nBuildVersion:\t\t25G83\n"
+    }
+  },
+  "samples": {
+    "ebuild": [
+      {
+        "json": 41.914939880371094,
+        "regexp": 8546.349048614502,
+        "window-layout": 104.04205322265625,
+        "scroll-edit": 77.75282859802246,
+        "held-out.txt": 11.076927185058594,
+        "held-out.org": 949.451208114624,
+        "held-out.el": 123.34704399108887,
+        "gui-ready": 530.1711559295654
+      },
+      {
+        "json": 64.87607955932617,
+        "regexp": 10529.683113098145,
+        "window-layout": 164.7329330444336,
+        "scroll-edit": 120.74589729309082,
+        "held-out.txt": 16.655921936035156,
+        "held-out.org": 1494.1790103912354,
+        "held-out.el": 205.20806312561035,
+        "gui-ready": 1363.6791706085205
+      },
+      {
+        "json": 45.26090621948242,
+        "regexp": 7358.745098114014,
+        "window-layout": 73.84300231933594,
+        "scroll-edit": 57.60693550109863,
+        "held-out.txt": 8.897066116333008,
+        "held-out.org": 780.4532051086426,
+        "held-out.el": 110.43095588684082,
+        "gui-ready": 443.68886947631836
+      },
+      {
+        "json": 28.87582778930664,
+        "regexp": 7510.087966918945,
+        "window-layout": 87.57400512695312,
+        "scroll-edit": 77.48913764953613,
+        "held-out.txt": 8.600234985351562,
+        "held-out.org": 890.510082244873,
+        "held-out.el": 109.86185073852539,
+        "gui-ready": 580.6620121002197
+      },
+      {
+        "json": 33.5850715637207,
+        "regexp": 7478.354930877686,
+        "window-layout": 69.8099136352539,
+        "scroll-edit": 56.65397644042969,
+        "held-out.txt": 8.699893951416016,
+        "held-out.org": 867.257833480835,
+        "held-out.el": 120.3300952911377,
+        "gui-ready": 571.8960762023926
+      },
+      {
+        "json": 38.59400749206543,
+        "regexp": 8116.480112075806,
+        "window-layout": 86.30204200744629,
+        "scroll-edit": 69.78416442871094,
+        "held-out.txt": 8.9111328125,
+        "held-out.org": 865.056037902832,
+        "held-out.el": 110.3818416595459,
+        "gui-ready": 470.3099727630615
+      },
+      {
+        "json": 27.616024017333984,
+        "regexp": 6751.297950744629,
+        "window-layout": 63.3549690246582,
+        "scroll-edit": 49.66998100280762,
+        "held-out.txt": 8.93712043762207,
+        "held-out.org": 774.1379737854004,
+        "held-out.el": 118.14308166503906,
+        "gui-ready": 637.1591091156006
+      },
+      {
+        "json": 29.217004776000977,
+        "regexp": 7567.857980728149,
+        "window-layout": 95.34597396850586,
+        "scroll-edit": 72.3259449005127,
+        "held-out.txt": 9.003162384033203,
+        "held-out.org": 948.0869770050049,
+        "held-out.el": 115.84901809692383,
+        "gui-ready": 583.5330486297607
+      },
+      {
+        "json": 61.45000457763672,
+        "regexp": 7832.921028137207,
+        "window-layout": 71.08497619628906,
+        "scroll-edit": 60.51206588745117,
+        "held-out.txt": 7.779836654663086,
+        "held-out.org": 686.0311031341553,
+        "held-out.el": 106.9650650024414,
+        "gui-ready": 338.6411666870117
+      },
+      {
+        "json": 36.24296188354492,
+        "regexp": 7939.352989196777,
+        "window-layout": 97.37610816955566,
+        "scroll-edit": 102.94485092163086,
+        "held-out.txt": 11.910200119018555,
+        "held-out.org": 981.8918704986572,
+        "held-out.el": 114.9439811706543,
+        "gui-ready": 779.2940139770508
+      },
+      {
+        "json": 29.324054718017578,
+        "regexp": 7119.040012359619,
+        "window-layout": 85.74891090393066,
+        "scroll-edit": 69.02503967285156,
+        "held-out.txt": 8.543014526367188,
+        "held-out.org": 750.6849765777588,
+        "held-out.el": 107.23519325256348,
+        "gui-ready": 459.72585678100586
+      },
+      {
+        "json": 30.47800064086914,
+        "regexp": 7336.58504486084,
+        "window-layout": 91.5529727935791,
+        "scroll-edit": 67.85702705383301,
+        "held-out.txt": 8.801937103271484,
+        "held-out.org": 766.1259174346924,
+        "held-out.el": 114.59898948669434,
+        "gui-ready": 465.5179977416992
+      }
+    ],
+    "apple-pgo": [
+      {
+        "json": 27.785062789916992,
+        "regexp": 7133.013963699341,
+        "window-layout": 102.00309753417969,
+        "scroll-edit": 54.58211898803711,
+        "held-out.txt": 10.987043380737305,
+        "held-out.org": 984.7290515899658,
+        "held-out.el": 102.87690162658691,
+        "gui-ready": 524.0979194641113
+      },
+      {
+        "json": 27.225017547607422,
+        "regexp": 7279.541969299316,
+        "window-layout": 80.66606521606445,
+        "scroll-edit": 62.00408935546875,
+        "held-out.txt": 9.788990020751953,
+        "held-out.org": 809.0770244598389,
+        "held-out.el": 112.1361255645752,
+        "gui-ready": 533.6840152740479
+      },
+      {
+        "json": 29.68597412109375,
+        "regexp": 6813.007831573486,
+        "window-layout": 120.9869384765625,
+        "scroll-edit": 56.012868881225586,
+        "held-out.txt": 13.64278793334961,
+        "held-out.org": 954.4730186462402,
+        "held-out.el": 126.67202949523926,
+        "gui-ready": 756.1678886413574
+      },
+      {
+        "json": 26.919126510620117,
+        "regexp": 6767.103910446167,
+        "window-layout": 82.7479362487793,
+        "scroll-edit": 63.32707405090332,
+        "held-out.txt": 14.045953750610352,
+        "held-out.org": 959.4051837921143,
+        "held-out.el": 138.214111328125,
+        "gui-ready": 698.5409259796143
+      },
+      {
+        "json": 23.900985717773438,
+        "regexp": 7627.665996551514,
+        "window-layout": 112.95008659362793,
+        "scroll-edit": 70.87898254394531,
+        "held-out.txt": 11.520147323608398,
+        "held-out.org": 824.2790699005127,
+        "held-out.el": 102.4320125579834,
+        "gui-ready": 432.14988708496094
+      },
+      {
+        "json": 32.40799903869629,
+        "regexp": 7185.265064239502,
+        "window-layout": 93.27387809753418,
+        "scroll-edit": 83.47296714782715,
+        "held-out.txt": 11.770009994506836,
+        "held-out.org": 894.3140506744385,
+        "held-out.el": 89.8430347442627,
+        "gui-ready": 520.8191871643066
+      },
+      {
+        "json": 35.42900085449219,
+        "regexp": 6636.821031570435,
+        "window-layout": 59.88311767578125,
+        "scroll-edit": 41.18084907531738,
+        "held-out.txt": 7.441997528076172,
+        "held-out.org": 745.3329563140869,
+        "held-out.el": 109.45010185241699,
+        "gui-ready": 478.09410095214844
+      },
+      {
+        "json": 46.17810249328613,
+        "regexp": 7116.214036941528,
+        "window-layout": 66.12706184387207,
+        "scroll-edit": 42.448997497558594,
+        "held-out.txt": 6.033182144165039,
+        "held-out.org": 673.6500263214111,
+        "held-out.el": 90.2109146118164,
+        "gui-ready": 402.0390510559082
+      },
+      {
+        "json": 34.15083885192871,
+        "regexp": 7521.393775939941,
+        "window-layout": 66.50710105895996,
+        "scroll-edit": 56.60700798034668,
+        "held-out.txt": 13.447046279907227,
+        "held-out.org": 821.8340873718262,
+        "held-out.el": 98.05893898010254,
+        "gui-ready": 695.8398818969727
+      },
+      {
+        "json": 28.768062591552734,
+        "regexp": 7364.099979400635,
+        "window-layout": 141.65687561035156,
+        "scroll-edit": 116.95098876953125,
+        "held-out.txt": 17.20404624938965,
+        "held-out.org": 889.2500400543213,
+        "held-out.el": 116.80793762207031,
+        "gui-ready": 707.5588703155518
+      },
+      {
+        "json": 26.716947555541992,
+        "regexp": 6903.778076171875,
+        "window-layout": 97.3811149597168,
+        "scroll-edit": 75.49095153808594,
+        "held-out.txt": 10.90383529663086,
+        "held-out.org": 705.5540084838867,
+        "held-out.el": 100.99411010742188,
+        "gui-ready": 575.6359100341797
+      },
+      {
+        "json": 27.070999145507812,
+        "regexp": 6521.8048095703125,
+        "window-layout": 78.64999771118164,
+        "scroll-edit": 48.64096641540527,
+        "held-out.txt": 6.75201416015625,
+        "held-out.org": 747.9991912841797,
+        "held-out.el": 102.94818878173828,
+        "gui-ready": 420.87388038635254
+      }
+    ],
+    "llvm-cspgo": [
+      {
+        "json": 31.336069107055664,
+        "regexp": 6312.260150909424,
+        "window-layout": 87.85581588745117,
+        "scroll-edit": 57.05595016479492,
+        "held-out.txt": 11.937141418457031,
+        "held-out.org": 869.4338798522949,
+        "held-out.el": 122.18093872070312,
+        "gui-ready": 519.3147659301758
+      },
+      {
+        "json": 35.75015068054199,
+        "regexp": 8967.58508682251,
+        "window-layout": 127.38990783691406,
+        "scroll-edit": 130.0039291381836,
+        "held-out.txt": 32.34505653381348,
+        "held-out.org": 1433.2549571990967,
+        "held-out.el": 112.64896392822266,
+        "gui-ready": 719.2130088806152
+      },
+      {
+        "json": 28.37514877319336,
+        "regexp": 6699.743986129761,
+        "window-layout": 103.01995277404785,
+        "scroll-edit": 79.94604110717773,
+        "held-out.txt": 7.169961929321289,
+        "held-out.org": 921.6399192810059,
+        "held-out.el": 123.09002876281738,
+        "gui-ready": 600.4061698913574
+      },
+      {
+        "json": 27.101993560791016,
+        "regexp": 5884.81593132019,
+        "window-layout": 81.59399032592773,
+        "scroll-edit": 56.427001953125,
+        "held-out.txt": 13.957023620605469,
+        "held-out.org": 1000.817060470581,
+        "held-out.el": 103.55305671691895,
+        "gui-ready": 606.7779064178467
+      },
+      {
+        "json": 26.947975158691406,
+        "regexp": 5773.177862167358,
+        "window-layout": 79.06699180603027,
+        "scroll-edit": 54.631948471069336,
+        "held-out.txt": 12.276172637939453,
+        "held-out.org": 934.0219497680664,
+        "held-out.el": 112.72215843200684,
+        "gui-ready": 727.6341915130615
+      },
+      {
+        "json": 24.314165115356445,
+        "regexp": 5649.885892868042,
+        "window-layout": 64.25809860229492,
+        "scroll-edit": 39.418935775756836,
+        "held-out.txt": 7.996082305908203,
+        "held-out.org": 707.8070640563965,
+        "held-out.el": 97.59116172790527,
+        "gui-ready": 436.5849494934082
+      },
+      {
+        "json": 23.9260196685791,
+        "regexp": 5781.841993331909,
+        "window-layout": 76.00688934326172,
+        "scroll-edit": 53.93099784851074,
+        "held-out.txt": 9.999990463256836,
+        "held-out.org": 786.2949371337891,
+        "held-out.el": 89.59698677062988,
+        "gui-ready": 607.5530052185059
+      },
+      {
+        "json": 23.700952529907227,
+        "regexp": 5824.504852294922,
+        "window-layout": 81.50601387023926,
+        "scroll-edit": 52.89721488952637,
+        "held-out.txt": 8.239030838012695,
+        "held-out.org": 689.3961429595947,
+        "held-out.el": 109.03811454772949,
+        "gui-ready": 557.7101707458496
+      },
+      {
+        "json": 21.850109100341797,
+        "regexp": 5952.095985412598,
+        "window-layout": 96.79293632507324,
+        "scroll-edit": 80.57904243469238,
+        "held-out.txt": 8.973121643066406,
+        "held-out.org": 750.4978179931641,
+        "held-out.el": 92.16809272766113,
+        "gui-ready": 466.07398986816406
+      },
+      {
+        "json": 35.87198257446289,
+        "regexp": 6439.501047134399,
+        "window-layout": 70.82605361938477,
+        "scroll-edit": 67.44694709777832,
+        "held-out.txt": 12.817859649658203,
+        "held-out.org": 1000.770092010498,
+        "held-out.el": 88.47594261169434,
+        "gui-ready": 583.8220119476318
+      },
+      {
+        "json": 27.846097946166992,
+        "regexp": 5862.954139709473,
+        "window-layout": 81.99191093444824,
+        "scroll-edit": 53.28106880187988,
+        "held-out.txt": 10.728836059570312,
+        "held-out.org": 805.279016494751,
+        "held-out.el": 99.25985336303711,
+        "gui-ready": 490.6420707702637
+      },
+      {
+        "json": 26.821136474609375,
+        "regexp": 5674.803018569946,
+        "window-layout": 64.1331672668457,
+        "scroll-edit": 46.26202583312988,
+        "held-out.txt": 5.856990814208984,
+        "held-out.org": 642.8780555725098,
+        "held-out.el": 106.11987113952637,
+        "gui-ready": 421.1909770965576
+      }
+    ]
+  },
+  "summary": {
+    "json": {
+      "medians_ms": {
+        "ebuild": 34.91401672363281,
+        "apple-pgo": 28.276562690734863,
+        "llvm-cspgo": 27.02498435974121
+      },
+      "normalized_percent": {
+        "ebuild": 100.0,
+        "apple-pgo": 80.98914231084403,
+        "llvm-cspgo": 77.40439770554494
+      }
+    },
+    "regexp": {
+      "medians_ms": {
+        "ebuild": 7538.972973823547,
+        "apple-pgo": 7124.614000320435,
+        "llvm-cspgo": 5873.8850355148315
+      },
+      "normalized_percent": {
+        "ebuild": 100.0,
+        "apple-pgo": 94.50377425490409,
+        "llvm-cspgo": 77.91359719566375
+      }
+    },
+    "window-layout": {
+      "medians_ms": {
+        "ebuild": 86.9380235671997,
+        "apple-pgo": 88.01090717315674,
+        "llvm-cspgo": 81.5500020980835
+      },
+      "normalized_percent": {
+        "ebuild": 100.0,
+        "apple-pgo": 101.23407867114409,
+        "llvm-cspgo": 93.80245691351439
+      }
+    },
+    "scroll-edit": {
+      "medians_ms": {
+        "ebuild": 69.40460205078125,
+        "apple-pgo": 59.305548667907715,
+        "llvm-cspgo": 55.52947521209717
+      },
+      "normalized_percent": {
+        "ebuild": 100.0,
+        "apple-pgo": 85.449014785094,
+        "llvm-cspgo": 80.00834753215345
+      }
+    },
+    "held-out.txt": {
+      "medians_ms": {
+        "ebuild": 8.904099464416504,
+        "apple-pgo": 11.253595352172852,
+        "llvm-cspgo": 10.364413261413574
+      },
+      "normalized_percent": {
+        "ebuild": 100.0,
+        "apple-pgo": 126.3866761276157,
+        "llvm-cspgo": 116.40046590711312
+      }
+    },
+    "held-out.org": {
+      "medians_ms": {
+        "ebuild": 866.1569356918335,
+        "apple-pgo": 823.0565786361694,
+        "llvm-cspgo": 837.356448173523
+      },
+      "normalized_percent": {
+        "ebuild": 100.0,
+        "apple-pgo": 95.02395521185336,
+        "llvm-cspgo": 96.67491117007492
+      }
+    },
+    "held-out.el": {
+      "medians_ms": {
+        "ebuild": 114.77148532867432,
+        "apple-pgo": 102.9125452041626,
+        "llvm-cspgo": 104.83646392822266
+      },
+      "normalized_percent": {
+        "ebuild": 100.0,
+        "apple-pgo": 89.66734630073756,
+        "llvm-cspgo": 91.34365006081391
+      }
+    },
+    "gui-ready": {
+      "medians_ms": {
+        "ebuild": 551.033616065979,
+        "apple-pgo": 528.8909673690796,
+        "llvm-cspgo": 570.7660913467407
+      },
+      "normalized_percent": {
+        "ebuild": 100.0,
+        "apple-pgo": 95.98161563082421,
+        "llvm-cspgo": 103.58099301121386
+      }
+    }
+  }
+}
