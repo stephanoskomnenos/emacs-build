@@ -1,12 +1,12 @@
 # emacs-build
 
-构建 Emacs master：O2、ThinLTO，Linux 默认使用 CSPGO、macOS 默认使用普通 PGO，可选 CSPGO，禁用 native-comp。
+构建 Emacs master：O2、ThinLTO，两平台默认使用 CSPGO，可关闭以使用普通 PGO，禁用 native-comp。
 启用 SQLite、GnuTLS、XML、tree-sitter、zlib、动态模块和线程；基础第三方库静态链接，系统库动态链接。
 
 | 平台 | 版本 | 编译器 | 要求 |
 | --- | --- | --- | --- |
 | Linux | 终端 nox | Clang 23 | x86-64-v3、glibc ≥ 2.41 |
-| macOS | Cocoa `Emacs.app` | Apple Clang；CSPGO 用 LLVM Clang 23 | Apple Silicon |
+| macOS | Cocoa `Emacs.app` | LLVM Clang 23 | Apple Silicon |
 
 ## 下载与安装
 
@@ -28,9 +28,9 @@ Linux 的 terminfo、CA 证书，以及两平台的外置模块和 tree-sitter g
 
 每周一北京时间 **01:23** 自动构建，也支持手动触发；**push 不触发**。
 默认通过 Git 锁定 master commit；手动构建可用 `emacs_ref` 指定上游 commit 以复现构建。训练版、最终版和对照版使用同一份源码。
-Linux 默认启用 CSPGO；手动取消 `cspgo` 即使用普通 PGO，省去第二轮插桩构建和训练。
-macOS 的 `cspgo` 默认关闭；开启后使用锁定的预编译 LLVM 工具链，通过探测后复用 PTY/GUI 负载训练第二轮；静态依赖仍由 Apple Clang 构建。
-macOS CSPGO 已通过构建验证，但现有[性能对比](benchmarks/results/macos-cspgo-20260918/README.md)有快有慢，暂不默认开启。
+两平台默认启用 CSPGO；手动取消 `cspgo` 即使用普通 PGO，省去第二轮插桩构建和训练。
+macOS 的两种模式均使用锁定的预编译 LLVM 工具链；静态依赖沿用 Apple Clang 配方。
+性能数据见[同机对比](benchmarks/results/macos-llvm-pgo-20260918/README.md)。
 `compare` 才额外构建一个对照版：普通 PGO 对比无 PGO，CSPGO 对比普通 PGO；原始样本在 `macos-build-report`。
 
 Linux 本地构建需要 Podman、Python 3、Git 和 curl：

@@ -104,7 +104,7 @@ the already compiled binary. Build with the pinned container and `JOBS=18`.
    config copy and file set. Private config contents are intentionally omitted;
    hashes are recorded, so exact personal-config results require that snapshot.
 
-[Diagnostic PTY driver](regexp/sample-pty.py) records the separate perf sample;
+The temporary diagnostic PTY driver (available in Git history) records the separate perf sample;
 raw checkpoint timings and textual perf reports are included. Replay command:
 
 ```sh

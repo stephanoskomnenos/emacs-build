@@ -7,9 +7,9 @@ on:
         type: string
         default: master
       cspgo:
-        description: Add context-sensitive PGO (uses prebuilt LLVM Clang)
+        description: Use CSPGO; disable for ordinary PGO
         type: boolean
-        default: false
+        default: true
       compare:
         description: Compare PGO against no-PGO, or CSPGO against ordinary PGO
         type: boolean
@@ -25,8 +25,8 @@ jobs:
     timeout-minutes: 180
     env:
       EMACS_BUILD_ROOT: /tmp/emacs-build
-      FINAL_STAGE: ${{ inputs.cspgo && 'cs-use' || 'use' }}
-      BASELINE_STAGE: ${{ inputs.cspgo && 'use' || 'off' }}
+      FINAL_STAGE: ${{ (github.event_name == 'schedule' || inputs.cspgo) && 'cs-use' || 'use' }}
+      BASELINE_STAGE: ${{ (github.event_name == 'schedule' || inputs.cspgo) && 'use' || 'off' }}
     steps:
       - uses: actions/checkout@v4
       - name: Lock master and fetch training fixtures
@@ -43,18 +43,15 @@ jobs:
           from sources import load_sources
           print('dependencies=' + hashlib.sha256(json.dumps(load_sources('macos'), sort_keys=True).encode()).hexdigest())
           PYTHON
-          echo "LLVM_PROFDATA=$(xcrun --find llvm-profdata)" >> "$GITHUB_ENV"
       - uses: actions/cache/restore@v4
         id: llvm-cache
-        if: inputs.cspgo == true
         with:
           path: cache/llvm
           key: macos-llvm-arm64-${{ hashFiles('scripts/macos/llvm.json') }}
-      - name: Install prebuilt LLVM for CSPGO
-        if: inputs.cspgo == true
+      - name: Install prebuilt LLVM
         run: python3 scripts/macos/setup-llvm.py
       - uses: actions/cache/save@v4
-        if: inputs.cspgo == true && steps.llvm-cache.outputs.cache-hit != 'true'
+        if: steps.llvm-cache.outputs.cache-hit != 'true'
         with:
           path: cache/llvm
           key: ${{ steps.llvm-cache.outputs.cache-primary-key }}
@@ -70,7 +67,7 @@ jobs:
       - name: Verify selected Clang ThinLTO and PGO
         id: toolchain
         env:
-          CSPGO: ${{ inputs.cspgo && '1' || '0' }}
+          CSPGO: ${{ (github.event_name == 'schedule' || inputs.cspgo) && '1' || '0' }}
         run: |
           if [ "$CSPGO" = 1 ]; then
             python3 scripts/macos/toolchain.py --cspgo
@@ -104,10 +101,10 @@ jobs:
           EMACS_TRAIN_GUI: '1'
         run: python3 scripts/pgo-train.py /tmp/emacs-build/generate/bundle
       - name: Build context-sensitive instrumentation
-        if: inputs.cspgo == true
+        if: github.event_name == 'schedule' || inputs.cspgo == true
         run: python3 scripts/macos/build.py cs-generate
       - name: Train context-sensitive PTY and GUI profile
-        if: inputs.cspgo == true
+        if: github.event_name == 'schedule' || inputs.cspgo == true
         timeout-minutes: 25
         env:
           EMACS_TRAIN_GUI: '1'

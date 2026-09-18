@@ -1,20 +1,16 @@
 """Paired compile/link flags for macOS Clang ordinary and context-sensitive PGO."""
 import os
 from pathlib import Path
-import subprocess
 
 
 def compiler_tools():
     prefix = os.environ.get('EMACS_LLVM_ROOT')
-    if prefix:
-        bin_dir = Path(prefix) / 'bin'
-        # The linker kind must be 'lld': an absolute -fuse-ld value makes the
-        # Darwin driver forward Apple's libLTO options instead of LLD options.
-        return str(bin_dir / 'clang'), str(bin_dir / 'llvm-profdata'), [
-            '-fuse-ld=lld', '--ld-path=' + str(bin_dir / 'ld64.lld')]
-    def xcrun(tool):
-        return subprocess.check_output(['xcrun', '--find', tool], text=True).strip()
-    return xcrun('clang'), xcrun('llvm-profdata'), []
+    if not prefix:
+        raise RuntimeError('Set EMACS_LLVM_ROOT to the prebuilt LLVM installation')
+    bin_dir = Path(prefix) / 'bin'
+    # Name the linker kind explicitly so the driver forwards Mach-O LLD options.
+    return str(bin_dir / 'clang'), str(bin_dir / 'llvm-profdata'), [
+        '-fuse-ld=lld', '--ld-path=' + str(bin_dir / 'ld64.lld')]
 
 
 def profile_flags(mode, build, raw):

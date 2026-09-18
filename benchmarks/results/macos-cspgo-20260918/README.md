@@ -25,7 +25,7 @@ use the same pinned LLVM 23.1.1 compiler, Mach-O LLD and llvm-profdata.
   CS options now reached LLD correctly, but linking failed on the profile filename
   symbol. The prelink CS flags omitted the filename definition; additionally,
   late archive extraction can follow ThinLTO removal of that variable.
-  `linker-check.py` reproduces the latter failure with a minimal Mach-O archive,
+  The temporary reproducer (retained in commit `c30b11a`) reproduced the latter failure with a minimal Mach-O archive,
   both with public `-fcs-profile-generate` and with explicit frontend CS flags.
   Both link successfully when `-u ___llvm_profile_runtime` loads the runtime
   before ThinLTO. The repair supplies a common prelink bootstrap filename and
