@@ -27,7 +27,7 @@ if digest.hexdigest() != spec['sha256']:
 prefix = Path(os.environ['RUNNER_TEMP']) / 'emacs-llvm'
 prefix.mkdir(parents=True, exist_ok=True)
 subprocess.run(['tar', '-xf', str(archive), '--strip-components=1', '-C', str(prefix)], check=True)
-for tool in ('clang', 'ld64.lld', 'llvm-profdata'):
+for tool in ('clang', 'ld64.lld', 'llvm-profdata', 'llvm-ar', 'llvm-ranlib'):
     subprocess.run([str(prefix / 'bin' / tool), '--version'], check=True)
 with open(os.environ['GITHUB_ENV'], 'a') as output:
     output.write(f'EMACS_LLVM_ROOT={prefix}\nLLVM_PROFDATA={prefix}/bin/llvm-profdata\n')

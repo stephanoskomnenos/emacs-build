@@ -34,8 +34,15 @@ use the same pinned LLVM 23.1.1 compiler, Mach-O LLD and llvm-profdata.
 
 ## Required evidence
 
-A new Mac run is needed to validate the runtime-symbol repair. Completion requires a passing Objective-C ThinLTO CS probe, both
-actual Emacs training passes, stable selected C/Objective-C prelink objects,
+[Run 35347629131](https://github.com/stephanoskomnenos/emacs-build/actions/runs/35347629131),
+build commit `c30b11a`, passed the Objective-C ThinLTO probe, including CS runtime
+execution, positive CS counts and final-link profile application. The full build then failed linking `etags`: system `ranlib` warned that a
+member was not Mach-O, and LLD could not find gnulib regexp symbols. Emacs had
+selected system archive tools despite compiling LLVM 23 bitcode. The fix selects
+`llvm-ar` and `llvm-ranlib` from the same LLVM installation for Emacs only. A local
+Mach-O ThinLTO archive/link check passed; the full Mac build must still validate
+the fix. Static dependencies built successfully and their cache was saved. Completion requires both actual Emacs training passes,
+stable selected C/Objective-C prelink objects,
 Cocoa smoke checks, system-only dynamic-link/resource audit, packaged app and
 an alternating ordinary-PGO/CSPGO GUI comparison. No macOS performance conclusion
 has been established yet. Comparison uses fixed held-out GUI fixtures, not a

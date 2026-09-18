@@ -74,6 +74,10 @@ env = dict(os.environ, CC=clang, OBJC=clang, CFLAGS=compile_flags, OBJCFLAGS=com
            CPPFLAGS='-I/usr/local/include', LDFLAGS=link_flags + ' -L/usr/local/lib', PKG_CONFIG='pkgconf -static',
            PKG_CONFIG_LIBDIR='/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig',
            LC_ALL='en_US.UTF-8')
+if os.environ.get('EMACS_LLVM_ROOT'):
+    # Archive indexes must understand the same LLVM bitcode as the compiler.
+    llvm_bin = Path(clang).parent
+    env.update(AR=str(llvm_bin / 'llvm-ar'), RANLIB=str(llvm_bin / 'llvm-ranlib'))
 for key in ('LLVM_PROFILE_FILE', 'CPATH', 'LIBRARY_PATH', 'DYLD_LIBRARY_PATH', 'PKG_CONFIG_PATH'):
     env.pop(key, None)
 args = ['--prefix=' + str(BUILD / 'cs-install' if cs else stage / 'install'), '--disable-build-details', '--disable-gc-mark-trace',
