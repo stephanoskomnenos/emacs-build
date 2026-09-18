@@ -30,6 +30,7 @@ Linux 的 terminfo、CA 证书，以及两平台的外置模块和 tree-sitter g
 默认通过 Git 锁定 master commit；手动构建可用 `emacs_ref` 指定上游 commit 以复现构建。训练版、最终版和对照版使用同一份源码。
 Linux 默认启用 CSPGO；手动取消 `cspgo` 即使用普通 PGO，省去第二轮插桩构建和训练。
 macOS 的 `cspgo` 默认关闭；开启后使用锁定的预编译 LLVM 工具链，通过探测后复用 PTY/GUI 负载训练第二轮；静态依赖仍由 Apple Clang 构建。
+macOS CSPGO 已通过构建验证，但现有[性能对比](benchmarks/results/macos-cspgo-20260918/README.md)有快有慢，暂不默认开启。
 `compare` 才额外构建一个对照版：普通 PGO 对比无 PGO，CSPGO 对比普通 PGO；原始样本在 `macos-build-report`。
 
 Linux 本地构建需要 Podman、Python 3、Git 和 curl：

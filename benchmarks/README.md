@@ -53,7 +53,8 @@ Correctness checks live in [tests/](../tests/).
 
 [results/](results/) contains dated measurements and investigation records,
 not build instructions. Start with the [CSPGO/BOLT report](results/compiler-followup-20260918/README.md)
-or [macOS PGO measurements](results/macos-pgo-20260918.json).
+or [macOS CSPGO comparison](results/macos-cspgo-20260918/README.md).
+Earlier [macOS PGO measurements](results/macos-pgo-20260918.json) compare PGO with no PGO.
 Older PGO, GC and O3 findings are in the [historical notes](results/experiments-20260917-18.md).
 Compare results within an experiment: source, configuration and validation
 revisions can differ between reports.
