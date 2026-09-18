@@ -6,8 +6,12 @@ on:
         description: Upstream branch, tag or full commit
         type: string
         default: master
+      cspgo:
+        description: Add context-sensitive PGO (requires Apple toolchain probe to pass)
+        type: boolean
+        default: false
       compare:
-        description: Build a no-PGO baseline and measure GUI performance
+        description: Compare PGO against no-PGO, or CSPGO against ordinary PGO
         type: boolean
         default: false
   schedule:
@@ -21,6 +25,8 @@ jobs:
     timeout-minutes: 180
     env:
       EMACS_BUILD_ROOT: /tmp/emacs-build
+      FINAL_STAGE: ${{ inputs.cspgo && 'cs-use' || 'use' }}
+      BASELINE_STAGE: ${{ inputs.cspgo && 'use' || 'off' }}
     steps:
       - uses: actions/checkout@v4
       - name: Lock master and fetch training fixtures
@@ -40,7 +46,14 @@ jobs:
           echo "LLVM_PROFDATA=$(xcrun --find llvm-profdata)" >> "$GITHUB_ENV"
       - name: Verify Apple Clang ThinLTO and PGO
         id: toolchain
-        run: python3 scripts/macos/toolchain.py
+        env:
+          CSPGO: ${{ inputs.cspgo && '1' || '0' }}
+        run: |
+          if [ "$CSPGO" = 1 ]; then
+            python3 scripts/macos/toolchain.py --cspgo
+          else
+            python3 scripts/macos/toolchain.py
+          fi
       - name: Remove Homebrew from disposable runner
         shell: bash
         run: |
@@ -74,28 +87,39 @@ jobs:
       - name: Train generic PTY and GUI workloads
         timeout-minutes: 25
         env:
-          EMACS_TRAIN_SOURCE: /tmp/emacs-build/generate/source
           EMACS_TRAIN_GUI: '1'
         run: python3 scripts/pgo-train.py /tmp/emacs-build/generate/bundle
-      - name: Build PGO Cocoa Emacs
-        run: python3 scripts/macos/build.py use
+      - name: Build context-sensitive instrumentation
+        if: inputs.cspgo == true
+        run: python3 scripts/macos/build.py cs-generate
+      - name: Train context-sensitive PTY and GUI profile
+        if: inputs.cspgo == true
+        timeout-minutes: 25
+        env:
+          EMACS_TRAIN_GUI: '1'
+        run: python3 scripts/pgo-train.py /tmp/emacs-build/cs-generate/bundle
+      - name: Build optimized Cocoa Emacs
+        run: python3 scripts/macos/build.py "$FINAL_STAGE"
       - name: Audit system-only dynamic dependencies and exercise GUI
         run: |
-          python3 scripts/macos/audit.py /tmp/emacs-build/use/bundle/Emacs.app > /tmp/emacs-build/link-audit.json
-          python3 scripts/macos/gui.py smoke /tmp/emacs-build/use/bundle
+          python3 scripts/macos/audit.py "/tmp/emacs-build/$FINAL_STAGE/bundle"/Emacs.app > /tmp/emacs-build/link-audit.json
+          python3 scripts/macos/gui.py smoke "/tmp/emacs-build/$FINAL_STAGE/bundle"
       - name: Build matched baseline
         if: inputs.compare == true
-        run: python3 scripts/macos/build.py off
+        run: python3 scripts/macos/build.py "$BASELINE_STAGE"
       - name: Compare baseline and PGO
         if: inputs.compare == true
-        run: python3 scripts/macos/gui.py compare /tmp/emacs-build/use/bundle --baseline /tmp/emacs-build/off/bundle
+        run: python3 scripts/macos/gui.py compare "/tmp/emacs-build/$FINAL_STAGE/bundle" --baseline "/tmp/emacs-build/$BASELINE_STAGE/bundle"
       - name: Package app
         run: |
           mkdir -p dist/macos
-          cp /tmp/emacs-build/use/bundle/BUILD-INFO.json dist/macos/
+          cp "/tmp/emacs-build/$FINAL_STAGE/bundle"/BUILD-INFO.json dist/macos/
           cp /tmp/emacs-build/link-audit.json dist/macos/
           cp /tmp/emacs-build/pgo-training/provenance.json dist/macos/
-          tar -C /tmp/emacs-build/use/bundle -Jcf dist/macos/Emacs-macos-arm64.tar.xz Emacs.app
+          if [ "$FINAL_STAGE" = cs-use ]; then
+            cp /tmp/emacs-build/pgo-training-cs/provenance.json dist/macos/cs-provenance.json
+          fi
+          tar -C "/tmp/emacs-build/$FINAL_STAGE/bundle" -Jcf dist/macos/Emacs-macos-arm64.tar.xz Emacs.app
           cd dist/macos
           shasum -a 256 Emacs-macos-arm64.tar.xz > Emacs-macos-arm64.tar.xz.sha256
       - uses: actions/upload-artifact@v4
@@ -112,12 +136,13 @@ jobs:
             dist/macos/*.json
             /tmp/emacs-build/comparison.json
             /tmp/emacs-build/toolchain/result.json
-            /tmp/emacs-build/pgo-training/gui-profile.txt
+            /tmp/emacs-build/toolchain/cs-link.log
+            /tmp/emacs-build/pgo-training*/gui-profile.txt
             /tmp/emacs-build/*/build.log
-            /tmp/emacs-build/pgo-training/provenance.json
-            /tmp/emacs-build/pgo-training/profile-summary.txt
-            /tmp/emacs-build/pgo-training/*/terminal.log
-            /tmp/emacs-build/pgo-training/training-benchmarks.log
+            /tmp/emacs-build/pgo-training*/provenance.json
+            /tmp/emacs-build/pgo-training*/profile-summary.txt
+            /tmp/emacs-build/pgo-training*/*/terminal.log
+            /tmp/emacs-build/pgo-training*/training-benchmarks.log
             /tmp/emacs-build/workload-packages/*/compile.log
             /tmp/emacs-build/gui-*/*/*.json
             /tmp/emacs-build/gui-*/*/emacs.log

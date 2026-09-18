@@ -19,13 +19,14 @@ p.add_argument('--baseline', type=Path)
 p.add_argument('--runs', type=int, default=10)
 p.add_argument('--restart', action='store_true', help='replace results for this GUI mode')
 a = p.parse_args()
-base = BUILD / ('gui-' + a.mode)
+training_cs = a.mode == 'train' and json.loads((a.bundle / 'BUILD-INFO.json').read_text())['pgo'] == 'cs-generate'
+base = BUILD / ('gui-' + a.mode + ('-cs' if training_cs else ''))
 if a.restart and base.exists():
     shutil.rmtree(base)
-if (base / ('00-' + a.mode if a.mode != 'compare' else '00-off')).exists():
+if any(base.glob('00-*')):
     p.error('Results already exist; use --restart to rerun this GUI mode')
 base.mkdir(parents=True, exist_ok=True)
-corpus = BUILD / 'pgo-training/corpus' if a.mode == 'train' else base / 'corpus'
+corpus = BUILD / ('pgo-training-cs/corpus' if training_cs else 'pgo-training/corpus') if a.mode == 'train' else base / 'corpus'
 if a.mode != 'train':
     corpus.mkdir(exist_ok=True)
     (corpus / 'held-out.el').write_text(';;; Held-out generated fixture -*- lexical-binding: t; -*-\n' +
@@ -34,7 +35,7 @@ if a.mode != 'train':
     (corpus / 'held-out.txt').write_text('held-out record_123 searchable text\n' * 24000)
 def run(bundle, label, index):
     info = json.loads((bundle / 'BUILD-INFO.json').read_text())
-    if a.mode != 'train' and info['pgo'] == 'generate':
+    if a.mode != 'train' and info['pgo'] in ('generate', 'cs-generate'):
         raise RuntimeError('Instrumented builds cannot run validation')
     output = base / f'{index:02d}-{label}'
     output.mkdir()
@@ -60,31 +61,33 @@ if a.mode != 'compare':
 else:
     if a.baseline is None:
         p.error('--baseline is required for compare')
-    bundles = {'off': a.baseline.resolve(), 'use': a.bundle.resolve()}
+    baseline_mode = json.loads((a.baseline / 'BUILD-INFO.json').read_text())['pgo']
+    final_mode = json.loads((a.bundle / 'BUILD-INFO.json').read_text())['pgo']
+    if (baseline_mode, final_mode) not in (('off', 'use'), ('use', 'cs-use')):
+        raise RuntimeError('Expected off/use or use/cs-use comparison')
+    bundles = {baseline_mode: a.baseline.resolve(), final_mode: a.bundle.resolve()}
     info = {label: json.loads((bundle / 'BUILD-INFO.json').read_text()) for label,bundle in bundles.items()}
     for key in ('source', 'compiler', 'sdk', 'architecture', 'dependency_recipe', 'extra_dependencies'):
-        if info['off'][key] != info['use'][key]:
+        if info[baseline_mode][key] != info[final_mode][key]:
             raise RuntimeError('Unmatched builds: ' + key)
-    if info['off'].get('dependency_recipe_sha256') != info['use'].get('dependency_recipe_sha256'):
+    if info[baseline_mode].get('dependency_recipe_sha256') != info[final_mode].get('dependency_recipe_sha256'):
         raise RuntimeError('Unmatched dependency recipe hashes')
-    if info['off']['pgo'] != 'off' or info['use']['pgo'] != 'use':
-        raise RuntimeError('Expected off/use comparison')
     # Relocate both apps away from their build trees before measurements.
     with tempfile.TemporaryDirectory(prefix='emacs-ab-') as tmp:
         for label in bundles:
             relocated = Path(tmp) / label
             subprocess.run(['ditto',str(bundles[label]),str(relocated)],check=True)
             bundles[label] = relocated
-        samples = {'off': [], 'use': []}
+        samples = {label: [] for label in bundles}
         for label in bundles:
             run(bundles[label], label, 0)  # Unrecorded warmup.
         for index in range(1, a.runs + 1):
-            for label in (['off','use'] if index % 2 else ['use','off']):
+            for label in (list(bundles) if index % 2 else list(reversed(bundles))):
                 samples[label].append(run(bundles[label],label,index))
     summary = {}
-    for metric in samples['off'][0]:
+    for metric in samples[baseline_mode][0]:
         medians = {label:statistics.median(s[metric] for s in values) for label,values in samples.items()}
-        summary[metric] = dict(medians, improvement_percent=100*(1-medians['use']/medians['off']))
+        summary[metric] = dict(medians, improvement_percent=100*(1-medians[final_mode]/medians[baseline_mode]))
     report = dict(units='milliseconds', method='alternating warm-cache NS sessions; -Q fixed held-out fixtures; ready after first redisplay, before smoke checks; no personal configuration',
                   builds=info, samples=samples, summary=summary)
     (BUILD / 'comparison.json').write_text(json.dumps(report,indent=2)+'\n')

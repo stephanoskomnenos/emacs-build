@@ -1,8 +1,9 @@
 # PGO training and performance validation
 
 Linux defaults to O2 + ThinLTO + CSPGO; the Action's `cspgo` switch selects
-ordinary PGO when disabled. macOS uses O2 + ThinLTO + ordinary PGO and adds Cocoa
-GUI training. Build commands are in the [project README](../README.md#构建).
+ordinary PGO when disabled. macOS defaults to ordinary PGO with Cocoa GUI
+training; its optional `cspgo` switch adds a second pass after an Apple toolchain
+probe verifies CS collection and final-link application. Build commands are in the [project README](../README.md#构建).
 
 Cocoa training opens files, scrolls, edits, splits windows and changes text size;
 it also exercises search/completion candidates, Org structure, asynchronous
@@ -38,7 +39,8 @@ Dependencies and packaging are shared between ordinary PGO and CSPGO.
   of the user's configuration; instrumented builds are rejected.
 - [Configured LSP load](lsp/README.md): diagnostics replay and input/GC latency.
 - `scripts/macos/gui.py compare`: Cocoa startup and operations with fixed test
-  configuration. The macOS Action's `compare` switch builds a no-PGO baseline.
+  configuration. The macOS Action's `compare` switch adds one baseline: no-PGO
+  for ordinary PGO, ordinary PGO for CSPGO.
 
 Compare variants with identical source, fixtures and measurement conditions;
 alternate order, exclude warm-ups and retain raw samples. Stop concurrent builds

@@ -30,12 +30,12 @@ if a.restart:
     if not a.check_workloads:
         for name in (('cs.profdata','combined.profdata') if cs else ('merged.profdata','cs.profdata','combined.profdata')):
             (BUILD/name).unlink(missing_ok=True)
-        if os.environ.get('EMACS_TRAIN_GUI')=='1' and (BUILD/'gui-train').exists():
-            shutil.rmtree(BUILD/'gui-train')
+        if os.environ.get('EMACS_TRAIN_GUI')=='1' and (BUILD/('gui-train-cs' if cs else 'gui-train')).exists():
+            shutil.rmtree(BUILD/('gui-train-cs' if cs else 'gui-train'))
 if base.exists():
     raise SystemExit('Training directory already exists; use --restart to rerun this stage')
 for directory in (profiles,corpus,base/'home'):directory.mkdir(parents=True,exist_ok=True)
-source=Path(os.environ.get('EMACS_TRAIN_SOURCE',a.bundle.parents[2]/'src/emacs'))
+source=Path(os.environ.get('EMACS_TRAIN_SOURCE',info.get('source_directory', a.bundle.parents[2]/'src/emacs')))
 profdata=os.environ.get('LLVM_PROFDATA','llvm-profdata-23')
 if cs and hashlib.sha256((BUILD/'merged.profdata').read_bytes()).hexdigest()!=info['compile_profile_sha256']:
     raise SystemExit('Ordinary profile changed since the CS instrumented build')
@@ -115,7 +115,7 @@ for group in targets:
     counts[group]=total_count(groups[group])
     inner[group]={'counts':subcounts,'weights':subweights,'shares':subshares}
 if 'gui' in groups:
-    gui_counts=subprocess.check_output([profdata,'show','--counts','--function=ns_draw_glyph_string',str(groups['gui'])],text=True)
+    gui_counts=subprocess.check_output([profdata,'show','--counts',*(['--showcs'] if cs else []),'--function=ns_draw_glyph_string',str(groups['gui'])],text=True)
     (base/'gui-profile.txt').write_text(gui_counts)
     blocks=re.findall(r'(?:Function count:|Block counts:)\s*(?:\[([^]]+)\]|(\d+))',gui_counts)
     if not any(int(n)>0 for values in blocks for value in values for n in re.findall(r'\d+',value)):
@@ -126,7 +126,7 @@ subprocess.run([profdata,'merge','-o',str(merged),*[f'--weighted-input={weights[
 summary=subprocess.check_output([profdata,'show',*(['--showcs'] if cs else []),str(merged)],text=True)
 (base/'profile-summary.txt').write_text(summary)
 scripts=['scripts/training_fixtures.py','scripts/training_scenarios.py','scripts/prepare-workload-packages.py','scripts/pgo-train.py','scripts/profile_weights.py','scripts/pty_driver.py','benchmarks/interactive/training.el','benchmarks/interactive/training-producer.py','benchmarks/files.el','benchmarks/runtime.el']
-if os.environ.get('EMACS_TRAIN_GUI')=='1':scripts+=['scripts/macos/gui.py','benchmarks/macos/gui.el','benchmarks/macos/training.el']
+if os.environ.get('EMACS_TRAIN_GUI')=='1':scripts+=['scripts/macos/pgo.py','scripts/macos/gui.py','benchmarks/macos/gui.el','benchmarks/macos/training.el']
 (base/'provenance.json').write_text(json.dumps({'build':info,'balanced_gap':cs,'compile_profile_sha256':info.get('compile_profile_sha256'),'configuration':'generic built-in and locked Magit scenarios only; no user configuration or held-out inputs','subscenario_profiles':inner,'group_execution_counts':counts,'target_share_units':targets,'group_merge_weights':weights,'actual_execution_shares':shares,'benchmark_sources':lock,'benchmark_selector':selector,'fixture_sha256':{str(f.relative_to(fixtures)):hashlib.sha256(f.read_bytes()).hexdigest() for f in sorted(fixtures.rglob('*')) if f.is_file() and '.git' not in f.parts},'corpus_sha256':{f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in corpus.iterdir()},'training_script_sha256':{f:hashlib.sha256((ROOT/f).read_bytes()).hexdigest() for f in scripts},'scenario_checks':checks,'profile_sha256':hashlib.sha256(merged.read_bytes()).hexdigest()},indent=2)+'\n')
 print(summary,flush=True)
 print('Profile shares:',json.dumps(shares),flush=True)
