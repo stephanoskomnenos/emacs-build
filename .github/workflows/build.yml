@@ -80,7 +80,7 @@ jobs:
         run: bash scripts/linux/container.sh build
       - name: Verify in builder and clean Debian 13
         run: bash scripts/linux/container.sh test "$FINAL_STAGE"
-      - name: Package binary and sources
+      - name: Package binary
         run: bash scripts/linux/container.sh package "$FINAL_STAGE"
       - name: Package RPM
         run: bash scripts/linux/container.sh rpm "$FINAL_STAGE"
@@ -102,14 +102,6 @@ jobs:
           path: |
             dist/*-linux-x86-64-v3.tar.zst
             dist/*-linux-x86-64-v3.tar.zst.sha256
-      - uses: actions/upload-artifact@v4
-        with:
-          name: emacs-nox-sources
-          compression-level: 0
-          if-no-files-found: error
-          path: |
-            dist/*-sources.tar.zst
-            dist/*-sources.tar.zst.sha256
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
