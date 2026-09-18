@@ -22,7 +22,7 @@ a=p.parse_args()
 if a.runs<1:p.error('--runs must be positive')
 a.bundle=a.bundle.resolve();a.workspace=a.workspace.resolve()
 info=json.loads((a.bundle/'BUILD-INFO.json').read_text())
-if info.get('pgo')=='generate':raise SystemExit('Validation must never run an instrumented binary')
+if info.get('pgo') in ('generate','cs-generate'):raise SystemExit('Validation must never run an instrumented binary')
 os.sched_setaffinity(0,{a.cpu})
 spec_path=ROOT/'benchmarks/interactive/validation.json'
 spec=json.loads(spec_path.read_text())

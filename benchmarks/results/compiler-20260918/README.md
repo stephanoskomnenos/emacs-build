@@ -1,5 +1,7 @@
 # Local compiler experiments, 2026-09-18
 
+Follow-up: [CSPGO repaired, regexp cause investigated, and BOLT actually built/tested](../compiler-followup-20260918/README.md). The incomplete-coverage and BOLT feasibility findings below are historical.
+
 Keep O2 + ThinLTO + ordinary PGO. Full LTO regressed in both rounds.
 The tested CSPGO build gains about 4 ms at startup but regresses on regexp;
 further investigation found partially missing CS records, so this is **not a

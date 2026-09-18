@@ -1,0 +1,233 @@
+{
+  "objects": {
+    "marker.o": {
+      "cs-cc-generate": "359d1588100ff6179ec1a98fba504d6d7eec5f555e24dd846c40ccd7c95dc9e6",
+      "cs-cc-fixed": "359d1588100ff6179ec1a98fba504d6d7eec5f555e24dd846c40ccd7c95dc9e6",
+      "ordinary-cc-control": "359d1588100ff6179ec1a98fba504d6d7eec5f555e24dd846c40ccd7c95dc9e6"
+    },
+    "regex-emacs.o": {
+      "cs-cc-generate": "56ad4fc07c37f5f46a114ea2509eddd85ea5a96865c463fb9f771dbb2977df27",
+      "cs-cc-fixed": "56ad4fc07c37f5f46a114ea2509eddd85ea5a96865c463fb9f771dbb2977df27",
+      "ordinary-cc-control": "56ad4fc07c37f5f46a114ea2509eddd85ea5a96865c463fb9f771dbb2977df27"
+    },
+    "search.o": {
+      "cs-cc-generate": "3d3f918efb42d3f3eae7ba44fea1c44e3aa393269ca3e8c12d3de42eec999da4",
+      "cs-cc-fixed": "3d3f918efb42d3f3eae7ba44fea1c44e3aa393269ca3e8c12d3de42eec999da4",
+      "ordinary-cc-control": "3d3f918efb42d3f3eae7ba44fea1c44e3aa393269ca3e8c12d3de42eec999da4"
+    },
+    "eval.o": {
+      "cs-cc-generate": "cd16f3ac87e7b1fbf5d263c2cd5e25b44f7fa24556035f68426e261997c00146",
+      "cs-cc-fixed": "cd16f3ac87e7b1fbf5d263c2cd5e25b44f7fa24556035f68426e261997c00146",
+      "ordinary-cc-control": "cd16f3ac87e7b1fbf5d263c2cd5e25b44f7fa24556035f68426e261997c00146"
+    },
+    "bytecode.o": {
+      "cs-cc-generate": "a4391c9e489eed38831ffe381f7182ea2aaa45afc446ab8bca587314157a974d",
+      "cs-cc-fixed": "a4391c9e489eed38831ffe381f7182ea2aaa45afc446ab8bca587314157a974d",
+      "ordinary-cc-control": "a4391c9e489eed38831ffe381f7182ea2aaa45afc446ab8bca587314157a974d"
+    },
+    "alloc.o": {
+      "cs-cc-generate": "dd9910bd09eb548a416306d46f121701e74af5d8181904cc356bd15b833e8a7d",
+      "cs-cc-fixed": "dd9910bd09eb548a416306d46f121701e74af5d8181904cc356bd15b833e8a7d",
+      "ordinary-cc-control": "dd9910bd09eb548a416306d46f121701e74af5d8181904cc356bd15b833e8a7d"
+    }
+  },
+  "raw_headers": {
+    "benchmark-4072492891194581399_0-18909.profraw": "0x30000000000000b",
+    "magit-medium-4072492891194581399_0-18768.profraw": "0x30000000000000b",
+    "magit-medium-15997691848644915334_0-18773.profraw": "0x30000000000000b",
+    "magit-small-4072492891194581399_0-18630.profraw": "0x30000000000000b",
+    "magit-small-15997691848644915334_0-18634.profraw": "0x30000000000000b",
+    "process-batched-4072492891194581399_0-18623.profraw": "0x30000000000000b",
+    "process-fragmented-4072492891194581399_0-18618.profraw": "0x30000000000000b",
+    "org-structure-4072492891194581399_0-18610.profraw": "0x30000000000000b",
+    "org-news-4072492891194581399_0-18602.profraw": "0x30000000000000b",
+    "minibuffer-paths-4072492891194581399_0-18586.profraw": "0x30000000000000b",
+    "minibuffer-commands-4072492891194581399_0-18576.profraw": "0x30000000000000b",
+    "editing-log-4072492891194581399_0-18568.profraw": "0x30000000000000b",
+    "editing-prose-4072492891194581399_0-18560.profraw": "0x30000000000000b",
+    "editing-code-4072492891194581399_0-18552.profraw": "0x30000000000000b",
+    "files-4072492891194581399_0-18530.profraw": "0x30000000000000b"
+  },
+  "profile_checks": {
+    "buf_bytepos_to_charpos": {
+      "command": [
+        "opt-23",
+        "-passes=function(instnamer),thinlto<O2>",
+        "-pgo-kind=pgo-instr-use-pipeline",
+        "-cspgo-kind=cspgo-instr-use-pipeline",
+        "-profile-file=/work/build/cs-cc-combined.profdata",
+        "-pgo-warn-missing-function",
+        "-pgo-view-raw-counts=text",
+        "-view-bfi-func-name=buf_bytepos_to_charpos",
+        "-disable-output",
+        "/work/build/f98bb6bda8b6/emacs-build-llvm-use-cccs-85f4e30c6997/src/marker.o.3.import.bc"
+      ],
+      "exit_code": 0,
+      "diagnostic_lines": [],
+      "raw_count_output": 19017
+    },
+    "re_match_2_internal.llvm.10747944231370379322": {
+      "command": [
+        "opt-23",
+        "-passes=function(instnamer),thinlto<O2>",
+        "-pgo-kind=pgo-instr-use-pipeline",
+        "-cspgo-kind=cspgo-instr-use-pipeline",
+        "-profile-file=/work/build/cs-cc-combined.profdata",
+        "-pgo-warn-missing-function",
+        "-pgo-view-raw-counts=text",
+        "-view-bfi-func-name=re_match_2_internal.llvm.10747944231370379322",
+        "-disable-output",
+        "/work/build/f98bb6bda8b6/emacs-build-llvm-use-cccs-85f4e30c6997/src/regex-emacs.o.3.import.bc"
+      ],
+      "exit_code": 0,
+      "diagnostic_lines": [],
+      "raw_count_output": 159152
+    },
+    "search_buffer": {
+      "command": [
+        "opt-23",
+        "-passes=function(instnamer),thinlto<O2>",
+        "-pgo-kind=pgo-instr-use-pipeline",
+        "-cspgo-kind=cspgo-instr-use-pipeline",
+        "-profile-file=/work/build/cs-cc-combined.profdata",
+        "-pgo-warn-missing-function",
+        "-pgo-view-raw-counts=text",
+        "-view-bfi-func-name=search_buffer",
+        "-disable-output",
+        "/work/build/f98bb6bda8b6/emacs-build-llvm-use-cccs-85f4e30c6997/src/search.o.3.import.bc"
+      ],
+      "exit_code": 0,
+      "diagnostic_lines": [],
+      "raw_count_output": 14782
+    }
+  },
+  "training_provenance": {
+    "configuration": "generic built-in and locked Magit scenarios only; no user configuration or held-out inputs",
+    "target_share_units": {
+      "files": 1,
+      "editing": 1,
+      "minibuffer": 1,
+      "org": 1,
+      "process": 1,
+      "magit": 1,
+      "benchmark": 2
+    },
+    "benchmark_sources": {
+      "elisp-benchmarks": {
+        "version": "3d917d38d778f9577a2467c74f3b6b820b7926c4",
+        "url": "https://codeload.github.com/emacs-straight/elisp-benchmarks/tar.gz/3d917d38d778f9577a2467c74f3b6b820b7926c4",
+        "sha256": "875c2b88f792fb946067c09c80f822944ffebe55975404fb69e7181a080fc8ab"
+      },
+      "magit": {
+        "version": "83ba66c8ab6fcdbd809077ae4db1f7e2ed832655",
+        "url": "https://codeload.github.com/magit/magit/tar.gz/83ba66c8ab6fcdbd809077ae4db1f7e2ed832655",
+        "sha256": "3a7eca77848658a52b0f67507e55bea182b9421fd258f23f35477a3374e43eda"
+      },
+      "compat": {
+        "version": "90880f81419577e1d3f68424d2a3adf31e6d663e",
+        "url": "https://codeload.github.com/emacs-compat/compat/tar.gz/90880f81419577e1d3f68424d2a3adf31e6d663e",
+        "sha256": "91f010564b497328f1cf093de7b6f253d5f348c22a17e97e6cc1186b80a0de77"
+      },
+      "cond-let": {
+        "version": "3b88187fe067d4ca3dec3ef8a329b0ce18bdb356",
+        "url": "https://codeload.github.com/tarsius/cond-let/tar.gz/3b88187fe067d4ca3dec3ef8a329b0ce18bdb356",
+        "sha256": "d661f537320a4eeea43f1cb2a31093ea49ec34a35025a939bd735b15a39b0581"
+      },
+      "llama": {
+        "version": "cfea618f14bc8317f8e4947fe10000b229b9a447",
+        "url": "https://codeload.github.com/tarsius/llama/tar.gz/cfea618f14bc8317f8e4947fe10000b229b9a447",
+        "sha256": "6e9055d14a963900749d88e0264de958357d2c3f8afa811d3eac147d71ca3b2f"
+      },
+      "transient": {
+        "version": "03c8ccc6aab24021787aada2be12d64cb1f436e8",
+        "url": "https://codeload.github.com/magit/transient/tar.gz/03c8ccc6aab24021787aada2be12d64cb1f436e8",
+        "sha256": "fa739dea2739a0d9ae5699c1a15a4624bbd02347ed133fa2f612375c5b776b12"
+      },
+      "with-editor": {
+        "version": "5021ef6885381cf5b2852f7a3f67ca8c4be1dca2",
+        "url": "https://codeload.github.com/magit/with-editor/tar.gz/5021ef6885381cf5b2852f7a3f67ca8c4be1dca2",
+        "sha256": "496dfc1a40c65dc2b8ac6bb8301da99cbba25216806892c14db85352223fb0e9"
+      }
+    },
+    "benchmark_selector": "elb-bytecomp\\|elb-pcase\\|elb-smie\\|elb-scroll\\|inclist\\|map-closure\\|pack-unpack",
+    "fixture_sha256": {
+      "completion/project alpha/docs/common-file notes.txt": "57a07b3aa7d6ae73240ff4d06b81a450115fe2037f8fbb5e053517a07d269266",
+      "completion/project alpha/docs/common-final.txt": "3a3b92e4db4e7b89c42d2c0306eb7bfe1bc3000a9d5d4cdbd7cb1f91a5fffabc",
+      "completion/project alpha/docs/common-first.txt": "fcc0292e55fc35dea12da733b7bcfed67482e3ac1c3b4522be31a612c930e59f",
+      "completion/project alpha/src/common-file notes.txt": "85345fef558dbb80e7031364e7d22126fbcf6d071024798099231e06e106247d",
+      "completion/project alpha/src/common-final.txt": "bec863820b60e82023b5daeb7d9e618d9a4ef5bb61f7c7043e74d440e2442067",
+      "completion/project alpha/src/common-first.txt": "34d70f3a61ddac3552fbe004b51aad552a81596b6a02d572f38178514f9b1d5e",
+      "completion/project beta/src/common-file notes.txt": "65f4780ac30d56374ec15d7807225a1759e0cb4c33facffac0a8a2932bdf18cc",
+      "completion/project beta/src/common-final.txt": "033def051f8ecd4be756c639a3c683fe6c07afda8feea29e312fad8401fab2df",
+      "completion/project beta/src/common-first.txt": "b7ca447b7adf023b93e87dd3693ef7fd3b288a44524db1b6f1888758022348e5",
+      "edit.el": "c86ad8168b9fea0169e70b34fb943b38dfa9ece60a90184effc44c08a9f0090c",
+      "mixed-lines.txt": "a651a8760af7a0c3fd2e0e81e0a96c55c5e97f3dab8f6341340692f98915f18a",
+      "notebook.org": "5ab1b04ad941b6a6f4b51713e4455912d43f6a9828864ae4019536ea740a6c6c",
+      "prose.txt": "5a8d0e5d0eb0ca34c4bbfbf40aa37c12207edfe67f628b8ba8136ef1b1c07c88",
+      "repository-medium/unit-00.c": "f45354806dcac74a9de31b9b8b4a8393e98e0835ec5d371929353e0c5f9312b9",
+      "repository-medium/unit-01.c": "193310adbd47948cba2e79502204d56f18d25841b680299e99c0e1b58d005a40",
+      "repository-medium/unit-02.c": "70e8a433aa1572010aaccc3bb62543224f11c25794dd3792d0daf13843f5ce84",
+      "repository-medium/unit-03.c": "3562fd13489946b446bd5b78a3011d0094b54af58bd765438460b8697d104e89",
+      "repository-medium/unit-04.c": "ebc83543b221c458ba08e8a7652f1ccfd7eadf07ac48abf6a58dcedeca6d9912",
+      "repository-medium/unit-05.c": "7bd8985c3a4a905b3abe81ce03244fb63dcce25dfc8300cc93dc580a4d2ebc99",
+      "repository-medium/unit-06.c": "da32a77930b92a59be194575945950e2b659033b98e41767fa89d57183e4d5b5",
+      "repository-medium/unit-07.c": "0bf32f8d771ba6def367f71de926303e37d4292cee6962952ea57ce10537c089",
+      "repository-medium/unit-08.c": "a654ed3b67f6a6224b408824025832e1b178b57aae084ddad8601b985d18c956",
+      "repository-medium/unit-09.c": "38aa2308a5f399246831d1548c7000db0de27a8bc39ab85fa8d7c8a1d7278232",
+      "repository-medium/unit-10.c": "2b742fe478725bcd6cba5e7c596df7110f28c551b383e18ef285c1ea45f84f3c",
+      "repository-medium/unit-11.c": "fb55bfe14b78c825d8dd8ba8676ebcda2872fc3efd672e8e7598f41fdab44aca",
+      "repository-medium/unit-12.c": "1a1c7201f02b21efc721d2aae11a4c7065f3fa0e3e6327da1d1395b1f1867330",
+      "repository-medium/unit-13.c": "d4e6592dc6d6340f0045907195f7e184082a131535ac5220251eb38ce2adba2b",
+      "repository-medium/unit-14.c": "dd692d1a4e6c4e65ed55e60f70d6380d8bec9849ad8de9033e24857ea0f68351",
+      "repository-medium/unit-15.c": "5448cd431f65cb034d4e9222115819598f0c44194496203497c25e182fd4a27c",
+      "repository-medium/unit-16.c": "b818da9fe53382aac6cfe1d99f1f121b3415ceed742d07e75bac0dc315a4dbd0",
+      "repository-medium/unit-17.c": "18f51ec3ba59e118d9afca00711e88eea7d755a3936d0225bc6a0c7f3e9b9342",
+      "repository-medium/unit-18.c": "738d7c90d82c30e095bc4df93d1493a0c4a951de95e558314e0a0937505ef9ea",
+      "repository-medium/unit-19.c": "a4a95077e3b591f52d1c2d4a9df990420ea6f7b59f8316fc96e12cbc9aaa9b5c",
+      "repository-medium/unit-20.c": "21071976afa00314188b553d6a116df2c04f7b86f1e84d79b54ce5ab6e835360",
+      "repository-medium/unit-21.c": "c504678365025773e9094cba22b3bb146ab768da0d9555d6bfe8a2878ae8e2ae",
+      "repository-medium/unit-22.c": "7352625ec0b4f1c47cb5a33346daa802b36553b20d39190d07467b58888368bb",
+      "repository-medium/unit-23.c": "dd06caeb9c38403a1c26a58d801053b477f2f6697e037006e291c990f4ba76c8",
+      "repository-medium/unit-24.c": "0b5b681d393a250a461074eb807e0c380781d910b15a5c3a659780d51cbf1bcd",
+      "repository-medium/unit-25.c": "343c1b71fceca0722959bb2ad42b2d9d7c43c5785f8f0dad3c42eac69667f292",
+      "repository-medium/unit-26.c": "90ea12d32befaaa318105b8debbf464897c4374e9447daa8c3fc8a7c66e385b5",
+      "repository-medium/unit-27.c": "ed0f7e7ed15e02c5412d0f5e3e0907c82bddfffcf927dfb53d5b61e835f2a0e8",
+      "repository-medium/unit-28.c": "6f278df39e4dd3ace2d72d02448a23b57efc12e641e9cacb9dde88c0806e975e",
+      "repository-medium/unit-29.c": "3387ecc380d1053dd2f0363ab2fbd943be539b33e8cf3fe8ed7397c7e38d72e1",
+      "repository-medium/unit-30.c": "e3e7a03e7e867b040b2e5b315611701190f16b5b5b830c4768998c25c4b84a7e",
+      "repository-medium/unit-31.c": "c3f910820ad27db9039cc28917ae478b128ded710f12100be509d40340af5326",
+      "repository-medium/unit-32.c": "f7dd0b094ff1f9593381927a317ddbad4a824d8e79b82ebba0f400d6471a1f03",
+      "repository-medium/unit-33.c": "af5717a058698ad03799f8f2bc5907ece9648d2e5aafe21034d09874a40c8054",
+      "repository-medium/unit-34.c": "22582ef973ac65d697bc227a2a43e57cb3117a90391e622096bfa5c8cb7d1bbe",
+      "repository-medium/unit-35.c": "7aa86e08f034ba82da83dc3a2b1ac1937b329ae6293830696f79e0e0954a927e",
+      "repository-medium/unit-36.c": "3592fd81efe559199e1ac8e44f291dfe7d2670502730bc6440186fbf24859086",
+      "repository-medium/unit-37.c": "9574b018c3a34930792034909ad3fe0aa37fad5f3970370fbf5fdce59116a712",
+      "repository-medium/unit-38.c": "cbc5c3b4e75fa04b59fc0e8cfeb7a3baee7d380cc292b79cf39d7a0f1d448873",
+      "repository-medium/unit-39.c": "925b89274d711d4a0d1999a4ab9521627b63f8d792ab58d94e2c0d975655e503",
+      "repository-medium/untracked notes.txt": "4d1686006554fbef5e9e60094e394c7a9468b49a92eff782a1fd57eb022c01bb",
+      "repository-small/unit-00.c": "f45354806dcac74a9de31b9b8b4a8393e98e0835ec5d371929353e0c5f9312b9",
+      "repository-small/unit-01.c": "193310adbd47948cba2e79502204d56f18d25841b680299e99c0e1b58d005a40",
+      "repository-small/unit-02.c": "70e8a433aa1572010aaccc3bb62543224f11c25794dd3792d0daf13843f5ce84",
+      "repository-small/unit-03.c": "8aa8548f9e7d586ae16b8654a57d0446babf1d7b7154a8f5b6e73a1e54df8f0a",
+      "repository-small/unit-04.c": "2762aa048fd8ba0c957f12bc5844efd85af756283f317b0817519ecec20d5c30"
+    },
+    "corpus_sha256": {
+      "news.txt": "4495804615adb3fb5d8dbc1d7faa0755c3baed7e524cf26a21918720c9ce45de",
+      "org-news.org": "d12389d6044a8170912d77536363779b03509075201b0bb814d7e7874ab296b3",
+      "files.el": "5299be83fccedd2459c04b3af5eec845e1bbf45948e084dcacec72be6ea982e2",
+      "buffer.c": "09ec9029ff92716b291c885a48e69c8cb4487e970194afbc05864724f18cdf54"
+    },
+    "training_script_sha256": {
+      "scripts/training_fixtures.py": "8d4ecd8edede50541fd6d38ced8da28b6cd32f23bd96f907dbcd13aca117e5c0",
+      "scripts/training_scenarios.py": "96ebbc5e5bf01f49634cb0b04a83bc47e10059357cc5e86b134079daac472c1e",
+      "scripts/prepare-workload-packages.py": "5da72b41880a8dafd4da35ff6c113347ce3619ab74eb595f309836d1c6a61390",
+      "scripts/pgo-train.py": "ab3c8248772e3c056bfcea54ad131b7dfc9dc97aa9ab480189f90c593017d90d",
+      "scripts/profile_weights.py": "bb217e3b9d7420e093b889f7edb86c269c6619711ba5fa2067b350b7d7f2bca7",
+      "scripts/pty_driver.py": "e7157bd539eca2bbde4e454dd6b008a2e97aabbd98d47b2b0dd1eb6fd33319cc",
+      "benchmarks/interactive/training.el": "dbf5b19f9c89fdca466bc3b53564dbe6724809a16621889abca6816b3b510821",
+      "benchmarks/interactive/training-producer.py": "ef7b9637d4258aa6c2db4b83bc27ea646400fbf2871449a015999386a3284191",
+      "benchmarks/files.el": "2dd2628e16779018579f84903a66a56dbc65d4813b37038cf5b27b9899b4f3cf",
+      "benchmarks/runtime.el": "6f29d01524038615aa814409308a3dd927696f6dc4ec9865ced2f354c4f625fc"
+    }
+  }
+}

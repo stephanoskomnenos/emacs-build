@@ -1,0 +1,339 @@
+pgo-view-raw-counts: search_buffer
+Dump Function search_buffer Hash: 2255653861755328284
+  Number of Basic Blocks: 108
+  BB: FakeNode  Index=0
+  BB: bb  Index=1  Count=168350430
+  BB: bb11  Index=2  Count=4043200
+  BB: bb21  Index=3  Count=168350430
+  BB: bb16  Index=4  Count=30400
+  BB: bb30  Index=5  Count=0
+  BB: bb23  Index=6  Count=168350430
+  BB: bb31  Index=7  Count=168350430
+  BB: bb347  Index=8  Count=168350430
+  BB: bb32  Index=9  Count=153659217
+  BB: bb345  Index=10  Count=15304514
+  BB: bb57  Index=11  Count=3092301
+  BB: bb38  Index=12  Count=153659217
+  BB: bb41  Index=13  Count=194032334
+  BB: bb53  Index=14  Count=43465418
+  BB: bb60  Index=15  Count=153045916
+  BB: bb47  Index=16  Count=121169139
+  BB: bb49  Index=17  Count=121169139
+  BB: bb75  Index=18  Count=153045916
+  BB: bb78  Index=19  Count=0
+  BB: bb79  Index=20  Count=153045916
+  BB: bb17.i  Index=21  Count=0
+  BB: record_unwind_protect_ptr.exit  Index=22  Count=153045916
+  BB: bb122  Index=23  Count=19909196
+  BB: bb231  Index=24  Count=133136720
+  BB: bb136  Index=25  Count=0
+  BB: bb138  Index=26  Count=19909196
+  BB: bb140  Index=27  Count=8635191
+  BB: bb217  Index=28  Count=11274005
+  BB: bb141  Index=29  Count=8635191
+  BB: bb207  Index=30  Count=0
+  BB: bb168  Index=31  Count=91679565
+  BB: bb160  Index=32  Count=8635191
+  BB: bb154  Index=33  Count=8635191
+  BB: bb219  Index=34  Count=8635191
+  BB: bb176  Index=35  Count=14815221
+  BB: bb201  Index=36  Count=91679565
+  BB: bb225  Index=37  Count=8635191
+  BB: bb228  Index=38  Count=0
+  BB: bb229  Index=39  Count=8635191
+  BB: bb342  Index=40  Count=79623200
+  BB: bb246  Index=41  Count=0
+  BB: bb248  Index=42  Count=133136720
+  BB: bb250  Index=43  Count=70988009
+  BB: bb327  Index=44  Count=62148711
+  BB: bb251  Index=45  Count=70988009
+  BB: bb317  Index=46  Count=0
+  BB: bb278  Index=47  Count=1959653772
+  BB: bb270  Index=48  Count=70988009
+  BB: bb264  Index=49  Count=70988009
+  BB: bb330  Index=50  Count=70988009
+  BB: bb286  Index=51  Count=194566178
+  BB: bb311  Index=52  Count=1959653772
+  BB: bb336  Index=53  Count=70988009
+  BB: bb339  Index=54  Count=0
+  BB: bb340  Index=55  Count=70988009
+  BB: bb278.bb311_crit_edge  Index=56  Count=1765087594
+  BB: bb49.bb60_crit_edge  Index=57  Count=13902
+  BB: bb49.bb60_crit_edge364  Index=58  Count=103314874
+  BB: bb49.bb60_crit_edge365  Index=59  Count=0
+  BB: bb49.bb60_crit_edge366  Index=60  Count=4309598
+  BB: bb49.bb60_crit_edge367  Index=61  Count=0
+  BB: bb49.bb60_crit_edge368  Index=62  Count=0
+  BB: bb49.bb60_crit_edge369  Index=63  Count=0
+  BB: bb49.bb60_crit_edge370  Index=64  Count=1608838
+  BB: bb49.bb60_crit_edge371  Index=65  Count=0
+  BB: bb49.bb60_crit_edge372  Index=66  Count=0
+  BB: bb49.bb60_crit_edge373  Index=67  Count=0
+  BB: bb49.bb60_crit_edge374  Index=68  Count=46629
+  BB: bb49.bb60_crit_edge375  Index=69  Count=0
+  BB: bb49.bb60_crit_edge376  Index=70  Count=679351
+  BB: bb49.bb60_crit_edge377  Index=71  Count=0
+  BB: bb49.bb60_crit_edge378  Index=72  Count=0
+  BB: bb49.bb60_crit_edge379  Index=73  Count=5734987
+  BB: bb49.bb60_crit_edge380  Index=74  Count=0
+  BB: bb49.bb60_crit_edge381  Index=75  Count=0
+  BB: bb49.bb60_crit_edge382  Index=76  Count=0
+  BB: bb49.bb60_crit_edge383  Index=77  Count=0
+  BB: bb49.bb60_crit_edge384  Index=78  Count=0
+  BB: bb49.bb60_crit_edge385  Index=79  Count=0
+  BB: bb49.bb60_crit_edge386  Index=80  Count=0
+  BB: bb49.bb60_crit_edge387  Index=81  Count=0
+  BB: bb49.bb60_crit_edge388  Index=82  Count=0
+  BB: bb49.bb60_crit_edge389  Index=83  Count=0
+  BB: bb168.bb201_crit_edge  Index=84  Count=76864344
+  BB: bb41.bb53_crit_edge  Index=85  Count=38004458
+  BB: bb41.bb60_crit_edge  Index=86  Count=0
+  BB: bb41.bb60_crit_edge390  Index=87  Count=398734
+  BB: bb41.bb60_crit_edge391  Index=88  Count=0
+  BB: bb41.bb60_crit_edge392  Index=89  Count=30400
+  BB: bb41.bb60_crit_edge393  Index=90  Count=2773393
+  BB: bb41.bb60_crit_edge394  Index=91  Count=31656210
+  BB: bb49.bb53_crit_edge  Index=92  Count=5460960
+  BB: bb57.bb60_crit_edge  Index=93  Count=2479000
+  BB: bb57.bb345_crit_edge  Index=94  Count=613301
+  BB: bb32.bb57_crit_edge  Index=95  Count=0
+  BB: bb251.bb270_crit_edge  Index=96  Count=0
+  BB: bb141.bb160_crit_edge  Index=97  Count=0
+  BB: bb21.bb30_crit_edge  Index=98  Count=0
+  BB: bb23.bb30_crit_edge  Index=99  Count=0
+  BB: bb47.bb60_crit_edge  Index=100  Count=0
+  BB: bb60.bb78_crit_edge  Index=101  Count=0
+  BB: bb75.bb78_crit_edge  Index=102  Count=0
+  BB: bb219.bb228_crit_edge  Index=103  Count=0
+  BB: bb225.bb228_crit_edge  Index=104  Count=0
+  BB: bb229.bb122_crit_edge  Index=105  Count=0
+  BB: bb330.bb339_crit_edge  Index=106  Count=0
+  BB: bb336.bb339_crit_edge  Index=107  Count=0
+  Number of Edges: 227 (*: Instrument, C: CriticalEdge, -: Removed)
+  Edge 0: 52-->47  c  W=17346649793757183037  Count=1888665763
+  Edge 1: 47-->52-*c  W=16204097887666175100
+  Edge 2: 1-->3  c  W=1271934441265449029  Count=164307230
+  Edge 3: 18-->20  c  W=1191598319689185000  Count=153045916
+  Edge 4: 20-->22  c  W=1191597961790805787  Count=153045916
+  Edge 5: 22-->24  c  W=991821624102373339  Count=133136720
+  Edge 6: 17-->15  c  W=919708700047419919  Count=0
+  Edge 7: 17-->15-*c  W=919708700047419919
+  Edge 8: 17-->15-*c  W=919708700047419919
+  Edge 9: 17-->15-*c  W=919708700047419919
+  Edge 10: 17-->15-*c  W=919708700047419919
+  Edge 11: 17-->15-*c  W=919708700047419919
+  Edge 12: 17-->15-*c  W=919708700047419919
+  Edge 13: 17-->15-*c  W=919708700047419919
+  Edge 14: 17-->15-*c  W=919708700047419919
+  Edge 15: 17-->15-*c  W=919708700047419919
+  Edge 16: 17-->15-*c  W=919708700047419919
+  Edge 17: 17-->15-*c  W=919708700047419919
+  Edge 18: 17-->15-*c  W=919708700047419919
+  Edge 19: 17-->15-*c  W=919708700047419919
+  Edge 20: 17-->15-*c  W=919708700047419919
+  Edge 21: 17-->15-*c  W=919708700047419919
+  Edge 22: 17-->15-*c  W=919708700047419919
+  Edge 23: 17-->15-*c  W=919708700047419919
+  Edge 24: 17-->15-*c  W=919708700047419919
+  Edge 25: 17-->15-*c  W=919708700047419919
+  Edge 26: 17-->15-*c  W=919708700047419919
+  Edge 27: 17-->15-*c  W=919708700047419919
+  Edge 28: 17-->15-*c  W=919708700047419919
+  Edge 29: 17-->15-*c  W=919708700047419919
+  Edge 30: 17-->15-*c  W=919708700047419919
+  Edge 31: 17-->15-*c  W=919708700047419919
+  Edge 32: 17-->15-*c  W=919708700047419919
+  Edge 33: 17-->15-*c  W=919708700047419919
+  Edge 34: 36-->31  c  W=775935438458408447  Count=83044374
+  Edge 35: 31-->36-*c  W=711123643793021019
+  Edge 36: 53-->55  c  W=667748724120307000  Count=70988009
+  Edge 37: 45-->47  c  W=667748715724799277  Count=70988009
+  Edge 38: 55-->40  c  W=409457132896573077  Count=70988009
+  Edge 39: 14-->13  c  W=313752837762381462  Count=40373117
+  Edge 40: 13-->14-*c  W=277915348409171682
+  Edge 41: 13-->15  c  W=268107104741276819  Count=0
+  Edge 42: 13-->15-*c  W=268107104741276819
+  Edge 43: 13-->15-*c  W=268107104741276819
+  Edge 44: 13-->15-*c  W=268107104741276819
+  Edge 45: 13-->15-*c  W=268107104741276819
+  Edge 46: 13-->15-*c  W=268107104741276819
+  Edge 47: 13-->15-*c  W=268107104741276819
+  Edge 48: 55-->24  c  W=258291591534678922  Count=0
+  Edge 49: 22-->23  c  W=199776696141692660  Count=19909196
+  Edge 50: 7-->10  c  W=108232281308908812  Count=14691213
+  Edge 51: 39-->40  c  W=87284771502025000  Count=8635191
+  Edge 52: 37-->39  c  W=87284771461380000  Count=8635191
+  Edge 53: 29-->31  c  W=87284763982674416  Count=8635191
+  Edge 54: 17-->14-*c  W=40579481011866050
+  Edge 55: 2-->3  c  W=28639044606747964  Count=4012800
+  Edge 56: 14-->11  c  W=4741990743433537  Count=3092301
+  Edge 57: 11-->15-*c  W=3782512826294482
+  Edge 58: 47-->51     W=1810300621815807  Count=194566178
+  Edge 59: 51-->52 *   W=1810300621815807  Count=194566178
+  Edge 60: 8-->0     W=1300790448336838  Count=168350430
+  Edge 61: 3-->6     W=1300790448336837  Count=168350430
+  Edge 62: 6-->7     W=1300790447731109  Count=168350430
+  Edge 63: 0-->1     W=1300790447683542  Count=168350430
+  Edge 64: 24-->42     W=1250113215637052  Count=133136720
+  Edge 65: 7-->9     W=1192558165816472  Count=153659217
+  Edge 66: 12-->13     W=1192557798744552  Count=153659217
+  Edge 67: 9-->12     W=1192557798744551  Count=153659217
+  Edge 68: 15-->18     W=1191598320244066  Count=153045916
+  Edge 69: 13-->16     W=960288183356485  Count=121169139
+  Edge 70: 16-->17 *   W=960288181953624  Count=121169139
+  Edge 71: 11-->10-*c  W=959845572406517
+  Edge 72: 42-->43     W=667748724431252  Count=70988009
+  Edge 73: 43-->45     W=667748724431252  Count=70988009
+  Edge 74: 50-->53     W=667748724431252  Count=70988009
+  Edge 75: 48-->50     W=667748724120307  Count=70988009
+  Edge 76: 49-->48     W=667748715724800  Count=70988009
+  Edge 77: 52-->49 *   W=667748715724799  Count=70988009
+  Edge 78: 44-->8     W=582364491041227  Count=62148711
+  Edge 79: 42-->44 *   W=582364490623670  Count=62148711
+  Edge 80: 40-->8 *   W=496741903932763  Count=79623200
+  Edge 81: 23-->26     W=199776696182337  Count=19909196
+  Edge 82: 35-->36     W=152096558648062  Count=14815221
+  Edge 83: 31-->35 *   W=152096558648061  Count=14815221
+  Edge 84: 28-->8     W=112491924616780  Count=11274005
+  Edge 85: 26-->28 *   W=112491924587283  Count=11274005
+  Edge 86: 10-->8 *   W=109192126881315  Count=15304514
+  Edge 87: 26-->27     W=87284771502025  Count=8635191
+  Edge 88: 27-->29     W=87284771502025  Count=8635191
+  Edge 89: 34-->37     W=87284771502025  Count=8635191
+  Edge 90: 32-->34     W=87284771461380  Count=8635191
+  Edge 91: 33-->32     W=87284763982674  Count=8635191
+  Edge 92: 36-->33 *   W=87284763982674  Count=8635191
+  Edge 93: 1-->2 *   W=28856007071387  Count=4043200
+  Edge 94: 9-->11-*c  W=367071920821
+  Edge 95: 2-->4     W=216962464639  Count=30400
+  Edge 96: 4-->3 *   W=216962464639  Count=30400
+  Edge 97: 45-->48-*c  W=8395507722
+  Edge 98: 29-->32-*c  W=7478705583
+  Edge 99: 20-->21     W=358453260  Count=0
+  Edge 100: 21-->22 *   W=358453260  Count=0
+  Edge 101: 5-->8     W=1211455  Count=0
+  Edge 102: 19-->20     W=1109762  Count=0
+  Edge 103: 54-->55     W=621889  Count=0
+  Edge 104: 41-->0     W=572005  Count=0
+  Edge 105: 46-->50     W=310944  Count=0
+  Edge 106: 25-->0     W=81290  Count=0
+  Edge 107: 38-->39     W=81290  Count=0
+  Edge 108: 30-->34     W=40645  Count=0
+  Edge 109: 3-->5-*c  W=1
+  Edge 110: 6-->5-*c  W=1
+  Edge 111: 16-->15-*c  W=1
+  Edge 112: 15-->19-*c  W=1
+  Edge 113: 18-->19-*c  W=1
+  Edge 114: 23-->25 *   W=1  Count=0
+  Edge 115: 27-->30 *   W=1  Count=0
+  Edge 116: 34-->38-*c  W=1
+  Edge 117: 37-->38-*c  W=1
+  Edge 118: 39-->23-*c  W=1
+  Edge 119: 24-->41 *   W=1  Count=0
+  Edge 120: 43-->46 *   W=1  Count=0
+  Edge 121: 50-->54-*c  W=1
+  Edge 122: 53-->54-*c  W=1
+  Edge 123: 47-->56 *   W=0  Count=1765087594
+  Edge 124: 56-->52     W=0  Count=1765087594
+  Edge 125: 17-->57 *   W=0  Count=13902
+  Edge 126: 57-->15     W=0  Count=13902
+  Edge 127: 17-->58 *   W=0  Count=103314874
+  Edge 128: 58-->15     W=0  Count=103314874
+  Edge 129: 17-->59 *   W=0  Count=0
+  Edge 130: 59-->15     W=0  Count=0
+  Edge 131: 17-->60 *   W=0  Count=4309598
+  Edge 132: 60-->15     W=0  Count=4309598
+  Edge 133: 17-->61 *   W=0  Count=0
+  Edge 134: 61-->15     W=0  Count=0
+  Edge 135: 17-->62 *   W=0  Count=0
+  Edge 136: 62-->15     W=0  Count=0
+  Edge 137: 17-->63 *   W=0  Count=0
+  Edge 138: 63-->15     W=0  Count=0
+  Edge 139: 17-->64 *   W=0  Count=1608838
+  Edge 140: 64-->15     W=0  Count=1608838
+  Edge 141: 17-->65 *   W=0  Count=0
+  Edge 142: 65-->15     W=0  Count=0
+  Edge 143: 17-->66 *   W=0  Count=0
+  Edge 144: 66-->15     W=0  Count=0
+  Edge 145: 17-->67 *   W=0  Count=0
+  Edge 146: 67-->15     W=0  Count=0
+  Edge 147: 17-->68 *   W=0  Count=46629
+  Edge 148: 68-->15     W=0  Count=46629
+  Edge 149: 17-->69 *   W=0  Count=0
+  Edge 150: 69-->15     W=0  Count=0
+  Edge 151: 17-->70 *   W=0  Count=679351
+  Edge 152: 70-->15     W=0  Count=679351
+  Edge 153: 17-->71 *   W=0  Count=0
+  Edge 154: 71-->15     W=0  Count=0
+  Edge 155: 17-->72 *   W=0  Count=0
+  Edge 156: 72-->15     W=0  Count=0
+  Edge 157: 17-->73 *   W=0  Count=5734987
+  Edge 158: 73-->15     W=0  Count=5734987
+  Edge 159: 17-->74 *   W=0  Count=0
+  Edge 160: 74-->15     W=0  Count=0
+  Edge 161: 17-->75 *   W=0  Count=0
+  Edge 162: 75-->15     W=0  Count=0
+  Edge 163: 17-->76 *   W=0  Count=0
+  Edge 164: 76-->15     W=0  Count=0
+  Edge 165: 17-->77 *   W=0  Count=0
+  Edge 166: 77-->15     W=0  Count=0
+  Edge 167: 17-->78 *   W=0  Count=0
+  Edge 168: 78-->15     W=0  Count=0
+  Edge 169: 17-->79 *   W=0  Count=0
+  Edge 170: 79-->15     W=0  Count=0
+  Edge 171: 17-->80 *   W=0  Count=0
+  Edge 172: 80-->15     W=0  Count=0
+  Edge 173: 17-->81 *   W=0  Count=0
+  Edge 174: 81-->15     W=0  Count=0
+  Edge 175: 17-->82 *   W=0  Count=0
+  Edge 176: 82-->15     W=0  Count=0
+  Edge 177: 17-->83 *   W=0  Count=0
+  Edge 178: 83-->15     W=0  Count=0
+  Edge 179: 31-->84 *   W=0  Count=76864344
+  Edge 180: 84-->36     W=0  Count=76864344
+  Edge 181: 13-->85 *   W=0  Count=38004458
+  Edge 182: 85-->14     W=0  Count=38004458
+  Edge 183: 13-->86 *   W=0  Count=0
+  Edge 184: 86-->15     W=0  Count=0
+  Edge 185: 13-->87 *   W=0  Count=398734
+  Edge 186: 87-->15     W=0  Count=398734
+  Edge 187: 13-->88 *   W=0  Count=0
+  Edge 188: 88-->15     W=0  Count=0
+  Edge 189: 13-->89 *   W=0  Count=30400
+  Edge 190: 89-->15     W=0  Count=30400
+  Edge 191: 13-->90 *   W=0  Count=2773393
+  Edge 192: 90-->15     W=0  Count=2773393
+  Edge 193: 13-->91 *   W=0  Count=31656210
+  Edge 194: 91-->15     W=0  Count=31656210
+  Edge 195: 17-->92 *   W=0  Count=5460960
+  Edge 196: 92-->14     W=0  Count=5460960
+  Edge 197: 11-->93 *   W=0  Count=2479000
+  Edge 198: 93-->15     W=0  Count=2479000
+  Edge 199: 11-->94 *   W=0  Count=613301
+  Edge 200: 94-->10     W=0  Count=613301
+  Edge 201: 9-->95 *   W=0  Count=0
+  Edge 202: 95-->11     W=0  Count=0
+  Edge 203: 45-->96 *   W=0  Count=0
+  Edge 204: 96-->48     W=0  Count=0
+  Edge 205: 29-->97 *   W=0  Count=0
+  Edge 206: 97-->32     W=0  Count=0
+  Edge 207: 3-->98 *   W=0  Count=0
+  Edge 208: 98-->5     W=0  Count=0
+  Edge 209: 6-->99 *   W=0  Count=0
+  Edge 210: 99-->5     W=0  Count=0
+  Edge 211: 16-->100 *   W=0  Count=0
+  Edge 212: 100-->15     W=0  Count=0
+  Edge 213: 15-->101 *   W=0  Count=0
+  Edge 214: 101-->19     W=0  Count=0
+  Edge 215: 18-->102 *   W=0  Count=0
+  Edge 216: 102-->19     W=0  Count=0
+  Edge 217: 34-->103 *   W=0  Count=0
+  Edge 218: 103-->38     W=0  Count=0
+  Edge 219: 37-->104 *   W=0  Count=0
+  Edge 220: 104-->38     W=0  Count=0
+  Edge 221: 39-->105 *   W=0  Count=0
+  Edge 222: 105-->23     W=0  Count=0
+  Edge 223: 50-->106 *   W=0  Count=0
+  Edge 224: 106-->54     W=0  Count=0
+  Edge 225: 53-->107 *   W=0  Count=0
+  Edge 226: 107-->54     W=0  Count=0

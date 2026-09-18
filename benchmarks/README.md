@@ -19,6 +19,9 @@ for the suite. This initial choice controls domination by individual scenarios;
 it is neither a wall-time ratio nor evidence of optimal weights. Both sides can
 be scaled, with actual shares, counters, input/script hashes and assertions
 recorded in `build/pgo-training/provenance.json`. Package preparation and build-bootstrap profiles are excluded from the merge.
+Linux runs a second CS training pass with the same group shares and a middle-of-file
+gap position in file/Org training. The ordinary profile remains the prelink input;
+only the final link consumes the combined profile.
 
 The [independent interaction suite](interactive/README.md) is frozen before new
 training. It tests real input, minibuffer, processes/JSON, regexp, allocation/GC,
@@ -38,7 +41,9 @@ python3 scripts/fetch.py --benchmarks
 bash scripts/container.sh build
 PGO=generate bash scripts/container.sh build
 bash scripts/container.sh train
-PGO=use bash scripts/container.sh build
+PGO=cs-generate bash scripts/container.sh build
+bash scripts/container.sh train
+PGO=cs-use bash scripts/container.sh build
 ```
 
 ## Initial profile result (2026-09-17, before diverse training)
@@ -210,6 +215,13 @@ keep ordinary PGO + ThinLTO. Full LTO regressed; the experimental CSPGO build
 has partial CS profile coverage, so its regexp regression does not establish
 that a correctly matched CSPGO build is slower. Raw samples and reproduction
 notes are included.
+
+[Subsequent CSPGO repair and actual Linux BOLT experiment](results/compiler-followup-20260918/README.md)
+fixes CS profile matching and identifies a gap-scanning layout tradeoff. After
+the existing regexp test was changed to equal work on both sides of the gap,
+CSPGO was faster in both repeats; the earlier single-sided regression does not
+establish an overall ranking. Linux now uses the repaired CSPGO recipe with the neutral gap placement in its
+CS training pass. macOS remains on ordinary PGO. Both retain O2 + ThinLTO.
 
 [macOS GUI comparison](results/macos-pgo-20260918.json): ten warm-cache samples
 per variant, same source, Apple Clang and `-Q`; personal config is not used.

@@ -72,7 +72,7 @@ for iteration in range(a.runs + 1):
     # Test executions must never contribute to an instrumentation profile.
     env.pop('LLVM_PROFILE_FILE', None)
     info_file = a.bundle / 'BUILD-INFO.json'
-    if info_file.exists() and json.loads(info_file.read_text()).get('pgo') == 'generate':
+    if info_file.exists() and json.loads(info_file.read_text()).get('pgo') in ('generate', 'cs-generate'):
         raise SystemExit('Do not benchmark the user config with an instrumented binary')
     for key in ('EMACSLOADPATH','EMACSDATA','EMACSDOC','EMACSPATH','LD_LIBRARY_PATH'):
         env.pop(key, None)

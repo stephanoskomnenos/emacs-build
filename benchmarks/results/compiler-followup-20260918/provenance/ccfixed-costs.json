@@ -1,0 +1,22 @@
+{
+  "cs-cc-generate": {
+    "seconds": 66.57303524299641,
+    "exit_code": 0
+  },
+  "cs-cc-training": {
+    "seconds": 25.206341133001843,
+    "exit_code": 0
+  },
+  "cs-cc-merge": {
+    "seconds": 0.026984873999026604,
+    "exit_code": 0
+  },
+  "cs-cc-fixed": {
+    "seconds": 61.329305220002425,
+    "exit_code": 0
+  },
+  "ordinary-cc-control": {
+    "seconds": 61.34556394799438,
+    "exit_code": 0
+  }
+}

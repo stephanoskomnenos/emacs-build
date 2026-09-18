@@ -1,0 +1,24 @@
+{
+  "path": "cache/experiments/compiler-gap-balance-20260918.tar.xz",
+  "sha256": "a722286e5bb65e8a2c0f89746f5b3b578639c769bfc879ff3e1d0313630126f9",
+  "bytes": 1181540,
+  "files": {
+    "build/cs-balanced.profdata": "2bce5299abd0f52ba460a0cf62008be5a87a733372e5dab1f16d00b3d481b752",
+    "build/cs-balanced-combined.profdata": "7f202c72d73a75c3e50b8a0361eef956669f68a543fdbb2e387d0806f01af9e0",
+    "build/pgo-training-cs/profiles/magit-medium-15997691848644915334_0-309.profraw": "894204c8723738ad339854e34a244f9d75b393ff70413784abbea67708c8c3da",
+    "build/pgo-training-cs/profiles/files-4072492891194581399_0-66.profraw": "e8d0ed4f35510255de673ec39028e694e4866122e1b43227f0e5d2e3ea976284",
+    "build/pgo-training-cs/profiles/editing-code-4072492891194581399_0-88.profraw": "b106c1396c46075cc78e09de4282722787ca24c6901981045daa8ac4a6ba19d2",
+    "build/pgo-training-cs/profiles/process-batched-4072492891194581399_0-159.profraw": "ecc3745683f34fb95b154eef13e07b623ddb44bea7c1d4be6afc626878460696",
+    "build/pgo-training-cs/profiles/org-news-4072492891194581399_0-138.profraw": "ffc27d9bd64bffb1a2ab9025deeb1aeaa36606db63cc8bf15dd7086717fcbbd9",
+    "build/pgo-training-cs/profiles/minibuffer-paths-4072492891194581399_0-122.profraw": "64407939483533355058964bbde8a52bd0c0bcd306c2c6e42f6e95af4c9a95ac",
+    "build/pgo-training-cs/profiles/org-structure-4072492891194581399_0-146.profraw": "05200eb482aac4c0e954fda8ec88493e09c4f143aef65a5d636b33b1f7aed0ba",
+    "build/pgo-training-cs/profiles/magit-small-15997691848644915334_0-170.profraw": "ee63f27bdbd6549d71b8facc90478190c697d58dfe20eb06e4277f0d3a58575d",
+    "build/pgo-training-cs/profiles/minibuffer-commands-4072492891194581399_0-112.profraw": "b024b70259e8fcf59bcc3165ab4adfa8b303d6d4b12786a3ae634a21beaa8212",
+    "build/pgo-training-cs/profiles/magit-medium-4072492891194581399_0-304.profraw": "a740cb0d6f60f94c856ec515a3e0a8a532c89090318e86c062f69f81fcc161ad",
+    "build/pgo-training-cs/profiles/editing-prose-4072492891194581399_0-96.profraw": "0e4c533ea04a5b9d533b32ba3cbbecd545a01038fcfe419938f031ae7ad703bf",
+    "build/pgo-training-cs/profiles/magit-small-4072492891194581399_0-166.profraw": "b92494e59072836c262e7bfedf324d1a56ffa9eba575b08e9c5e653cc76363a5",
+    "build/pgo-training-cs/profiles/benchmark-4072492891194581399_0-445.profraw": "680082d8b787e297be404372e8de3ac02b16f10b858b34729604fda36d711f7a",
+    "build/pgo-training-cs/profiles/process-fragmented-4072492891194581399_0-154.profraw": "466d920292d013d5a41d7a35fceddee79ddf71ac9c252907de8c987773d977fb",
+    "build/pgo-training-cs/profiles/editing-log-4072492891194581399_0-104.profraw": "e1ac418c5682cda04fd8f1a1824cc0b968484f0d2a8ac4ae871f19a3047d4a07"
+  }
+}

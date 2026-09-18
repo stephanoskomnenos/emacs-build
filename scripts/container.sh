@@ -7,10 +7,12 @@ case "${1:-build}" in
     podman build -t "$image" -f containers/Containerfile .
     ;;
   build)
+    profile=merged.profdata
+    if [[ "${PGO:-off}" == cs-use ]]; then profile=combined.profdata; fi
     podman run --rm --userns=keep-id --network=none \
       -e JOBS="${JOBS:-$(nproc)}" -e LTO="${LTO:-1}" \
       -e PGO="${PGO:-off}" \
-      -e PROFILE_FILE="${PROFILE_FILE:-/work/build/merged.profdata}" \
+      -e PROFILE_FILE="${PROFILE_FILE:-/work/build/$profile}" \
       -v "$PWD:/work:Z" -w /work "$image" python3 scripts/build.py
     ;;
   train)

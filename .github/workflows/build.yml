@@ -54,8 +54,13 @@ jobs:
       - name: Train on generic terminal workflows and ELPA benchmarks
         timeout-minutes: 25
         run: bash scripts/container.sh train
-      - name: Build with the fresh PGO profile
-        run: PGO=use bash scripts/container.sh build
+      - name: Build context-sensitive instrumentation
+        run: PGO=cs-generate bash scripts/container.sh build
+      - name: Train context-sensitive profile
+        timeout-minutes: 25
+        run: bash scripts/container.sh train
+      - name: Build with ordinary and context-sensitive profiles
+        run: PGO=cs-use bash scripts/container.sh build
       - name: Verify in builder and clean Debian 13
         run: bash scripts/container.sh test
       - name: Package binary and sources
@@ -94,6 +99,8 @@ jobs:
           name: acceptance-logs
           path: |
             build/acceptance/*.log
+            build/pgo-training-cs/*.log
+            build/pgo-training-cs/*/terminal.log
             build/pgo-training/*.log
             build/pgo-training/*/terminal.log
             build/interactive-validation/*/terminal.log

@@ -1,0 +1,17 @@
+{
+  "args": [
+    "/work/build/bolt-instrumented/bin/emacs-32.0.50",
+    "-batch",
+    "--no-build-details",
+    "-l",
+    "loadup",
+    "--temacs=pdump"
+  ],
+  "environment": {
+    "EMACSDATA": "/work/build/bolt-instrumented/share/emacs/32.0.50/etc",
+    "EMACSDOC": "/work/build/bolt-instrumented/share/emacs/32.0.50/etc",
+    "EMACSLOADPATH": "/work/build/bolt-instrumented/share/emacs/32.0.50/lisp",
+    "EMACSPATH": "/work/build/bolt-instrumented/libexec/emacs/32.0.50/x86_64-pc-linux-gnu"
+  },
+  "cwd": "/work/build/f98bb6bda8b6/emacs-build-llvm-use-2e201200d06a/src"
+}

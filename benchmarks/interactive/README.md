@@ -14,6 +14,11 @@ Terminal sessions use Pexpect. Emacs emits completion messages through the
 terminal; no separate acknowledgement socket is needed.
 
 Held-out validation inputs and scripts are pinned by `validation-lock.json`.
+The regexp item now splits its existing 60 scans equally between gap positions
+at the beginning and end of the same text. It retains the same matches and total
+scan count; earlier reports used only one gap position, so their regexp timings
+are not directly comparable. The observer hash records this revision.
+
 The Pexpect migration changes timing overhead: use the same driver for both
 variants and do not compare absolute timings with the older socket-based reports.
 Validation rejects instrumented builds and uses a private HOME. PTY actions

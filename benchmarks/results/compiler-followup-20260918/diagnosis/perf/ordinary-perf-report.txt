@@ -1,0 +1,148 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 8K of event 'cpu-clock:u'
+# Event count (approx.): 8816449110
+#
+# Overhead  Symbol                                               IPC   [IPC Coverage]
+# ........  ...................................................  ....................
+#
+    36.48%  [.] re_match_2_internal.llvm.9983484196193733250     -      -
+    24.90%  [.] mark_object                                      -      -
+     7.44%  [.] eval_sub                                         -      -
+     4.90%  [.] buf_bytepos_to_charpos                           -      -
+     3.20%  [.] process_mark_stack.llvm.5074922395296559871      -      -
+     2.90%  [.] mark_char_table.llvm.5074922395296559871         -      -
+     2.67%  [.] search_buffer                                    -      -
+     1.66%  [.] buf_charpos_to_bytepos                           -      -
+     1.54%  [.] rpl_re_search_2                                  -      -
+     1.52%  [.] exec_byte_code                                   -      -
+     0.94%  [.] sweep_strings                                    -      -
+     0.83%  [.] char_table_ref                                   -      -
+     0.80%  [.] string_to_number                                 -      -
+     0.76%  [.] Fsetq                                            -      -
+     0.59%  [.] make_uninit_multibyte_string                     -      -
+     0.56%  [.] apply_lambda.llvm.12395955161994029921           -      -
+     0.56%  [.] unbind_to                                        -      -
+     0.47%  [.] set_point_both                                   -      -
+     0.44%  [.] compile_pattern.llvm.3661227779655452396         -      -
+     0.42%  [.] make_buffer_string_both                          -      -
+     0.40%  [.] Fsymbol_value                                    -      -
+     0.40%  [.] sweep_conses                                     -      -
+     0.38%  [.] memcpy@plt                                       -      -
+     0.36%  [.] validate_region                                  -      -
+     0.33%  [.] search_command.llvm.3661227779655452396          -      -
+     0.31%  [.] 0x0000000000162390                               -      -
+     0.27%  [.] Fnext_property_change                            -      -
+     0.23%  [.] Ftext_properties_at                              -      -
+     0.23%  [.] mem_insert.llvm.5074922395296559871              -      -
+     0.19%  [.] set_internal                                     -      -
+     0.17%  [.] sweep_vectors                                    -      -
+     0.14%  [.] Fstring_to_number                                -      -
+     0.14%  [.] mark_memory                                      -      -
+     0.14%  [.] sweep_floats                                     -      -
+     0.13%  [.] 0x0000000000162132                               -      -
+     0.10%  [.] mem_delete                                       -      -
+     0.10%  [.] 0x0000000000162a3b                               -      -
+     0.09%  [.] Fwhile                                           -      -
+     0.09%  [.] arith_driver.llvm.18279168177947450738           -      -
+     0.08%  [.] internal_equal_1.llvm.11996233043743297677       -      -
+     0.08%  [.] memset@plt                                       -      -
+     0.08%  [.] search_buffer_non_re                             -      -
+     0.08%  [.] 0x00000000001628c6                               -      -
+     0.08%  [.] 0x0000000000162994                               -      -
+     0.07%  [.] 0x0000000000162a6a                               -      -
+     0.06%  [.] Fplus                                            -      -
+     0.06%  [.] Fre_search_forward                               -      -
+     0.06%  [.] cfree                                            -      -
+     0.06%  [.] detect_coding                                    -      -
+     0.06%  [.] 0x000000000016288d                               -      -
+     0.06%  [.] 0x0000000000162974                               -      -
+     0.06%  [.] 0x0000000000162a37                               -      -
+     0.05%  [.] Ffind_file_name_handler                          -      -
+     0.05%  [.] mark_glyph_matrix.llvm.5074922395296559871       -      -
+     0.03%  [.] funcall_lambda.llvm.12395955161994029921         -      -
+     0.03%  [.] rpl_re_compile_pattern                           -      -
+     0.03%  [.] 0x00000000000a16a0                               -      -
+     0.03%  [.] 0x0000000000162398                               -      -
+     0.03%  [.] 0x0000000000162a45                               -      -
+     0.03%  [.] 0x0000000000162a58                               -      -
+     0.03%  [.] 0x0000000000163353                               -      -
+     0.02%  [.] access_keymap_1.llvm.8554977070178991338         -      -
+     0.02%  [.] clock_gettime                                    -      -
+     0.02%  [.] garbage_collect                                  -      -
+     0.02%  [.] malloc                                           -      -
+     0.02%  [.] mark_kboards                                     -      -
+     0.02%  [.] pdumper_load                                     -      -
+     0.02%  [.] read0.llvm.8639935475682246221                   -      -
+     0.02%  [.] realloc                                          -      -
+     0.02%  [.] sweep_symbols                                    -      -
+     0.02%  [.] sweep_weak_table                                 -      -
+     0.02%  [.] 0x00000000000a1341                               -      -
+     0.02%  [.] 0x0000000000162394                               -      -
+     0.02%  [.] 0x00000000001628df                               -      -
+     0.02%  [.] 0x0000000000162964                               -      -
+     0.02%  [.] 0x000000000016298a                               -      -
+     0.02%  [.] 0x00000000001629fe                               -      -
+     0.02%  [.] 0x0000000000162a29                               -      -
+     0.02%  [.] 0x0000000000162a40                               -      -
+     0.02%  [.] 0x0000000000162a62                               -      -
+     0.01%  [.] Faref                                            -      -
+     0.01%  [.] Fjson_serialize                                  -      -
+     0.01%  [.] __libc_calloc                                    -      -
+     0.01%  [.] command_loop_1.llvm.8614398786581771002          -      -
+     0.01%  [.] compact_buffer                                   -      -
+     0.01%  [.] current_minor_maps                               -      -
+     0.01%  [.] detect_coding_utf_8                              -      -
+     0.01%  [.] face_at_buffer_position                          -      -
+     0.01%  [.] float_to_string                                  -      -
+     0.01%  [.] free@plt                                         -      -
+     0.01%  [.] get_local_map                                    -      -
+     0.01%  [.] make_gap                                         -      -
+     0.01%  [.] mark_and_sweep_weak_table_contents               -      -
+     0.01%  [.] mark_threads_callback.llvm.18067210734782875244  -      -
+     0.01%  [.] mark_vectorlike.llvm.5074922395296559871         -      -
+     0.01%  [.] produce_special_glyphs                           -      -
+     0.01%  [.] set_buffer_internal_2                            -      -
+     0.01%  [.] signal_after_change                              -      -
+     0.01%  [.] timerfd_settime                                  -      -
+     0.01%  [.] wait_reading_process_output                      -      -
+     0.01%  [.] 0x000000000004a37b                               -      -
+     0.01%  [.] 0x000000000005b8fd                               -      -
+     0.01%  [.] 0x000000000009eaf0                               -      -
+     0.01%  [.] 0x000000000009eb09                               -      -
+     0.01%  [.] 0x000000000009eb1d                               -      -
+     0.01%  [.] 0x000000000009ecb7                               -      -
+     0.01%  [.] 0x000000000009eccf                               -      -
+     0.01%  [.] 0x000000000009ecfc                               -      -
+     0.01%  [.] 0x000000000009ed01                               -      -
+     0.01%  [.] 0x000000000009eda7                               -      -
+     0.01%  [.] 0x00000000000a1043                               -      -
+     0.01%  [.] 0x00000000000a11cb                               -      -
+     0.01%  [.] 0x00000000000a1263                               -      -
+     0.01%  [.] 0x00000000000a143e                               -      -
+     0.01%  [.] 0x00000000000a1e9e                               -      -
+     0.01%  [.] 0x000000000016212e                               -      -
+     0.01%  [.] 0x000000000016213e                               -      -
+     0.01%  [.] 0x0000000000162889                               -      -
+     0.01%  [.] 0x00000000001628cd                               -      -
+     0.01%  [.] 0x00000000001628d2                               -      -
+     0.01%  [.] 0x00000000001628d9                               -      -
+     0.01%  [.] 0x0000000000162947                               -      -
+     0.01%  [.] 0x000000000016296e                               -      -
+     0.01%  [.] 0x000000000016299f                               -      -
+     0.01%  [.] 0x00000000001629ab                               -      -
+     0.01%  [.] 0x00000000001629d8                               -      -
+     0.01%  [.] 0x00000000001629f1                               -      -
+     0.01%  [.] 0x0000000000162a24                               -      -
+     0.01%  [.] 0x0000000000162a33                               -      -
+     0.01%  [.] 0x0000000000162a4a                               -      -
+     0.01%  [.] 0x0000000000162a4e                               -      -
+     0.01%  [.] 0x00000000001651b0                               -      -
+
+
+#
+# (Cannot load tips.txt file, please install perf!)
+#

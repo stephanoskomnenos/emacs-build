@@ -41,7 +41,13 @@
   (setq workload-value 0)
   (with-temp-buffer
     (insert-file-contents (getenv "WORKLOAD_TEXT"))
-    (dotimes (_ (alist-get 'regexp_repeats workload-spec))
+    (dotimes (iteration (alist-get 'regexp_repeats workload-spec))
+      ;; Same text and 60 scans: half with the gap before the text, half after.
+      (when (or (= iteration 0)
+                (= iteration (/ (alist-get 'regexp_repeats workload-spec) 2)))
+        (goto-char (if (= iteration 0) (point-min) (point-max)))
+        (insert " ")
+        (delete-char -1))
       (goto-char (point-min))
       (while (re-search-forward "item-\\([0-9]+\\).*value=\\([0-9]+\\)" nil t)
         (cl-incf workload-value (string-to-number (match-string 2)))))))

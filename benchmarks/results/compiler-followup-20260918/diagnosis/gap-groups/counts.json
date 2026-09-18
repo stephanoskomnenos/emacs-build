@@ -1,0 +1,51 @@
+{
+  "files": {
+    "before": 1862038,
+    "after": 1364718,
+    "weight": 3651,
+    "weighted_total": 11780886156,
+    "after_share": 0.4229380839456098
+  },
+  "editing": {
+    "before": 379956,
+    "after": 454335,
+    "weight": 159,
+    "weighted_total": 132652269,
+    "after_share": 0.5445761730619172
+  },
+  "minibuffer": {
+    "before": 7528,
+    "after": 17217700,
+    "weight": 100,
+    "weighted_total": 1722522800,
+    "after_share": 0.9995629665975975
+  },
+  "org": {
+    "before": 51740702,
+    "after": 29697850,
+    "weight": 101,
+    "weighted_total": 8225293752,
+    "after_share": 0.364665742092271
+  },
+  "process": {
+    "before": 4908,
+    "after": 0,
+    "weight": 243,
+    "weighted_total": 1192644,
+    "after_share": 0.0
+  },
+  "magit": {
+    "before": 3193,
+    "after": 0,
+    "weight": 182,
+    "weighted_total": 581126,
+    "after_share": 0.0
+  },
+  "benchmark": {
+    "before": 142103,
+    "after": 4051592,
+    "weight": 225,
+    "weighted_total": 943581375,
+    "after_share": 0.9661150846687706
+  }
+}

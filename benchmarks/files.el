@@ -6,6 +6,13 @@
     (lambda (file)
       (let ((start (float-time)))
         (find-file file)
+        (when (and exercise (equal (getenv "TRAIN_BALANCED_GAP") "1"))
+          ;; A neutral editing position lets scans encounter both sides of the gap.
+          (save-excursion
+            (goto-char (/ (+ (point-min) (point-max)) 2))
+            (insert " ")
+            (delete-char -1))
+          (set-buffer-modified-p nil))
         (redisplay t)
         (when font-lock-mode
           (font-lock-ensure (window-start) (window-end nil t)))

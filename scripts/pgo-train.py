@@ -20,14 +20,17 @@ p.add_argument('--check-workloads',action='store_true',help='Check PTY assertion
 a=p.parse_args()
 a.bundle=a.bundle.resolve();info=json.loads((a.bundle/'BUILD-INFO.json').read_text())
 if a.check_workloads:
-    if info.get('pgo')=='generate':raise SystemExit('Use a non-instrumented build for workload checks')
-elif info.get('pgo')!='generate':raise SystemExit('An instrumented build is required')
-base=BUILD/('workload-checks' if a.check_workloads else 'pgo-training');profiles=base/'profiles';corpus=base/'corpus'
+    if info.get('pgo') in ('generate','cs-generate'):raise SystemExit('Use a non-instrumented build for workload checks')
+elif info.get('pgo') not in ('generate','cs-generate'):raise SystemExit('An instrumented build is required')
+cs=info.get('pgo')=='cs-generate'
+base=BUILD/('workload-checks' if a.check_workloads else 'pgo-training-cs' if cs else 'pgo-training');profiles=base/'profiles';corpus=base/'corpus'
 if profiles.exists() and list(profiles.glob('*.profraw')):
     raise SystemExit('Raw profiles already exist; use a fresh build/pgo-training directory')
 for directory in (profiles,corpus,base/'home'):directory.mkdir(parents=True,exist_ok=True)
 source=Path(os.environ.get('EMACS_TRAIN_SOURCE',a.bundle.parents[2]/'src/emacs'))
 profdata=os.environ.get('LLVM_PROFDATA','llvm-profdata-23')
+if cs and hashlib.sha256((BUILD/'merged.profdata').read_bytes()).hexdigest()!=info['compile_profile_sha256']:
+    raise SystemExit('Ordinary profile changed since the CS instrumented build')
 for original,target in [('src/buffer.c','buffer.c'),('lisp/files.el','files.el'),('etc/ORG-NEWS','org-news.org'),('etc/NEWS','news.txt')]:
     shutil.copy2(source/original,corpus/target)
 print('Preparing workload packages',flush=True)
@@ -36,6 +39,7 @@ env=dict(os.environ,HOME=str(base/'home'),GIT_CONFIG_NOSYSTEM='1',GIT_CONFIG_GLO
          GIT_AUTHOR_DATE='2025-03-04T05:06:07Z',GIT_COMMITTER_DATE='2025-03-04T05:06:07Z',
          TRAIN_CORPUS=str(corpus),TRAIN_PACKAGES=str(BUILD/'workload-packages/paths.json'),
          TRAIN_PRODUCER=str(ROOT/'benchmarks/interactive/training-producer.py'))
+env['TRAIN_BALANCED_GAP']='1' if cs else '0'
 for key in ('LLVM_PROFILE_FILE','EMACSLOADPATH','EMACSDATA','EMACSDOC','EMACSPATH','LD_LIBRARY_PATH'):env.pop(key,None)
 def git(repo,*args):
     return subprocess.check_output(['git','-C',str(repo),*args],env=env,stderr=subprocess.STDOUT,text=True)
@@ -80,12 +84,17 @@ counts={};groups={};inner={}
 def merge_case(name):
     raw=sorted(profiles.glob(name+'-*.profraw'))
     if not raw:raise RuntimeError('Missing profile for '+name)
+    if cs:
+        for path in raw:
+            with path.open('rb') as stream: header=stream.read(16)
+            if int.from_bytes(header[8:16],'little') & (3 << 56) != (3 << 56):
+                raise RuntimeError('Raw profile lacks IR/CS flags: '+str(path))
     output=base/(name+'.profdata')
     subprocess.run([profdata,'merge','-o',str(output),*map(str,raw)],check=True)
     return output
 
 def total_count(path):
-    detail=subprocess.check_output([profdata,'show','--detailed-summary',str(path)],text=True)
+    detail=subprocess.check_output([profdata,'show','--detailed-summary',*(['--showcs'] if cs else []),str(path)],text=True)
     return int(re.search(r'^Total count: (\d+)',detail,re.M)[1])
 
 for group in targets:
@@ -104,12 +113,15 @@ if 'gui' in groups:
     if not any(int(n)>0 for values in blocks for value in values for n in re.findall(r'\d+',value)):
         raise RuntimeError('GUI profile did not exercise Cocoa glyph drawing')
 weights,shares=weights_for_counts(counts,targets)
-merged=BUILD/'merged.profdata'
+merged=BUILD/('cs.profdata' if cs else 'merged.profdata')
 subprocess.run([profdata,'merge','-o',str(merged),*[f'--weighted-input={weights[n]},{groups[n]}' for n in targets]],check=True)
-summary=subprocess.check_output([profdata,'show',str(merged)],text=True)
+summary=subprocess.check_output([profdata,'show',*(['--showcs'] if cs else []),str(merged)],text=True)
 (base/'profile-summary.txt').write_text(summary)
 scripts=['scripts/training_fixtures.py','scripts/training_scenarios.py','scripts/prepare-workload-packages.py','scripts/pgo-train.py','scripts/profile_weights.py','scripts/pty_driver.py','benchmarks/interactive/training.el','benchmarks/interactive/training-producer.py','benchmarks/files.el','benchmarks/runtime.el']
 if os.environ.get('EMACS_TRAIN_GUI')=='1':scripts+=['scripts/macos/gui.py','benchmarks/macos/gui.el']
-(base/'provenance.json').write_text(json.dumps({'build':info,'configuration':'generic built-in and locked Magit scenarios only; no user configuration or held-out inputs','subscenario_profiles':inner,'group_execution_counts':counts,'target_share_units':targets,'group_merge_weights':weights,'actual_execution_shares':shares,'benchmark_sources':lock,'benchmark_selector':selector,'fixture_sha256':{str(f.relative_to(fixtures)):hashlib.sha256(f.read_bytes()).hexdigest() for f in sorted(fixtures.rglob('*')) if f.is_file() and '.git' not in f.parts},'corpus_sha256':{f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in corpus.iterdir()},'training_script_sha256':{f:hashlib.sha256((ROOT/f).read_bytes()).hexdigest() for f in scripts},'scenario_checks':checks,'profile_sha256':hashlib.sha256(merged.read_bytes()).hexdigest()},indent=2)+'\n')
+(base/'provenance.json').write_text(json.dumps({'build':info,'balanced_gap':cs,'compile_profile_sha256':info.get('compile_profile_sha256'),'configuration':'generic built-in and locked Magit scenarios only; no user configuration or held-out inputs','subscenario_profiles':inner,'group_execution_counts':counts,'target_share_units':targets,'group_merge_weights':weights,'actual_execution_shares':shares,'benchmark_sources':lock,'benchmark_selector':selector,'fixture_sha256':{str(f.relative_to(fixtures)):hashlib.sha256(f.read_bytes()).hexdigest() for f in sorted(fixtures.rglob('*')) if f.is_file() and '.git' not in f.parts},'corpus_sha256':{f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in corpus.iterdir()},'training_script_sha256':{f:hashlib.sha256((ROOT/f).read_bytes()).hexdigest() for f in scripts},'scenario_checks':checks,'profile_sha256':hashlib.sha256(merged.read_bytes()).hexdigest()},indent=2)+'\n')
 print(summary,flush=True)
 print('Profile shares:',json.dumps(shares),flush=True)
+
+if cs:
+    subprocess.run([profdata,'merge',str(BUILD/'merged.profdata'),str(merged),'-o',str(BUILD/'combined.profdata')],check=True)

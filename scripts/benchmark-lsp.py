@@ -23,7 +23,7 @@ a = p.parse_args()
 root = Path(__file__).resolve().parents[1]
 base = root / 'build/lsp-load'
 info = json.loads(Path('/bundle/BUILD-INFO.json').read_text())
-if info.get('pgo') == 'generate':
+if info.get('pgo') in ('generate', 'cs-generate'):
     raise SystemExit('User configuration must not train PGO')
 os.sched_setaffinity(0, {0})
 env = dict(os.environ, HOME=str(base/'home'), LSP_LOAD_PROJECT=str(base/'project'),

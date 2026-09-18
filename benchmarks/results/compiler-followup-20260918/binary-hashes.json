@@ -1,0 +1,132 @@
+{
+  "ordinary-cc-control-bundle": {
+    "bin/emacs-32.0.50": {
+      "bytes": 15628864,
+      "sha256": "db1a1e436037d7ddbad561a503fe234493173aadbf76b60158c063a4ef34b9f6"
+    },
+    "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/emacs-7a2c8e6afebfaccf779d943df4b3d2cb81678e9b20792923f07d2a9a8e0d56fa.pdmp": {
+      "bytes": 13078472,
+      "sha256": "1d47f07e0a666ed79723cb0ddd1af4d1866f661728a6bb2d8d55d7ad482f5636"
+    }
+  },
+  "cs-cc-fixed-bundle": {
+    "bin/emacs-32.0.50": {
+      "bytes": 15092512,
+      "sha256": "b7e14bb6446675fa9f2ced00359bf85b478e7b78bcfd9b6a3f674b78befb7c8e"
+    },
+    "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/emacs-1fe11684b3122be082b2eee8083ec1a4c38eba6815aea5798b283ec1568775dc.pdmp": {
+      "bytes": 13078480,
+      "sha256": "6bd99cf4383ec664c62b7dd447295e78d2fe4528d0b1ced0af118e96eb460654"
+    }
+  },
+  "cs-cc-generate-bundle": {
+    "bin/emacs-32.0.50": {
+      "bytes": 26420184,
+      "sha256": "8895681c3ddc08c01163423a3b074846415a29e5b3a1175178c753d309e4679d"
+    },
+    "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/emacs-ba34570f8e66e430952c232860d079b6a57fb91f63d53704906a077d2c2477e1.pdmp": {
+      "bytes": 13078576,
+      "sha256": "d84b0fde2f905b1fbd751d64fd01b7fe157ae5884ade483c03b801e056b410f4"
+    }
+  },
+  "cs-no-bytepos-bundle": {
+    "bin/emacs-32.0.50": {
+      "bytes": 15093144,
+      "sha256": "1b0f0e722776cb4c3f07c7f6860c14cc012d8a0d761983a1d56196d6b9922002"
+    },
+    "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/emacs-3d7e30d8e7a229fa1f41ba259fe5f9d933e86b54f80ad432c5ae0d20f1231f39.pdmp": {
+      "bytes": 13078464,
+      "sha256": "f30b8ae176ffd5411c02b45e98000cb314dcec7b2cec281bde694c487b4a87af"
+    }
+  },
+  "bolt-optimized-bundle": {
+    "bin/emacs-32.0.50": {
+      "bytes": 16811872,
+      "sha256": "43c87d628d4f021c460ff51f9f7cf99596e7bafd69272be9ec5f06bccad5c6ab"
+    },
+    "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/emacs-b7aba5d3ef1ff0b981e7ad7df18c68db15057f4b9752c6f9cd7b2cfc6fcdda21.pdmp": {
+      "bytes": 13078296,
+      "sha256": "506b07e5227da79331632789bdccfe893b209bd183af189b6752a0ed6def875d"
+    }
+  },
+  "cs-link-fixed-bundle": {
+    "bin/emacs-32.0.50": {
+      "bytes": 15093208,
+      "sha256": "4df2e34f73cf6c762c24e28b7b43c21127124d3e1b4a01e986e024ef2c8f24fe"
+    },
+    "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/emacs-85be7d9d47780eb7f11ca8db2bd02000d06424285021b67db83902ad80623439.pdmp": {
+      "bytes": 13078456,
+      "sha256": "348fd8cff035c7f948a3a4866c0e1c51092705776e6696ad4afbdfa1dd196bb4"
+    }
+  },
+  "cs-link-generate-bundle": {
+    "bin/emacs-32.0.50": {
+      "bytes": 26274456,
+      "sha256": "090d2fee3a42acaee28a8cef2f806f09147f0df61a041864b7f7b83941cad539"
+    },
+    "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/emacs-ca264b273a5ad32767f78adf6bb28dd60826a7d8407e4218754509660221e0a1.pdmp": {
+      "bytes": 13078552,
+      "sha256": "2ac58ad57ccfd817572d78de200228be8256ef66a62a269ad88849b79fe41c73"
+    }
+  },
+  "cs-original-bundle": {
+    "bin/emacs-32.0.50": {
+      "bytes": 15094480,
+      "sha256": "efc8de499264283b234e2ecabe2538574e42b034d9d45b0a38faa175b011e317"
+    },
+    "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/emacs-ae034294917d33db9313c8ef859519a924646ae433238374779573fd46fb29ac.pdmp": {
+      "bytes": 13078432,
+      "sha256": "d3cbcfd0df4c4bab392c4b7700fac2bc0ae266f7aebe1caf4b5c293c1fc21ac2"
+    }
+  },
+  "cs-original-generate-bundle": {
+    "bin/emacs-32.0.50": {
+      "bytes": 26420168,
+      "sha256": "82e40f937f40be67dd89f6be9a1a795c32c14dd79685fb02041138aa769eeef7"
+    },
+    "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/emacs-d01aab9db49ddfc7e341023fb6244924aa4dea25a60dde31a5c9f5df56ec6c76.pdmp": {
+      "bytes": 13078584,
+      "sha256": "6d99aee678ab0003e1ae5ec2249d5e570bcc8c1681721d53586883eaf9b13322"
+    }
+  },
+  "ordinary-bundle": {
+    "bin/emacs-32.0.50": {
+      "bytes": 15628752,
+      "sha256": "b9b6755ca842f569120b82a6e2e35c6f7887ff6b86d39841331c058c77cc6f2e"
+    },
+    "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/emacs-b7aba5d3ef1ff0b981e7ad7df18c68db15057f4b9752c6f9cd7b2cfc6fcdda21.pdmp": {
+      "bytes": 13078408,
+      "sha256": "2753df1ab33d548ff1277209c8c8e0586d578c6a2e0b50c47367ef1fc3685998"
+    }
+  },
+  "normal-generate-bundle": {
+    "bin/emacs-32.0.50": {
+      "bytes": 18886528,
+      "sha256": "60ffaac590f91b41a252b01cc5302875a4dc70525c7b9b7e14ef4140c7cfc4a9"
+    },
+    "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/emacs-9b01d2c789d51f89077ed6fe99de031df1046ab945fab839b8d2f11e47c955ec.pdmp": {
+      "bytes": 13078384,
+      "sha256": "08d976223d24e04059ed6167e9559a69e277815bba4f03995028d7496f6e9934"
+    }
+  },
+  "current-bundle": {
+    "bin/emacs-32.0.50": {
+      "bytes": 15628864,
+      "sha256": "db1a1e436037d7ddbad561a503fe234493173aadbf76b60158c063a4ef34b9f6"
+    },
+    "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/emacs-7a2c8e6afebfaccf779d943df4b3d2cb81678e9b20792923f07d2a9a8e0d56fa.pdmp": {
+      "bytes": 13078472,
+      "sha256": "1d47f07e0a666ed79723cb0ddd1af4d1866f661728a6bb2d8d55d7ad482f5636"
+    }
+  },
+  "cs-balanced": {
+    "bin/emacs-32.0.50": {
+      "bytes": 15093848,
+      "sha256": "3ee3a3788a6135379c28d061f03a3cdbd2a9bf2b4d2e2417ee1545e3a4dd038e"
+    },
+    "libexec/emacs/32.0.50/x86_64-pc-linux-gnu/emacs-9d61254b824862dc9a6d623a2218e2f825129a6f576e108da0dc3dd67ec1d834.pdmp": {
+      "bytes": 13078504,
+      "sha256": "c27a5293a874600d5c61a9d9ceade299d0710e57ab2047766252da00df8ee094"
+    }
+  }
+}

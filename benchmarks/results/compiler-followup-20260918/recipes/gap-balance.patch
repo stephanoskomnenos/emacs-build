@@ -1,0 +1,33 @@
+diff --git a/benchmarks/files.el b/benchmarks/files.el
+index 3441ad9..33d739a 100644
+--- a/benchmarks/files.el
++++ b/benchmarks/files.el
+@@ -6,6 +6,13 @@
+     (lambda (file)
+       (let ((start (float-time)))
+         (find-file file)
++        (when exercise
++          ;; A neutral editing position lets scans encounter both sides of the gap.
++          (save-excursion
++            (goto-char (/ (+ (point-min) (point-max)) 2))
++            (insert " ")
++            (delete-char -1))
++          (set-buffer-modified-p nil))
+         (redisplay t)
+         (when font-lock-mode
+           (font-lock-ensure (window-start) (window-end nil t)))
+diff --git a/benchmarks/interactive/training.el b/benchmarks/interactive/training.el
+index be8e353..b5f6e9d 100644
+--- a/benchmarks/interactive/training.el
++++ b/benchmarks/interactive/training.el
+@@ -90,6 +90,10 @@
+   (interactive)
+   (require 'org)
+   (find-file (expand-file-name "org-news.org" (getenv "TRAIN_CORPUS")))
++  (goto-char (/ (+ (point-min) (point-max)) 2))
++  (insert " ")
++  (delete-char -1)
++  (set-buffer-modified-p nil)
+   (goto-char (point-min)))
+ (dolist (entry '(("<f3>" . train-arm-cancel) ("<f4>" . train-exit) ("<f6>" . train-files)
+                  ("<f8>" . train-process) ("<f9>" . train-org)

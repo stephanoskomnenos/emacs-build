@@ -1,6 +1,6 @@
 # emacs-build
 
-构建 Emacs master：O2、ThinLTO、PGO，禁用 native-comp。
+构建 Emacs master：O2、ThinLTO，Linux 使用 CSPGO、macOS 使用 PGO，禁用 native-comp。
 启用 SQLite、GnuTLS、XML、tree-sitter、zlib、动态模块和线程；基础第三方库静态链接，系统库动态链接。
 
 | 平台 | 版本 | 编译器 | 要求 |
@@ -40,7 +40,9 @@ python3 scripts/fetch.py --benchmarks
 bash scripts/container.sh image
 PGO=generate bash scripts/container.sh build
 bash scripts/container.sh train
-PGO=use bash scripts/container.sh build
+PGO=cs-generate bash scripts/container.sh build
+bash scripts/container.sh train
+PGO=cs-use bash scripts/container.sh build
 bash scripts/container.sh test
 bash scripts/container.sh package
 bash scripts/container.sh rpm

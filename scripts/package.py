@@ -81,17 +81,33 @@ for lock in ('sources.json', 'test-sources.json', 'benchmarks/sources.json'):
         if hashlib.sha256(source.read_bytes()).hexdigest() != spec['sha256']:
             raise SystemExit('Source checksum mismatch: ' + str(source))
         shutil.copy2(source, inputs / source.name)
-if info.get('pgo') == 'use':
-    profile = ROOT / 'build/merged.profdata'
-    provenance = ROOT / 'build/pgo-training/provenance.json'
-    digest = hashlib.sha256(profile.read_bytes()).hexdigest()
-    if digest != info['profile_sha256'] or json.loads(provenance.read_text())['profile_sha256'] != digest:
+if info.get('pgo') in ('use', 'cs-use'):
+    cs = info['pgo'] == 'cs-use'
+    def profile_digest(name):
+        return hashlib.sha256((ROOT / 'build' / name).read_bytes()).hexdigest()
+    normal_digest = profile_digest('merged.profdata')
+    normal_provenance = json.loads((ROOT / 'build/pgo-training/provenance.json').read_text())
+    final_name = 'combined.profdata' if cs else 'merged.profdata'
+    if profile_digest(final_name) != info['profile_sha256'] or normal_provenance['profile_sha256'] != normal_digest:
         raise SystemExit('Profile does not match the accepted binary')
+    profiles = ['merged.profdata']
+    training_dirs = ['pgo-training']
+    if cs:
+        cs_provenance = json.loads((ROOT / 'build/pgo-training-cs/provenance.json').read_text())
+        if (info['compile_profile_sha256'] != normal_digest or
+                cs_provenance['compile_profile_sha256'] != normal_digest or
+                cs_provenance['profile_sha256'] != profile_digest('cs.profdata')):
+            raise SystemExit('CS profile provenance does not match the accepted binary')
+        profiles += ['cs.profdata', 'combined.profdata']
+        training_dirs += ['pgo-training-cs']
     destination = source_release / 'build'
-    (destination / 'pgo-training').mkdir(parents=True)
-    shutil.copy2(profile, destination / 'merged.profdata')
-    shutil.copy2(provenance, destination / 'pgo-training/provenance.json')
-    shutil.copy2(ROOT / 'build/pgo-training/profile-summary.txt', destination / 'pgo-training/profile-summary.txt')
+    destination.mkdir(parents=True, exist_ok=True)
+    for name in profiles:
+        shutil.copy2(ROOT / 'build' / name, destination / name)
+    for name in training_dirs:
+        (destination / name).mkdir(exist_ok=True)
+        for filename in ('provenance.json', 'profile-summary.txt'):
+            shutil.copy2(ROOT / 'build' / name / filename, destination / name / filename)
 source_archive = dist / (source_name + '.tar.zst')
 subprocess.run(['tar', '--sort=name', '--mtime=@' + epoch, '--owner=0', '--group=0',
                 '--numeric-owner', '--zstd', '-cf', str(source_archive), '-C', str(dist), source_name], check=True)

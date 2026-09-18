@@ -1,0 +1,19 @@
+{
+  "profiles": [
+    "training.102.fdata",
+    "training.110.fdata",
+    "training.120.fdata",
+    "training.136.fdata",
+    "training.144.fdata",
+    "training.152.fdata",
+    "training.157.fdata",
+    "training.164.fdata",
+    "training.302.fdata",
+    "training.441.fdata",
+    "training.64.fdata",
+    "training.86.fdata",
+    "training.94.fdata"
+  ],
+  "workloads": "12 existing generic PTY scenarios plus existing ELPA selection; each once; preparation/dump/smoke excluded; no personal config or validation inputs",
+  "weighting": "merge-fdata sum; no additional execution-count normalization"
+}

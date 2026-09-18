@@ -1,0 +1,1664 @@
+{
+  "f451f359ca28e39d7e2bd8ef51cfcf61ef1ae976eca14554c03a974c86241e79": {
+    "emacs": "32.0.50.20260916175219.git82f763756c71",
+    "sources": {
+      "emacs": {
+        "version": "32.0.50.20260916175219.git82f763756c71",
+        "emacs_version": "32.0.50",
+        "branch": "master",
+        "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "commit_date": "2026-09-16T17:52:19Z",
+        "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+      },
+      "ncurses": {
+        "version": "6.6",
+        "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+        "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+      },
+      "zlib": {
+        "version": "1.3.2",
+        "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+        "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+      },
+      "gmp": {
+        "version": "6.3.0",
+        "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+        "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+      },
+      "nettle": {
+        "version": "4.0",
+        "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+        "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+      },
+      "libunistring": {
+        "version": "1.4.2",
+        "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+        "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+      },
+      "libidn2": {
+        "version": "2.3.8",
+        "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+        "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+      },
+      "gnutls": {
+        "version": "3.8.13",
+        "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+        "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+      },
+      "libxml2": {
+        "version": "2.15.4",
+        "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+        "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+      },
+      "sqlite": {
+        "version": "3.53.4",
+        "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+        "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+      },
+      "tree-sitter": {
+        "version": "0.27.0",
+        "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+        "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+      },
+      "dbus": {
+        "version": "1.16.2",
+        "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz",
+        "sha256": "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
+      }
+    },
+    "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+    "dependency_build_id": "07856664161f",
+    "glibc": "glibc 2.41",
+    "configure": [
+      "--prefix=/opt/emacs",
+      "--without-all",
+      "--without-x",
+      "--without-native-compilation",
+      "--with-modules",
+      "--with-threads",
+      "--with-file-notification=inotify",
+      "--with-gnutls",
+      "--with-libgmp",
+      "--with-xml2",
+      "--with-sqlite3",
+      "--with-tree-sitter",
+      "--with-zlib",
+      "--with-dbus",
+      "--with-compress-install",
+      "--disable-build-details",
+      "--disable-gc-mark-trace"
+    ],
+    "lto": "thin",
+    "pgo": "use",
+    "stable_locals": false,
+    "emit_relocs": true,
+    "cs_link_only": true,
+    "compile_profile": "/work/build/merged.profdata",
+    "profile_sha256": "15ab2f4aea1d60a5545ff47753063d4426ad4269fca3ec99ab286515e31aa13c",
+    "build_id": "f98bb6bda8b6",
+    "cpu_baseline": "x86-64-v3",
+    "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+    "ldflags": "-L/work/build/dependencies/07856664161f/prefix/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23",
+    "packages": "apt\t3.0.3\nautoconf\t2.72-3.1\nautomake\t1:1.17-4\nautotools-dev\t20240727.1\nbase-files\t13.8+deb13u6\nbase-passwd\t3.6.7\nbash\t5.2.37-2+b9\nbinutils\t2.44-3\nbinutils-common:amd64\t2.44-3\nbinutils-x86-64-linux-gnu\t2.44-3\nbsdutils\t1:2.41.5-0+deb13u1\nbzip2\t1.0.8-6\nca-certificates\t20250419\nclang-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\ncoreutils\t9.7-3\ncpp\t4:14.2.0-1\ncpp-14\t14.2.0-19\ncpp-14-x86-64-linux-gnu\t14.2.0-19\ncpp-x86-64-linux-gnu\t4:14.2.0-1\ncurl\t8.14.1-2+deb13u5\ndash\t0.5.12-12\ndebconf\t1.5.91\ndebian-archive-keyring\t2025.1\ndebianutils\t5.23.2\ndiffutils\t1:3.10-4\ndpkg\t1.22.22\ndpkg-dev\t1.22.22\nfile\t1:5.46-5\nfindutils\t4.10.0-3\ngcc\t4:14.2.0-1\ngcc-14\t14.2.0-19\ngcc-14-base:amd64\t14.2.0-19\ngcc-14-x86-64-linux-gnu\t14.2.0-19\ngcc-x86-64-linux-gnu\t4:14.2.0-1\ngettext\t0.23.1-2\ngettext-base\t0.23.1-2\ngit\t1:2.47.3-0+deb13u1\ngit-man\t1:2.47.3-0+deb13u1\ngrep\t3.11-4\ngzip\t1.13-1\nhostname\t3.25\ninit-system-helpers\t1.69~deb13u1\nlib32gcc-s1\t14.2.0-19\nlib32stdc++6\t14.2.0-19\nlibacl1:amd64\t2.3.2-2+b1\nlibapt-pkg7.0:amd64\t3.0.3\nlibasan8:amd64\t14.2.0-19\nlibatomic1:amd64\t14.2.0-19\nlibattr1:amd64\t1:2.5.2-3\nlibaudit-common\t1:4.0.2-2\nlibaudit1:amd64\t1:4.0.2-2+b2\nlibbinutils:amd64\t2.44-3\nlibblkid1:amd64\t2.41.5-0+deb13u1\nlibbrotli1:amd64\t1.1.0-2+b7\nlibbsd0:amd64\t0.12.2-2\nlibbz2-1.0:amd64\t1.0.8-6\nlibc-bin\t2.41-12+deb13u4\nlibc-dev-bin\t2.41-12+deb13u4\nlibc6:amd64\t2.41-12+deb13u4\nlibc6-dev:amd64\t2.41-12+deb13u4\nlibc6-i386\t2.41-12+deb13u4\nlibcap-ng0:amd64\t0.8.5-4+b1\nlibcap2:amd64\t1:2.75-10+deb13u1+b1\nlibcc1-0:amd64\t14.2.0-19\nlibclang-common-23-dev:amd64\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang-cpp23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang-rt-23-dev\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang1-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibcom-err2:amd64\t1.47.2-3+b12\nlibcrypt-dev:amd64\t1:4.4.38-1\nlibcrypt1:amd64\t1:4.4.38-1\nlibctf-nobfd0:amd64\t2.44-3\nlibctf0:amd64\t2.44-3\nlibcurl3t64-gnutls:amd64\t8.14.1-2+deb13u5\nlibcurl4t64:amd64\t8.14.1-2+deb13u5\nlibdb5.3t64:amd64\t5.3.28+dfsg2-9\nlibdebconfclient0:amd64\t0.280\nlibdpkg-perl\t1.22.22\nlibedit2:amd64\t3.1-20250104-1\nliberror-perl\t0.17030-1\nlibexpat1:amd64\t2.8.3-1~deb13u1\nlibffi8:amd64\t3.4.8-2\nlibgc1:amd64\t1:8.2.8-1\nlibgcc-14-dev:amd64\t14.2.0-19\nlibgcc-s1:amd64\t14.2.0-19\nlibgdbm-compat4t64:amd64\t1.24-2\nlibgdbm6t64:amd64\t1.24-2\nlibgmp10:amd64\t2:6.3.0+dfsg-3\nlibgnutls30t64:amd64\t3.8.9-3+deb13u4\nlibgomp1:amd64\t14.2.0-19\nlibgprofng0:amd64\t2.44-3\nlibgssapi-krb5-2:amd64\t1.21.3-5+deb13u1\nlibhogweed6t64:amd64\t3.10.1-1\nlibhwasan0:amd64\t14.2.0-19\nlibidn2-0:amd64\t2.3.8-2\nlibisl23:amd64\t0.27-1\nlibitm1:amd64\t14.2.0-19\nlibjansson4:amd64\t2.14-2+b3\nlibk5crypto3:amd64\t1.21.3-5+deb13u1\nlibkeyutils1:amd64\t1.6.3-6\nlibkrb5-3:amd64\t1.21.3-5+deb13u1\nlibkrb5support0:amd64\t1.21.3-5+deb13u1\nliblastlog2-2:amd64\t2.41.5-0+deb13u1\nlibldap2:amd64\t2.6.10+dfsg-1\nlibllvm23:amd64\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nliblsan0:amd64\t14.2.0-19\nliblz4-1:amd64\t1.10.0-4\nliblzma5:amd64\t5.8.1-1+deb13u1\nlibmagic-mgc\t1:5.46-5\nlibmagic1t64:amd64\t1:5.46-5\nlibmd0:amd64\t1.1.0-2+b1\nlibmount1:amd64\t2.41.5-0+deb13u1\nlibmpc3:amd64\t1.3.1-1+b3\nlibmpfr6:amd64\t4.2.2-1\nlibncursesw6:amd64\t6.5+20250216-2\nlibnettle8t64:amd64\t3.10.1-1\nlibnghttp2-14:amd64\t1.64.0-1.1+deb13u1\nlibnghttp3-9:amd64\t1.8.0-1\nlibngtcp2-16:amd64\t1.11.0-1+deb13u1\nlibngtcp2-crypto-gnutls8:amd64\t1.11.0-1+deb13u1\nlibobjc-14-dev:amd64\t14.2.0-19\nlibobjc4:amd64\t14.2.0-19\nlibp11-kit0:amd64\t0.25.5-3\nlibpam-modules:amd64\t1.7.0-5\nlibpam-modules-bin\t1.7.0-5\nlibpam-runtime\t1.7.0-5\nlibpam0g:amd64\t1.7.0-5\nlibpcre2-8-0:amd64\t10.46-1~deb13u1\nlibperl5.40:amd64\t5.40.1-6+deb13u1\nlibpfm4:amd64\t4.13.0+git99-gc5587f9-1\nlibpkgconf3:amd64\t1.8.1-4\nlibproc2-0:amd64\t2:4.0.4-9\nlibpsl5t64:amd64\t0.21.2-1.1+b1\nlibpython3-stdlib:amd64\t3.13.5-1\nlibpython3.13-minimal:amd64\t3.13.5-2+deb13u5\nlibpython3.13-stdlib:amd64\t3.13.5-2+deb13u5\nlibquadmath0:amd64\t14.2.0-19\nlibreadline8t64:amd64\t8.2-6\nlibrtmp1:amd64\t2.4+20151223.gitfa8646d.1-2+b5\nlibsasl2-2:amd64\t2.1.28+dfsg1-9\nlibsasl2-modules-db:amd64\t2.1.28+dfsg1-9\nlibseccomp2:amd64\t2.6.0-2\nlibselinux1:amd64\t3.8.1-1\nlibsemanage-common\t3.8.1-1\nlibsemanage2:amd64\t3.8.1-1\nlibsepol2:amd64\t3.8.1-1\nlibsframe1:amd64\t2.44-3\nlibsmartcols1:amd64\t2.41.5-0+deb13u1\nlibsqlite3-0:amd64\t3.46.1-7+deb13u1\nlibssh2-1t64:amd64\t1.11.1-1+deb13u2\nlibssl3t64:amd64\t3.5.7-1~deb13u2\nlibstdc++-14-dev:amd64\t14.2.0-19\nlibstdc++6:amd64\t14.2.0-19\nlibsystemd0:amd64\t257.13-1~deb13u1\nlibtasn1-6:amd64\t4.20.0-2+deb13u1\nlibtext-charwidth-perl:amd64\t0.04-11+b4\nlibtext-unidecode-perl\t1.30-3\nlibtext-wrapi18n-perl\t0.06-10\nlibtinfo6:amd64\t6.5+20250216-2\nlibtool\t2.5.4-4\nlibtsan2:amd64\t14.2.0-19\nlibubsan1:amd64\t14.2.0-19\nlibudev1:amd64\t257.13-1~deb13u1\nlibunistring5:amd64\t1.3-2\nlibuuid1:amd64\t2.41.5-0+deb13u1\nlibxml-libxml-perl\t2.0207+dfsg+really+2.0134-5+deb13u1\nlibxml-namespacesupport-perl\t1.12-2\nlibxml-sax-base-perl\t1.09-3\nlibxml-sax-perl\t1.02+dfsg-4\nlibxml2:amd64\t2.12.7+dfsg+really2.9.14-2.1+deb13u3\nlibxxhash0:amd64\t0.8.3-2\nlibz3-4:amd64\t4.13.3-1\nlibzstd1:amd64\t1.5.7+dfsg-1\nlinux-libc-dev\t6.12.107-1\nlld-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23-linker-tools\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23-runtime\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlogin\t1:4.16.0-2+really2.41.5-0+deb13u1\nlogin.defs\t1:4.17.4-2\nm4\t1.4.19-8\nmake\t4.4.1-2\nmawk\t1.3.4.20250131-1\nmedia-types\t13.0.0\nmeson\t1.7.0-1\nmount\t2.41.5-0+deb13u1\nncurses-base\t6.5+20250216-2\nncurses-bin\t6.5+20250216-2\nnetbase\t6.5\nninja-build\t1.12.1-1\nopenssl\t3.5.7-1~deb13u2\nopenssl-provider-legacy\t3.5.7-1~deb13u2\npasswd\t1:4.17.4-2\npatch\t2.8-2\nperl\t5.40.1-6+deb13u1\nperl-base\t5.40.1-6+deb13u1\nperl-modules-5.40\t5.40.1-6+deb13u1\npkg-config:amd64\t1.8.1-4\npkgconf:amd64\t1.8.1-4\npkgconf-bin\t1.8.1-4\nprocps\t2:4.0.4-9\npython3\t3.13.5-1\npython3-autocommand\t2.2.2-3\npython3-inflect\t7.3.1-2\npython3-jaraco.context\t6.0.1-1+deb13u1\npython3-jaraco.functools\t4.1.0-1\npython3-jaraco.text\t4.0.0-1\npython3-minimal\t3.13.5-1\npython3-more-itertools\t10.7.0-1\npython3-pexpect\t4.9-3\npython3-pkg-resources\t78.1.1-0.1\npython3-ptyprocess\t0.7.0-6\npython3-setuptools\t78.1.1-0.1\npython3-typeguard\t4.4.2-1\npython3-typing-extensions\t4.13.2-1\npython3-zipp\t3.21.0-1\npython3.13\t3.13.5-2+deb13u5\npython3.13-minimal\t3.13.5-2+deb13u5\nreadline-common\t8.2-6\nrpcsvc-proto\t1.4.3-1\nsed\t4.9-2+deb13u1\nsensible-utils\t0.0.25\nsqv\t1.3.0-3+b2\nsysvinit-utils\t3.14-4\ntar\t1.35+dfsg-3.1\ntex-common\t6.19\ntexinfo\t7.1.1-1\ntexinfo-lib\t7.1.1-1+b1\ntzdata\t2026b-0+deb13u1\nucf\t3.0052\nutil-linux\t2.41.5-0+deb13u1\nxz-utils\t5.8.1-1+deb13u1\nzlib1g:amd64\t1:1.3.dfsg+really1.3.1-1+b1\nzstd\t1.5.7+dfsg-1\n"
+  },
+  "c96d8d8ea4057f5fd7de32aad7507f3999f30782b5c332b5ee4b7276b6a288d7": {
+    "emacs": "32.0.50.20260916175219.git82f763756c71",
+    "sources": {
+      "emacs": {
+        "version": "32.0.50.20260916175219.git82f763756c71",
+        "emacs_version": "32.0.50",
+        "branch": "master",
+        "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "commit_date": "2026-09-16T17:52:19Z",
+        "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+      },
+      "ncurses": {
+        "version": "6.6",
+        "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+        "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+      },
+      "zlib": {
+        "version": "1.3.2",
+        "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+        "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+      },
+      "gmp": {
+        "version": "6.3.0",
+        "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+        "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+      },
+      "nettle": {
+        "version": "4.0",
+        "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+        "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+      },
+      "libunistring": {
+        "version": "1.4.2",
+        "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+        "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+      },
+      "libidn2": {
+        "version": "2.3.8",
+        "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+        "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+      },
+      "gnutls": {
+        "version": "3.8.13",
+        "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+        "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+      },
+      "libxml2": {
+        "version": "2.15.4",
+        "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+        "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+      },
+      "sqlite": {
+        "version": "3.53.4",
+        "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+        "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+      },
+      "tree-sitter": {
+        "version": "0.27.0",
+        "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+        "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+      },
+      "dbus": {
+        "version": "1.16.2",
+        "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz",
+        "sha256": "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
+      }
+    },
+    "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+    "dependency_build_id": "07856664161f",
+    "glibc": "glibc 2.41",
+    "configure": [
+      "--prefix=/opt/emacs",
+      "--without-all",
+      "--without-x",
+      "--without-native-compilation",
+      "--with-modules",
+      "--with-threads",
+      "--with-file-notification=inotify",
+      "--with-gnutls",
+      "--with-libgmp",
+      "--with-xml2",
+      "--with-sqlite3",
+      "--with-tree-sitter",
+      "--with-zlib",
+      "--with-dbus",
+      "--with-compress-install",
+      "--disable-build-details",
+      "--disable-gc-mark-trace"
+    ],
+    "lto": "thin",
+    "pgo": "use",
+    "stable_locals": false,
+    "emit_relocs": true,
+    "cs_link_only": true,
+    "compile_profile": "/work/build/merged.profdata",
+    "profile_sha256": "3b5293545ac86c891ff48a6f0f62e1e6ba8eb5239679e0c6030dbf65c9c3371f",
+    "build_id": "f98bb6bda8b6",
+    "cpu_baseline": "x86-64-v3",
+    "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+    "ldflags": "-L/work/build/dependencies/07856664161f/prefix/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23",
+    "packages": "apt\t3.0.3\nautoconf\t2.72-3.1\nautomake\t1:1.17-4\nautotools-dev\t20240727.1\nbase-files\t13.8+deb13u6\nbase-passwd\t3.6.7\nbash\t5.2.37-2+b9\nbinutils\t2.44-3\nbinutils-common:amd64\t2.44-3\nbinutils-x86-64-linux-gnu\t2.44-3\nbsdutils\t1:2.41.5-0+deb13u1\nbzip2\t1.0.8-6\nca-certificates\t20250419\nclang-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\ncoreutils\t9.7-3\ncpp\t4:14.2.0-1\ncpp-14\t14.2.0-19\ncpp-14-x86-64-linux-gnu\t14.2.0-19\ncpp-x86-64-linux-gnu\t4:14.2.0-1\ncurl\t8.14.1-2+deb13u5\ndash\t0.5.12-12\ndebconf\t1.5.91\ndebian-archive-keyring\t2025.1\ndebianutils\t5.23.2\ndiffutils\t1:3.10-4\ndpkg\t1.22.22\ndpkg-dev\t1.22.22\nfile\t1:5.46-5\nfindutils\t4.10.0-3\ngcc\t4:14.2.0-1\ngcc-14\t14.2.0-19\ngcc-14-base:amd64\t14.2.0-19\ngcc-14-x86-64-linux-gnu\t14.2.0-19\ngcc-x86-64-linux-gnu\t4:14.2.0-1\ngettext\t0.23.1-2\ngettext-base\t0.23.1-2\ngit\t1:2.47.3-0+deb13u1\ngit-man\t1:2.47.3-0+deb13u1\ngrep\t3.11-4\ngzip\t1.13-1\nhostname\t3.25\ninit-system-helpers\t1.69~deb13u1\nlib32gcc-s1\t14.2.0-19\nlib32stdc++6\t14.2.0-19\nlibacl1:amd64\t2.3.2-2+b1\nlibapt-pkg7.0:amd64\t3.0.3\nlibasan8:amd64\t14.2.0-19\nlibatomic1:amd64\t14.2.0-19\nlibattr1:amd64\t1:2.5.2-3\nlibaudit-common\t1:4.0.2-2\nlibaudit1:amd64\t1:4.0.2-2+b2\nlibbinutils:amd64\t2.44-3\nlibblkid1:amd64\t2.41.5-0+deb13u1\nlibbrotli1:amd64\t1.1.0-2+b7\nlibbsd0:amd64\t0.12.2-2\nlibbz2-1.0:amd64\t1.0.8-6\nlibc-bin\t2.41-12+deb13u4\nlibc-dev-bin\t2.41-12+deb13u4\nlibc6:amd64\t2.41-12+deb13u4\nlibc6-dev:amd64\t2.41-12+deb13u4\nlibc6-i386\t2.41-12+deb13u4\nlibcap-ng0:amd64\t0.8.5-4+b1\nlibcap2:amd64\t1:2.75-10+deb13u1+b1\nlibcc1-0:amd64\t14.2.0-19\nlibclang-common-23-dev:amd64\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang-cpp23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang-rt-23-dev\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang1-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibcom-err2:amd64\t1.47.2-3+b12\nlibcrypt-dev:amd64\t1:4.4.38-1\nlibcrypt1:amd64\t1:4.4.38-1\nlibctf-nobfd0:amd64\t2.44-3\nlibctf0:amd64\t2.44-3\nlibcurl3t64-gnutls:amd64\t8.14.1-2+deb13u5\nlibcurl4t64:amd64\t8.14.1-2+deb13u5\nlibdb5.3t64:amd64\t5.3.28+dfsg2-9\nlibdebconfclient0:amd64\t0.280\nlibdpkg-perl\t1.22.22\nlibedit2:amd64\t3.1-20250104-1\nliberror-perl\t0.17030-1\nlibexpat1:amd64\t2.8.3-1~deb13u1\nlibffi8:amd64\t3.4.8-2\nlibgc1:amd64\t1:8.2.8-1\nlibgcc-14-dev:amd64\t14.2.0-19\nlibgcc-s1:amd64\t14.2.0-19\nlibgdbm-compat4t64:amd64\t1.24-2\nlibgdbm6t64:amd64\t1.24-2\nlibgmp10:amd64\t2:6.3.0+dfsg-3\nlibgnutls30t64:amd64\t3.8.9-3+deb13u4\nlibgomp1:amd64\t14.2.0-19\nlibgprofng0:amd64\t2.44-3\nlibgssapi-krb5-2:amd64\t1.21.3-5+deb13u1\nlibhogweed6t64:amd64\t3.10.1-1\nlibhwasan0:amd64\t14.2.0-19\nlibidn2-0:amd64\t2.3.8-2\nlibisl23:amd64\t0.27-1\nlibitm1:amd64\t14.2.0-19\nlibjansson4:amd64\t2.14-2+b3\nlibk5crypto3:amd64\t1.21.3-5+deb13u1\nlibkeyutils1:amd64\t1.6.3-6\nlibkrb5-3:amd64\t1.21.3-5+deb13u1\nlibkrb5support0:amd64\t1.21.3-5+deb13u1\nliblastlog2-2:amd64\t2.41.5-0+deb13u1\nlibldap2:amd64\t2.6.10+dfsg-1\nlibllvm23:amd64\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nliblsan0:amd64\t14.2.0-19\nliblz4-1:amd64\t1.10.0-4\nliblzma5:amd64\t5.8.1-1+deb13u1\nlibmagic-mgc\t1:5.46-5\nlibmagic1t64:amd64\t1:5.46-5\nlibmd0:amd64\t1.1.0-2+b1\nlibmount1:amd64\t2.41.5-0+deb13u1\nlibmpc3:amd64\t1.3.1-1+b3\nlibmpfr6:amd64\t4.2.2-1\nlibncursesw6:amd64\t6.5+20250216-2\nlibnettle8t64:amd64\t3.10.1-1\nlibnghttp2-14:amd64\t1.64.0-1.1+deb13u1\nlibnghttp3-9:amd64\t1.8.0-1\nlibngtcp2-16:amd64\t1.11.0-1+deb13u1\nlibngtcp2-crypto-gnutls8:amd64\t1.11.0-1+deb13u1\nlibobjc-14-dev:amd64\t14.2.0-19\nlibobjc4:amd64\t14.2.0-19\nlibp11-kit0:amd64\t0.25.5-3\nlibpam-modules:amd64\t1.7.0-5\nlibpam-modules-bin\t1.7.0-5\nlibpam-runtime\t1.7.0-5\nlibpam0g:amd64\t1.7.0-5\nlibpcre2-8-0:amd64\t10.46-1~deb13u1\nlibperl5.40:amd64\t5.40.1-6+deb13u1\nlibpfm4:amd64\t4.13.0+git99-gc5587f9-1\nlibpkgconf3:amd64\t1.8.1-4\nlibproc2-0:amd64\t2:4.0.4-9\nlibpsl5t64:amd64\t0.21.2-1.1+b1\nlibpython3-stdlib:amd64\t3.13.5-1\nlibpython3.13-minimal:amd64\t3.13.5-2+deb13u5\nlibpython3.13-stdlib:amd64\t3.13.5-2+deb13u5\nlibquadmath0:amd64\t14.2.0-19\nlibreadline8t64:amd64\t8.2-6\nlibrtmp1:amd64\t2.4+20151223.gitfa8646d.1-2+b5\nlibsasl2-2:amd64\t2.1.28+dfsg1-9\nlibsasl2-modules-db:amd64\t2.1.28+dfsg1-9\nlibseccomp2:amd64\t2.6.0-2\nlibselinux1:amd64\t3.8.1-1\nlibsemanage-common\t3.8.1-1\nlibsemanage2:amd64\t3.8.1-1\nlibsepol2:amd64\t3.8.1-1\nlibsframe1:amd64\t2.44-3\nlibsmartcols1:amd64\t2.41.5-0+deb13u1\nlibsqlite3-0:amd64\t3.46.1-7+deb13u1\nlibssh2-1t64:amd64\t1.11.1-1+deb13u2\nlibssl3t64:amd64\t3.5.7-1~deb13u2\nlibstdc++-14-dev:amd64\t14.2.0-19\nlibstdc++6:amd64\t14.2.0-19\nlibsystemd0:amd64\t257.13-1~deb13u1\nlibtasn1-6:amd64\t4.20.0-2+deb13u1\nlibtext-charwidth-perl:amd64\t0.04-11+b4\nlibtext-unidecode-perl\t1.30-3\nlibtext-wrapi18n-perl\t0.06-10\nlibtinfo6:amd64\t6.5+20250216-2\nlibtool\t2.5.4-4\nlibtsan2:amd64\t14.2.0-19\nlibubsan1:amd64\t14.2.0-19\nlibudev1:amd64\t257.13-1~deb13u1\nlibunistring5:amd64\t1.3-2\nlibuuid1:amd64\t2.41.5-0+deb13u1\nlibxml-libxml-perl\t2.0207+dfsg+really+2.0134-5+deb13u1\nlibxml-namespacesupport-perl\t1.12-2\nlibxml-sax-base-perl\t1.09-3\nlibxml-sax-perl\t1.02+dfsg-4\nlibxml2:amd64\t2.12.7+dfsg+really2.9.14-2.1+deb13u3\nlibxxhash0:amd64\t0.8.3-2\nlibz3-4:amd64\t4.13.3-1\nlibzstd1:amd64\t1.5.7+dfsg-1\nlinux-libc-dev\t6.12.107-1\nlld-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23-linker-tools\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23-runtime\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlogin\t1:4.16.0-2+really2.41.5-0+deb13u1\nlogin.defs\t1:4.17.4-2\nm4\t1.4.19-8\nmake\t4.4.1-2\nmawk\t1.3.4.20250131-1\nmedia-types\t13.0.0\nmeson\t1.7.0-1\nmount\t2.41.5-0+deb13u1\nncurses-base\t6.5+20250216-2\nncurses-bin\t6.5+20250216-2\nnetbase\t6.5\nninja-build\t1.12.1-1\nopenssl\t3.5.7-1~deb13u2\nopenssl-provider-legacy\t3.5.7-1~deb13u2\npasswd\t1:4.17.4-2\npatch\t2.8-2\nperl\t5.40.1-6+deb13u1\nperl-base\t5.40.1-6+deb13u1\nperl-modules-5.40\t5.40.1-6+deb13u1\npkg-config:amd64\t1.8.1-4\npkgconf:amd64\t1.8.1-4\npkgconf-bin\t1.8.1-4\nprocps\t2:4.0.4-9\npython3\t3.13.5-1\npython3-autocommand\t2.2.2-3\npython3-inflect\t7.3.1-2\npython3-jaraco.context\t6.0.1-1+deb13u1\npython3-jaraco.functools\t4.1.0-1\npython3-jaraco.text\t4.0.0-1\npython3-minimal\t3.13.5-1\npython3-more-itertools\t10.7.0-1\npython3-pexpect\t4.9-3\npython3-pkg-resources\t78.1.1-0.1\npython3-ptyprocess\t0.7.0-6\npython3-setuptools\t78.1.1-0.1\npython3-typeguard\t4.4.2-1\npython3-typing-extensions\t4.13.2-1\npython3-zipp\t3.21.0-1\npython3.13\t3.13.5-2+deb13u5\npython3.13-minimal\t3.13.5-2+deb13u5\nreadline-common\t8.2-6\nrpcsvc-proto\t1.4.3-1\nsed\t4.9-2+deb13u1\nsensible-utils\t0.0.25\nsqv\t1.3.0-3+b2\nsysvinit-utils\t3.14-4\ntar\t1.35+dfsg-3.1\ntex-common\t6.19\ntexinfo\t7.1.1-1\ntexinfo-lib\t7.1.1-1+b1\ntzdata\t2026b-0+deb13u1\nucf\t3.0052\nutil-linux\t2.41.5-0+deb13u1\nxz-utils\t5.8.1-1+deb13u1\nzlib1g:amd64\t1:1.3.dfsg+really1.3.1-1+b1\nzstd\t1.5.7+dfsg-1\n"
+  },
+  "7abb969ff39c17426f1752a052d1a4cd246cdb3701861f95b0dd95a415b847dc": {
+    "emacs": "32.0.50.20260916175219.git82f763756c71",
+    "sources": {
+      "emacs": {
+        "version": "32.0.50.20260916175219.git82f763756c71",
+        "emacs_version": "32.0.50",
+        "branch": "master",
+        "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "commit_date": "2026-09-16T17:52:19Z",
+        "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+      },
+      "ncurses": {
+        "version": "6.6",
+        "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+        "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+      },
+      "zlib": {
+        "version": "1.3.2",
+        "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+        "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+      },
+      "gmp": {
+        "version": "6.3.0",
+        "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+        "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+      },
+      "nettle": {
+        "version": "4.0",
+        "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+        "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+      },
+      "libunistring": {
+        "version": "1.4.2",
+        "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+        "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+      },
+      "libidn2": {
+        "version": "2.3.8",
+        "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+        "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+      },
+      "gnutls": {
+        "version": "3.8.13",
+        "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+        "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+      },
+      "libxml2": {
+        "version": "2.15.4",
+        "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+        "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+      },
+      "sqlite": {
+        "version": "3.53.4",
+        "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+        "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+      },
+      "tree-sitter": {
+        "version": "0.27.0",
+        "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+        "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+      },
+      "dbus": {
+        "version": "1.16.2",
+        "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz",
+        "sha256": "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
+      }
+    },
+    "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+    "dependency_build_id": "07856664161f",
+    "glibc": "glibc 2.41",
+    "configure": [
+      "--prefix=/opt/emacs",
+      "--without-all",
+      "--without-x",
+      "--without-native-compilation",
+      "--with-modules",
+      "--with-threads",
+      "--with-file-notification=inotify",
+      "--with-gnutls",
+      "--with-libgmp",
+      "--with-xml2",
+      "--with-sqlite3",
+      "--with-tree-sitter",
+      "--with-zlib",
+      "--with-dbus",
+      "--with-compress-install",
+      "--disable-build-details",
+      "--disable-gc-mark-trace"
+    ],
+    "lto": "thin",
+    "pgo": "use",
+    "stable_locals": false,
+    "emit_relocs": true,
+    "cs_link_only": true,
+    "cs_runtime_marker": true,
+    "compile_profile": "/work/build/merged.profdata",
+    "profile_sha256": "85f4e30c69973c7f208713aca6519a95ae2fbee9a196659e9593ed8006413554",
+    "build_id": "f98bb6bda8b6",
+    "cpu_baseline": "x86-64-v3",
+    "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+    "ldflags": "-L/work/build/dependencies/07856664161f/prefix/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23",
+    "packages": "apt\t3.0.3\nautoconf\t2.72-3.1\nautomake\t1:1.17-4\nautotools-dev\t20240727.1\nbase-files\t13.8+deb13u6\nbase-passwd\t3.6.7\nbash\t5.2.37-2+b9\nbinutils\t2.44-3\nbinutils-common:amd64\t2.44-3\nbinutils-x86-64-linux-gnu\t2.44-3\nbsdutils\t1:2.41.5-0+deb13u1\nbzip2\t1.0.8-6\nca-certificates\t20250419\nclang-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\ncoreutils\t9.7-3\ncpp\t4:14.2.0-1\ncpp-14\t14.2.0-19\ncpp-14-x86-64-linux-gnu\t14.2.0-19\ncpp-x86-64-linux-gnu\t4:14.2.0-1\ncurl\t8.14.1-2+deb13u5\ndash\t0.5.12-12\ndebconf\t1.5.91\ndebian-archive-keyring\t2025.1\ndebianutils\t5.23.2\ndiffutils\t1:3.10-4\ndpkg\t1.22.22\ndpkg-dev\t1.22.22\nfile\t1:5.46-5\nfindutils\t4.10.0-3\ngcc\t4:14.2.0-1\ngcc-14\t14.2.0-19\ngcc-14-base:amd64\t14.2.0-19\ngcc-14-x86-64-linux-gnu\t14.2.0-19\ngcc-x86-64-linux-gnu\t4:14.2.0-1\ngettext\t0.23.1-2\ngettext-base\t0.23.1-2\ngit\t1:2.47.3-0+deb13u1\ngit-man\t1:2.47.3-0+deb13u1\ngrep\t3.11-4\ngzip\t1.13-1\nhostname\t3.25\ninit-system-helpers\t1.69~deb13u1\nlib32gcc-s1\t14.2.0-19\nlib32stdc++6\t14.2.0-19\nlibacl1:amd64\t2.3.2-2+b1\nlibapt-pkg7.0:amd64\t3.0.3\nlibasan8:amd64\t14.2.0-19\nlibatomic1:amd64\t14.2.0-19\nlibattr1:amd64\t1:2.5.2-3\nlibaudit-common\t1:4.0.2-2\nlibaudit1:amd64\t1:4.0.2-2+b2\nlibbinutils:amd64\t2.44-3\nlibblkid1:amd64\t2.41.5-0+deb13u1\nlibbrotli1:amd64\t1.1.0-2+b7\nlibbsd0:amd64\t0.12.2-2\nlibbz2-1.0:amd64\t1.0.8-6\nlibc-bin\t2.41-12+deb13u4\nlibc-dev-bin\t2.41-12+deb13u4\nlibc6:amd64\t2.41-12+deb13u4\nlibc6-dev:amd64\t2.41-12+deb13u4\nlibc6-i386\t2.41-12+deb13u4\nlibcap-ng0:amd64\t0.8.5-4+b1\nlibcap2:amd64\t1:2.75-10+deb13u1+b1\nlibcc1-0:amd64\t14.2.0-19\nlibclang-common-23-dev:amd64\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang-cpp23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang-rt-23-dev\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang1-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibcom-err2:amd64\t1.47.2-3+b12\nlibcrypt-dev:amd64\t1:4.4.38-1\nlibcrypt1:amd64\t1:4.4.38-1\nlibctf-nobfd0:amd64\t2.44-3\nlibctf0:amd64\t2.44-3\nlibcurl3t64-gnutls:amd64\t8.14.1-2+deb13u5\nlibcurl4t64:amd64\t8.14.1-2+deb13u5\nlibdb5.3t64:amd64\t5.3.28+dfsg2-9\nlibdebconfclient0:amd64\t0.280\nlibdpkg-perl\t1.22.22\nlibedit2:amd64\t3.1-20250104-1\nliberror-perl\t0.17030-1\nlibexpat1:amd64\t2.8.3-1~deb13u1\nlibffi8:amd64\t3.4.8-2\nlibgc1:amd64\t1:8.2.8-1\nlibgcc-14-dev:amd64\t14.2.0-19\nlibgcc-s1:amd64\t14.2.0-19\nlibgdbm-compat4t64:amd64\t1.24-2\nlibgdbm6t64:amd64\t1.24-2\nlibgmp10:amd64\t2:6.3.0+dfsg-3\nlibgnutls30t64:amd64\t3.8.9-3+deb13u4\nlibgomp1:amd64\t14.2.0-19\nlibgprofng0:amd64\t2.44-3\nlibgssapi-krb5-2:amd64\t1.21.3-5+deb13u1\nlibhogweed6t64:amd64\t3.10.1-1\nlibhwasan0:amd64\t14.2.0-19\nlibidn2-0:amd64\t2.3.8-2\nlibisl23:amd64\t0.27-1\nlibitm1:amd64\t14.2.0-19\nlibjansson4:amd64\t2.14-2+b3\nlibk5crypto3:amd64\t1.21.3-5+deb13u1\nlibkeyutils1:amd64\t1.6.3-6\nlibkrb5-3:amd64\t1.21.3-5+deb13u1\nlibkrb5support0:amd64\t1.21.3-5+deb13u1\nliblastlog2-2:amd64\t2.41.5-0+deb13u1\nlibldap2:amd64\t2.6.10+dfsg-1\nlibllvm23:amd64\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nliblsan0:amd64\t14.2.0-19\nliblz4-1:amd64\t1.10.0-4\nliblzma5:amd64\t5.8.1-1+deb13u1\nlibmagic-mgc\t1:5.46-5\nlibmagic1t64:amd64\t1:5.46-5\nlibmd0:amd64\t1.1.0-2+b1\nlibmount1:amd64\t2.41.5-0+deb13u1\nlibmpc3:amd64\t1.3.1-1+b3\nlibmpfr6:amd64\t4.2.2-1\nlibncursesw6:amd64\t6.5+20250216-2\nlibnettle8t64:amd64\t3.10.1-1\nlibnghttp2-14:amd64\t1.64.0-1.1+deb13u1\nlibnghttp3-9:amd64\t1.8.0-1\nlibngtcp2-16:amd64\t1.11.0-1+deb13u1\nlibngtcp2-crypto-gnutls8:amd64\t1.11.0-1+deb13u1\nlibobjc-14-dev:amd64\t14.2.0-19\nlibobjc4:amd64\t14.2.0-19\nlibp11-kit0:amd64\t0.25.5-3\nlibpam-modules:amd64\t1.7.0-5\nlibpam-modules-bin\t1.7.0-5\nlibpam-runtime\t1.7.0-5\nlibpam0g:amd64\t1.7.0-5\nlibpcre2-8-0:amd64\t10.46-1~deb13u1\nlibperl5.40:amd64\t5.40.1-6+deb13u1\nlibpfm4:amd64\t4.13.0+git99-gc5587f9-1\nlibpkgconf3:amd64\t1.8.1-4\nlibproc2-0:amd64\t2:4.0.4-9\nlibpsl5t64:amd64\t0.21.2-1.1+b1\nlibpython3-stdlib:amd64\t3.13.5-1\nlibpython3.13-minimal:amd64\t3.13.5-2+deb13u5\nlibpython3.13-stdlib:amd64\t3.13.5-2+deb13u5\nlibquadmath0:amd64\t14.2.0-19\nlibreadline8t64:amd64\t8.2-6\nlibrtmp1:amd64\t2.4+20151223.gitfa8646d.1-2+b5\nlibsasl2-2:amd64\t2.1.28+dfsg1-9\nlibsasl2-modules-db:amd64\t2.1.28+dfsg1-9\nlibseccomp2:amd64\t2.6.0-2\nlibselinux1:amd64\t3.8.1-1\nlibsemanage-common\t3.8.1-1\nlibsemanage2:amd64\t3.8.1-1\nlibsepol2:amd64\t3.8.1-1\nlibsframe1:amd64\t2.44-3\nlibsmartcols1:amd64\t2.41.5-0+deb13u1\nlibsqlite3-0:amd64\t3.46.1-7+deb13u1\nlibssh2-1t64:amd64\t1.11.1-1+deb13u2\nlibssl3t64:amd64\t3.5.7-1~deb13u2\nlibstdc++-14-dev:amd64\t14.2.0-19\nlibstdc++6:amd64\t14.2.0-19\nlibsystemd0:amd64\t257.13-1~deb13u1\nlibtasn1-6:amd64\t4.20.0-2+deb13u1\nlibtext-charwidth-perl:amd64\t0.04-11+b4\nlibtext-unidecode-perl\t1.30-3\nlibtext-wrapi18n-perl\t0.06-10\nlibtinfo6:amd64\t6.5+20250216-2\nlibtool\t2.5.4-4\nlibtsan2:amd64\t14.2.0-19\nlibubsan1:amd64\t14.2.0-19\nlibudev1:amd64\t257.13-1~deb13u1\nlibunistring5:amd64\t1.3-2\nlibuuid1:amd64\t2.41.5-0+deb13u1\nlibxml-libxml-perl\t2.0207+dfsg+really+2.0134-5+deb13u1\nlibxml-namespacesupport-perl\t1.12-2\nlibxml-sax-base-perl\t1.09-3\nlibxml-sax-perl\t1.02+dfsg-4\nlibxml2:amd64\t2.12.7+dfsg+really2.9.14-2.1+deb13u3\nlibxxhash0:amd64\t0.8.3-2\nlibz3-4:amd64\t4.13.3-1\nlibzstd1:amd64\t1.5.7+dfsg-1\nlinux-libc-dev\t6.12.107-1\nlld-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23-linker-tools\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23-runtime\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlogin\t1:4.16.0-2+really2.41.5-0+deb13u1\nlogin.defs\t1:4.17.4-2\nm4\t1.4.19-8\nmake\t4.4.1-2\nmawk\t1.3.4.20250131-1\nmedia-types\t13.0.0\nmeson\t1.7.0-1\nmount\t2.41.5-0+deb13u1\nncurses-base\t6.5+20250216-2\nncurses-bin\t6.5+20250216-2\nnetbase\t6.5\nninja-build\t1.12.1-1\nopenssl\t3.5.7-1~deb13u2\nopenssl-provider-legacy\t3.5.7-1~deb13u2\npasswd\t1:4.17.4-2\npatch\t2.8-2\nperl\t5.40.1-6+deb13u1\nperl-base\t5.40.1-6+deb13u1\nperl-modules-5.40\t5.40.1-6+deb13u1\npkg-config:amd64\t1.8.1-4\npkgconf:amd64\t1.8.1-4\npkgconf-bin\t1.8.1-4\nprocps\t2:4.0.4-9\npython3\t3.13.5-1\npython3-autocommand\t2.2.2-3\npython3-inflect\t7.3.1-2\npython3-jaraco.context\t6.0.1-1+deb13u1\npython3-jaraco.functools\t4.1.0-1\npython3-jaraco.text\t4.0.0-1\npython3-minimal\t3.13.5-1\npython3-more-itertools\t10.7.0-1\npython3-pexpect\t4.9-3\npython3-pkg-resources\t78.1.1-0.1\npython3-ptyprocess\t0.7.0-6\npython3-setuptools\t78.1.1-0.1\npython3-typeguard\t4.4.2-1\npython3-typing-extensions\t4.13.2-1\npython3-zipp\t3.21.0-1\npython3.13\t3.13.5-2+deb13u5\npython3.13-minimal\t3.13.5-2+deb13u5\nreadline-common\t8.2-6\nrpcsvc-proto\t1.4.3-1\nsed\t4.9-2+deb13u1\nsensible-utils\t0.0.25\nsqv\t1.3.0-3+b2\nsysvinit-utils\t3.14-4\ntar\t1.35+dfsg-3.1\ntex-common\t6.19\ntexinfo\t7.1.1-1\ntexinfo-lib\t7.1.1-1+b1\ntzdata\t2026b-0+deb13u1\nucf\t3.0052\nutil-linux\t2.41.5-0+deb13u1\nxz-utils\t5.8.1-1+deb13u1\nzlib1g:amd64\t1:1.3.dfsg+really1.3.1-1+b1\nzstd\t1.5.7+dfsg-1\n"
+  },
+  "8ac6a772f48c2165d12b0b325ca66a29f2f457563b78ff4d5a59f96e9e91c25a": {
+    "emacs": "32.0.50.20260916175219.git82f763756c71",
+    "sources": {
+      "emacs": {
+        "version": "32.0.50.20260916175219.git82f763756c71",
+        "emacs_version": "32.0.50",
+        "branch": "master",
+        "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "commit_date": "2026-09-16T17:52:19Z",
+        "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+      },
+      "ncurses": {
+        "version": "6.6",
+        "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+        "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+      },
+      "zlib": {
+        "version": "1.3.2",
+        "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+        "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+      },
+      "gmp": {
+        "version": "6.3.0",
+        "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+        "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+      },
+      "nettle": {
+        "version": "4.0",
+        "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+        "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+      },
+      "libunistring": {
+        "version": "1.4.2",
+        "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+        "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+      },
+      "libidn2": {
+        "version": "2.3.8",
+        "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+        "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+      },
+      "gnutls": {
+        "version": "3.8.13",
+        "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+        "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+      },
+      "libxml2": {
+        "version": "2.15.4",
+        "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+        "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+      },
+      "sqlite": {
+        "version": "3.53.4",
+        "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+        "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+      },
+      "tree-sitter": {
+        "version": "0.27.0",
+        "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+        "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+      },
+      "dbus": {
+        "version": "1.16.2",
+        "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz",
+        "sha256": "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
+      }
+    },
+    "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+    "dependency_build_id": "07856664161f",
+    "glibc": "glibc 2.41",
+    "configure": [
+      "--prefix=/opt/emacs",
+      "--without-all",
+      "--without-x",
+      "--without-native-compilation",
+      "--with-modules",
+      "--with-threads",
+      "--with-file-notification=inotify",
+      "--with-gnutls",
+      "--with-libgmp",
+      "--with-xml2",
+      "--with-sqlite3",
+      "--with-tree-sitter",
+      "--with-zlib",
+      "--with-dbus",
+      "--with-compress-install",
+      "--disable-build-details",
+      "--disable-gc-mark-trace"
+    ],
+    "lto": "thin",
+    "pgo": "use",
+    "stable_locals": false,
+    "emit_relocs": true,
+    "cs_link_only": true,
+    "cs_runtime_marker": true,
+    "compile_profile": "/work/build/merged.profdata",
+    "profile_sha256": "2e201200d06a7053b337947f6915f419cf0993caacf1dcc6483792622cc81b33",
+    "build_id": "f98bb6bda8b6",
+    "cpu_baseline": "x86-64-v3",
+    "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+    "ldflags": "-L/work/build/dependencies/07856664161f/prefix/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23",
+    "packages": "apt\t3.0.3\nautoconf\t2.72-3.1\nautomake\t1:1.17-4\nautotools-dev\t20240727.1\nbase-files\t13.8+deb13u6\nbase-passwd\t3.6.7\nbash\t5.2.37-2+b9\nbinutils\t2.44-3\nbinutils-common:amd64\t2.44-3\nbinutils-x86-64-linux-gnu\t2.44-3\nbsdutils\t1:2.41.5-0+deb13u1\nbzip2\t1.0.8-6\nca-certificates\t20250419\nclang-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\ncoreutils\t9.7-3\ncpp\t4:14.2.0-1\ncpp-14\t14.2.0-19\ncpp-14-x86-64-linux-gnu\t14.2.0-19\ncpp-x86-64-linux-gnu\t4:14.2.0-1\ncurl\t8.14.1-2+deb13u5\ndash\t0.5.12-12\ndebconf\t1.5.91\ndebian-archive-keyring\t2025.1\ndebianutils\t5.23.2\ndiffutils\t1:3.10-4\ndpkg\t1.22.22\ndpkg-dev\t1.22.22\nfile\t1:5.46-5\nfindutils\t4.10.0-3\ngcc\t4:14.2.0-1\ngcc-14\t14.2.0-19\ngcc-14-base:amd64\t14.2.0-19\ngcc-14-x86-64-linux-gnu\t14.2.0-19\ngcc-x86-64-linux-gnu\t4:14.2.0-1\ngettext\t0.23.1-2\ngettext-base\t0.23.1-2\ngit\t1:2.47.3-0+deb13u1\ngit-man\t1:2.47.3-0+deb13u1\ngrep\t3.11-4\ngzip\t1.13-1\nhostname\t3.25\ninit-system-helpers\t1.69~deb13u1\nlib32gcc-s1\t14.2.0-19\nlib32stdc++6\t14.2.0-19\nlibacl1:amd64\t2.3.2-2+b1\nlibapt-pkg7.0:amd64\t3.0.3\nlibasan8:amd64\t14.2.0-19\nlibatomic1:amd64\t14.2.0-19\nlibattr1:amd64\t1:2.5.2-3\nlibaudit-common\t1:4.0.2-2\nlibaudit1:amd64\t1:4.0.2-2+b2\nlibbinutils:amd64\t2.44-3\nlibblkid1:amd64\t2.41.5-0+deb13u1\nlibbrotli1:amd64\t1.1.0-2+b7\nlibbsd0:amd64\t0.12.2-2\nlibbz2-1.0:amd64\t1.0.8-6\nlibc-bin\t2.41-12+deb13u4\nlibc-dev-bin\t2.41-12+deb13u4\nlibc6:amd64\t2.41-12+deb13u4\nlibc6-dev:amd64\t2.41-12+deb13u4\nlibc6-i386\t2.41-12+deb13u4\nlibcap-ng0:amd64\t0.8.5-4+b1\nlibcap2:amd64\t1:2.75-10+deb13u1+b1\nlibcc1-0:amd64\t14.2.0-19\nlibclang-common-23-dev:amd64\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang-cpp23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang-rt-23-dev\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang1-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibcom-err2:amd64\t1.47.2-3+b12\nlibcrypt-dev:amd64\t1:4.4.38-1\nlibcrypt1:amd64\t1:4.4.38-1\nlibctf-nobfd0:amd64\t2.44-3\nlibctf0:amd64\t2.44-3\nlibcurl3t64-gnutls:amd64\t8.14.1-2+deb13u5\nlibcurl4t64:amd64\t8.14.1-2+deb13u5\nlibdb5.3t64:amd64\t5.3.28+dfsg2-9\nlibdebconfclient0:amd64\t0.280\nlibdpkg-perl\t1.22.22\nlibedit2:amd64\t3.1-20250104-1\nliberror-perl\t0.17030-1\nlibexpat1:amd64\t2.8.3-1~deb13u1\nlibffi8:amd64\t3.4.8-2\nlibgc1:amd64\t1:8.2.8-1\nlibgcc-14-dev:amd64\t14.2.0-19\nlibgcc-s1:amd64\t14.2.0-19\nlibgdbm-compat4t64:amd64\t1.24-2\nlibgdbm6t64:amd64\t1.24-2\nlibgmp10:amd64\t2:6.3.0+dfsg-3\nlibgnutls30t64:amd64\t3.8.9-3+deb13u4\nlibgomp1:amd64\t14.2.0-19\nlibgprofng0:amd64\t2.44-3\nlibgssapi-krb5-2:amd64\t1.21.3-5+deb13u1\nlibhogweed6t64:amd64\t3.10.1-1\nlibhwasan0:amd64\t14.2.0-19\nlibidn2-0:amd64\t2.3.8-2\nlibisl23:amd64\t0.27-1\nlibitm1:amd64\t14.2.0-19\nlibjansson4:amd64\t2.14-2+b3\nlibk5crypto3:amd64\t1.21.3-5+deb13u1\nlibkeyutils1:amd64\t1.6.3-6\nlibkrb5-3:amd64\t1.21.3-5+deb13u1\nlibkrb5support0:amd64\t1.21.3-5+deb13u1\nliblastlog2-2:amd64\t2.41.5-0+deb13u1\nlibldap2:amd64\t2.6.10+dfsg-1\nlibllvm23:amd64\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nliblsan0:amd64\t14.2.0-19\nliblz4-1:amd64\t1.10.0-4\nliblzma5:amd64\t5.8.1-1+deb13u1\nlibmagic-mgc\t1:5.46-5\nlibmagic1t64:amd64\t1:5.46-5\nlibmd0:amd64\t1.1.0-2+b1\nlibmount1:amd64\t2.41.5-0+deb13u1\nlibmpc3:amd64\t1.3.1-1+b3\nlibmpfr6:amd64\t4.2.2-1\nlibncursesw6:amd64\t6.5+20250216-2\nlibnettle8t64:amd64\t3.10.1-1\nlibnghttp2-14:amd64\t1.64.0-1.1+deb13u1\nlibnghttp3-9:amd64\t1.8.0-1\nlibngtcp2-16:amd64\t1.11.0-1+deb13u1\nlibngtcp2-crypto-gnutls8:amd64\t1.11.0-1+deb13u1\nlibobjc-14-dev:amd64\t14.2.0-19\nlibobjc4:amd64\t14.2.0-19\nlibp11-kit0:amd64\t0.25.5-3\nlibpam-modules:amd64\t1.7.0-5\nlibpam-modules-bin\t1.7.0-5\nlibpam-runtime\t1.7.0-5\nlibpam0g:amd64\t1.7.0-5\nlibpcre2-8-0:amd64\t10.46-1~deb13u1\nlibperl5.40:amd64\t5.40.1-6+deb13u1\nlibpfm4:amd64\t4.13.0+git99-gc5587f9-1\nlibpkgconf3:amd64\t1.8.1-4\nlibproc2-0:amd64\t2:4.0.4-9\nlibpsl5t64:amd64\t0.21.2-1.1+b1\nlibpython3-stdlib:amd64\t3.13.5-1\nlibpython3.13-minimal:amd64\t3.13.5-2+deb13u5\nlibpython3.13-stdlib:amd64\t3.13.5-2+deb13u5\nlibquadmath0:amd64\t14.2.0-19\nlibreadline8t64:amd64\t8.2-6\nlibrtmp1:amd64\t2.4+20151223.gitfa8646d.1-2+b5\nlibsasl2-2:amd64\t2.1.28+dfsg1-9\nlibsasl2-modules-db:amd64\t2.1.28+dfsg1-9\nlibseccomp2:amd64\t2.6.0-2\nlibselinux1:amd64\t3.8.1-1\nlibsemanage-common\t3.8.1-1\nlibsemanage2:amd64\t3.8.1-1\nlibsepol2:amd64\t3.8.1-1\nlibsframe1:amd64\t2.44-3\nlibsmartcols1:amd64\t2.41.5-0+deb13u1\nlibsqlite3-0:amd64\t3.46.1-7+deb13u1\nlibssh2-1t64:amd64\t1.11.1-1+deb13u2\nlibssl3t64:amd64\t3.5.7-1~deb13u2\nlibstdc++-14-dev:amd64\t14.2.0-19\nlibstdc++6:amd64\t14.2.0-19\nlibsystemd0:amd64\t257.13-1~deb13u1\nlibtasn1-6:amd64\t4.20.0-2+deb13u1\nlibtext-charwidth-perl:amd64\t0.04-11+b4\nlibtext-unidecode-perl\t1.30-3\nlibtext-wrapi18n-perl\t0.06-10\nlibtinfo6:amd64\t6.5+20250216-2\nlibtool\t2.5.4-4\nlibtsan2:amd64\t14.2.0-19\nlibubsan1:amd64\t14.2.0-19\nlibudev1:amd64\t257.13-1~deb13u1\nlibunistring5:amd64\t1.3-2\nlibuuid1:amd64\t2.41.5-0+deb13u1\nlibxml-libxml-perl\t2.0207+dfsg+really+2.0134-5+deb13u1\nlibxml-namespacesupport-perl\t1.12-2\nlibxml-sax-base-perl\t1.09-3\nlibxml-sax-perl\t1.02+dfsg-4\nlibxml2:amd64\t2.12.7+dfsg+really2.9.14-2.1+deb13u3\nlibxxhash0:amd64\t0.8.3-2\nlibz3-4:amd64\t4.13.3-1\nlibzstd1:amd64\t1.5.7+dfsg-1\nlinux-libc-dev\t6.12.107-1\nlld-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23-linker-tools\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23-runtime\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlogin\t1:4.16.0-2+really2.41.5-0+deb13u1\nlogin.defs\t1:4.17.4-2\nm4\t1.4.19-8\nmake\t4.4.1-2\nmawk\t1.3.4.20250131-1\nmedia-types\t13.0.0\nmeson\t1.7.0-1\nmount\t2.41.5-0+deb13u1\nncurses-base\t6.5+20250216-2\nncurses-bin\t6.5+20250216-2\nnetbase\t6.5\nninja-build\t1.12.1-1\nopenssl\t3.5.7-1~deb13u2\nopenssl-provider-legacy\t3.5.7-1~deb13u2\npasswd\t1:4.17.4-2\npatch\t2.8-2\nperl\t5.40.1-6+deb13u1\nperl-base\t5.40.1-6+deb13u1\nperl-modules-5.40\t5.40.1-6+deb13u1\npkg-config:amd64\t1.8.1-4\npkgconf:amd64\t1.8.1-4\npkgconf-bin\t1.8.1-4\nprocps\t2:4.0.4-9\npython3\t3.13.5-1\npython3-autocommand\t2.2.2-3\npython3-inflect\t7.3.1-2\npython3-jaraco.context\t6.0.1-1+deb13u1\npython3-jaraco.functools\t4.1.0-1\npython3-jaraco.text\t4.0.0-1\npython3-minimal\t3.13.5-1\npython3-more-itertools\t10.7.0-1\npython3-pexpect\t4.9-3\npython3-pkg-resources\t78.1.1-0.1\npython3-ptyprocess\t0.7.0-6\npython3-setuptools\t78.1.1-0.1\npython3-typeguard\t4.4.2-1\npython3-typing-extensions\t4.13.2-1\npython3-zipp\t3.21.0-1\npython3.13\t3.13.5-2+deb13u5\npython3.13-minimal\t3.13.5-2+deb13u5\nreadline-common\t8.2-6\nrpcsvc-proto\t1.4.3-1\nsed\t4.9-2+deb13u1\nsensible-utils\t0.0.25\nsqv\t1.3.0-3+b2\nsysvinit-utils\t3.14-4\ntar\t1.35+dfsg-3.1\ntex-common\t6.19\ntexinfo\t7.1.1-1\ntexinfo-lib\t7.1.1-1+b1\ntzdata\t2026b-0+deb13u1\nucf\t3.0052\nutil-linux\t2.41.5-0+deb13u1\nxz-utils\t5.8.1-1+deb13u1\nzlib1g:amd64\t1:1.3.dfsg+really1.3.1-1+b1\nzstd\t1.5.7+dfsg-1\n"
+  },
+  "d80550f30fd0eb7aa58754ee479806368af8faf773908f0646bf0d822818be51": {
+    "emacs": "32.0.50.20260916175219.git82f763756c71",
+    "sources": {
+      "emacs": {
+        "version": "32.0.50.20260916175219.git82f763756c71",
+        "emacs_version": "32.0.50",
+        "branch": "master",
+        "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "commit_date": "2026-09-16T17:52:19Z",
+        "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+      },
+      "ncurses": {
+        "version": "6.6",
+        "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+        "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+      },
+      "zlib": {
+        "version": "1.3.2",
+        "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+        "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+      },
+      "gmp": {
+        "version": "6.3.0",
+        "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+        "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+      },
+      "nettle": {
+        "version": "4.0",
+        "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+        "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+      },
+      "libunistring": {
+        "version": "1.4.2",
+        "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+        "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+      },
+      "libidn2": {
+        "version": "2.3.8",
+        "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+        "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+      },
+      "gnutls": {
+        "version": "3.8.13",
+        "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+        "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+      },
+      "libxml2": {
+        "version": "2.15.4",
+        "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+        "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+      },
+      "sqlite": {
+        "version": "3.53.4",
+        "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+        "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+      },
+      "tree-sitter": {
+        "version": "0.27.0",
+        "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+        "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+      },
+      "dbus": {
+        "version": "1.16.2",
+        "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz",
+        "sha256": "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
+      }
+    },
+    "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+    "dependency_build_id": "07856664161f",
+    "glibc": "glibc 2.41",
+    "configure": [
+      "--prefix=/opt/emacs",
+      "--without-all",
+      "--without-x",
+      "--without-native-compilation",
+      "--with-modules",
+      "--with-threads",
+      "--with-file-notification=inotify",
+      "--with-gnutls",
+      "--with-libgmp",
+      "--with-xml2",
+      "--with-sqlite3",
+      "--with-tree-sitter",
+      "--with-zlib",
+      "--with-dbus",
+      "--with-compress-install",
+      "--disable-build-details",
+      "--disable-gc-mark-trace"
+    ],
+    "lto": "thin",
+    "pgo": "use",
+    "stable_locals": false,
+    "emit_relocs": true,
+    "profile_sha256": "2e201200d06a7053b337947f6915f419cf0993caacf1dcc6483792622cc81b33",
+    "build_id": "f98bb6bda8b6",
+    "cpu_baseline": "x86-64-v3",
+    "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+    "ldflags": "-L/work/build/dependencies/07856664161f/prefix/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23",
+    "packages": "apt\t3.0.3\nautoconf\t2.72-3.1\nautomake\t1:1.17-4\nautotools-dev\t20240727.1\nbase-files\t13.8+deb13u6\nbase-passwd\t3.6.7\nbash\t5.2.37-2+b9\nbinutils\t2.44-3\nbinutils-common:amd64\t2.44-3\nbinutils-x86-64-linux-gnu\t2.44-3\nbsdutils\t1:2.41.5-0+deb13u1\nbzip2\t1.0.8-6\nca-certificates\t20250419\nclang-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\ncoreutils\t9.7-3\ncpp\t4:14.2.0-1\ncpp-14\t14.2.0-19\ncpp-14-x86-64-linux-gnu\t14.2.0-19\ncpp-x86-64-linux-gnu\t4:14.2.0-1\ncurl\t8.14.1-2+deb13u5\ndash\t0.5.12-12\ndebconf\t1.5.91\ndebian-archive-keyring\t2025.1\ndebianutils\t5.23.2\ndiffutils\t1:3.10-4\ndpkg\t1.22.22\ndpkg-dev\t1.22.22\nfile\t1:5.46-5\nfindutils\t4.10.0-3\ngcc\t4:14.2.0-1\ngcc-14\t14.2.0-19\ngcc-14-base:amd64\t14.2.0-19\ngcc-14-x86-64-linux-gnu\t14.2.0-19\ngcc-x86-64-linux-gnu\t4:14.2.0-1\ngettext\t0.23.1-2\ngettext-base\t0.23.1-2\ngit\t1:2.47.3-0+deb13u1\ngit-man\t1:2.47.3-0+deb13u1\ngrep\t3.11-4\ngzip\t1.13-1\nhostname\t3.25\ninit-system-helpers\t1.69~deb13u1\nlib32gcc-s1\t14.2.0-19\nlib32stdc++6\t14.2.0-19\nlibacl1:amd64\t2.3.2-2+b1\nlibapt-pkg7.0:amd64\t3.0.3\nlibasan8:amd64\t14.2.0-19\nlibatomic1:amd64\t14.2.0-19\nlibattr1:amd64\t1:2.5.2-3\nlibaudit-common\t1:4.0.2-2\nlibaudit1:amd64\t1:4.0.2-2+b2\nlibbinutils:amd64\t2.44-3\nlibblkid1:amd64\t2.41.5-0+deb13u1\nlibbrotli1:amd64\t1.1.0-2+b7\nlibbsd0:amd64\t0.12.2-2\nlibbz2-1.0:amd64\t1.0.8-6\nlibc-bin\t2.41-12+deb13u4\nlibc-dev-bin\t2.41-12+deb13u4\nlibc6:amd64\t2.41-12+deb13u4\nlibc6-dev:amd64\t2.41-12+deb13u4\nlibc6-i386\t2.41-12+deb13u4\nlibcap-ng0:amd64\t0.8.5-4+b1\nlibcap2:amd64\t1:2.75-10+deb13u1+b1\nlibcc1-0:amd64\t14.2.0-19\nlibclang-common-23-dev:amd64\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang-cpp23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang-rt-23-dev\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang1-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibcom-err2:amd64\t1.47.2-3+b12\nlibcrypt-dev:amd64\t1:4.4.38-1\nlibcrypt1:amd64\t1:4.4.38-1\nlibctf-nobfd0:amd64\t2.44-3\nlibctf0:amd64\t2.44-3\nlibcurl3t64-gnutls:amd64\t8.14.1-2+deb13u5\nlibcurl4t64:amd64\t8.14.1-2+deb13u5\nlibdb5.3t64:amd64\t5.3.28+dfsg2-9\nlibdebconfclient0:amd64\t0.280\nlibdpkg-perl\t1.22.22\nlibedit2:amd64\t3.1-20250104-1\nliberror-perl\t0.17030-1\nlibexpat1:amd64\t2.8.3-1~deb13u1\nlibffi8:amd64\t3.4.8-2\nlibgc1:amd64\t1:8.2.8-1\nlibgcc-14-dev:amd64\t14.2.0-19\nlibgcc-s1:amd64\t14.2.0-19\nlibgdbm-compat4t64:amd64\t1.24-2\nlibgdbm6t64:amd64\t1.24-2\nlibgmp10:amd64\t2:6.3.0+dfsg-3\nlibgnutls30t64:amd64\t3.8.9-3+deb13u4\nlibgomp1:amd64\t14.2.0-19\nlibgprofng0:amd64\t2.44-3\nlibgssapi-krb5-2:amd64\t1.21.3-5+deb13u1\nlibhogweed6t64:amd64\t3.10.1-1\nlibhwasan0:amd64\t14.2.0-19\nlibidn2-0:amd64\t2.3.8-2\nlibisl23:amd64\t0.27-1\nlibitm1:amd64\t14.2.0-19\nlibjansson4:amd64\t2.14-2+b3\nlibk5crypto3:amd64\t1.21.3-5+deb13u1\nlibkeyutils1:amd64\t1.6.3-6\nlibkrb5-3:amd64\t1.21.3-5+deb13u1\nlibkrb5support0:amd64\t1.21.3-5+deb13u1\nliblastlog2-2:amd64\t2.41.5-0+deb13u1\nlibldap2:amd64\t2.6.10+dfsg-1\nlibllvm23:amd64\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nliblsan0:amd64\t14.2.0-19\nliblz4-1:amd64\t1.10.0-4\nliblzma5:amd64\t5.8.1-1+deb13u1\nlibmagic-mgc\t1:5.46-5\nlibmagic1t64:amd64\t1:5.46-5\nlibmd0:amd64\t1.1.0-2+b1\nlibmount1:amd64\t2.41.5-0+deb13u1\nlibmpc3:amd64\t1.3.1-1+b3\nlibmpfr6:amd64\t4.2.2-1\nlibncursesw6:amd64\t6.5+20250216-2\nlibnettle8t64:amd64\t3.10.1-1\nlibnghttp2-14:amd64\t1.64.0-1.1+deb13u1\nlibnghttp3-9:amd64\t1.8.0-1\nlibngtcp2-16:amd64\t1.11.0-1+deb13u1\nlibngtcp2-crypto-gnutls8:amd64\t1.11.0-1+deb13u1\nlibobjc-14-dev:amd64\t14.2.0-19\nlibobjc4:amd64\t14.2.0-19\nlibp11-kit0:amd64\t0.25.5-3\nlibpam-modules:amd64\t1.7.0-5\nlibpam-modules-bin\t1.7.0-5\nlibpam-runtime\t1.7.0-5\nlibpam0g:amd64\t1.7.0-5\nlibpcre2-8-0:amd64\t10.46-1~deb13u1\nlibperl5.40:amd64\t5.40.1-6+deb13u1\nlibpfm4:amd64\t4.13.0+git99-gc5587f9-1\nlibpkgconf3:amd64\t1.8.1-4\nlibproc2-0:amd64\t2:4.0.4-9\nlibpsl5t64:amd64\t0.21.2-1.1+b1\nlibpython3-stdlib:amd64\t3.13.5-1\nlibpython3.13-minimal:amd64\t3.13.5-2+deb13u5\nlibpython3.13-stdlib:amd64\t3.13.5-2+deb13u5\nlibquadmath0:amd64\t14.2.0-19\nlibreadline8t64:amd64\t8.2-6\nlibrtmp1:amd64\t2.4+20151223.gitfa8646d.1-2+b5\nlibsasl2-2:amd64\t2.1.28+dfsg1-9\nlibsasl2-modules-db:amd64\t2.1.28+dfsg1-9\nlibseccomp2:amd64\t2.6.0-2\nlibselinux1:amd64\t3.8.1-1\nlibsemanage-common\t3.8.1-1\nlibsemanage2:amd64\t3.8.1-1\nlibsepol2:amd64\t3.8.1-1\nlibsframe1:amd64\t2.44-3\nlibsmartcols1:amd64\t2.41.5-0+deb13u1\nlibsqlite3-0:amd64\t3.46.1-7+deb13u1\nlibssh2-1t64:amd64\t1.11.1-1+deb13u2\nlibssl3t64:amd64\t3.5.7-1~deb13u2\nlibstdc++-14-dev:amd64\t14.2.0-19\nlibstdc++6:amd64\t14.2.0-19\nlibsystemd0:amd64\t257.13-1~deb13u1\nlibtasn1-6:amd64\t4.20.0-2+deb13u1\nlibtext-charwidth-perl:amd64\t0.04-11+b4\nlibtext-unidecode-perl\t1.30-3\nlibtext-wrapi18n-perl\t0.06-10\nlibtinfo6:amd64\t6.5+20250216-2\nlibtool\t2.5.4-4\nlibtsan2:amd64\t14.2.0-19\nlibubsan1:amd64\t14.2.0-19\nlibudev1:amd64\t257.13-1~deb13u1\nlibunistring5:amd64\t1.3-2\nlibuuid1:amd64\t2.41.5-0+deb13u1\nlibxml-libxml-perl\t2.0207+dfsg+really+2.0134-5+deb13u1\nlibxml-namespacesupport-perl\t1.12-2\nlibxml-sax-base-perl\t1.09-3\nlibxml-sax-perl\t1.02+dfsg-4\nlibxml2:amd64\t2.12.7+dfsg+really2.9.14-2.1+deb13u3\nlibxxhash0:amd64\t0.8.3-2\nlibz3-4:amd64\t4.13.3-1\nlibzstd1:amd64\t1.5.7+dfsg-1\nlinux-libc-dev\t6.12.107-1\nlld-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23-linker-tools\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23-runtime\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlogin\t1:4.16.0-2+really2.41.5-0+deb13u1\nlogin.defs\t1:4.17.4-2\nm4\t1.4.19-8\nmake\t4.4.1-2\nmawk\t1.3.4.20250131-1\nmedia-types\t13.0.0\nmeson\t1.7.0-1\nmount\t2.41.5-0+deb13u1\nncurses-base\t6.5+20250216-2\nncurses-bin\t6.5+20250216-2\nnetbase\t6.5\nninja-build\t1.12.1-1\nopenssl\t3.5.7-1~deb13u2\nopenssl-provider-legacy\t3.5.7-1~deb13u2\npasswd\t1:4.17.4-2\npatch\t2.8-2\nperl\t5.40.1-6+deb13u1\nperl-base\t5.40.1-6+deb13u1\nperl-modules-5.40\t5.40.1-6+deb13u1\npkg-config:amd64\t1.8.1-4\npkgconf:amd64\t1.8.1-4\npkgconf-bin\t1.8.1-4\nprocps\t2:4.0.4-9\npython3\t3.13.5-1\npython3-autocommand\t2.2.2-3\npython3-inflect\t7.3.1-2\npython3-jaraco.context\t6.0.1-1+deb13u1\npython3-jaraco.functools\t4.1.0-1\npython3-jaraco.text\t4.0.0-1\npython3-minimal\t3.13.5-1\npython3-more-itertools\t10.7.0-1\npython3-pexpect\t4.9-3\npython3-pkg-resources\t78.1.1-0.1\npython3-ptyprocess\t0.7.0-6\npython3-setuptools\t78.1.1-0.1\npython3-typeguard\t4.4.2-1\npython3-typing-extensions\t4.13.2-1\npython3-zipp\t3.21.0-1\npython3.13\t3.13.5-2+deb13u5\npython3.13-minimal\t3.13.5-2+deb13u5\nreadline-common\t8.2-6\nrpcsvc-proto\t1.4.3-1\nsed\t4.9-2+deb13u1\nsensible-utils\t0.0.25\nsqv\t1.3.0-3+b2\nsysvinit-utils\t3.14-4\ntar\t1.35+dfsg-3.1\ntex-common\t6.19\ntexinfo\t7.1.1-1\ntexinfo-lib\t7.1.1-1+b1\ntzdata\t2026b-0+deb13u1\nucf\t3.0052\nutil-linux\t2.41.5-0+deb13u1\nxz-utils\t5.8.1-1+deb13u1\nzlib1g:amd64\t1:1.3.dfsg+really1.3.1-1+b1\nzstd\t1.5.7+dfsg-1\n"
+  },
+  "a9076fbb919cf1f4eb40d0f359b72f850c97989e1c4ef07eac626c38bbcb2455": {
+    "emacs": "32.0.50.20260916175219.git82f763756c71",
+    "sources": {
+      "emacs": {
+        "version": "32.0.50.20260916175219.git82f763756c71",
+        "emacs_version": "32.0.50",
+        "branch": "master",
+        "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "commit_date": "2026-09-16T17:52:19Z",
+        "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+      },
+      "ncurses": {
+        "version": "6.6",
+        "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+        "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+      },
+      "zlib": {
+        "version": "1.3.2",
+        "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+        "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+      },
+      "gmp": {
+        "version": "6.3.0",
+        "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+        "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+      },
+      "nettle": {
+        "version": "4.0",
+        "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+        "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+      },
+      "libunistring": {
+        "version": "1.4.2",
+        "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+        "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+      },
+      "libidn2": {
+        "version": "2.3.8",
+        "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+        "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+      },
+      "gnutls": {
+        "version": "3.8.13",
+        "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+        "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+      },
+      "libxml2": {
+        "version": "2.15.4",
+        "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+        "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+      },
+      "sqlite": {
+        "version": "3.53.4",
+        "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+        "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+      },
+      "tree-sitter": {
+        "version": "0.27.0",
+        "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+        "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+      },
+      "dbus": {
+        "version": "1.16.2",
+        "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz",
+        "sha256": "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
+      }
+    },
+    "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+    "dependency_build_id": "07856664161f",
+    "glibc": "glibc 2.41",
+    "configure": [
+      "--prefix=/opt/emacs",
+      "--without-all",
+      "--without-x",
+      "--without-native-compilation",
+      "--with-modules",
+      "--with-threads",
+      "--with-file-notification=inotify",
+      "--with-gnutls",
+      "--with-libgmp",
+      "--with-xml2",
+      "--with-sqlite3",
+      "--with-tree-sitter",
+      "--with-zlib",
+      "--with-dbus",
+      "--with-compress-install",
+      "--disable-build-details",
+      "--disable-gc-mark-trace"
+    ],
+    "lto": "thin",
+    "pgo": "use",
+    "stable_locals": false,
+    "emit_relocs": true,
+    "profile_sha256": "2e201200d06a7053b337947f6915f419cf0993caacf1dcc6483792622cc81b33",
+    "build_id": "f98bb6bda8b6",
+    "cpu_baseline": "x86-64-v3",
+    "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+    "ldflags": "-L/work/build/dependencies/07856664161f/prefix/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23",
+    "packages": "apt\t3.0.3\nautoconf\t2.72-3.1\nautomake\t1:1.17-4\nautotools-dev\t20240727.1\nbase-files\t13.8+deb13u6\nbase-passwd\t3.6.7\nbash\t5.2.37-2+b9\nbinutils\t2.44-3\nbinutils-common:amd64\t2.44-3\nbinutils-x86-64-linux-gnu\t2.44-3\nbsdutils\t1:2.41.5-0+deb13u1\nbzip2\t1.0.8-6\nca-certificates\t20250419\nclang-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\ncoreutils\t9.7-3\ncpp\t4:14.2.0-1\ncpp-14\t14.2.0-19\ncpp-14-x86-64-linux-gnu\t14.2.0-19\ncpp-x86-64-linux-gnu\t4:14.2.0-1\ncurl\t8.14.1-2+deb13u5\ndash\t0.5.12-12\ndebconf\t1.5.91\ndebian-archive-keyring\t2025.1\ndebianutils\t5.23.2\ndiffutils\t1:3.10-4\ndpkg\t1.22.22\ndpkg-dev\t1.22.22\nfile\t1:5.46-5\nfindutils\t4.10.0-3\ngcc\t4:14.2.0-1\ngcc-14\t14.2.0-19\ngcc-14-base:amd64\t14.2.0-19\ngcc-14-x86-64-linux-gnu\t14.2.0-19\ngcc-x86-64-linux-gnu\t4:14.2.0-1\ngettext\t0.23.1-2\ngettext-base\t0.23.1-2\ngit\t1:2.47.3-0+deb13u1\ngit-man\t1:2.47.3-0+deb13u1\ngrep\t3.11-4\ngzip\t1.13-1\nhostname\t3.25\ninit-system-helpers\t1.69~deb13u1\nlib32gcc-s1\t14.2.0-19\nlib32stdc++6\t14.2.0-19\nlibacl1:amd64\t2.3.2-2+b1\nlibapt-pkg7.0:amd64\t3.0.3\nlibasan8:amd64\t14.2.0-19\nlibatomic1:amd64\t14.2.0-19\nlibattr1:amd64\t1:2.5.2-3\nlibaudit-common\t1:4.0.2-2\nlibaudit1:amd64\t1:4.0.2-2+b2\nlibbinutils:amd64\t2.44-3\nlibblkid1:amd64\t2.41.5-0+deb13u1\nlibbrotli1:amd64\t1.1.0-2+b7\nlibbsd0:amd64\t0.12.2-2\nlibbz2-1.0:amd64\t1.0.8-6\nlibc-bin\t2.41-12+deb13u4\nlibc-dev-bin\t2.41-12+deb13u4\nlibc6:amd64\t2.41-12+deb13u4\nlibc6-dev:amd64\t2.41-12+deb13u4\nlibc6-i386\t2.41-12+deb13u4\nlibcap-ng0:amd64\t0.8.5-4+b1\nlibcap2:amd64\t1:2.75-10+deb13u1+b1\nlibcc1-0:amd64\t14.2.0-19\nlibclang-common-23-dev:amd64\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang-cpp23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang-rt-23-dev\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang1-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibcom-err2:amd64\t1.47.2-3+b12\nlibcrypt-dev:amd64\t1:4.4.38-1\nlibcrypt1:amd64\t1:4.4.38-1\nlibctf-nobfd0:amd64\t2.44-3\nlibctf0:amd64\t2.44-3\nlibcurl3t64-gnutls:amd64\t8.14.1-2+deb13u5\nlibcurl4t64:amd64\t8.14.1-2+deb13u5\nlibdb5.3t64:amd64\t5.3.28+dfsg2-9\nlibdebconfclient0:amd64\t0.280\nlibdpkg-perl\t1.22.22\nlibedit2:amd64\t3.1-20250104-1\nliberror-perl\t0.17030-1\nlibexpat1:amd64\t2.8.3-1~deb13u1\nlibffi8:amd64\t3.4.8-2\nlibgc1:amd64\t1:8.2.8-1\nlibgcc-14-dev:amd64\t14.2.0-19\nlibgcc-s1:amd64\t14.2.0-19\nlibgdbm-compat4t64:amd64\t1.24-2\nlibgdbm6t64:amd64\t1.24-2\nlibgmp10:amd64\t2:6.3.0+dfsg-3\nlibgnutls30t64:amd64\t3.8.9-3+deb13u4\nlibgomp1:amd64\t14.2.0-19\nlibgprofng0:amd64\t2.44-3\nlibgssapi-krb5-2:amd64\t1.21.3-5+deb13u1\nlibhogweed6t64:amd64\t3.10.1-1\nlibhwasan0:amd64\t14.2.0-19\nlibidn2-0:amd64\t2.3.8-2\nlibisl23:amd64\t0.27-1\nlibitm1:amd64\t14.2.0-19\nlibjansson4:amd64\t2.14-2+b3\nlibk5crypto3:amd64\t1.21.3-5+deb13u1\nlibkeyutils1:amd64\t1.6.3-6\nlibkrb5-3:amd64\t1.21.3-5+deb13u1\nlibkrb5support0:amd64\t1.21.3-5+deb13u1\nliblastlog2-2:amd64\t2.41.5-0+deb13u1\nlibldap2:amd64\t2.6.10+dfsg-1\nlibllvm23:amd64\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nliblsan0:amd64\t14.2.0-19\nliblz4-1:amd64\t1.10.0-4\nliblzma5:amd64\t5.8.1-1+deb13u1\nlibmagic-mgc\t1:5.46-5\nlibmagic1t64:amd64\t1:5.46-5\nlibmd0:amd64\t1.1.0-2+b1\nlibmount1:amd64\t2.41.5-0+deb13u1\nlibmpc3:amd64\t1.3.1-1+b3\nlibmpfr6:amd64\t4.2.2-1\nlibncursesw6:amd64\t6.5+20250216-2\nlibnettle8t64:amd64\t3.10.1-1\nlibnghttp2-14:amd64\t1.64.0-1.1+deb13u1\nlibnghttp3-9:amd64\t1.8.0-1\nlibngtcp2-16:amd64\t1.11.0-1+deb13u1\nlibngtcp2-crypto-gnutls8:amd64\t1.11.0-1+deb13u1\nlibobjc-14-dev:amd64\t14.2.0-19\nlibobjc4:amd64\t14.2.0-19\nlibp11-kit0:amd64\t0.25.5-3\nlibpam-modules:amd64\t1.7.0-5\nlibpam-modules-bin\t1.7.0-5\nlibpam-runtime\t1.7.0-5\nlibpam0g:amd64\t1.7.0-5\nlibpcre2-8-0:amd64\t10.46-1~deb13u1\nlibperl5.40:amd64\t5.40.1-6+deb13u1\nlibpfm4:amd64\t4.13.0+git99-gc5587f9-1\nlibpkgconf3:amd64\t1.8.1-4\nlibproc2-0:amd64\t2:4.0.4-9\nlibpsl5t64:amd64\t0.21.2-1.1+b1\nlibpython3-stdlib:amd64\t3.13.5-1\nlibpython3.13-minimal:amd64\t3.13.5-2+deb13u5\nlibpython3.13-stdlib:amd64\t3.13.5-2+deb13u5\nlibquadmath0:amd64\t14.2.0-19\nlibreadline8t64:amd64\t8.2-6\nlibrtmp1:amd64\t2.4+20151223.gitfa8646d.1-2+b5\nlibsasl2-2:amd64\t2.1.28+dfsg1-9\nlibsasl2-modules-db:amd64\t2.1.28+dfsg1-9\nlibseccomp2:amd64\t2.6.0-2\nlibselinux1:amd64\t3.8.1-1\nlibsemanage-common\t3.8.1-1\nlibsemanage2:amd64\t3.8.1-1\nlibsepol2:amd64\t3.8.1-1\nlibsframe1:amd64\t2.44-3\nlibsmartcols1:amd64\t2.41.5-0+deb13u1\nlibsqlite3-0:amd64\t3.46.1-7+deb13u1\nlibssh2-1t64:amd64\t1.11.1-1+deb13u2\nlibssl3t64:amd64\t3.5.7-1~deb13u2\nlibstdc++-14-dev:amd64\t14.2.0-19\nlibstdc++6:amd64\t14.2.0-19\nlibsystemd0:amd64\t257.13-1~deb13u1\nlibtasn1-6:amd64\t4.20.0-2+deb13u1\nlibtext-charwidth-perl:amd64\t0.04-11+b4\nlibtext-unidecode-perl\t1.30-3\nlibtext-wrapi18n-perl\t0.06-10\nlibtinfo6:amd64\t6.5+20250216-2\nlibtool\t2.5.4-4\nlibtsan2:amd64\t14.2.0-19\nlibubsan1:amd64\t14.2.0-19\nlibudev1:amd64\t257.13-1~deb13u1\nlibunistring5:amd64\t1.3-2\nlibuuid1:amd64\t2.41.5-0+deb13u1\nlibxml-libxml-perl\t2.0207+dfsg+really+2.0134-5+deb13u1\nlibxml-namespacesupport-perl\t1.12-2\nlibxml-sax-base-perl\t1.09-3\nlibxml-sax-perl\t1.02+dfsg-4\nlibxml2:amd64\t2.12.7+dfsg+really2.9.14-2.1+deb13u3\nlibxxhash0:amd64\t0.8.3-2\nlibz3-4:amd64\t4.13.3-1\nlibzstd1:amd64\t1.5.7+dfsg-1\nlinux-libc-dev\t6.12.107-1\nlld-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23-linker-tools\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23-runtime\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlogin\t1:4.16.0-2+really2.41.5-0+deb13u1\nlogin.defs\t1:4.17.4-2\nm4\t1.4.19-8\nmake\t4.4.1-2\nmawk\t1.3.4.20250131-1\nmedia-types\t13.0.0\nmeson\t1.7.0-1\nmount\t2.41.5-0+deb13u1\nncurses-base\t6.5+20250216-2\nncurses-bin\t6.5+20250216-2\nnetbase\t6.5\nninja-build\t1.12.1-1\nopenssl\t3.5.7-1~deb13u2\nopenssl-provider-legacy\t3.5.7-1~deb13u2\npasswd\t1:4.17.4-2\npatch\t2.8-2\nperl\t5.40.1-6+deb13u1\nperl-base\t5.40.1-6+deb13u1\nperl-modules-5.40\t5.40.1-6+deb13u1\npkg-config:amd64\t1.8.1-4\npkgconf:amd64\t1.8.1-4\npkgconf-bin\t1.8.1-4\nprocps\t2:4.0.4-9\npython3\t3.13.5-1\npython3-autocommand\t2.2.2-3\npython3-inflect\t7.3.1-2\npython3-jaraco.context\t6.0.1-1+deb13u1\npython3-jaraco.functools\t4.1.0-1\npython3-jaraco.text\t4.0.0-1\npython3-minimal\t3.13.5-1\npython3-more-itertools\t10.7.0-1\npython3-pexpect\t4.9-3\npython3-pkg-resources\t78.1.1-0.1\npython3-ptyprocess\t0.7.0-6\npython3-setuptools\t78.1.1-0.1\npython3-typeguard\t4.4.2-1\npython3-typing-extensions\t4.13.2-1\npython3-zipp\t3.21.0-1\npython3.13\t3.13.5-2+deb13u5\npython3.13-minimal\t3.13.5-2+deb13u5\nreadline-common\t8.2-6\nrpcsvc-proto\t1.4.3-1\nsed\t4.9-2+deb13u1\nsensible-utils\t0.0.25\nsqv\t1.3.0-3+b2\nsysvinit-utils\t3.14-4\ntar\t1.35+dfsg-3.1\ntex-common\t6.19\ntexinfo\t7.1.1-1\ntexinfo-lib\t7.1.1-1+b1\ntzdata\t2026b-0+deb13u1\nucf\t3.0052\nutil-linux\t2.41.5-0+deb13u1\nxz-utils\t5.8.1-1+deb13u1\nzlib1g:amd64\t1:1.3.dfsg+really1.3.1-1+b1\nzstd\t1.5.7+dfsg-1\n",
+    "bolt": true,
+    "bolt_options": [
+      "llvm-bolt-23",
+      "/work/build/f98bb6bda8b6/stage-llvm-use-2e201200d06a/opt/emacs/bin/emacs-32.0.50",
+      "-data=/work/build/bolt/merged.fdata",
+      "-reorder-blocks=ext-tsp",
+      "-reorder-functions=cdsort",
+      "-split-functions",
+      "-split-all-cold",
+      "-split-eh",
+      "-dyno-stats",
+      "-o",
+      "/work/build/bolt-optimized/bin/emacs-32.0.50.new"
+    ]
+  },
+  "4c82d2a55569e814c9d251226aca648cc827ba1406cb2e62968d69bbdf5abce7": {
+    "emacs": "32.0.50.20260916175219.git82f763756c71",
+    "sources": {
+      "emacs": {
+        "version": "32.0.50.20260916175219.git82f763756c71",
+        "emacs_version": "32.0.50",
+        "branch": "master",
+        "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "commit_date": "2026-09-16T17:52:19Z",
+        "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+      },
+      "ncurses": {
+        "version": "6.6",
+        "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+        "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+      },
+      "zlib": {
+        "version": "1.3.2",
+        "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+        "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+      },
+      "gmp": {
+        "version": "6.3.0",
+        "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+        "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+      },
+      "nettle": {
+        "version": "4.0",
+        "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+        "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+      },
+      "libunistring": {
+        "version": "1.4.2",
+        "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+        "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+      },
+      "libidn2": {
+        "version": "2.3.8",
+        "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+        "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+      },
+      "gnutls": {
+        "version": "3.8.13",
+        "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+        "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+      },
+      "libxml2": {
+        "version": "2.15.4",
+        "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+        "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+      },
+      "sqlite": {
+        "version": "3.53.4",
+        "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+        "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+      },
+      "tree-sitter": {
+        "version": "0.27.0",
+        "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+        "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+      },
+      "dbus": {
+        "version": "1.16.2",
+        "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz",
+        "sha256": "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
+      }
+    },
+    "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+    "dependency_build_id": "07856664161f",
+    "glibc": "glibc 2.41",
+    "configure": [
+      "--prefix=/opt/emacs",
+      "--without-all",
+      "--without-x",
+      "--without-native-compilation",
+      "--with-modules",
+      "--with-threads",
+      "--with-file-notification=inotify",
+      "--with-gnutls",
+      "--with-libgmp",
+      "--with-xml2",
+      "--with-sqlite3",
+      "--with-tree-sitter",
+      "--with-zlib",
+      "--with-dbus",
+      "--with-compress-install",
+      "--disable-build-details",
+      "--disable-gc-mark-trace"
+    ],
+    "lto": "thin",
+    "pgo": "use",
+    "stable_locals": false,
+    "emit_relocs": true,
+    "profile_sha256": "6f69b3517c0aa217931ebbe83ddd5c17c3dfcb5b3a2ac53a9619f89a4198dbfc",
+    "build_id": "f98bb6bda8b6",
+    "cpu_baseline": "x86-64-v3",
+    "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+    "ldflags": "-L/work/build/dependencies/07856664161f/prefix/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23",
+    "packages": "apt\t3.0.3\nautoconf\t2.72-3.1\nautomake\t1:1.17-4\nautotools-dev\t20240727.1\nbase-files\t13.8+deb13u6\nbase-passwd\t3.6.7\nbash\t5.2.37-2+b9\nbinutils\t2.44-3\nbinutils-common:amd64\t2.44-3\nbinutils-x86-64-linux-gnu\t2.44-3\nbsdutils\t1:2.41.5-0+deb13u1\nbzip2\t1.0.8-6\nca-certificates\t20250419\nclang-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\ncoreutils\t9.7-3\ncpp\t4:14.2.0-1\ncpp-14\t14.2.0-19\ncpp-14-x86-64-linux-gnu\t14.2.0-19\ncpp-x86-64-linux-gnu\t4:14.2.0-1\ncurl\t8.14.1-2+deb13u5\ndash\t0.5.12-12\ndebconf\t1.5.91\ndebian-archive-keyring\t2025.1\ndebianutils\t5.23.2\ndiffutils\t1:3.10-4\ndpkg\t1.22.22\ndpkg-dev\t1.22.22\nfile\t1:5.46-5\nfindutils\t4.10.0-3\ngcc\t4:14.2.0-1\ngcc-14\t14.2.0-19\ngcc-14-base:amd64\t14.2.0-19\ngcc-14-x86-64-linux-gnu\t14.2.0-19\ngcc-x86-64-linux-gnu\t4:14.2.0-1\ngettext\t0.23.1-2\ngettext-base\t0.23.1-2\ngit\t1:2.47.3-0+deb13u1\ngit-man\t1:2.47.3-0+deb13u1\ngrep\t3.11-4\ngzip\t1.13-1\nhostname\t3.25\ninit-system-helpers\t1.69~deb13u1\nlib32gcc-s1\t14.2.0-19\nlib32stdc++6\t14.2.0-19\nlibacl1:amd64\t2.3.2-2+b1\nlibapt-pkg7.0:amd64\t3.0.3\nlibasan8:amd64\t14.2.0-19\nlibatomic1:amd64\t14.2.0-19\nlibattr1:amd64\t1:2.5.2-3\nlibaudit-common\t1:4.0.2-2\nlibaudit1:amd64\t1:4.0.2-2+b2\nlibbinutils:amd64\t2.44-3\nlibblkid1:amd64\t2.41.5-0+deb13u1\nlibbrotli1:amd64\t1.1.0-2+b7\nlibbsd0:amd64\t0.12.2-2\nlibbz2-1.0:amd64\t1.0.8-6\nlibc-bin\t2.41-12+deb13u4\nlibc-dev-bin\t2.41-12+deb13u4\nlibc6:amd64\t2.41-12+deb13u4\nlibc6-dev:amd64\t2.41-12+deb13u4\nlibc6-i386\t2.41-12+deb13u4\nlibcap-ng0:amd64\t0.8.5-4+b1\nlibcap2:amd64\t1:2.75-10+deb13u1+b1\nlibcc1-0:amd64\t14.2.0-19\nlibclang-common-23-dev:amd64\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang-cpp23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang-rt-23-dev\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang1-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibcom-err2:amd64\t1.47.2-3+b12\nlibcrypt-dev:amd64\t1:4.4.38-1\nlibcrypt1:amd64\t1:4.4.38-1\nlibctf-nobfd0:amd64\t2.44-3\nlibctf0:amd64\t2.44-3\nlibcurl3t64-gnutls:amd64\t8.14.1-2+deb13u5\nlibcurl4t64:amd64\t8.14.1-2+deb13u5\nlibdb5.3t64:amd64\t5.3.28+dfsg2-9\nlibdebconfclient0:amd64\t0.280\nlibdpkg-perl\t1.22.22\nlibedit2:amd64\t3.1-20250104-1\nliberror-perl\t0.17030-1\nlibexpat1:amd64\t2.8.3-1~deb13u1\nlibffi8:amd64\t3.4.8-2\nlibgc1:amd64\t1:8.2.8-1\nlibgcc-14-dev:amd64\t14.2.0-19\nlibgcc-s1:amd64\t14.2.0-19\nlibgdbm-compat4t64:amd64\t1.24-2\nlibgdbm6t64:amd64\t1.24-2\nlibgmp10:amd64\t2:6.3.0+dfsg-3\nlibgnutls30t64:amd64\t3.8.9-3+deb13u4\nlibgomp1:amd64\t14.2.0-19\nlibgprofng0:amd64\t2.44-3\nlibgssapi-krb5-2:amd64\t1.21.3-5+deb13u1\nlibhogweed6t64:amd64\t3.10.1-1\nlibhwasan0:amd64\t14.2.0-19\nlibidn2-0:amd64\t2.3.8-2\nlibisl23:amd64\t0.27-1\nlibitm1:amd64\t14.2.0-19\nlibjansson4:amd64\t2.14-2+b3\nlibk5crypto3:amd64\t1.21.3-5+deb13u1\nlibkeyutils1:amd64\t1.6.3-6\nlibkrb5-3:amd64\t1.21.3-5+deb13u1\nlibkrb5support0:amd64\t1.21.3-5+deb13u1\nliblastlog2-2:amd64\t2.41.5-0+deb13u1\nlibldap2:amd64\t2.6.10+dfsg-1\nlibllvm23:amd64\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nliblsan0:amd64\t14.2.0-19\nliblz4-1:amd64\t1.10.0-4\nliblzma5:amd64\t5.8.1-1+deb13u1\nlibmagic-mgc\t1:5.46-5\nlibmagic1t64:amd64\t1:5.46-5\nlibmd0:amd64\t1.1.0-2+b1\nlibmount1:amd64\t2.41.5-0+deb13u1\nlibmpc3:amd64\t1.3.1-1+b3\nlibmpfr6:amd64\t4.2.2-1\nlibncursesw6:amd64\t6.5+20250216-2\nlibnettle8t64:amd64\t3.10.1-1\nlibnghttp2-14:amd64\t1.64.0-1.1+deb13u1\nlibnghttp3-9:amd64\t1.8.0-1\nlibngtcp2-16:amd64\t1.11.0-1+deb13u1\nlibngtcp2-crypto-gnutls8:amd64\t1.11.0-1+deb13u1\nlibobjc-14-dev:amd64\t14.2.0-19\nlibobjc4:amd64\t14.2.0-19\nlibp11-kit0:amd64\t0.25.5-3\nlibpam-modules:amd64\t1.7.0-5\nlibpam-modules-bin\t1.7.0-5\nlibpam-runtime\t1.7.0-5\nlibpam0g:amd64\t1.7.0-5\nlibpcre2-8-0:amd64\t10.46-1~deb13u1\nlibperl5.40:amd64\t5.40.1-6+deb13u1\nlibpfm4:amd64\t4.13.0+git99-gc5587f9-1\nlibpkgconf3:amd64\t1.8.1-4\nlibproc2-0:amd64\t2:4.0.4-9\nlibpsl5t64:amd64\t0.21.2-1.1+b1\nlibpython3-stdlib:amd64\t3.13.5-1\nlibpython3.13-minimal:amd64\t3.13.5-2+deb13u5\nlibpython3.13-stdlib:amd64\t3.13.5-2+deb13u5\nlibquadmath0:amd64\t14.2.0-19\nlibreadline8t64:amd64\t8.2-6\nlibrtmp1:amd64\t2.4+20151223.gitfa8646d.1-2+b5\nlibsasl2-2:amd64\t2.1.28+dfsg1-9\nlibsasl2-modules-db:amd64\t2.1.28+dfsg1-9\nlibseccomp2:amd64\t2.6.0-2\nlibselinux1:amd64\t3.8.1-1\nlibsemanage-common\t3.8.1-1\nlibsemanage2:amd64\t3.8.1-1\nlibsepol2:amd64\t3.8.1-1\nlibsframe1:amd64\t2.44-3\nlibsmartcols1:amd64\t2.41.5-0+deb13u1\nlibsqlite3-0:amd64\t3.46.1-7+deb13u1\nlibssh2-1t64:amd64\t1.11.1-1+deb13u2\nlibssl3t64:amd64\t3.5.7-1~deb13u2\nlibstdc++-14-dev:amd64\t14.2.0-19\nlibstdc++6:amd64\t14.2.0-19\nlibsystemd0:amd64\t257.13-1~deb13u1\nlibtasn1-6:amd64\t4.20.0-2+deb13u1\nlibtext-charwidth-perl:amd64\t0.04-11+b4\nlibtext-unidecode-perl\t1.30-3\nlibtext-wrapi18n-perl\t0.06-10\nlibtinfo6:amd64\t6.5+20250216-2\nlibtool\t2.5.4-4\nlibtsan2:amd64\t14.2.0-19\nlibubsan1:amd64\t14.2.0-19\nlibudev1:amd64\t257.13-1~deb13u1\nlibunistring5:amd64\t1.3-2\nlibuuid1:amd64\t2.41.5-0+deb13u1\nlibxml-libxml-perl\t2.0207+dfsg+really+2.0134-5+deb13u1\nlibxml-namespacesupport-perl\t1.12-2\nlibxml-sax-base-perl\t1.09-3\nlibxml-sax-perl\t1.02+dfsg-4\nlibxml2:amd64\t2.12.7+dfsg+really2.9.14-2.1+deb13u3\nlibxxhash0:amd64\t0.8.3-2\nlibz3-4:amd64\t4.13.3-1\nlibzstd1:amd64\t1.5.7+dfsg-1\nlinux-libc-dev\t6.12.107-1\nlld-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23-linker-tools\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23-runtime\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlogin\t1:4.16.0-2+really2.41.5-0+deb13u1\nlogin.defs\t1:4.17.4-2\nm4\t1.4.19-8\nmake\t4.4.1-2\nmawk\t1.3.4.20250131-1\nmedia-types\t13.0.0\nmeson\t1.7.0-1\nmount\t2.41.5-0+deb13u1\nncurses-base\t6.5+20250216-2\nncurses-bin\t6.5+20250216-2\nnetbase\t6.5\nninja-build\t1.12.1-1\nopenssl\t3.5.7-1~deb13u2\nopenssl-provider-legacy\t3.5.7-1~deb13u2\npasswd\t1:4.17.4-2\npatch\t2.8-2\nperl\t5.40.1-6+deb13u1\nperl-base\t5.40.1-6+deb13u1\nperl-modules-5.40\t5.40.1-6+deb13u1\npkg-config:amd64\t1.8.1-4\npkgconf:amd64\t1.8.1-4\npkgconf-bin\t1.8.1-4\nprocps\t2:4.0.4-9\npython3\t3.13.5-1\npython3-autocommand\t2.2.2-3\npython3-inflect\t7.3.1-2\npython3-jaraco.context\t6.0.1-1+deb13u1\npython3-jaraco.functools\t4.1.0-1\npython3-jaraco.text\t4.0.0-1\npython3-minimal\t3.13.5-1\npython3-more-itertools\t10.7.0-1\npython3-pexpect\t4.9-3\npython3-pkg-resources\t78.1.1-0.1\npython3-ptyprocess\t0.7.0-6\npython3-setuptools\t78.1.1-0.1\npython3-typeguard\t4.4.2-1\npython3-typing-extensions\t4.13.2-1\npython3-zipp\t3.21.0-1\npython3.13\t3.13.5-2+deb13u5\npython3.13-minimal\t3.13.5-2+deb13u5\nreadline-common\t8.2-6\nrpcsvc-proto\t1.4.3-1\nsed\t4.9-2+deb13u1\nsensible-utils\t0.0.25\nsqv\t1.3.0-3+b2\nsysvinit-utils\t3.14-4\ntar\t1.35+dfsg-3.1\ntex-common\t6.19\ntexinfo\t7.1.1-1\ntexinfo-lib\t7.1.1-1+b1\ntzdata\t2026b-0+deb13u1\nucf\t3.0052\nutil-linux\t2.41.5-0+deb13u1\nxz-utils\t5.8.1-1+deb13u1\nzlib1g:amd64\t1:1.3.dfsg+really1.3.1-1+b1\nzstd\t1.5.7+dfsg-1\n"
+  },
+  "d2f7a43346efbca544c0dc0c94bd1d7cb9a5637bbe013b049aff40807bb8681e": {
+    "emacs": "32.0.50.20260916175219.git82f763756c71",
+    "sources": {
+      "emacs": {
+        "version": "32.0.50.20260916175219.git82f763756c71",
+        "emacs_version": "32.0.50",
+        "branch": "master",
+        "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "commit_date": "2026-09-16T17:52:19Z",
+        "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+      },
+      "ncurses": {
+        "version": "6.6",
+        "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+        "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+      },
+      "zlib": {
+        "version": "1.3.2",
+        "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+        "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+      },
+      "gmp": {
+        "version": "6.3.0",
+        "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+        "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+      },
+      "nettle": {
+        "version": "4.0",
+        "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+        "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+      },
+      "libunistring": {
+        "version": "1.4.2",
+        "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+        "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+      },
+      "libidn2": {
+        "version": "2.3.8",
+        "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+        "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+      },
+      "gnutls": {
+        "version": "3.8.13",
+        "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+        "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+      },
+      "libxml2": {
+        "version": "2.15.4",
+        "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+        "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+      },
+      "sqlite": {
+        "version": "3.53.4",
+        "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+        "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+      },
+      "tree-sitter": {
+        "version": "0.27.0",
+        "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+        "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+      },
+      "dbus": {
+        "version": "1.16.2",
+        "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz",
+        "sha256": "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
+      }
+    },
+    "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+    "dependency_build_id": "07856664161f",
+    "glibc": "glibc 2.41",
+    "configure": [
+      "--prefix=/opt/emacs",
+      "--without-all",
+      "--without-x",
+      "--without-native-compilation",
+      "--with-modules",
+      "--with-threads",
+      "--with-file-notification=inotify",
+      "--with-gnutls",
+      "--with-libgmp",
+      "--with-xml2",
+      "--with-sqlite3",
+      "--with-tree-sitter",
+      "--with-zlib",
+      "--with-dbus",
+      "--with-compress-install",
+      "--disable-build-details",
+      "--disable-gc-mark-trace"
+    ],
+    "lto": "thin",
+    "pgo": "use",
+    "stable_locals": false,
+    "emit_relocs": true,
+    "cs_link_only": true,
+    "compile_profile": "/work/build/merged.profdata",
+    "profile_sha256": "15ab2f4aea1d60a5545ff47753063d4426ad4269fca3ec99ab286515e31aa13c",
+    "build_id": "f98bb6bda8b6",
+    "cpu_baseline": "x86-64-v3",
+    "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+    "ldflags": "-L/work/build/dependencies/07856664161f/prefix/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23"
+  },
+  "34baa57b2cbd9100bb2e757f0e5ec6090451f4bdc6de994a16a66b1e4c7e88da": {
+    "emacs": "32.0.50.20260916175219.git82f763756c71",
+    "sources": {
+      "emacs": {
+        "version": "32.0.50.20260916175219.git82f763756c71",
+        "emacs_version": "32.0.50",
+        "branch": "master",
+        "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "commit_date": "2026-09-16T17:52:19Z",
+        "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+      },
+      "ncurses": {
+        "version": "6.6",
+        "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+        "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+      },
+      "zlib": {
+        "version": "1.3.2",
+        "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+        "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+      },
+      "gmp": {
+        "version": "6.3.0",
+        "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+        "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+      },
+      "nettle": {
+        "version": "4.0",
+        "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+        "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+      },
+      "libunistring": {
+        "version": "1.4.2",
+        "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+        "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+      },
+      "libidn2": {
+        "version": "2.3.8",
+        "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+        "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+      },
+      "gnutls": {
+        "version": "3.8.13",
+        "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+        "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+      },
+      "libxml2": {
+        "version": "2.15.4",
+        "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+        "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+      },
+      "sqlite": {
+        "version": "3.53.4",
+        "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+        "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+      },
+      "tree-sitter": {
+        "version": "0.27.0",
+        "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+        "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+      },
+      "dbus": {
+        "version": "1.16.2",
+        "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz",
+        "sha256": "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
+      }
+    },
+    "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+    "dependency_build_id": "07856664161f",
+    "glibc": "glibc 2.41",
+    "configure": [
+      "--prefix=/opt/emacs",
+      "--without-all",
+      "--without-x",
+      "--without-native-compilation",
+      "--with-modules",
+      "--with-threads",
+      "--with-file-notification=inotify",
+      "--with-gnutls",
+      "--with-libgmp",
+      "--with-xml2",
+      "--with-sqlite3",
+      "--with-tree-sitter",
+      "--with-zlib",
+      "--with-dbus",
+      "--with-compress-install",
+      "--disable-build-details",
+      "--disable-gc-mark-trace"
+    ],
+    "lto": "thin",
+    "pgo": "use",
+    "stable_locals": false,
+    "emit_relocs": true,
+    "cs_link_only": true,
+    "compile_profile": "/work/build/merged.profdata",
+    "profile_sha256": "3b5293545ac86c891ff48a6f0f62e1e6ba8eb5239679e0c6030dbf65c9c3371f",
+    "build_id": "f98bb6bda8b6",
+    "cpu_baseline": "x86-64-v3",
+    "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+    "ldflags": "-L/work/build/dependencies/07856664161f/prefix/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23"
+  },
+  "e19cf57e6d3fea292bb0acf291842b783038ad9d0f762a7e49135115864e42a1": {
+    "emacs": "32.0.50.20260916175219.git82f763756c71",
+    "sources": {
+      "emacs": {
+        "version": "32.0.50.20260916175219.git82f763756c71",
+        "emacs_version": "32.0.50",
+        "branch": "master",
+        "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "commit_date": "2026-09-16T17:52:19Z",
+        "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+      },
+      "ncurses": {
+        "version": "6.6",
+        "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+        "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+      },
+      "zlib": {
+        "version": "1.3.2",
+        "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+        "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+      },
+      "gmp": {
+        "version": "6.3.0",
+        "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+        "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+      },
+      "nettle": {
+        "version": "4.0",
+        "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+        "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+      },
+      "libunistring": {
+        "version": "1.4.2",
+        "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+        "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+      },
+      "libidn2": {
+        "version": "2.3.8",
+        "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+        "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+      },
+      "gnutls": {
+        "version": "3.8.13",
+        "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+        "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+      },
+      "libxml2": {
+        "version": "2.15.4",
+        "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+        "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+      },
+      "sqlite": {
+        "version": "3.53.4",
+        "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+        "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+      },
+      "tree-sitter": {
+        "version": "0.27.0",
+        "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+        "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+      },
+      "dbus": {
+        "version": "1.16.2",
+        "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz",
+        "sha256": "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
+      }
+    },
+    "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+    "dependency_build_id": "07856664161f",
+    "glibc": "glibc 2.41",
+    "configure": [
+      "--prefix=/opt/emacs",
+      "--without-all",
+      "--without-x",
+      "--without-native-compilation",
+      "--with-modules",
+      "--with-threads",
+      "--with-file-notification=inotify",
+      "--with-gnutls",
+      "--with-libgmp",
+      "--with-xml2",
+      "--with-sqlite3",
+      "--with-tree-sitter",
+      "--with-zlib",
+      "--with-dbus",
+      "--with-compress-install",
+      "--disable-build-details",
+      "--disable-gc-mark-trace"
+    ],
+    "lto": "thin",
+    "pgo": "use",
+    "stable_locals": false,
+    "emit_relocs": true,
+    "cs_link_only": true,
+    "cs_runtime_marker": true,
+    "compile_profile": "/work/build/merged.profdata",
+    "profile_sha256": "85f4e30c69973c7f208713aca6519a95ae2fbee9a196659e9593ed8006413554",
+    "build_id": "f98bb6bda8b6",
+    "cpu_baseline": "x86-64-v3",
+    "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+    "ldflags": "-L/work/build/dependencies/07856664161f/prefix/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23"
+  },
+  "ad90ac612aa521f254463bb7adbb8af8f368e913f9dfe7816258b69fca3f8d58": {
+    "emacs": "32.0.50.20260916175219.git82f763756c71",
+    "sources": {
+      "emacs": {
+        "version": "32.0.50.20260916175219.git82f763756c71",
+        "emacs_version": "32.0.50",
+        "branch": "master",
+        "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "commit_date": "2026-09-16T17:52:19Z",
+        "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+      },
+      "ncurses": {
+        "version": "6.6",
+        "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+        "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+      },
+      "zlib": {
+        "version": "1.3.2",
+        "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+        "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+      },
+      "gmp": {
+        "version": "6.3.0",
+        "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+        "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+      },
+      "nettle": {
+        "version": "4.0",
+        "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+        "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+      },
+      "libunistring": {
+        "version": "1.4.2",
+        "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+        "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+      },
+      "libidn2": {
+        "version": "2.3.8",
+        "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+        "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+      },
+      "gnutls": {
+        "version": "3.8.13",
+        "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+        "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+      },
+      "libxml2": {
+        "version": "2.15.4",
+        "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+        "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+      },
+      "sqlite": {
+        "version": "3.53.4",
+        "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+        "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+      },
+      "tree-sitter": {
+        "version": "0.27.0",
+        "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+        "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+      },
+      "dbus": {
+        "version": "1.16.2",
+        "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz",
+        "sha256": "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
+      }
+    },
+    "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+    "dependency_build_id": "07856664161f",
+    "glibc": "glibc 2.41",
+    "configure": [
+      "--prefix=/opt/emacs",
+      "--without-all",
+      "--without-x",
+      "--without-native-compilation",
+      "--with-modules",
+      "--with-threads",
+      "--with-file-notification=inotify",
+      "--with-gnutls",
+      "--with-libgmp",
+      "--with-xml2",
+      "--with-sqlite3",
+      "--with-tree-sitter",
+      "--with-zlib",
+      "--with-dbus",
+      "--with-compress-install",
+      "--disable-build-details",
+      "--disable-gc-mark-trace"
+    ],
+    "lto": "thin",
+    "pgo": "use",
+    "stable_locals": false,
+    "emit_relocs": true,
+    "cs_link_only": true,
+    "cs_runtime_marker": true,
+    "compile_profile": "/work/build/merged.profdata",
+    "profile_sha256": "2e201200d06a7053b337947f6915f419cf0993caacf1dcc6483792622cc81b33",
+    "build_id": "f98bb6bda8b6",
+    "cpu_baseline": "x86-64-v3",
+    "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+    "ldflags": "-L/work/build/dependencies/07856664161f/prefix/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23"
+  },
+  "72f511707201ac9e0df3b95e6147509491fc856928dc46e75fc3b326ae5b2b1e": {
+    "emacs": "32.0.50.20260916175219.git82f763756c71",
+    "sources": {
+      "emacs": {
+        "version": "32.0.50.20260916175219.git82f763756c71",
+        "emacs_version": "32.0.50",
+        "branch": "master",
+        "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "commit_date": "2026-09-16T17:52:19Z",
+        "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+      },
+      "ncurses": {
+        "version": "6.6",
+        "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+        "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+      },
+      "zlib": {
+        "version": "1.3.2",
+        "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+        "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+      },
+      "gmp": {
+        "version": "6.3.0",
+        "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+        "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+      },
+      "nettle": {
+        "version": "4.0",
+        "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+        "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+      },
+      "libunistring": {
+        "version": "1.4.2",
+        "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+        "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+      },
+      "libidn2": {
+        "version": "2.3.8",
+        "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+        "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+      },
+      "gnutls": {
+        "version": "3.8.13",
+        "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+        "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+      },
+      "libxml2": {
+        "version": "2.15.4",
+        "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+        "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+      },
+      "sqlite": {
+        "version": "3.53.4",
+        "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+        "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+      },
+      "tree-sitter": {
+        "version": "0.27.0",
+        "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+        "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+      },
+      "dbus": {
+        "version": "1.16.2",
+        "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz",
+        "sha256": "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
+      }
+    },
+    "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+    "dependency_build_id": "07856664161f",
+    "glibc": "glibc 2.41",
+    "configure": [
+      "--prefix=/opt/emacs",
+      "--without-all",
+      "--without-x",
+      "--without-native-compilation",
+      "--with-modules",
+      "--with-threads",
+      "--with-file-notification=inotify",
+      "--with-gnutls",
+      "--with-libgmp",
+      "--with-xml2",
+      "--with-sqlite3",
+      "--with-tree-sitter",
+      "--with-zlib",
+      "--with-dbus",
+      "--with-compress-install",
+      "--disable-build-details",
+      "--disable-gc-mark-trace"
+    ],
+    "lto": "thin",
+    "pgo": "use",
+    "stable_locals": false,
+    "emit_relocs": true,
+    "profile_sha256": "2e201200d06a7053b337947f6915f419cf0993caacf1dcc6483792622cc81b33",
+    "build_id": "f98bb6bda8b6",
+    "cpu_baseline": "x86-64-v3",
+    "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+    "ldflags": "-L/work/build/dependencies/07856664161f/prefix/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23"
+  },
+  "965bcde08a89fb829f858939f7db4dd32122bb571c42cf3ff3e6f304312f7d27": {
+    "emacs": "32.0.50.20260916175219.git82f763756c71",
+    "sources": {
+      "emacs": {
+        "version": "32.0.50.20260916175219.git82f763756c71",
+        "emacs_version": "32.0.50",
+        "branch": "master",
+        "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "commit_date": "2026-09-16T17:52:19Z",
+        "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+      },
+      "ncurses": {
+        "version": "6.6",
+        "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+        "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+      },
+      "zlib": {
+        "version": "1.3.2",
+        "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+        "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+      },
+      "gmp": {
+        "version": "6.3.0",
+        "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+        "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+      },
+      "nettle": {
+        "version": "4.0",
+        "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+        "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+      },
+      "libunistring": {
+        "version": "1.4.2",
+        "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+        "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+      },
+      "libidn2": {
+        "version": "2.3.8",
+        "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+        "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+      },
+      "gnutls": {
+        "version": "3.8.13",
+        "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+        "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+      },
+      "libxml2": {
+        "version": "2.15.4",
+        "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+        "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+      },
+      "sqlite": {
+        "version": "3.53.4",
+        "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+        "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+      },
+      "tree-sitter": {
+        "version": "0.27.0",
+        "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+        "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+      },
+      "dbus": {
+        "version": "1.16.2",
+        "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz",
+        "sha256": "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
+      }
+    },
+    "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+    "dependency_build_id": "07856664161f",
+    "glibc": "glibc 2.41",
+    "configure": [
+      "--prefix=/opt/emacs",
+      "--without-all",
+      "--without-x",
+      "--without-native-compilation",
+      "--with-modules",
+      "--with-threads",
+      "--with-file-notification=inotify",
+      "--with-gnutls",
+      "--with-libgmp",
+      "--with-xml2",
+      "--with-sqlite3",
+      "--with-tree-sitter",
+      "--with-zlib",
+      "--with-dbus",
+      "--with-compress-install",
+      "--disable-build-details",
+      "--disable-gc-mark-trace"
+    ],
+    "lto": "thin",
+    "pgo": "use",
+    "stable_locals": false,
+    "emit_relocs": true,
+    "profile_sha256": "2e201200d06a7053b337947f6915f419cf0993caacf1dcc6483792622cc81b33",
+    "build_id": "f98bb6bda8b6",
+    "cpu_baseline": "x86-64-v3",
+    "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+    "ldflags": "-L/work/build/dependencies/07856664161f/prefix/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23",
+    "bolt": true,
+    "bolt_options": [
+      "llvm-bolt-23",
+      "/work/build/f98bb6bda8b6/stage-llvm-use-2e201200d06a/opt/emacs/bin/emacs-32.0.50",
+      "-data=/work/build/bolt/merged.fdata",
+      "-reorder-blocks=ext-tsp",
+      "-reorder-functions=cdsort",
+      "-split-functions",
+      "-split-all-cold",
+      "-split-eh",
+      "-dyno-stats",
+      "-o",
+      "/work/build/bolt-optimized/bin/emacs-32.0.50.new"
+    ]
+  },
+  "407ba234a49e5a6a439bedf54c18d52478c0a77bb3ca2c77ecd1b24f8ef07b7a": {
+    "emacs": "32.0.50.20260916175219.git82f763756c71",
+    "sources": {
+      "emacs": {
+        "version": "32.0.50.20260916175219.git82f763756c71",
+        "emacs_version": "32.0.50",
+        "branch": "master",
+        "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "commit_date": "2026-09-16T17:52:19Z",
+        "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+      },
+      "ncurses": {
+        "version": "6.6",
+        "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+        "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+      },
+      "zlib": {
+        "version": "1.3.2",
+        "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+        "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+      },
+      "gmp": {
+        "version": "6.3.0",
+        "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+        "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+      },
+      "nettle": {
+        "version": "4.0",
+        "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+        "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+      },
+      "libunistring": {
+        "version": "1.4.2",
+        "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+        "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+      },
+      "libidn2": {
+        "version": "2.3.8",
+        "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+        "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+      },
+      "gnutls": {
+        "version": "3.8.13",
+        "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+        "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+      },
+      "libxml2": {
+        "version": "2.15.4",
+        "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+        "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+      },
+      "sqlite": {
+        "version": "3.53.4",
+        "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+        "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+      },
+      "tree-sitter": {
+        "version": "0.27.0",
+        "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+        "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+      },
+      "dbus": {
+        "version": "1.16.2",
+        "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz",
+        "sha256": "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
+      }
+    },
+    "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+    "dependency_build_id": "07856664161f",
+    "glibc": "glibc 2.41",
+    "configure": [
+      "--prefix=/opt/emacs",
+      "--without-all",
+      "--without-x",
+      "--without-native-compilation",
+      "--with-modules",
+      "--with-threads",
+      "--with-file-notification=inotify",
+      "--with-gnutls",
+      "--with-libgmp",
+      "--with-xml2",
+      "--with-sqlite3",
+      "--with-tree-sitter",
+      "--with-zlib",
+      "--with-dbus",
+      "--with-compress-install",
+      "--disable-build-details",
+      "--disable-gc-mark-trace"
+    ],
+    "lto": "thin",
+    "pgo": "use",
+    "stable_locals": false,
+    "emit_relocs": true,
+    "profile_sha256": "6f69b3517c0aa217931ebbe83ddd5c17c3dfcb5b3a2ac53a9619f89a4198dbfc",
+    "build_id": "f98bb6bda8b6",
+    "cpu_baseline": "x86-64-v3",
+    "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+    "ldflags": "-L/work/build/dependencies/07856664161f/prefix/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23"
+  },
+  "be0493d2c62afd27082658afa2130d201225694425ffcdf95dcb182a87a4c830": {
+    "emacs": "32.0.50.20260916175219.git82f763756c71",
+    "sources": {
+      "emacs": {
+        "version": "32.0.50.20260916175219.git82f763756c71",
+        "emacs_version": "32.0.50",
+        "branch": "master",
+        "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "commit_date": "2026-09-16T17:52:19Z",
+        "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+      },
+      "ncurses": {
+        "version": "6.6",
+        "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+        "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+      },
+      "zlib": {
+        "version": "1.3.2",
+        "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+        "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+      },
+      "gmp": {
+        "version": "6.3.0",
+        "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+        "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+      },
+      "nettle": {
+        "version": "4.0",
+        "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+        "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+      },
+      "libunistring": {
+        "version": "1.4.2",
+        "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+        "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+      },
+      "libidn2": {
+        "version": "2.3.8",
+        "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+        "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+      },
+      "gnutls": {
+        "version": "3.8.13",
+        "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+        "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+      },
+      "libxml2": {
+        "version": "2.15.4",
+        "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+        "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+      },
+      "sqlite": {
+        "version": "3.53.4",
+        "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+        "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+      },
+      "tree-sitter": {
+        "version": "0.27.0",
+        "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+        "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+      },
+      "dbus": {
+        "version": "1.16.2",
+        "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz",
+        "sha256": "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
+      }
+    },
+    "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+    "dependency_build_id": "07856664161f",
+    "glibc": "glibc 2.41",
+    "configure": [
+      "--prefix=/opt/emacs",
+      "--without-all",
+      "--without-x",
+      "--without-native-compilation",
+      "--with-modules",
+      "--with-threads",
+      "--with-file-notification=inotify",
+      "--with-gnutls",
+      "--with-libgmp",
+      "--with-xml2",
+      "--with-sqlite3",
+      "--with-tree-sitter",
+      "--with-zlib",
+      "--with-dbus",
+      "--with-compress-install",
+      "--disable-build-details",
+      "--disable-gc-mark-trace"
+    ],
+    "lto": "thin",
+    "pgo": "use",
+    "stable_locals": false,
+    "emit_relocs": true,
+    "cs_link_only": true,
+    "cs_runtime_marker": true,
+    "compile_profile": "/work/build/merged.profdata",
+    "profile_sha256": "7f202c72d73a75c3e50b8a0361eef956669f68a543fdbb2e387d0806f01af9e0",
+    "build_id": "f98bb6bda8b6",
+    "cpu_baseline": "x86-64-v3",
+    "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+    "ldflags": "-L/work/build/dependencies/07856664161f/prefix/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23",
+    "packages": "apt\t3.0.3\nautoconf\t2.72-3.1\nautomake\t1:1.17-4\nautotools-dev\t20240727.1\nbase-files\t13.8+deb13u6\nbase-passwd\t3.6.7\nbash\t5.2.37-2+b9\nbinutils\t2.44-3\nbinutils-common:amd64\t2.44-3\nbinutils-x86-64-linux-gnu\t2.44-3\nbsdutils\t1:2.41.5-0+deb13u1\nbzip2\t1.0.8-6\nca-certificates\t20250419\nclang-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\ncoreutils\t9.7-3\ncpp\t4:14.2.0-1\ncpp-14\t14.2.0-19\ncpp-14-x86-64-linux-gnu\t14.2.0-19\ncpp-x86-64-linux-gnu\t4:14.2.0-1\ncurl\t8.14.1-2+deb13u5\ndash\t0.5.12-12\ndebconf\t1.5.91\ndebian-archive-keyring\t2025.1\ndebianutils\t5.23.2\ndiffutils\t1:3.10-4\ndpkg\t1.22.22\ndpkg-dev\t1.22.22\nfile\t1:5.46-5\nfindutils\t4.10.0-3\ngcc\t4:14.2.0-1\ngcc-14\t14.2.0-19\ngcc-14-base:amd64\t14.2.0-19\ngcc-14-x86-64-linux-gnu\t14.2.0-19\ngcc-x86-64-linux-gnu\t4:14.2.0-1\ngettext\t0.23.1-2\ngettext-base\t0.23.1-2\ngit\t1:2.47.3-0+deb13u1\ngit-man\t1:2.47.3-0+deb13u1\ngrep\t3.11-4\ngzip\t1.13-1\nhostname\t3.25\ninit-system-helpers\t1.69~deb13u1\nlib32gcc-s1\t14.2.0-19\nlib32stdc++6\t14.2.0-19\nlibacl1:amd64\t2.3.2-2+b1\nlibapt-pkg7.0:amd64\t3.0.3\nlibasan8:amd64\t14.2.0-19\nlibatomic1:amd64\t14.2.0-19\nlibattr1:amd64\t1:2.5.2-3\nlibaudit-common\t1:4.0.2-2\nlibaudit1:amd64\t1:4.0.2-2+b2\nlibbinutils:amd64\t2.44-3\nlibblkid1:amd64\t2.41.5-0+deb13u1\nlibbrotli1:amd64\t1.1.0-2+b7\nlibbsd0:amd64\t0.12.2-2\nlibbz2-1.0:amd64\t1.0.8-6\nlibc-bin\t2.41-12+deb13u4\nlibc-dev-bin\t2.41-12+deb13u4\nlibc6:amd64\t2.41-12+deb13u4\nlibc6-dev:amd64\t2.41-12+deb13u4\nlibc6-i386\t2.41-12+deb13u4\nlibcap-ng0:amd64\t0.8.5-4+b1\nlibcap2:amd64\t1:2.75-10+deb13u1+b1\nlibcc1-0:amd64\t14.2.0-19\nlibclang-common-23-dev:amd64\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang-cpp23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang-rt-23-dev\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibclang1-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlibcom-err2:amd64\t1.47.2-3+b12\nlibcrypt-dev:amd64\t1:4.4.38-1\nlibcrypt1:amd64\t1:4.4.38-1\nlibctf-nobfd0:amd64\t2.44-3\nlibctf0:amd64\t2.44-3\nlibcurl3t64-gnutls:amd64\t8.14.1-2+deb13u5\nlibcurl4t64:amd64\t8.14.1-2+deb13u5\nlibdb5.3t64:amd64\t5.3.28+dfsg2-9\nlibdebconfclient0:amd64\t0.280\nlibdpkg-perl\t1.22.22\nlibedit2:amd64\t3.1-20250104-1\nliberror-perl\t0.17030-1\nlibexpat1:amd64\t2.8.3-1~deb13u1\nlibffi8:amd64\t3.4.8-2\nlibgc1:amd64\t1:8.2.8-1\nlibgcc-14-dev:amd64\t14.2.0-19\nlibgcc-s1:amd64\t14.2.0-19\nlibgdbm-compat4t64:amd64\t1.24-2\nlibgdbm6t64:amd64\t1.24-2\nlibgmp10:amd64\t2:6.3.0+dfsg-3\nlibgnutls30t64:amd64\t3.8.9-3+deb13u4\nlibgomp1:amd64\t14.2.0-19\nlibgprofng0:amd64\t2.44-3\nlibgssapi-krb5-2:amd64\t1.21.3-5+deb13u1\nlibhogweed6t64:amd64\t3.10.1-1\nlibhwasan0:amd64\t14.2.0-19\nlibidn2-0:amd64\t2.3.8-2\nlibisl23:amd64\t0.27-1\nlibitm1:amd64\t14.2.0-19\nlibjansson4:amd64\t2.14-2+b3\nlibk5crypto3:amd64\t1.21.3-5+deb13u1\nlibkeyutils1:amd64\t1.6.3-6\nlibkrb5-3:amd64\t1.21.3-5+deb13u1\nlibkrb5support0:amd64\t1.21.3-5+deb13u1\nliblastlog2-2:amd64\t2.41.5-0+deb13u1\nlibldap2:amd64\t2.6.10+dfsg-1\nlibllvm23:amd64\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nliblsan0:amd64\t14.2.0-19\nliblz4-1:amd64\t1.10.0-4\nliblzma5:amd64\t5.8.1-1+deb13u1\nlibmagic-mgc\t1:5.46-5\nlibmagic1t64:amd64\t1:5.46-5\nlibmd0:amd64\t1.1.0-2+b1\nlibmount1:amd64\t2.41.5-0+deb13u1\nlibmpc3:amd64\t1.3.1-1+b3\nlibmpfr6:amd64\t4.2.2-1\nlibncursesw6:amd64\t6.5+20250216-2\nlibnettle8t64:amd64\t3.10.1-1\nlibnghttp2-14:amd64\t1.64.0-1.1+deb13u1\nlibnghttp3-9:amd64\t1.8.0-1\nlibngtcp2-16:amd64\t1.11.0-1+deb13u1\nlibngtcp2-crypto-gnutls8:amd64\t1.11.0-1+deb13u1\nlibobjc-14-dev:amd64\t14.2.0-19\nlibobjc4:amd64\t14.2.0-19\nlibp11-kit0:amd64\t0.25.5-3\nlibpam-modules:amd64\t1.7.0-5\nlibpam-modules-bin\t1.7.0-5\nlibpam-runtime\t1.7.0-5\nlibpam0g:amd64\t1.7.0-5\nlibpcre2-8-0:amd64\t10.46-1~deb13u1\nlibperl5.40:amd64\t5.40.1-6+deb13u1\nlibpfm4:amd64\t4.13.0+git99-gc5587f9-1\nlibpkgconf3:amd64\t1.8.1-4\nlibproc2-0:amd64\t2:4.0.4-9\nlibpsl5t64:amd64\t0.21.2-1.1+b1\nlibpython3-stdlib:amd64\t3.13.5-1\nlibpython3.13-minimal:amd64\t3.13.5-2+deb13u5\nlibpython3.13-stdlib:amd64\t3.13.5-2+deb13u5\nlibquadmath0:amd64\t14.2.0-19\nlibreadline8t64:amd64\t8.2-6\nlibrtmp1:amd64\t2.4+20151223.gitfa8646d.1-2+b5\nlibsasl2-2:amd64\t2.1.28+dfsg1-9\nlibsasl2-modules-db:amd64\t2.1.28+dfsg1-9\nlibseccomp2:amd64\t2.6.0-2\nlibselinux1:amd64\t3.8.1-1\nlibsemanage-common\t3.8.1-1\nlibsemanage2:amd64\t3.8.1-1\nlibsepol2:amd64\t3.8.1-1\nlibsframe1:amd64\t2.44-3\nlibsmartcols1:amd64\t2.41.5-0+deb13u1\nlibsqlite3-0:amd64\t3.46.1-7+deb13u1\nlibssh2-1t64:amd64\t1.11.1-1+deb13u2\nlibssl3t64:amd64\t3.5.7-1~deb13u2\nlibstdc++-14-dev:amd64\t14.2.0-19\nlibstdc++6:amd64\t14.2.0-19\nlibsystemd0:amd64\t257.13-1~deb13u1\nlibtasn1-6:amd64\t4.20.0-2+deb13u1\nlibtext-charwidth-perl:amd64\t0.04-11+b4\nlibtext-unidecode-perl\t1.30-3\nlibtext-wrapi18n-perl\t0.06-10\nlibtinfo6:amd64\t6.5+20250216-2\nlibtool\t2.5.4-4\nlibtsan2:amd64\t14.2.0-19\nlibubsan1:amd64\t14.2.0-19\nlibudev1:amd64\t257.13-1~deb13u1\nlibunistring5:amd64\t1.3-2\nlibuuid1:amd64\t2.41.5-0+deb13u1\nlibxml-libxml-perl\t2.0207+dfsg+really+2.0134-5+deb13u1\nlibxml-namespacesupport-perl\t1.12-2\nlibxml-sax-base-perl\t1.09-3\nlibxml-sax-perl\t1.02+dfsg-4\nlibxml2:amd64\t2.12.7+dfsg+really2.9.14-2.1+deb13u3\nlibxxhash0:amd64\t0.8.3-2\nlibz3-4:amd64\t4.13.3-1\nlibzstd1:amd64\t1.5.7+dfsg-1\nlinux-libc-dev\t6.12.107-1\nlld-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23-linker-tools\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nllvm-23-runtime\t1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69\nlogin\t1:4.16.0-2+really2.41.5-0+deb13u1\nlogin.defs\t1:4.17.4-2\nm4\t1.4.19-8\nmake\t4.4.1-2\nmawk\t1.3.4.20250131-1\nmedia-types\t13.0.0\nmeson\t1.7.0-1\nmount\t2.41.5-0+deb13u1\nncurses-base\t6.5+20250216-2\nncurses-bin\t6.5+20250216-2\nnetbase\t6.5\nninja-build\t1.12.1-1\nopenssl\t3.5.7-1~deb13u2\nopenssl-provider-legacy\t3.5.7-1~deb13u2\npasswd\t1:4.17.4-2\npatch\t2.8-2\nperl\t5.40.1-6+deb13u1\nperl-base\t5.40.1-6+deb13u1\nperl-modules-5.40\t5.40.1-6+deb13u1\npkg-config:amd64\t1.8.1-4\npkgconf:amd64\t1.8.1-4\npkgconf-bin\t1.8.1-4\nprocps\t2:4.0.4-9\npython3\t3.13.5-1\npython3-autocommand\t2.2.2-3\npython3-inflect\t7.3.1-2\npython3-jaraco.context\t6.0.1-1+deb13u1\npython3-jaraco.functools\t4.1.0-1\npython3-jaraco.text\t4.0.0-1\npython3-minimal\t3.13.5-1\npython3-more-itertools\t10.7.0-1\npython3-pexpect\t4.9-3\npython3-pkg-resources\t78.1.1-0.1\npython3-ptyprocess\t0.7.0-6\npython3-setuptools\t78.1.1-0.1\npython3-typeguard\t4.4.2-1\npython3-typing-extensions\t4.13.2-1\npython3-zipp\t3.21.0-1\npython3.13\t3.13.5-2+deb13u5\npython3.13-minimal\t3.13.5-2+deb13u5\nreadline-common\t8.2-6\nrpcsvc-proto\t1.4.3-1\nsed\t4.9-2+deb13u1\nsensible-utils\t0.0.25\nsqv\t1.3.0-3+b2\nsysvinit-utils\t3.14-4\ntar\t1.35+dfsg-3.1\ntex-common\t6.19\ntexinfo\t7.1.1-1\ntexinfo-lib\t7.1.1-1+b1\ntzdata\t2026b-0+deb13u1\nucf\t3.0052\nutil-linux\t2.41.5-0+deb13u1\nxz-utils\t5.8.1-1+deb13u1\nzlib1g:amd64\t1:1.3.dfsg+really1.3.1-1+b1\nzstd\t1.5.7+dfsg-1\n"
+  },
+  "c7f387d4e80461855b28cbe14b09d5e76587afc274726697e732fab5a1474137": {
+    "emacs": "32.0.50.20260916175219.git82f763756c71",
+    "sources": {
+      "emacs": {
+        "version": "32.0.50.20260916175219.git82f763756c71",
+        "emacs_version": "32.0.50",
+        "branch": "master",
+        "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "commit_date": "2026-09-16T17:52:19Z",
+        "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
+        "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+      },
+      "ncurses": {
+        "version": "6.6",
+        "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+        "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+      },
+      "zlib": {
+        "version": "1.3.2",
+        "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+        "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+      },
+      "gmp": {
+        "version": "6.3.0",
+        "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+        "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+      },
+      "nettle": {
+        "version": "4.0",
+        "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+        "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+      },
+      "libunistring": {
+        "version": "1.4.2",
+        "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+        "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+      },
+      "libidn2": {
+        "version": "2.3.8",
+        "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+        "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+      },
+      "gnutls": {
+        "version": "3.8.13",
+        "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+        "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+      },
+      "libxml2": {
+        "version": "2.15.4",
+        "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+        "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+      },
+      "sqlite": {
+        "version": "3.53.4",
+        "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+        "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+      },
+      "tree-sitter": {
+        "version": "0.27.0",
+        "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+        "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+      },
+      "dbus": {
+        "version": "1.16.2",
+        "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz",
+        "sha256": "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
+      }
+    },
+    "compiler": "Debian clang version 23.1.2 (++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69)",
+    "dependency_build_id": "07856664161f",
+    "glibc": "glibc 2.41",
+    "configure": [
+      "--prefix=/opt/emacs",
+      "--without-all",
+      "--without-x",
+      "--without-native-compilation",
+      "--with-modules",
+      "--with-threads",
+      "--with-file-notification=inotify",
+      "--with-gnutls",
+      "--with-libgmp",
+      "--with-xml2",
+      "--with-sqlite3",
+      "--with-tree-sitter",
+      "--with-zlib",
+      "--with-dbus",
+      "--with-compress-install",
+      "--disable-build-details",
+      "--disable-gc-mark-trace"
+    ],
+    "lto": "thin",
+    "pgo": "use",
+    "stable_locals": false,
+    "emit_relocs": true,
+    "cs_link_only": true,
+    "cs_runtime_marker": true,
+    "compile_profile": "/work/build/merged.profdata",
+    "profile_sha256": "7f202c72d73a75c3e50b8a0361eef956669f68a543fdbb2e387d0806f01af9e0",
+    "build_id": "f98bb6bda8b6",
+    "cpu_baseline": "x86-64-v3",
+    "cflags": "-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic -flto=thin",
+    "ldflags": "-L/work/build/dependencies/07856664161f/prefix/lib -Wl,-z,relro,-z,now -flto=thin --ld-path=/usr/bin/ld.lld-23"
+  }
+}

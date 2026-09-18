@@ -1,0 +1,61 @@
+BOLT-INFO: shared object or position-independent executable detected
+BOLT-INFO: Target architecture: x86_64
+BOLT-INFO: BOLT version: <unknown>
+BOLT-INFO: first alloc address is 0x0
+BOLT-INFO: creating new program header table at address 0xa00000, offset 0xa00000
+BOLT-WARNING: debug info will be stripped from the binary. Use -update-debug-sections to keep it.
+BOLT-INFO: enabling relocation mode
+BOLT-INFO: forcing -jump-tables=move for instrumentation
+BOLT-INFO: enabling lite mode
+BOLT-INFO: using __gmpn_modexact_1c_odd_x86_64/1 as another entry to function __gmpn_modexact_1_odd_x86_64/1(*2)
+BOLT-WARNING: Failed to analyze 7 relocations
+BOLT-WARNING: unable to disassemble instruction at offset 0x32 (address 0x3bdb72) in function padlock_sha512_blocks/1(*2)
+BOLT-WARNING: unable to disassemble instruction at offset 0x11 (address 0x3bee91) in function _vpaes_consts/1
+BOLT-WARNING: unable to disassemble instruction at offset 0x53 (address 0x3c3a13) in function K_XX_XX/1
+BOLT-WARNING: corrupted control flow detected in function K_XX_XX/1: an external branch/call targets an invalid instruction in function sha1_block_data_order_avx2/1(*2) at address 0x3c3945; ignoring both functions
+BOLT-WARNING: unable to disassemble instruction at offset 0x1 (address 0x3c4cc1) in function K256/1
+BOLT-WARNING: unable to disassemble instruction at offset 0x15 (address 0x3c9755) in function K512/1
+BOLT-WARNING: function aesni_set_encrypt_key/1(*2) has an object detected in a padding region at address 0x3d17a0
+BOLT-WARNING: function gcm_ghash_avx/1(*2) has an object detected in a padding region at address 0x3d33c0
+BOLT-WARNING: function aesni_gcm_encrypt/1(*2) has an object detected in a padding region at address 0x3d4300
+BOLT-WARNING: function _nettle_salsa20_2core/1(*2) has an object detected in a padding region at address 0x3f64e0
+BOLT-WARNING: function _nettle_sha1_compress_sha_ni/1(*2) has an object detected in a padding region at address 0x3f6720
+BOLT-WARNING: reference in the middle of instruction detected in function nettle_sha3_permute/1(*2) at offset 0x598
+BOLT-WARNING: bad padding at address 0x3be607 starting at offset 0 in function padlock_ctr32_encrypt/1(*2)
+56 49 41 20 50 61 64 6c 6f 63 6b 20 78 38 36 5f 36 34 20 6d 6f 64 75 6c 65 2c 20 43 52 59 50 54 4f 47 41 4d 53 20 62 79 20 3c 61 70 70 72 6f 40 6f 70 65 6e 73 73 6c 2e 6f 72 67 3e 00 66 66 66 2e 0f 1f 84 00 00 00 00 00 cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc
+BOLT-WARNING: function padlock_ctr32_encrypt/1(*2) has invalid padding. Ignoring the function
+BOLT-WARNING: 5 collisions detected while hashing binary objects. Use -v=1 to see the list.
+BOLT-INFO: 0 out of 9939 functions in the binary (0.0%) have non-empty execution profile
+BOLT-WARNING: internal call detected in function aesni_set_encrypt_key/1(*2)
+BOLT-WARNING: internal call detected in function aesni_set_encrypt_key/1(*2)
+BOLT-WARNING: internal call detected in function aesni_set_encrypt_key/1(*2)
+BOLT-INSTRUMENTER: Number of indirect call site descriptors: 9502
+BOLT-INSTRUMENTER: Number of indirect call target descriptors: 9810
+BOLT-INSTRUMENTER: Number of function descriptors: 9761
+BOLT-INSTRUMENTER: Number of branch counters: 154629
+BOLT-INSTRUMENTER: Number of ST leaf node counters: 75749
+BOLT-INSTRUMENTER: Number of direct call counters: 0
+BOLT-INSTRUMENTER: Total number of counters: 230378
+BOLT-INSTRUMENTER: Total size of counters: 1843024 bytes (static alloc memory)
+BOLT-INSTRUMENTER: Total size of string table emitted: 245872 bytes in file
+BOLT-INSTRUMENTER: Total size of descriptors: 14690352 bytes in file
+BOLT-INSTRUMENTER: Profile will be saved to file /work/build/bolt/training
+BOLT-INFO: 110623 instructions were shortened
+BOLT-INFO: removed 740 empty blocks
+BOLT-INFO: removed 85 'repz' prefixes with estimated execution count of 0 times.
+BOLT-INFO: UCE removed 4425 blocks and 277628 bytes of code
+BOLT-WARNING: failed to patch entries in __gmpn_mul_1_x86_64/1(*2). The function will not be optimized
+BOLT-WARNING: failed to patch entries in __gmpn_mul_1_atom/1(*2). The function will not be optimized
+BOLT-WARNING: failed to patch entries in __gmpn_addlsh1_n_atom/1(*2). The function will not be optimized
+BOLT-WARNING: failed to patch entries in __gmpn_addlsh1_n_bd1/1(*2). The function will not be optimized
+BOLT-WARNING: failed to patch entries in __gmpn_addlsh1_n_zen/1(*2). The function will not be optimized
+BOLT-INFO: padding code to 0x1a00000 to accommodate hot text
+BOLT-INFO: output linked against instrumentation runtime library, lib entry point is 0x1ce0b10
+BOLT-INFO: clear procedure is 0x1cdc310
+BOLT-INFO: patched build-id (flipped last bit)
+BOLT-INFO: setting __bolt_runtime_start to 0x1ce0b10
+BOLT-INFO: setting __bolt_runtime_fini to 0x1ce0b60
+BOLT-INFO: setting __hot_start to 0xc00000
+BOLT-INFO: setting __hot_end to 0x187ab34
+BOLT-INFO: runtime library finalization was hooked via DT_FINI, set to 0x1ce0b60
+BOLT-INFO: runtime library initialization was hooked via ELF Header Entry Point, set to 0x1ce0b10

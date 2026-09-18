@@ -1,0 +1,6 @@
+Instrumentation level: IR  entry_first = 0  instrument_loop_entries = 0
+Total functions: 9488
+Maximum function count: 251463409615
+Maximum internal block count: 957489117298
+Total number of blocks: 180518
+Total count: 23246638126657

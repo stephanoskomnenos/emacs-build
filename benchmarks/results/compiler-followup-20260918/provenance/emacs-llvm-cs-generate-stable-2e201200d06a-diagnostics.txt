@@ -1,0 +1,23 @@
+configure: WARNING: texinfo.tex/texindex versions suggest that indexing is locale dependent, manual compilation is restricted to lang 'default', override this by setting DOCLANGS in the environment
+configure: WARNING: libattr development library was not found or not usable.
+configure: WARNING: GNU Emacs will be built without xattr support.
+configure: WARNING: This configuration installs a 'movemail' program
+/work/build/f98bb6bda8b6/src/emacs/lib/dtotimespec.c:34:27: warning: implicit conversion from 'time_t' (aka 'long') to 'double' changes value from 9223372036854775807 to 9223372036854775808 [-Wimplicit-const-int-float-conversion]
+warning: /work/build/f98bb6bda8b6/src/emacs/lib/regex.c: function control flow change detected (hash mismatch) rpl_re_search_2 Hash = 742261418966908927 up to 1184993844387 count discarded [-Wbackend-plugin]
+warning: /work/build/f98bb6bda8b6/src/emacs/lib-src/hexl.c: function control flow change detected (hash mismatch) main Hash = 956930238579297828 up to 9292744 count discarded [-Wbackend-plugin]
+warning: /work/build/f98bb6bda8b6/src/emacs/lib-src/make-fingerprint.c: function control flow change detected (hash mismatch) main Hash = 491022729038667336 up to 9292744 count discarded [-Wbackend-plugin]
+warning: /work/build/f98bb6bda8b6/src/emacs/lib-src/make-docfile.c: function control flow change detected (hash mismatch) main Hash = 995278791135229637 up to 9292744 count discarded [-Wbackend-plugin]
+warning: /work/build/f98bb6bda8b6/src/emacs/lib-src/movemail.c: function control flow change detected (hash mismatch) main Hash = 657568764670978209 up to 9292744 count discarded [-Wbackend-plugin]
+warning: /work/build/f98bb6bda8b6/src/emacs/lib-src/ebrowse.c: function control flow change detected (hash mismatch) main Hash = 573863835946133021 up to 9292744 count discarded [-Wbackend-plugin]
+warning: /work/build/f98bb6bda8b6/src/emacs/lib-src/etags.c: function control flow change detected (hash mismatch) main Hash = 427055069086158188 up to 9292744 count discarded [-Wbackend-plugin]
+/work/build/f98bb6bda8b6/src/emacs/src/fileio.c:3960:31: warning: implicit conversion from 'off_t' (aka 'long') to 'double' changes value from 9223372036854775807 to 9223372036854775808 [-Wimplicit-const-int-float-conversion]
+/work/build/f98bb6bda8b6/src/emacs/src/alloc.c:5754:18: warning: implicit conversion from 'long' to 'double' changes value from 4611686018427387903 to 4611686018427387904 [-Wimplicit-const-int-float-conversion]
+/work/build/f98bb6bda8b6/src/emacs/src/editfns.c:4031:21: warning: implicit conversion from 'unsigned long' to 'double' changes value from 18446744073709551615 to 18446744073709551616 [-Wimplicit-const-int-float-conversion]
+ld.lld-23: error: duplicate symbol: .str.1.llvm.privkey_c
+ld.lld-23: error: duplicate symbol: .str.llvm.privkey_c
+ld.lld-23: error: duplicate symbol: .str.llvm.mpi_c
+ld.lld-23: error: duplicate symbol: .str.1.llvm.mpi_c
+ld.lld-23: error: duplicate symbol: .str.2.llvm.kx_c
+ld.lld-23: error: duplicate symbol: .str.llvm.kx_c
+ld.lld-23: error: duplicate symbol: .str.llvm.ecc_c
+clang-23: error: linker command failed with exit code 1 (use -v to see invocation)
