@@ -2,7 +2,7 @@
 
 Linux defaults to O2 + ThinLTO + CSPGO; the Action's `cspgo` switch selects
 ordinary PGO when disabled. macOS defaults to ordinary PGO with Cocoa GUI
-training; its optional `cspgo` switch adds a second pass after an Apple toolchain
+training; its optional `cspgo` switch adds a second pass using pinned prebuilt LLVM Clang/LLD/profdata; a toolchain
 probe verifies CS collection and final-link application. Build commands are in the [project README](../README.md#构建).
 
 Cocoa training opens files, scrolls, edits, splits windows and changes text size;

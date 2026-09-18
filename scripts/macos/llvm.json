@@ -1,0 +1,5 @@
+{
+  "version": "23.1.1",
+  "url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-23.1.1/LLVM-23.1.1-macOS-ARM64.tar.xz",
+  "sha256": "64220f1c99132ef7e580447781b84f96fbba6862a43a8f6522b423052cd67502"
+}

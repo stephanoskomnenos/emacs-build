@@ -1,5 +1,17 @@
-"""Paired compile/link flags for Apple Clang ordinary and context-sensitive PGO."""
+"""Paired compile/link flags for macOS Clang ordinary and context-sensitive PGO."""
+import os
 from pathlib import Path
+import subprocess
+
+
+def compiler_tools():
+    prefix = os.environ.get('EMACS_LLVM_ROOT')
+    if prefix:
+        bin_dir = Path(prefix) / 'bin'
+        return str(bin_dir / 'clang'), str(bin_dir / 'llvm-profdata'), ['-fuse-ld=' + str(bin_dir / 'ld64.lld')]
+    def xcrun(tool):
+        return subprocess.check_output(['xcrun', '--find', tool], text=True).strip()
+    return xcrun('clang'), xcrun('llvm-profdata'), []
 
 
 def profile_flags(mode, build, raw):

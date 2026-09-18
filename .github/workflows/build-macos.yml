@@ -7,7 +7,7 @@ on:
         type: string
         default: master
       cspgo:
-        description: Add context-sensitive PGO (requires Apple toolchain probe to pass)
+        description: Add context-sensitive PGO (uses prebuilt LLVM Clang)
         type: boolean
         default: false
       compare:
@@ -44,16 +44,14 @@ jobs:
           print('dependencies=' + hashlib.sha256(json.dumps(load_sources('macos'), sort_keys=True).encode()).hexdigest())
           PYTHON
           echo "LLVM_PROFDATA=$(xcrun --find llvm-profdata)" >> "$GITHUB_ENV"
-      - name: Verify Apple Clang ThinLTO and PGO
-        id: toolchain
-        env:
-          CSPGO: ${{ inputs.cspgo && '1' || '0' }}
-        run: |
-          if [ "$CSPGO" = 1 ]; then
-            python3 scripts/macos/toolchain.py --cspgo
-          else
-            python3 scripts/macos/toolchain.py
-          fi
+      - uses: actions/cache@v4
+        if: inputs.cspgo == true
+        with:
+          path: cache/llvm
+          key: macos-llvm-arm64-${{ hashFiles('scripts/macos/llvm.json') }}
+      - name: Install prebuilt LLVM for CSPGO
+        if: inputs.cspgo == true
+        run: python3 scripts/macos/setup-llvm.py
       - name: Remove Homebrew from disposable runner
         shell: bash
         run: |
@@ -63,6 +61,16 @@ jobs:
           sudo rm -rf /opt/homebrew
           # Persist a clean PATH across steps, including Python from Xcode.
           echo 'PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin' >> "$GITHUB_ENV"
+      - name: Verify selected Clang ThinLTO and PGO
+        id: toolchain
+        env:
+          CSPGO: ${{ inputs.cspgo && '1' || '0' }}
+        run: |
+          if [ "$CSPGO" = 1 ]; then
+            python3 scripts/macos/toolchain.py --cspgo
+          else
+            python3 scripts/macos/toolchain.py
+          fi
       - uses: actions/cache/restore@v4
         id: dependencies
         with:

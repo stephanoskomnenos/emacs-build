@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check paired Apple tools before compiling dependencies."""
+"""Check paired compiler tools before compiling dependencies."""
 import argparse
 import json
 import hashlib
@@ -8,7 +8,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
-from pgo import profile_flags
+from pgo import compiler_tools, profile_flags
 
 p = argparse.ArgumentParser()
 p.add_argument('--cspgo', action='store_true', help='also verify CS generation and final-link profile use')
@@ -21,13 +21,12 @@ if base.exists():
 base.mkdir(parents=True, exist_ok=False)
 def xcrun(*args):
     return subprocess.check_output(['xcrun', *args], text=True).strip()
-clang = xcrun('--find', 'clang')
-profdata = xcrun('--find', 'llvm-profdata')
+clang, profdata, linker_flags = compiler_tools()
 source = base / 'probe.m'
 source.write_text('#import <Foundation/Foundation.h>\nint main(int argc, char **argv) {\n'
                   '  @autoreleasepool { NSLog(@"PGO probe: %d", argc); }\n  return 0;\n}\n')
 flags = [clang, '-isysroot', xcrun('--sdk', 'macosx', '--show-sdk-path'), '-O2', '-g0', '-flto=thin']
-subprocess.run([*flags, '-fprofile-generate', str(source), '-framework', 'Foundation', '-o', str(base / 'generate')], check=True)
+subprocess.run([*flags, *linker_flags, '-fprofile-generate', str(source), '-framework', 'Foundation', '-o', str(base / 'generate')], check=True)
 subprocess.run([str(base / 'generate')], env=dict(os.environ, LLVM_PROFILE_FILE=str(base / 'probe-%m-%p.profraw')), check=True)
 profile = base / 'merged.profdata'
 subprocess.run([profdata, 'merge', '-o', str(profile), *map(str, base.glob('*.profraw'))], check=True)
@@ -39,10 +38,11 @@ subprocess.run([*flags, '-fprofile-use=' + str(profile), '-Werror=profile-instr-
                 '-S', '-emit-llvm', str(source), '-o', str(base / 'probe.ll')], check=True)
 ir = (base / 'probe.ll').read_text()
 if 'function_entry_count' not in ir or 'ProfileSummary' not in ir:
-    raise SystemExit('Apple Clang did not consume the generated profile')
+    raise SystemExit('Clang did not consume the generated profile')
 report = dict(compiler=subprocess.check_output([clang, '--version'], text=True),
-              profdata=xcrun('llvm-profdata', '--version'), sdk=xcrun('--show-sdk-version'),
+              profdata=subprocess.check_output([profdata, '--version'], text=True), linker_flags=linker_flags, sdk=xcrun('--show-sdk-version'),
               objective_c_thinlto_pgo=True, profile_summary=summary)
+(base / 'result.json').write_text(json.dumps(report, indent=2) + '\n')
 if a.cspgo:
     try:
         raw = base / 'cs-raw'
@@ -51,7 +51,7 @@ if a.cspgo:
         compile_cs, link_cs = profile_flags('cs-generate', base, raw)
         subprocess.run([*flags, *compile_cs, '-c', str(source), '-o', str(obj)], check=True)
         bitcode_hash = hashlib.sha256(obj.read_bytes()).hexdigest()
-        subprocess.run([*flags, str(obj), *link_cs, '-framework', 'Foundation',
+        subprocess.run([*flags, *linker_flags, str(obj), *link_cs, '-framework', 'Foundation',
                         '-o', str(base / 'cs-generate')], check=True)
         subprocess.run([str(base / 'cs-generate')],
                        env=dict(os.environ, LLVM_PROFILE_FILE=str(raw / '%m-%p.profraw')), check=True)
@@ -78,7 +78,7 @@ if a.cspgo:
             raise RuntimeError('CS generation/use prelink bitcode differs')
         # Print the tiny probe's IR after profile use inside the actual linker.
         # This catches toolchains that accept the flags but do not apply CS PGO.
-        result = subprocess.run([*flags, str(obj), *link_use, '-framework', 'Foundation',
+        result = subprocess.run([*flags, *linker_flags, str(obj), *link_use, '-framework', 'Foundation',
                                  '-Wl,-mllvm,-print-after=pgo-instr-use',
                                  '-o', str(base / 'cs-use')], text=True,
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -89,11 +89,14 @@ if a.cspgo:
         subprocess.run([str(base / 'cs-use')], check=True)
         report.update(context_sensitive_pgo=True, cs_profile_summary=cs_summary)
     except (subprocess.CalledProcessError, RuntimeError) as error:
-        raise SystemExit(f'Apple toolchain CSPGO probe failed: {error}. Disable cspgo to use ordinary PGO.')
+        report.update(context_sensitive_pgo=False, error=str(error))
+        (base / 'result.json').write_text(json.dumps(report, indent=2) + '\n')
+        raise SystemExit(f'Toolchain CSPGO probe failed: {error}. Disable cspgo to use ordinary PGO.')
 (base / 'result.json').write_text(json.dumps(report, indent=2) + '\n')
 print(json.dumps(report, indent=2))
 if os.environ.get('GITHUB_OUTPUT'):
-    identity = dict(compiler=report['compiler'], sdk=report['sdk'], architecture=os.uname().machine,
+    # Static dependency recipes continue to use Apple Clang, independently of Emacs.
+    identity = dict(compiler=subprocess.check_output([xcrun('--find', 'clang'), '--version'], text=True), sdk=report['sdk'], architecture=os.uname().machine,
                     system=subprocess.check_output(['sw_vers', '-buildVersion'], text=True).strip())
     digest = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
     with open(os.environ['GITHUB_OUTPUT'], 'a') as output:

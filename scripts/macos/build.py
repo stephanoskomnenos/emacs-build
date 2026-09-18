@@ -11,7 +11,7 @@ import subprocess
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from sources import load_sources
-from pgo import profile_flags
+from pgo import compiler_tools, profile_flags
 
 ROOT = Path(__file__).resolve().parents[2]
 BUILD = Path(os.environ.get('EMACS_BUILD_ROOT', ROOT / 'build/macos')).resolve()
@@ -44,7 +44,7 @@ configure.write_text(''.join(line.replace('lncurses', 'lncursesw') if 'darwin' i
                             for line in configure.read_text().splitlines(keepends=True)))
 def xcrun(*args):
     return subprocess.check_output(['xcrun', *args], text=True).strip()
-clang = xcrun('--find', 'clang')
+clang, profdata, linker_flags = compiler_tools()
 flags = '-O2 -g0 -flto=thin -isysroot ' + shlex.quote(xcrun('--sdk', 'macosx', '--show-sdk-path'))
 profile = BUILD / 'merged.profdata'
 if a.mode in ('use', 'cs-generate', 'cs-use'):
@@ -65,11 +65,11 @@ if a.mode == 'cs-use':
     if cs_provenance['profile_sha256'] != hashlib.sha256((BUILD / 'cs.profdata').read_bytes()).hexdigest():
         raise SystemExit('CS profile changed since training')
     # Recreate the combined profile from the checked inputs, excluding stale merges.
-    subprocess.run([xcrun('--find', 'llvm-profdata'), 'merge', str(profile),
+    subprocess.run([profdata, 'merge', str(profile),
                     str(BUILD / 'cs.profdata'), '-o', str(BUILD / 'combined.profdata')], check=True)
 compile_profile, link_profile = profile_flags(a.mode, BUILD, stage / 'bootstrap-profiles')
 compile_flags = flags + ' ' + shlex.join(compile_profile)
-link_flags = flags + ' ' + shlex.join(link_profile)
+link_flags = flags + ' ' + shlex.join(linker_flags + link_profile)
 env = dict(os.environ, CC=clang, OBJC=clang, CFLAGS=compile_flags, OBJCFLAGS=compile_flags,
            CPPFLAGS='-I/usr/local/include', LDFLAGS=link_flags + ' -L/usr/local/lib', PKG_CONFIG='pkgconf -static',
            PKG_CONFIG_LIBDIR='/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig',
@@ -106,7 +106,7 @@ wrapper.write_text('#!/bin/sh\nexport LC_ALL=en_US.UTF-8\nexec "$(dirname "$0")/
 wrapper.chmod(0o755)
 info = dict(platform='macOS', architecture=os.uname().machine, source=spec, pgo=a.mode,
             flags=compile_flags, link_flags=link_flags, source_directory=str(source), configure=args, extra_dependencies=load_sources('macos'), compiler=subprocess.check_output([clang, '--version'], text=True),
-            profdata=xcrun('llvm-profdata', '--version'), sdk=xcrun('--show-sdk-version'),
+            profdata=subprocess.check_output([profdata, '--version'], text=True), sdk=xcrun('--show-sdk-version'),
             dependency_recipe='RadioNoiseE/ebuild@5f2e2c6229989d986f1072c7727a586d92bb8523',
             dependency_recipe_sha256=hashlib.sha256((ROOT / 'scripts/macos/dependencies.sh').read_bytes()).hexdigest())
 if cs:
