@@ -104,9 +104,8 @@ echo "::endgroup::"
 echo "::group::Install GNU Ncurses"
 (
   unpack ncurses
-  ./configure --disable-shared && make -j"$build_jobs"
+  ./configure --prefix=/usr/local --disable-shared --disable-widec --enable-overwrite && make -j"$build_jobs"
   sudo make install
-  sudo ln -sf /usr/local/include/ncursesw/curses.h /usr/local/include/ncurses.h
 )
 echo "::endgroup::"
 

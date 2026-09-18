@@ -38,10 +38,6 @@ if cs and source.exists():
     shutil.rmtree(source)
 source.mkdir()
 subprocess.run(['tar', '-xf', str(archive), '--strip-components=1', '-C', str(source)], check=True)
-# The Darwin configure probe otherwise selects the non-wide ncurses library.
-configure = source / 'configure.ac'
-configure.write_text(''.join(line.replace('lncurses', 'lncursesw') if 'darwin' in line else line
-                            for line in configure.read_text().splitlines(keepends=True)))
 def xcrun(*args):
     return subprocess.check_output(['xcrun', *args], text=True).strip()
 clang, profdata, linker_flags = compiler_tools()
