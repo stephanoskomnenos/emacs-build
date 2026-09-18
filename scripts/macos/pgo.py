@@ -29,9 +29,17 @@ def profile_flags(mode, build, raw):
     if mode == 'use':
         return [normal, strict], [normal, strict]
     # Keep prelink bitcode identical between CS collection and final use.
-    compile_flags = [normal, '-Xclang', '-fprofile-instrument=csllvm', strict]
+    compile_flags = [normal, '-Xclang', '-fprofile-instrument=csllvm',
+                     # Mach-O needs this variable before LTO symbol resolution.
+                     # Keep the bootstrap path identical in both CS stages;
+                     # training overrides it with LLVM_PROFILE_FILE.
+                     '-Xclang', '-fprofile-instrument-path=' + str(build / 'cs-bootstrap/default_%m.profraw'),
+                     strict]
     if mode == 'cs-generate':
-        return compile_flags, [normal, '-fcs-profile-generate=' + str(raw)]
+        # Load the static profile runtime before ThinLTO resolves live globals.
+        # Otherwise its late reference to the filename can follow its removal.
+        return compile_flags, [normal, '-fcs-profile-generate=' + str(raw),
+                               '-Wl,-u,___llvm_profile_runtime']
     if mode == 'cs-use':
         combined = str(build / 'combined.profdata')
         return compile_flags, ['-fprofile-use=' + combined, strict]
