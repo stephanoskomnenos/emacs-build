@@ -99,7 +99,6 @@ if not (work / ('emacs-' + variant + '.done')).exists():
         run(['sh', 'autogen.sh', 'autoconf'], src, log)
     run([str(src / 'configure'), *options], obj, log,
         {'LDFLAGS': env['LDFLAGS'] + ' -Wl,--exclude-libs,ALL' + (' -Wl,--save-temps' if lto else '') + pgo_flags, 'LIBS': '-lm',
-         'emacs_cv_tputs_lib': '-lncursesw',
          'CFLAGS': env['CFLAGS'].replace('-fPIC', '-fPIE') + compile_pgo_flags})
     run(['make', '-j' + jobs], obj, log)
     run(['make', 'install', 'DESTDIR=' + str(stage)], obj, log)

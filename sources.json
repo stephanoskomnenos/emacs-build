@@ -1,12 +1,12 @@
 {
   "emacs": {
-    "version": "32.0.50.20260916175219.git82f763756c71",
+    "version": "32.0.50.20260918112757.git9ab48a669651",
     "emacs_version": "32.0.50",
-    "branch": "master",
-    "commit": "82f763756c71aae1f6361c7ae116a31887f8cc8d",
-    "commit_date": "2026-09-16T17:52:19Z",
-    "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/82f763756c71aae1f6361c7ae116a31887f8cc8d",
-    "sha256": "faaaaa2add46e6c7dfd7e6eee1496344db38df8409a64c84eaf5e4acbd368f9d"
+    "ref": "9ab48a669651c99ae6fcbf7aba79390f4498db0b",
+    "commit": "9ab48a669651c99ae6fcbf7aba79390f4498db0b",
+    "commit_date": "2026-09-18T11:27:57Z",
+    "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/9ab48a669651c99ae6fcbf7aba79390f4498db0b",
+    "sha256": "823ba365030b850218f20537dfd43493f857d894cebed48d5d6831f23ca4217e"
   },
   "ncurses": {
     "version": "6.6",

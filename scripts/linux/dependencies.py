@@ -57,7 +57,7 @@ def build_dependencies(manifest, work, env, jobs):
 
     recipes = {
         'ncurses': ['--without-shared', '--without-debug', '--without-ada', '--without-cxx-binding',
-                    '--enable-widec', '--enable-pc-files', '--with-pkg-config-libdir=' + str(prefix / 'lib/pkgconfig'),
+                    '--disable-widec', '--enable-overwrite', '--enable-pc-files', '--with-pkg-config-libdir=' + str(prefix / 'lib/pkgconfig'),
                     '--with-terminfo-dirs=/etc/terminfo:/lib/terminfo:/usr/share/terminfo',
                     '--with-default-terminfo-dir=/usr/share/terminfo'],
         'gmp': ['--disable-shared', '--enable-static', '--enable-fat', '--build=x86_64-pc-linux-gnu'],
