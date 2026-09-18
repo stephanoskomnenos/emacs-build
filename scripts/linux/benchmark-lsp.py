@@ -6,6 +6,8 @@ import os
 from pathlib import Path
 import statistics
 import time
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from pty_driver import Session
 
 class ConfiguredSession(Session):
@@ -20,7 +22,7 @@ p.add_argument('--label', required=True)
 p.add_argument('--mode', choices=['paced', 'saturated'], required=True)
 p.add_argument('--runs', type=int, default=3)
 a = p.parse_args()
-root = Path(__file__).resolve().parents[1]
+root = Path(__file__).resolve().parents[2]
 base = root / 'build/lsp-load'
 info = json.loads(Path('/bundle/BUILD-INFO.json').read_text())
 if info.get('pgo') in ('generate', 'cs-generate'):

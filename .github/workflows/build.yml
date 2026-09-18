@@ -1,6 +1,11 @@
 name: Build and verify Emacs nox
 on:
   workflow_dispatch:
+    inputs:
+      cspgo:
+        description: Add context-sensitive PGO training
+        type: boolean
+        default: true
   schedule:
     # Monday 01:23 Asia/Shanghai (Sunday 17:23 UTC).
     - cron: '23 17 * * 0'
@@ -36,16 +41,16 @@ jobs:
       - name: Build Clang image
         id: toolchain
         run: |
-          bash scripts/container.sh image
+          bash scripts/linux/container.sh image
           identity=$(podman run --rm localhost/emacs-builder:clang23 dpkg-query -W | sha256sum | cut -d ' ' -f 1)
           echo "identity=$identity" >> "$GITHUB_OUTPUT"
       - uses: actions/cache/restore@v4
         id: dependencies
         with:
           path: build/dependencies
-          key: linux-deps-v2-${{ runner.arch }}-${{ steps.toolchain.outputs.identity }}-${{ steps.sources.outputs.dependencies }}-${{ hashFiles('scripts/build.py', 'containers/Containerfile') }}
+          key: linux-deps-v2-${{ runner.arch }}-${{ steps.toolchain.outputs.identity }}-${{ steps.sources.outputs.dependencies }}-${{ hashFiles('scripts/linux/build.py', 'containers/Containerfile') }}
       - name: Build instrumented Emacs with Clang and ThinLTO
-        run: PGO=generate bash scripts/container.sh build
+        run: PGO=generate bash scripts/linux/container.sh build
       - uses: actions/cache/save@v4
         if: steps.dependencies.outputs.cache-hit != 'true'
         with:
@@ -53,22 +58,26 @@ jobs:
           key: ${{ steps.dependencies.outputs.cache-primary-key }}
       - name: Train on generic terminal workflows and ELPA benchmarks
         timeout-minutes: 25
-        run: bash scripts/container.sh train
+        run: bash scripts/linux/container.sh train
       - name: Build context-sensitive instrumentation
-        run: PGO=cs-generate bash scripts/container.sh build
+        if: github.event_name == 'schedule' || inputs.cspgo
+        run: PGO=cs-generate bash scripts/linux/container.sh build
       - name: Train context-sensitive profile
+        if: github.event_name == 'schedule' || inputs.cspgo
         timeout-minutes: 25
-        run: bash scripts/container.sh train
-      - name: Build with ordinary and context-sensitive profiles
-        run: PGO=cs-use bash scripts/container.sh build
+        run: bash scripts/linux/container.sh train
+      - name: Build optimized Emacs
+        env:
+          PGO: ${{ (github.event_name == 'schedule' || inputs.cspgo) && 'cs-use' || 'use' }}
+        run: bash scripts/linux/container.sh build
       - name: Verify in builder and clean Debian 13
-        run: bash scripts/container.sh test
+        run: bash scripts/linux/container.sh test
       - name: Package binary and sources
-        run: bash scripts/container.sh package
+        run: bash scripts/linux/container.sh package
       - name: Package RPM
-        run: bash scripts/container.sh rpm
+        run: bash scripts/linux/container.sh rpm
       - name: Verify RPM replaces Fedora Emacs and can be removed
-        run: bash scripts/container.sh test-rpm
+        run: bash scripts/linux/container.sh test-rpm
       - uses: actions/upload-artifact@v4
         with:
           name: emacs-nox-rpm-x86-64-v3

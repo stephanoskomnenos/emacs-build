@@ -1,5 +1,6 @@
 ;;; gui.el --- NS training and held-out GUI measurements -*- lexical-binding: t; -*-
 (require 'json)
+(defconst eb-gui-directory (file-name-directory load-file-name))
 (defvar eb-results nil)
 (defun eb-record (name start)
   (push (cons name (* 1000.0 (- (float-time) start))) eb-results))
@@ -61,6 +62,9 @@
                           (dotimes (_ (if (or training comparing) 10 1))
                             (split-window-right) (redisplay t) (delete-other-windows)
                             (text-scale-increase 1) (redisplay t) (text-scale-decrease 1))))
+          (when training
+            (load (expand-file-name "training.el" eb-gui-directory) nil t)
+            (eb-train-interactions))
           (when comparing
             (eb-operation "regexp"
                           (lambda ()

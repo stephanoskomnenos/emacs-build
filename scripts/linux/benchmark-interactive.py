@@ -9,9 +9,11 @@ import random
 import statistics
 import subprocess
 import shutil
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from pty_driver import Session
 
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[2]
 p=argparse.ArgumentParser()
 p.add_argument('bundle',type=Path)
 p.add_argument('--label',required=True)

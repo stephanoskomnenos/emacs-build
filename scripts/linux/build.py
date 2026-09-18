@@ -8,7 +8,7 @@ import shutil
 import subprocess
 import sys
 
-ROOT = pathlib.Path(__file__).resolve().parents[1]
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 manifest = json.loads((ROOT / 'sources.json').read_text())
 jobs = os.environ.get('JOBS', str(len(os.sched_getaffinity(0))))
 lto = os.environ.get('LTO', '1') == '1'

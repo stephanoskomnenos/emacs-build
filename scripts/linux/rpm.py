@@ -7,7 +7,7 @@ import shutil
 import subprocess
 import tempfile
 
-ROOT = pathlib.Path(__file__).resolve().parents[1]
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 dist = ROOT / 'dist'
 bundle = ROOT / (ROOT / 'build/current-bundle').read_text().strip()
 info = json.loads((bundle / 'BUILD-INFO.json').read_text())

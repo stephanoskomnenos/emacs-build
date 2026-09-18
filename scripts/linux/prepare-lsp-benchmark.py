@@ -11,7 +11,7 @@ import subprocess
 p = argparse.ArgumentParser()
 p.add_argument('config', type=Path)
 a = p.parse_args()
-root = Path(__file__).resolve().parents[1]
+root = Path(__file__).resolve().parents[2]
 base = root/'build/lsp-load'
 original = a.config.expanduser().resolve()
 target = base/'home/.emacs.d'

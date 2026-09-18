@@ -79,7 +79,7 @@ if os.environ.get('EMACS_TRAIN_GUI')=='1':
     print('Starting Cocoa GUI training',flush=True)
     targets['gui']=2
     subprocess.run(['python3',str(ROOT/'scripts/macos/gui.py'),'train',str(a.bundle)],
-                   env=dict(env,LLVM_PROFILE_FILE=str(profiles/'gui-%m-%p.profraw')),check=True)
+                   env=dict(env,TRAIN_FIXTURES=str(fixtures),LLVM_PROFILE_FILE=str(profiles/'gui-%m-%p.profraw')),check=True)
 counts={};groups={};inner={}
 def merge_case(name):
     raw=sorted(profiles.glob(name+'-*.profraw'))
@@ -118,7 +118,7 @@ subprocess.run([profdata,'merge','-o',str(merged),*[f'--weighted-input={weights[
 summary=subprocess.check_output([profdata,'show',*(['--showcs'] if cs else []),str(merged)],text=True)
 (base/'profile-summary.txt').write_text(summary)
 scripts=['scripts/training_fixtures.py','scripts/training_scenarios.py','scripts/prepare-workload-packages.py','scripts/pgo-train.py','scripts/profile_weights.py','scripts/pty_driver.py','benchmarks/interactive/training.el','benchmarks/interactive/training-producer.py','benchmarks/files.el','benchmarks/runtime.el']
-if os.environ.get('EMACS_TRAIN_GUI')=='1':scripts+=['scripts/macos/gui.py','benchmarks/macos/gui.el']
+if os.environ.get('EMACS_TRAIN_GUI')=='1':scripts+=['scripts/macos/gui.py','benchmarks/macos/gui.el','benchmarks/macos/training.el']
 (base/'provenance.json').write_text(json.dumps({'build':info,'balanced_gap':cs,'compile_profile_sha256':info.get('compile_profile_sha256'),'configuration':'generic built-in and locked Magit scenarios only; no user configuration or held-out inputs','subscenario_profiles':inner,'group_execution_counts':counts,'target_share_units':targets,'group_merge_weights':weights,'actual_execution_shares':shares,'benchmark_sources':lock,'benchmark_selector':selector,'fixture_sha256':{str(f.relative_to(fixtures)):hashlib.sha256(f.read_bytes()).hexdigest() for f in sorted(fixtures.rglob('*')) if f.is_file() and '.git' not in f.parts},'corpus_sha256':{f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in corpus.iterdir()},'training_script_sha256':{f:hashlib.sha256((ROOT/f).read_bytes()).hexdigest() for f in scripts},'scenario_checks':checks,'profile_sha256':hashlib.sha256(merged.read_bytes()).hexdigest()},indent=2)+'\n')
 print(summary,flush=True)
 print('Profile shares:',json.dumps(shares),flush=True)

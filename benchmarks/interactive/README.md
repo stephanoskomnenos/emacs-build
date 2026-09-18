@@ -14,13 +14,9 @@ Terminal sessions use Pexpect. Emacs emits completion messages through the
 terminal; no separate acknowledgement socket is needed.
 
 Held-out validation inputs and scripts are pinned by `validation-lock.json`.
-The regexp item now splits its existing 60 scans equally between gap positions
-at the beginning and end of the same text. It retains the same matches and total
-scan count; earlier reports used only one gap position, so their regexp timings
-are not directly comparable. The observer hash records this revision.
+The regexp item splits 60 scans equally between gap positions at the beginning
+and end of the same text. Use the same validation lock and driver for both variants.
 
-The Pexpect migration changes timing overhead: use the same driver for both
-variants and do not compare absolute timings with the older socket-based reports.
 Validation rejects instrumented builds and uses a private HOME. PTY actions
 check results after command execution and redisplay; process and Magit checks
 also verify asynchronous output and Git state. Timings include acknowledgement
@@ -33,5 +29,5 @@ weights repeatedly against these held-out results.
 
 ```sh
 python3 scripts/prepare-workload-packages.py /path/to/bundle
-python3 scripts/benchmark-interactive.py /path/to/bundle --label baseline
+python3 scripts/linux/benchmark-interactive.py /path/to/bundle --label baseline
 ```

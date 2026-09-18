@@ -8,7 +8,7 @@ import shutil
 import subprocess
 import tarfile
 
-ROOT = pathlib.Path(__file__).resolve().parents[1]
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 p = argparse.ArgumentParser()
 p.add_argument('--force', action='store_true', help='replace previously generated release trees')
 args = p.parse_args()
@@ -22,7 +22,7 @@ if actual != expected:
 for name in ('builder', 'debian13'):
     report = ROOT / 'build/acceptance' / (name + '.log')
     if not report.exists() or 'ALL ACCEPTANCE TESTS PASSED' not in report.read_text():
-        raise SystemExit('Run bash scripts/container.sh test before packaging')
+        raise SystemExit('Run bash scripts/linux/container.sh test before packaging')
 dist = ROOT / 'dist'
 dist.mkdir(exist_ok=True)
 name = 'emacs-' + info['emacs'] + '-linux-' + info['cpu_baseline']
@@ -49,7 +49,7 @@ for item in ('copyright', 'GPL-3'):
     shutil.copy2(runtime_source / item, licenses / 'gcc-runtime' / item)
 shutil.copytree(ROOT / 'build/acceptance', release / 'acceptance',
                 ignore=shutil.ignore_patterns('rpm.log'))
-audit = subprocess.check_output(['python3', str(ROOT / 'scripts/audit.py'), str(release)], text=True)
+audit = subprocess.check_output(['python3', str(ROOT / 'scripts/linux/audit.py'), str(release)], text=True)
 (release / 'ELF-AUDIT.json').write_text(audit)
 archive = dist / (name + '.tar.zst')
 with tarfile.open(ROOT / 'cache/sources' / ('emacs-' + info['emacs'] + '.tar')) as t:

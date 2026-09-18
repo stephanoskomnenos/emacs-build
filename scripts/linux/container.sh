@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/../.."
 image=localhost/emacs-builder:clang23
 case "${1:-build}" in
   image)
@@ -13,7 +13,7 @@ case "${1:-build}" in
       -e JOBS="${JOBS:-$(nproc)}" -e LTO="${LTO:-1}" \
       -e PGO="${PGO:-off}" \
       -e PROFILE_FILE="${PROFILE_FILE:-/work/build/$profile}" \
-      -v "$PWD:/work:Z" -w /work "$image" python3 scripts/build.py
+      -v "$PWD:/work:Z" -w /work "$image" python3 scripts/linux/build.py
     ;;
   train)
     bundle=$(cat build/current-bundle)
@@ -48,16 +48,16 @@ PY
       python3 scripts/prepare-workload-packages.py "$bundle"
     podman run --rm --userns=keep-id --network=none \
       -v "$PWD:/work:Z" -w /work "$image" \
-      python3 scripts/benchmark-interactive.py "$bundle" --label ci --runs 1
+      python3 scripts/linux/benchmark-interactive.py "$bundle" --label ci --runs 1
     ;;
   package)
     podman run --rm --userns=keep-id --network=none \
-      -v "$PWD:/work:Z" -w /work "$image" python3 scripts/package.py "${@:2}"
+      -v "$PWD:/work:Z" -w /work "$image" python3 scripts/linux/package.py "${@:2}"
     ;;
   rpm)
     podman build -t localhost/emacs-nox-rpm:fedora44 -f containers/RPM.Containerfile .
     podman run --rm --userns=keep-id --network=none \
-      -v "$PWD:/work:Z" -w /work localhost/emacs-nox-rpm:fedora44 python3 scripts/rpm.py
+      -v "$PWD:/work:Z" -w /work localhost/emacs-nox-rpm:fedora44 python3 scripts/linux/rpm.py
     ;;
   test-rpm)
     podman build -t localhost/emacs-nox-rpm-test:fedora44 -f containers/RPMTest.Containerfile .
@@ -65,5 +65,5 @@ PY
     podman run --rm --network=none -v "$PWD:/work:ro,Z" \
       localhost/emacs-nox-rpm-test:fedora44 bash tests/rpm.sh 2>&1 | tee build/acceptance/rpm.log
     ;;
-  *) echo 'usage: bash scripts/container.sh [image|build|train|test|test-interactive|package [--force]|rpm|test-rpm]' >&2; exit 2 ;;
+  *) echo 'usage: bash scripts/linux/container.sh [image|build|train|test|test-interactive|package [--force]|rpm|test-rpm]' >&2; exit 2 ;;
 esac
