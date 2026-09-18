@@ -1,0 +1,552 @@
+{
+  "units": "milliseconds",
+  "method": "alternating warm-cache NS sessions; -Q fixed held-out fixtures; ready after first redisplay, before smoke checks; no personal configuration",
+  "builds": {
+    "baseline": {
+      "platform": "macOS",
+      "architecture": "arm64",
+      "source": {
+        "version": "32.0.50.20260918112757.git9ab48a669651",
+        "emacs_version": "32.0.50",
+        "ref": "9ab48a669651c99ae6fcbf7aba79390f4498db0b",
+        "commit": "9ab48a669651c99ae6fcbf7aba79390f4498db0b",
+        "commit_date": "2026-09-18T11:27:57Z",
+        "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/9ab48a669651c99ae6fcbf7aba79390f4498db0b",
+        "sha256": "823ba365030b850218f20537dfd43493f857d894cebed48d5d6831f23ca4217e"
+      },
+      "pgo": "use",
+      "flags": "-O2 -g0 -flto=thin -isysroot /Applications/Xcode_26.6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -fprofile-use=/private/tmp/emacs-build/merged.profdata -Werror=profile-instr-out-of-date",
+      "link_flags": "-O2 -g0 -flto=thin -isysroot /Applications/Xcode_26.6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -fuse-ld=lld --ld-path=/Users/runner/work/_temp/emacs-llvm/bin/ld64.lld -fprofile-use=/private/tmp/emacs-build/merged.profdata -Werror=profile-instr-out-of-date",
+      "source_directory": "/private/tmp/emacs-build/use/source",
+      "configure": [
+        "--prefix=/private/tmp/emacs-build/use/install",
+        "--disable-build-details",
+        "--disable-gc-mark-trace",
+        "--without-all",
+        "--without-native-compilation",
+        "--with-compress-install",
+        "--with-file-notification=kqueue",
+        "--with-libgmp",
+        "--with-gnutls",
+        "--with-modules",
+        "--with-native-image-api",
+        "--with-ns",
+        "--with-threads",
+        "--with-toolkit-scroll-bars",
+        "--with-tree-sitter",
+        "--with-xml2",
+        "--with-zlib",
+        "--with-sqlite3"
+      ],
+      "extra_dependencies": {
+        "libunistring": {
+          "version": "1.4.2",
+          "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+          "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+        },
+        "ncurses": {
+          "version": "6.6",
+          "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+          "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+        },
+        "zlib": {
+          "version": "1.3.2",
+          "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+          "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+        },
+        "libxml2": {
+          "version": "2.15.4",
+          "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+          "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+        },
+        "gmp": {
+          "version": "6.3.0",
+          "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+          "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+        },
+        "nettle": {
+          "version": "4.0",
+          "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+          "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+        },
+        "libidn2": {
+          "version": "2.3.8",
+          "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+          "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+        },
+        "gnutls": {
+          "version": "3.8.13",
+          "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+          "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+        },
+        "tree-sitter": {
+          "version": "0.27.0",
+          "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+          "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+        },
+        "sqlite": {
+          "version": "3.53.4",
+          "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+          "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+        },
+        "m4": {
+          "version": "1.4.21",
+          "url": "https://ftp.gnu.org/gnu/m4/m4-1.4.21.tar.xz",
+          "sha256": "f25c6ab51548a73a75558742fb031e0625d6485fe5f9155949d6486a2408ab66"
+        },
+        "autoconf": {
+          "version": "2.73",
+          "url": "https://ftp.gnu.org/gnu/autoconf/autoconf-2.73.tar.xz",
+          "sha256": "9fd672b1c8425fac2fa67fa0477b990987268b90ff36d5f016dae57be0d6b52e"
+        },
+        "automake": {
+          "version": "1.19",
+          "url": "https://ftp.gnu.org/gnu/automake/automake-1.19.tar.xz",
+          "sha256": "e3e2c2e3abf37898138db5b6c1d1dc35c9160c5978be7947d2c741705251d445"
+        },
+        "libtool": {
+          "version": "2.6.2",
+          "url": "https://ftp.gnu.org/gnu/libtool/libtool-2.6.2.tar.xz",
+          "sha256": "2ef1067c16c97db930fd740cc9bc3d3ba9a583804ae5ac42cc3e8719e49e191e"
+        },
+        "pkgconf": {
+          "version": "3.0.7",
+          "url": "https://github.com/pkgconf/pkgconf/archive/refs/tags/pkgconf-3.0.7.tar.gz",
+          "sha256": "a9ae678879771fcf15247ac2435e7ad8308be8a5921898e6720b3b8949410f73"
+        },
+        "texinfo": {
+          "version": "7.3",
+          "url": "https://ftp.gnu.org/gnu/texinfo/texinfo-7.3.tar.xz",
+          "sha256": "51f74eb0f51cfa9873b85264dfdd5d46e8957ec95b88f0fb762f63d9e164c72e"
+        },
+        "libiconv": {
+          "version": "1.19",
+          "url": "https://ftp.gnu.org/gnu/libiconv/libiconv-1.19.tar.gz",
+          "sha256": "88dd96a8c0464eca144fc791ae60cd31cd8ee78321e67397e25fc095c4a19aa6"
+        },
+        "gettext": {
+          "version": "1.0",
+          "url": "https://ftp.gnu.org/gnu/gettext/gettext-1.0.tar.xz",
+          "sha256": "71132a3fb71e68245b8f2ac4e9e97137d3e5c02f415636eb508ae607bc01add7"
+        },
+        "gzip": {
+          "version": "1.14",
+          "url": "https://ftp.gnu.org/gnu/gzip/gzip-1.14.tar.xz",
+          "sha256": "01a7b881bd220bfdf615f97b8718f80bdfd3f6add385b993dcf6efd14e8c0ac6"
+        }
+      },
+      "compiler": "clang version 23.1.1 (https://github.com/llvm/llvm-project 6dfe1677ab8dffbc6ec13d53a1e0215d75147689)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Users/runner/work/_temp/emacs-llvm/bin\n",
+      "profdata": "LLVM (http://llvm.org/):\n  LLVM version 23.1.1\n  Optimized build.\n",
+      "sdk": "26.5",
+      "dependency_recipe": "RadioNoiseE/ebuild@5f2e2c6229989d986f1072c7727a586d92bb8523",
+      "dependency_recipe_sha256": "ae734fd812b5f12880ece5827084de7f421198fe3a42db1630d284bf98232059",
+      "profile_sha256": "3d4ae3830677447637e936fdbc06a256964904ccd8f9d7cff84688dcc878ec30",
+      "artifact_run_id": "35355938912"
+    },
+    "candidate": {
+      "platform": "macOS",
+      "architecture": "arm64",
+      "source": {
+        "version": "32.0.50.20260918112757.git9ab48a669651",
+        "emacs_version": "32.0.50",
+        "ref": "9ab48a669651c99ae6fcbf7aba79390f4498db0b",
+        "commit": "9ab48a669651c99ae6fcbf7aba79390f4498db0b",
+        "commit_date": "2026-09-18T11:27:57Z",
+        "url": "https://codeload.github.com/emacs-mirror/emacs/tar.gz/9ab48a669651c99ae6fcbf7aba79390f4498db0b",
+        "sha256": "823ba365030b850218f20537dfd43493f857d894cebed48d5d6831f23ca4217e"
+      },
+      "pgo": "cs-use",
+      "flags": "-O2 -g0 -flto=thin -isysroot /Applications/Xcode_26.6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -fprofile-use=/private/tmp/emacs-build/merged.profdata -Xclang -fprofile-instrument=csllvm -Xclang -fprofile-instrument-path=/private/tmp/emacs-build/cs-bootstrap/default_%m.profraw -Werror=profile-instr-out-of-date",
+      "link_flags": "-O2 -g0 -flto=thin -isysroot /Applications/Xcode_26.6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -fuse-ld=lld --ld-path=/Users/runner/work/_temp/emacs-llvm/bin/ld64.lld -fprofile-use=/private/tmp/emacs-build/combined.profdata -Werror=profile-instr-out-of-date",
+      "source_directory": "/private/tmp/emacs-build/cs-source",
+      "configure": [
+        "--prefix=/private/tmp/emacs-build/cs-install",
+        "--disable-build-details",
+        "--disable-gc-mark-trace",
+        "--without-all",
+        "--without-native-compilation",
+        "--with-compress-install",
+        "--with-file-notification=kqueue",
+        "--with-libgmp",
+        "--with-gnutls",
+        "--with-modules",
+        "--with-native-image-api",
+        "--with-ns",
+        "--with-threads",
+        "--with-toolkit-scroll-bars",
+        "--with-tree-sitter",
+        "--with-xml2",
+        "--with-zlib",
+        "--with-sqlite3"
+      ],
+      "extra_dependencies": {
+        "libunistring": {
+          "version": "1.4.2",
+          "url": "https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
+          "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+        },
+        "ncurses": {
+          "version": "6.6",
+          "url": "https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz",
+          "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
+        },
+        "zlib": {
+          "version": "1.3.2",
+          "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+          "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+        },
+        "libxml2": {
+          "version": "2.15.4",
+          "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+          "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
+        },
+        "gmp": {
+          "version": "6.3.0",
+          "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+          "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+        },
+        "nettle": {
+          "version": "4.0",
+          "url": "https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz",
+          "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
+        },
+        "libidn2": {
+          "version": "2.3.8",
+          "url": "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+          "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
+        },
+        "gnutls": {
+          "version": "3.8.13",
+          "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
+          "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+        },
+        "tree-sitter": {
+          "version": "0.27.0",
+          "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
+          "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+        },
+        "sqlite": {
+          "version": "3.53.4",
+          "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
+          "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+        },
+        "m4": {
+          "version": "1.4.21",
+          "url": "https://ftp.gnu.org/gnu/m4/m4-1.4.21.tar.xz",
+          "sha256": "f25c6ab51548a73a75558742fb031e0625d6485fe5f9155949d6486a2408ab66"
+        },
+        "autoconf": {
+          "version": "2.73",
+          "url": "https://ftp.gnu.org/gnu/autoconf/autoconf-2.73.tar.xz",
+          "sha256": "9fd672b1c8425fac2fa67fa0477b990987268b90ff36d5f016dae57be0d6b52e"
+        },
+        "automake": {
+          "version": "1.19",
+          "url": "https://ftp.gnu.org/gnu/automake/automake-1.19.tar.xz",
+          "sha256": "e3e2c2e3abf37898138db5b6c1d1dc35c9160c5978be7947d2c741705251d445"
+        },
+        "libtool": {
+          "version": "2.6.2",
+          "url": "https://ftp.gnu.org/gnu/libtool/libtool-2.6.2.tar.xz",
+          "sha256": "2ef1067c16c97db930fd740cc9bc3d3ba9a583804ae5ac42cc3e8719e49e191e"
+        },
+        "pkgconf": {
+          "version": "3.0.7",
+          "url": "https://github.com/pkgconf/pkgconf/archive/refs/tags/pkgconf-3.0.7.tar.gz",
+          "sha256": "a9ae678879771fcf15247ac2435e7ad8308be8a5921898e6720b3b8949410f73"
+        },
+        "texinfo": {
+          "version": "7.3",
+          "url": "https://ftp.gnu.org/gnu/texinfo/texinfo-7.3.tar.xz",
+          "sha256": "51f74eb0f51cfa9873b85264dfdd5d46e8957ec95b88f0fb762f63d9e164c72e"
+        },
+        "libiconv": {
+          "version": "1.19",
+          "url": "https://ftp.gnu.org/gnu/libiconv/libiconv-1.19.tar.gz",
+          "sha256": "88dd96a8c0464eca144fc791ae60cd31cd8ee78321e67397e25fc095c4a19aa6"
+        },
+        "gettext": {
+          "version": "1.0",
+          "url": "https://ftp.gnu.org/gnu/gettext/gettext-1.0.tar.xz",
+          "sha256": "71132a3fb71e68245b8f2ac4e9e97137d3e5c02f415636eb508ae607bc01add7"
+        },
+        "gzip": {
+          "version": "1.14",
+          "url": "https://ftp.gnu.org/gnu/gzip/gzip-1.14.tar.xz",
+          "sha256": "01a7b881bd220bfdf615f97b8718f80bdfd3f6add385b993dcf6efd14e8c0ac6"
+        }
+      },
+      "compiler": "clang version 23.1.1 (https://github.com/llvm/llvm-project 6dfe1677ab8dffbc6ec13d53a1e0215d75147689)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Users/runner/work/_temp/emacs-llvm/bin\n",
+      "profdata": "LLVM (http://llvm.org/):\n  LLVM version 23.1.1\n  Optimized build.\n",
+      "sdk": "26.5",
+      "dependency_recipe": "RadioNoiseE/ebuild@5f2e2c6229989d986f1072c7727a586d92bb8523",
+      "dependency_recipe_sha256": "ae734fd812b5f12880ece5827084de7f421198fe3a42db1630d284bf98232059",
+      "compile_profile_sha256": "73e8c9e3876afa1d2db043acdc7281a8117df50147043fcaf227c18d3fc1482d",
+      "profile_sha256": "b530b7d39bfda4fecc1b5d4fb36eeb3225b47b347c2326569214a03d283ea25d",
+      "artifact_run_id": "35350830348"
+    }
+  },
+  "samples": {
+    "baseline": [
+      {
+        "json": 22.197961807250977,
+        "regexp": 5252.38299369812,
+        "window-layout": 59.32497978210449,
+        "scroll-edit": 40.58504104614258,
+        "held-out.txt": 7.278203964233398,
+        "held-out.org": 564.155101776123,
+        "held-out.el": 92.66400337219238,
+        "gui-ready": 309.2970848083496
+      },
+      {
+        "json": 20.561933517456055,
+        "regexp": 5228.53684425354,
+        "window-layout": 57.63101577758789,
+        "scroll-edit": 40.0080680847168,
+        "held-out.txt": 4.952907562255859,
+        "held-out.org": 703.7169933319092,
+        "held-out.el": 93.43600273132324,
+        "gui-ready": 343.1100845336914
+      },
+      {
+        "json": 23.452043533325195,
+        "regexp": 5224.730014801025,
+        "window-layout": 53.52306365966797,
+        "scroll-edit": 39.83306884765625,
+        "held-out.txt": 8.103132247924805,
+        "held-out.org": 569.0610408782959,
+        "held-out.el": 84.7320556640625,
+        "gui-ready": 297.77979850769043
+      },
+      {
+        "json": 22.909164428710938,
+        "regexp": 5524.240016937256,
+        "window-layout": 53.642988204956055,
+        "scroll-edit": 38.8491153717041,
+        "held-out.txt": 6.526947021484375,
+        "held-out.org": 579.3728828430176,
+        "held-out.el": 83.83321762084961,
+        "gui-ready": 376.01494789123535
+      },
+      {
+        "json": 25.32196044921875,
+        "regexp": 5531.320095062256,
+        "window-layout": 56.76603317260742,
+        "scroll-edit": 38.555145263671875,
+        "held-out.txt": 6.762981414794922,
+        "held-out.org": 618.9050674438477,
+        "held-out.el": 98.94084930419922,
+        "gui-ready": 323.0431079864502
+      },
+      {
+        "json": 20.595073699951172,
+        "regexp": 5307.733058929443,
+        "window-layout": 52.2000789642334,
+        "scroll-edit": 36.869049072265625,
+        "held-out.txt": 4.494190216064453,
+        "held-out.org": 620.6610202789307,
+        "held-out.el": 95.04318237304688,
+        "gui-ready": 333.51612091064453
+      },
+      {
+        "json": 19.1957950592041,
+        "regexp": 5202.348947525024,
+        "window-layout": 54.56185340881348,
+        "scroll-edit": 37.91999816894531,
+        "held-out.txt": 6.184101104736328,
+        "held-out.org": 560.89186668396,
+        "held-out.el": 85.07108688354492,
+        "gui-ready": 287.29701042175293
+      },
+      {
+        "json": 22.328853607177734,
+        "regexp": 5177.504062652588,
+        "window-layout": 58.90297889709473,
+        "scroll-edit": 42.41299629211426,
+        "held-out.txt": 6.244182586669922,
+        "held-out.org": 657.9451560974121,
+        "held-out.el": 88.40298652648926,
+        "gui-ready": 279.94799613952637
+      },
+      {
+        "json": 20.51401138305664,
+        "regexp": 5258.763790130615,
+        "window-layout": 54.57901954650879,
+        "scroll-edit": 37.368059158325195,
+        "held-out.txt": 6.103038787841797,
+        "held-out.org": 568.0310726165771,
+        "held-out.el": 88.1199836730957,
+        "gui-ready": 338.0270004272461
+      },
+      {
+        "json": 21.477937698364258,
+        "regexp": 5198.578834533691,
+        "window-layout": 54.34083938598633,
+        "scroll-edit": 40.74692726135254,
+        "held-out.txt": 4.973173141479492,
+        "held-out.org": 581.5198421478271,
+        "held-out.el": 86.56191825866699,
+        "gui-ready": 302.0050525665283
+      }
+    ],
+    "candidate": [
+      {
+        "json": 20.708799362182617,
+        "regexp": 5279.4389724731445,
+        "window-layout": 62.8509521484375,
+        "scroll-edit": 49.273014068603516,
+        "held-out.txt": 6.439924240112305,
+        "held-out.org": 586.7140293121338,
+        "held-out.el": 80.83415031433105,
+        "gui-ready": 298.4189987182617
+      },
+      {
+        "json": 25.443077087402344,
+        "regexp": 5247.720003128052,
+        "window-layout": 52.75607109069824,
+        "scroll-edit": 37.63294219970703,
+        "held-out.txt": 6.424188613891602,
+        "held-out.org": 643.3439254760742,
+        "held-out.el": 95.62087059020996,
+        "gui-ready": 303.2810688018799
+      },
+      {
+        "json": 19.71292495727539,
+        "regexp": 5945.1189041137695,
+        "window-layout": 53.79486083984375,
+        "scroll-edit": 38.938045501708984,
+        "held-out.txt": 6.176948547363281,
+        "held-out.org": 568.7308311462402,
+        "held-out.el": 87.16917037963867,
+        "gui-ready": 328.2949924468994
+      },
+      {
+        "json": 24.992942810058594,
+        "regexp": 5571.361064910889,
+        "window-layout": 72.68095016479492,
+        "scroll-edit": 41.832923889160156,
+        "held-out.txt": 5.125999450683594,
+        "held-out.org": 642.7488327026367,
+        "held-out.el": 104.37798500061035,
+        "gui-ready": 348.36411476135254
+      },
+      {
+        "json": 22.840023040771484,
+        "regexp": 5624.229907989502,
+        "window-layout": 60.899972915649414,
+        "scroll-edit": 45.19009590148926,
+        "held-out.txt": 6.949186325073242,
+        "held-out.org": 628.2379627227783,
+        "held-out.el": 92.33903884887695,
+        "gui-ready": 343.80531311035156
+      },
+      {
+        "json": 22.094011306762695,
+        "regexp": 5184.261798858643,
+        "window-layout": 66.42889976501465,
+        "scroll-edit": 45.37200927734375,
+        "held-out.txt": 7.853031158447266,
+        "held-out.org": 650.9439945220947,
+        "held-out.el": 80.23214340209961,
+        "gui-ready": 313.021183013916
+      },
+      {
+        "json": 22.75991439819336,
+        "regexp": 5243.046998977661,
+        "window-layout": 55.36198616027832,
+        "scroll-edit": 38.85793685913086,
+        "held-out.txt": 5.217075347900391,
+        "held-out.org": 580.906867980957,
+        "held-out.el": 84.12504196166992,
+        "gui-ready": 304.5799732208252
+      },
+      {
+        "json": 20.802974700927734,
+        "regexp": 5210.603952407837,
+        "window-layout": 55.46116828918457,
+        "scroll-edit": 39.33882713317871,
+        "held-out.txt": 6.193876266479492,
+        "held-out.org": 566.5271282196045,
+        "held-out.el": 81.37202262878418,
+        "gui-ready": 304.5158386230469
+      },
+      {
+        "json": 20.4470157623291,
+        "regexp": 5216.975927352905,
+        "window-layout": 53.30610275268555,
+        "scroll-edit": 37.70303726196289,
+        "held-out.txt": 7.294893264770508,
+        "held-out.org": 556.6141605377197,
+        "held-out.el": 84.33413505554199,
+        "gui-ready": 286.13996505737305
+      },
+      {
+        "json": 20.869970321655273,
+        "regexp": 5229.515075683594,
+        "window-layout": 55.8931827545166,
+        "scroll-edit": 37.21213340759277,
+        "held-out.txt": 4.920005798339844,
+        "held-out.org": 558.8879585266113,
+        "held-out.el": 83.70304107666016,
+        "gui-ready": 286.1218452453613
+      }
+    ]
+  },
+  "summary": {
+    "json": {
+      "baseline": 21.837949752807617,
+      "candidate": 21.481990814208984,
+      "improvement_percent": 1.630001637643974
+    },
+    "regexp": {
+      "baseline": 5240.45991897583,
+      "candidate": 5245.383501052856,
+      "improvement_percent": -0.09395324366852087
+    },
+    "window-layout": {
+      "baseline": 54.57043647766113,
+      "candidate": 55.677175521850586,
+      "improvement_percent": -2.028092710313034
+    },
+    "scroll-edit": {
+      "baseline": 39.341092109680176,
+      "candidate": 39.13843631744385,
+      "improvement_percent": 0.5151249784102085
+    },
+    "held-out.txt": {
+      "baseline": 6.214141845703125,
+      "candidate": 6.309032440185547,
+      "improvement_percent": -1.527010435850218
+    },
+    "held-out.org": {
+      "baseline": 580.4463624954224,
+      "candidate": 583.8104486465454,
+      "improvement_percent": -0.5795688229762286
+    },
+    "held-out.el": {
+      "baseline": 88.26148509979248,
+      "candidate": 84.22958850860596,
+      "improvement_percent": 4.5681268410880165
+    },
+    "gui-ready": {
+      "baseline": 316.1700963973999,
+      "candidate": 304.54790592193604,
+      "improvement_percent": 3.67592969983338
+    }
+  },
+  "build_differences": {
+    "pgo": {
+      "baseline": "use",
+      "candidate": "cs-use"
+    },
+    "flags": {
+      "baseline": "-O2 -g0 -flto=thin -isysroot /Applications/Xcode_26.6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -fprofile-use=/private/tmp/emacs-build/merged.profdata -Werror=profile-instr-out-of-date",
+      "candidate": "-O2 -g0 -flto=thin -isysroot /Applications/Xcode_26.6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -fprofile-use=/private/tmp/emacs-build/merged.profdata -Xclang -fprofile-instrument=csllvm -Xclang -fprofile-instrument-path=/private/tmp/emacs-build/cs-bootstrap/default_%m.profraw -Werror=profile-instr-out-of-date"
+    },
+    "link_flags": {
+      "baseline": "-O2 -g0 -flto=thin -isysroot /Applications/Xcode_26.6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -fuse-ld=lld --ld-path=/Users/runner/work/_temp/emacs-llvm/bin/ld64.lld -fprofile-use=/private/tmp/emacs-build/merged.profdata -Werror=profile-instr-out-of-date",
+      "candidate": "-O2 -g0 -flto=thin -isysroot /Applications/Xcode_26.6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -fuse-ld=lld --ld-path=/Users/runner/work/_temp/emacs-llvm/bin/ld64.lld -fprofile-use=/private/tmp/emacs-build/combined.profdata -Werror=profile-instr-out-of-date"
+    }
+  },
+  "comparison_scope": "existing artifacts; not an isolated compiler comparison"
+}
