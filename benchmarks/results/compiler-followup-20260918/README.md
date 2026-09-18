@@ -274,3 +274,7 @@ local archive identified by [local-evidence-archive.json](local-evidence-archive
 so they survive temporary-build cleanup without adding generated binaries to Git.
 Personal configuration is not included. Performance evidence is local Linux only;
 no inference about macOS CSPGO/BOLT performance follows from these results.
+
+## Production CI verification
+
+[Linux Action 35312516728](https://github.com/stephanoskomnenos/emacs-build/actions/runs/35312516728) passed on `1884917`: both training stages, final CSPGO build, builder and clean Debian 13 verification, packaging, and Fedora RPM replacement/removal. All three binary/source/RPM artifacts were uploaded. Run and artifact metadata are saved under `production/`; no large artifacts were downloaded.

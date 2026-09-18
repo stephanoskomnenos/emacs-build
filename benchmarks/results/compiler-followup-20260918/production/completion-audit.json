@@ -1,0 +1,44 @@
+{
+  "completed_local_requirements": {
+    "cs_name_and_header_repair": [
+      "scripts/build.py",
+      "scripts/pgo-train.py",
+      "benchmarks/results/compiler-followup-20260918/diagnosis/final-audit/audit.json",
+      "benchmarks/results/compiler-followup-20260918/production/verification.json"
+    ],
+    "repeated_ordinary_original_cs_repaired_cs_comparisons": [
+      "benchmarks/results/compiler-followup-20260918/interactive-validation.json",
+      "benchmarks/results/compiler-followup-20260918/startup-benchmark.json"
+    ],
+    "regexp_cause_and_limits": [
+      "benchmarks/results/compiler-followup-20260918/diagnosis/gap/gap-branch-evidence.json",
+      "benchmarks/results/compiler-followup-20260918/diagnosis/perf",
+      "benchmarks/results/compiler-followup-20260918/README.md"
+    ],
+    "actual_bolt_and_portable_dump_acceptance": [
+      "benchmarks/results/compiler-followup-20260918/bolt",
+      "benchmarks/results/compiler-followup-20260918/provenance/bolt-optimized-acceptance.log"
+    ],
+    "balanced_training_and_revised_existing_regexp": [
+      "benchmarks/results/compiler-followup-20260918/recipes/gap-balance.patch",
+      "benchmarks/interactive/observer.el",
+      "benchmarks/results/compiler-followup-20260918/revised-interactive-validation.json"
+    ],
+    "personal_config_validation_only": [
+      "benchmarks/results/compiler-followup-20260918/provenance/config-unchanged.json",
+      "benchmarks/results/compiler-followup-20260918/provenance/pgo-training-cs-balanced/provenance.json"
+    ],
+    "production_build_and_packaging": [
+      "benchmarks/results/compiler-followup-20260918/production/verification.json",
+      "benchmarks/results/compiler-followup-20260918/production/builder.log",
+      "benchmarks/results/compiler-followup-20260918/production/debian13.log"
+    ]
+  },
+  "remote_validation": {
+    "run": "https://github.com/stephanoskomnenos/emacs-build/actions/runs/35312516728",
+    "conclusion": "success",
+    "head": "1884917ed13860e6c1f345d5f4a367fbcc45b649",
+    "artifacts": "github-artifacts.json"
+  },
+  "cleanup": "local-cleanup.json; only main worktree and required builder/base images remain"
+}
