@@ -8,7 +8,10 @@ def compiler_tools():
     prefix = os.environ.get('EMACS_LLVM_ROOT')
     if prefix:
         bin_dir = Path(prefix) / 'bin'
-        return str(bin_dir / 'clang'), str(bin_dir / 'llvm-profdata'), ['-fuse-ld=' + str(bin_dir / 'ld64.lld')]
+        # The linker kind must be 'lld': an absolute -fuse-ld value makes the
+        # Darwin driver forward Apple's libLTO options instead of LLD options.
+        return str(bin_dir / 'clang'), str(bin_dir / 'llvm-profdata'), [
+            '-fuse-ld=lld', '--ld-path=' + str(bin_dir / 'ld64.lld')]
     def xcrun(tool):
         return subprocess.check_output(['xcrun', '--find', tool], text=True).strip()
     return xcrun('clang'), xcrun('llvm-profdata'), []

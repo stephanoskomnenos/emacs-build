@@ -44,7 +44,8 @@ jobs:
           print('dependencies=' + hashlib.sha256(json.dumps(load_sources('macos'), sort_keys=True).encode()).hexdigest())
           PYTHON
           echo "LLVM_PROFDATA=$(xcrun --find llvm-profdata)" >> "$GITHUB_ENV"
-      - uses: actions/cache@v4
+      - uses: actions/cache/restore@v4
+        id: llvm-cache
         if: inputs.cspgo == true
         with:
           path: cache/llvm
@@ -52,6 +53,11 @@ jobs:
       - name: Install prebuilt LLVM for CSPGO
         if: inputs.cspgo == true
         run: python3 scripts/macos/setup-llvm.py
+      - uses: actions/cache/save@v4
+        if: inputs.cspgo == true && steps.llvm-cache.outputs.cache-hit != 'true'
+        with:
+          path: cache/llvm
+          key: ${{ steps.llvm-cache.outputs.cache-primary-key }}
       - name: Remove Homebrew from disposable runner
         shell: bash
         run: |
