@@ -1,0 +1,22 @@
+{
+  "removed_worktree": "/home/lin/projects/.emacs-compiler-followup",
+  "worktree_bytes": 5933715634,
+  "removed_stale_source": "cache/sources/gcc-16.2.0.tar",
+  "removed_production_worktree": "/home/lin/projects/.emacs-cspgo-production-check",
+  "production_worktree_bytes": 2579827484,
+  "retained_dependency_cache": "build/dependencies",
+  "removed_images": [
+    "localhost/emacs-optimization-tools:latest",
+    "localhost/emacs-nox-runtime:debian13"
+  ],
+  "preserved_package_sha256": {
+    "emacs-32.0.50.20260916175219.git82f763756c71-linux-x86-64-v3-sources.tar.zst": "ec2ab002cd0ad9a196cff6819957cf74aa74b0638f459bd0cdb0e6d9def02a46",
+    "emacs-32.0.50.20260916175219.git82f763756c71-linux-x86-64-v3.tar.zst": "5aea0c6ad958f3d873352f63cd52b4699f88a0f05081cf6265c2086a5a3d280c",
+    "emacs-nox-32.0.50.20260916175219.git82f763756c71-1.v3.x86_64.rpm": "95389644dcef371a35e57af1b0c408712436402e7a60b2907f61f726defe7ae6"
+  },
+  "personal_config_sha256": {
+    "init.el": "3c1806544ee764779248e40ccbaadfd265e63cf29c84f0f025f362d543db1f60",
+    "early-init.el": "1dee280bfce47295f64015ee6c23ce99f8e302449b61f43ef5345d87d40f9045",
+    "elpaca-lock.el": "d9f563a25242233078fa642929ced399e67b914af038c8f24817fe5fcaefccba"
+  }
+}
