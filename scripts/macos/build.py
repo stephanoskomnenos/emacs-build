@@ -6,13 +6,17 @@ import json
 import os
 from pathlib import Path
 import shlex
+import shutil
 import subprocess
 import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from sources import load_sources
 
 ROOT = Path(__file__).resolve().parents[2]
 BUILD = Path(os.environ.get('EMACS_BUILD_ROOT', ROOT / 'build/macos')).resolve()
 p = argparse.ArgumentParser()
 p.add_argument('mode', choices=['off', 'generate', 'use'])
+p.add_argument('--rebuild', action='store_true', help='replace only the selected build stage')
 a = p.parse_args()
 if sys.platform != 'darwin':
     raise SystemExit('Requires macOS with Xcode command-line tools')
@@ -21,6 +25,10 @@ archive = ROOT / 'cache/sources' / f"emacs-{spec['version']}.tar"
 if hashlib.sha256(archive.read_bytes()).hexdigest() != spec['sha256']:
     raise SystemExit('Emacs source checksum mismatch')
 stage = BUILD / a.mode
+if a.rebuild and stage.exists():
+    shutil.rmtree(stage)
+if stage.exists():
+    p.error(f'{stage} already exists; use --rebuild to restart this stage')
 stage.mkdir(parents=True, exist_ok=False)
 source = stage / 'source'
 source.mkdir()
@@ -39,6 +47,14 @@ if a.mode == 'generate':
 elif a.mode == 'use':
     if not profile.is_file():
         raise SystemExit('Missing fresh training profile')
+    provenance = json.loads((BUILD / 'pgo-training/provenance.json').read_text())
+    trained = provenance['build']
+    if (trained['source']['sha256'] != spec['sha256'] or
+            trained['compiler'] != subprocess.check_output([clang, '--version'], text=True) or
+            trained['sdk'] != xcrun('--show-sdk-version') or
+            trained['extra_dependencies'] != load_sources('macos') or
+            provenance['profile_sha256'] != hashlib.sha256(profile.read_bytes()).hexdigest()):
+        raise SystemExit('Profile does not match this source/toolchain; retrain in this build root')
     flags += ' -fprofile-use=' + str(profile) + ' -Werror=profile-instr-out-of-date'
 env = dict(os.environ, CC=clang, OBJC=clang, CFLAGS=flags, OBJCFLAGS=flags,
            CPPFLAGS='-I/usr/local/include', LDFLAGS=flags + ' -L/usr/local/lib', PKG_CONFIG='pkgconf -static',
@@ -67,9 +83,10 @@ wrapper = bundle / 'bin/emacs'
 wrapper.write_text('#!/bin/sh\nexport LC_ALL=en_US.UTF-8\nexec "$(dirname "$0")/../Emacs.app/Contents/MacOS/Emacs" "$@"\n')
 wrapper.chmod(0o755)
 info = dict(platform='macOS', architecture=os.uname().machine, source=spec, pgo=a.mode,
-            flags=flags, configure=args, extra_dependencies={'sqlite': json.loads((ROOT / 'sources.json').read_text())['sqlite']}, compiler=subprocess.check_output([clang, '--version'], text=True),
+            flags=flags, configure=args, extra_dependencies=load_sources('macos'), compiler=subprocess.check_output([clang, '--version'], text=True),
             profdata=xcrun('llvm-profdata', '--version'), sdk=xcrun('--show-sdk-version'),
-            dependency_recipe='RadioNoiseE/ebuild@5f2e2c6229989d986f1072c7727a586d92bb8523')
+            dependency_recipe='RadioNoiseE/ebuild@5f2e2c6229989d986f1072c7727a586d92bb8523',
+            dependency_recipe_sha256=hashlib.sha256((ROOT / 'scripts/macos/dependencies.sh').read_bytes()).hexdigest())
 if a.mode == 'use':
     info['profile_sha256'] = hashlib.sha256(profile.read_bytes()).hexdigest()
 (bundle / 'BUILD-INFO.json').write_text(json.dumps(info, indent=2) + '\n')

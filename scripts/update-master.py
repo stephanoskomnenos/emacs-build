@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Resolve upstream master once, then lock its archive for this build."""
+import argparse
 import datetime
 import hashlib
 import json
@@ -12,6 +13,11 @@ import tempfile
 import time
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+p = argparse.ArgumentParser(description=__doc__)
+p.add_argument('--ref', default='master', help='upstream branch, tag or full commit (default: master)')
+a = p.parse_args()
+if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._/-]*', a.ref):
+    p.error('Invalid upstream ref')
 
 def download(url, target):
     subprocess.run(['curl', '--fail', '--location', '--retry', '3', '--silent',
@@ -26,7 +32,7 @@ with tempfile.TemporaryDirectory(dir=cache) as tmp:
     git = ['git', '-C', str(repo)]
     fetch = [*git, '-c', 'http.lowSpeedLimit=1024', '-c', 'http.lowSpeedTime=30',
              'fetch', '--quiet', '--depth=1', '--filter=blob:none', '--no-tags',
-             'https://github.com/emacs-mirror/emacs.git', 'master']
+             'https://github.com/emacs-mirror/emacs.git', a.ref]
     for attempt in range(3):
         try:
             subprocess.run(fetch, env=dict(os.environ, GIT_TERMINAL_PROMPT='0'),
@@ -54,7 +60,7 @@ with tempfile.TemporaryDirectory(dir=cache) as tmp:
         raise SystemExit('Cannot determine upstream Emacs version')
     version = match[1]
     snapshot = f'{version}.{stamp}.git{sha[:12]}'
-    spec = {'version': snapshot, 'emacs_version': version, 'branch': 'master',
+    spec = {'version': snapshot, 'emacs_version': version, 'ref': a.ref,
             'commit': sha, 'commit_date': date, 'url': url,
             'sha256': hashlib.sha256(archive.read_bytes()).hexdigest()}
     archive.replace(cache / f'emacs-{snapshot}.tar')
@@ -62,4 +68,4 @@ manifest_path = ROOT / 'sources.json'
 manifest = json.loads(manifest_path.read_text())
 manifest['emacs'] = spec
 manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')
-print(f'Locked Emacs master: {snapshot} ({sha})')
+print(f'Locked Emacs {a.ref}: {snapshot} ({sha})')

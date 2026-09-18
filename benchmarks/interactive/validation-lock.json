@@ -4,5 +4,5 @@
   "benchmarks/interactive/producer.py": "c6983d0def633e230a83889c95e775025fb33373dda94dd548b5e5318661c6a0",
   "scripts/pty_driver.py": "e7157bd539eca2bbde4e454dd6b008a2e97aabbd98d47b2b0dd1eb6fd33319cc",
   "benchmarks/sources.json": "63ae7fcef5921100c803da9e0bac37e388afb6ae899f62aae9fe1276d7a72e4b",
-  "scripts/linux/benchmark-interactive.py": "1c4f8d47b99ad83b400945235e7c02bee054478147908fec6b0cf9ec77d1338d"
+  "scripts/linux/benchmark-interactive.py": "bb5a66be1386fdc8be6ea4e968edb39b29d2d5360fcb143105c4e82b7fc036ca"
 }

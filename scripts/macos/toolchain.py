@@ -5,10 +5,14 @@ import hashlib
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[2]
 base = Path(os.environ.get('EMACS_BUILD_ROOT', ROOT / 'build/macos')).resolve() / 'toolchain'
+# This directory contains only the disposable compiler probe and its report.
+if base.exists():
+    shutil.rmtree(base)
 base.mkdir(parents=True, exist_ok=False)
 def xcrun(*args):
     return subprocess.check_output(['xcrun', *args], text=True).strip()

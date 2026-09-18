@@ -17,8 +17,13 @@ p.add_argument('mode', choices=['train', 'compare', 'smoke'])
 p.add_argument('bundle', type=Path)
 p.add_argument('--baseline', type=Path)
 p.add_argument('--runs', type=int, default=10)
+p.add_argument('--restart', action='store_true', help='replace results for this GUI mode')
 a = p.parse_args()
 base = BUILD / ('gui-' + a.mode)
+if a.restart and base.exists():
+    shutil.rmtree(base)
+if (base / ('00-' + a.mode if a.mode != 'compare' else '00-off')).exists():
+    p.error('Results already exist; use --restart to rerun this GUI mode')
 base.mkdir(parents=True, exist_ok=True)
 corpus = BUILD / 'pgo-training/corpus' if a.mode == 'train' else base / 'corpus'
 if a.mode != 'train':
@@ -60,6 +65,8 @@ else:
     for key in ('source', 'compiler', 'sdk', 'architecture', 'dependency_recipe', 'extra_dependencies'):
         if info['off'][key] != info['use'][key]:
             raise RuntimeError('Unmatched builds: ' + key)
+    if info['off'].get('dependency_recipe_sha256') != info['use'].get('dependency_recipe_sha256'):
+        raise RuntimeError('Unmatched dependency recipe hashes')
     if info['off']['pgo'] != 'off' or info['use']['pgo'] != 'use':
         raise RuntimeError('Expected off/use comparison')
     # Relocate both apps away from their build trees before measurements.

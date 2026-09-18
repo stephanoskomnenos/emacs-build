@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Cache only files installed by the unchanged ebuild recipes, not the runner prefix."""
+"""Cache only files installed by the ebuild-derived recipes, not the runner prefix."""
 import os
 from pathlib import Path
 import subprocess

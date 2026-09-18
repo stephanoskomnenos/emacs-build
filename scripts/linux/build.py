@@ -1,140 +1,73 @@
 #!/usr/bin/env python3
 """Build static dependencies and a dynamically glibc-linked terminal Emacs."""
+import argparse
+import fcntl
 import hashlib
 import json
 import os
 import pathlib
 import shutil
 import subprocess
-import sys
+from dependencies import build_dependencies, run_command, source as extract_source, toolchain_env
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
+BUILD = pathlib.Path(os.environ.get('EMACS_BUILD_ROOT', ROOT / 'build')).resolve()
+p = argparse.ArgumentParser(description=__doc__)
+p.add_argument('--rebuild', action='store_true', help='replace the selected Emacs stage; keep dependency cache')
+a = p.parse_args()
 manifest = json.loads((ROOT / 'sources.json').read_text())
 jobs = os.environ.get('JOBS', str(len(os.sched_getaffinity(0))))
 lto = os.environ.get('LTO', '1') == '1'
 profile_mode = os.environ.get('PGO', 'off')
 if profile_mode not in ('off', 'generate', 'use', 'cs-generate', 'cs-use'):
     raise RuntimeError('PGO must be off, generate, use, cs-generate or cs-use')
-cc, cxx = 'clang-23', 'clang++-23'
-ar, ranlib = 'llvm-ar-23', 'llvm-ranlib-23'
-compiler = subprocess.check_output([cc, '--version'], text=True).splitlines()[0]
+compiler = subprocess.check_output(['clang-23', '--version'], text=True).splitlines()[0]
 packages = subprocess.check_output(['dpkg-query', '-W'], text=True)
-build_settings = (str(lto) + compiler + packages + pathlib.Path(__file__).read_text()
+dependency_settings = (str(lto) + compiler + packages + (ROOT / 'scripts/linux/dependencies.py').read_text()
                   + (ROOT / 'containers/Containerfile').read_text())
+build_settings = dependency_settings + pathlib.Path(__file__).read_text()
 identity = hashlib.sha256((json.dumps(manifest, sort_keys=True) + build_settings).encode()).hexdigest()[:12]
 dependency_manifest = {name: spec for name, spec in manifest.items() if name != 'emacs'}
-dependency_id = hashlib.sha256((json.dumps(dependency_manifest, sort_keys=True) + build_settings).encode()).hexdigest()[:12]
-work = ROOT / 'build' / identity
+dependency_id = hashlib.sha256((json.dumps(dependency_manifest, sort_keys=True) + dependency_settings).encode()).hexdigest()[:12]
+work = BUILD / identity
 dependency_work = ROOT / 'build/dependencies' / dependency_id
 prefix = dependency_work / 'prefix'
 logs = work / 'logs'
 logs.mkdir(parents=True, exist_ok=True)
-prefix.mkdir(parents=True, exist_ok=True)
-env = dict(os.environ)
-lto_flags = ' -flto=thin' if lto else ''
-linker_flags = ' --ld-path=/usr/bin/ld.lld-23'
-env.update(CC=cc, CXX=cxx, AR=ar, RANLIB=ranlib,
-           CFLAGS='-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic' + lto_flags,
-           CXXFLAGS='-O2 -g0 -fPIC -march=x86-64-v3 -mtune=generic' + lto_flags,
-           CPPFLAGS='-I' + str(prefix / 'include'),
-           LDFLAGS='-L' + str(prefix / 'lib') + ' -Wl,-z,relro,-z,now' + lto_flags + linker_flags,
-           PKG_CONFIG_PATH='',
-           PKG_CONFIG_LIBDIR=str(prefix / 'lib/pkgconfig') + ':' + str(prefix / 'share/pkgconfig'),
-           PKG_CONFIG='pkg-config --static', LC_ALL='C.UTF-8', TZ='UTC')
+env = dict(os.environ, **toolchain_env(prefix, lto))
+dependency_work.mkdir(parents=True, exist_ok=True)
+with (dependency_work / '.lock').open('a') as lock:
+    fcntl.flock(lock, fcntl.LOCK_EX)
+    build_dependencies(dependency_manifest, dependency_work, env, jobs)
+
 
 def run(cmd, cwd, log, extra=None):
-    print('  ' + ' '.join(map(str, cmd)), flush=True)
-    actual = env.copy()
-    if extra:
-        actual.update(extra)
-    with log.open('a') as out:
-        result = subprocess.run(list(map(str, cmd)), cwd=cwd, env=actual, stdout=out, stderr=subprocess.STDOUT)
-    if result.returncode:
-        print('\n'.join(log.read_text(errors='replace').splitlines()[-65:]), file=sys.stderr)
-        raise RuntimeError('Build failed; see ' + str(log))
+    return run_command(cmd, cwd, log, env, extra)
+
 
 def source(name):
-    s = manifest[name]
-    archive = ROOT / 'cache/sources' / (name + '-' + s['version'] + '.tar')
-    if hashlib.sha256(archive.read_bytes()).hexdigest() != s['sha256']:
-        raise RuntimeError('Source checksum mismatch: ' + name)
-    dst = work / 'src' / name
-    if not dst.exists():
-        dst.mkdir(parents=True)
-        subprocess.run(['tar', '-xf', str(archive), '--strip-components=1', '-C', str(dst)], check=True)
-    return dst
+    return extract_source(name, manifest, work)
 
-recipes = {
-    'ncurses': ['--without-shared', '--without-debug', '--without-ada', '--without-cxx-binding',
-                '--enable-widec', '--enable-pc-files', '--with-pkg-config-libdir=' + str(prefix / 'lib/pkgconfig'),
-                '--with-terminfo-dirs=/etc/terminfo:/lib/terminfo:/usr/share/terminfo',
-                '--with-default-terminfo-dir=/usr/share/terminfo'],
-    'gmp': ['--disable-shared', '--enable-static', '--enable-fat', '--build=x86_64-pc-linux-gnu'],
-    'nettle': ['--disable-shared', '--enable-static', '--disable-documentation', '--disable-openssl'],
-    'libunistring': ['--disable-shared', '--enable-static'],
-    'libidn2': ['--disable-shared', '--enable-static', '--disable-doc', '--disable-nls', '--with-libunistring-prefix=' + str(prefix)],
-    'gnutls': ['--disable-shared', '--enable-static', '--disable-doc', '--disable-tests',
-               '--disable-tools', '--disable-cxx', '--disable-nls',
-               '--with-included-libtasn1', '--without-p11-kit', '--without-tpm', '--without-tpm2',
-               '--without-brotli', '--without-zstd', '--with-default-trust-store-file=/etc/ssl/certs/ca-certificates.crt'],
-    'libxml2': ['--disable-shared', '--enable-static', '--without-python', '--without-lzma', '--without-iconv'],
-    'sqlite': ['--disable-shared', '--enable-static'],
-}
-
-for name in ['ncurses', 'zlib', 'gmp', 'nettle', 'libunistring', 'libidn2', 'gnutls', 'libxml2', 'sqlite', 'tree-sitter', 'dbus']:
-    src = source(name)
-    log = logs / (name + '.log')
-    stamp = dependency_work / (name + '.done')
-    if stamp.exists():
-        print(name + ': cached', flush=True)
-        continue
-    print(name + ': building', flush=True)
-    if name == 'dbus':
-        obj = src / '_build'
-        run(['meson', 'setup', str(obj), '--prefix=' + str(prefix), '--libdir=lib',
-             '--sysconfdir=/etc', '--localstatedir=/var', '--buildtype=plain',
-             '--default-library=static', '--auto-features=disabled', '--wrap-mode=nodownload',
-             '-Dmessage_bus=false', '-Dtools=false', '-Depoll=enabled',
-             '-Druntime_dir=/run', '-Dsystem_socket=/run/dbus/system_bus_socket'], src, log)
-        run(['meson', 'compile', '-C', str(obj), '-j', jobs], src, log)
-        run(['meson', 'install', '-C', str(obj)], src, log)
-    elif name == 'tree-sitter':
-        run(['make', '-j' + jobs, 'libtree-sitter.a', 'AR=' + ar, 'RANLIB=' + ranlib], src, log)
-        (prefix / 'include/tree_sitter').mkdir(parents=True, exist_ok=True)
-        shutil.copy2(src / 'libtree-sitter.a', prefix / 'lib')
-        shutil.copy2(src / 'lib/include/tree_sitter/api.h', prefix / 'include/tree_sitter')
-        pc = f'prefix={prefix}\nlibdir=${{prefix}}/lib\nincludedir=${{prefix}}/include\nName: tree-sitter\nDescription: incremental parser\nVersion: {manifest[name]["version"]}\nLibs: -L${{libdir}} -ltree-sitter\nCflags: -I${{includedir}}\n'
-        (prefix / 'lib/pkgconfig/tree-sitter.pc').write_text(pc)
-    else:
-        options = ['--static'] if name == 'zlib' else recipes[name]
-        extra = None
-        # GMP 6.3's configure probes require pre-C23 semantics.
-        if name == 'gmp':
-            extra = {'CFLAGS': env['CFLAGS'] + ' -std=gnu17'}
-        run(['./configure', '--prefix=' + str(prefix), '--libdir=' + str(prefix / 'lib'), *options], src, log, extra)
-        run(['make', '-j' + jobs], src, log)
-        targets = ['install.libs', 'install.includes'] if name == 'ncurses' else ['install']
-        run(['make', *targets], src, log)
-    stamp.touch()
-
-# GnuTLS uses compiler atomic helpers. Ship their code, not a libatomic.so dependency.
-atomic = pathlib.Path(subprocess.check_output([cc, '-print-file-name=libatomic.a'], text=True).strip())
-if not atomic.is_file():
-    raise RuntimeError('Compiler static atomic runtime missing')
-shutil.copy2(atomic, prefix / 'lib/libatomic.a')
 
 src = source('emacs')
 variant = 'llvm-' + profile_mode
 cs = profile_mode in ('cs-generate', 'cs-use')
 if cs and not lto:
     raise RuntimeError('CSPGO requires ThinLTO')
-normal_profile = ROOT / 'build/merged.profdata'
+normal_profile = BUILD / 'merged.profdata'
 profile = pathlib.Path(os.environ.get('PROFILE_FILE', str(
-    ROOT / 'build' / ('combined.profdata' if profile_mode == 'cs-use' else 'merged.profdata')))).resolve()
+    BUILD / ('combined.profdata' if profile_mode == 'cs-use' else 'merged.profdata')))).resolve()
 if profile_mode in ('use', 'cs-use') and not profile.is_file():
     raise RuntimeError('Missing merged profile: ' + str(profile))
 if cs and not normal_profile.is_file():
     raise RuntimeError('Missing ordinary profile: ' + str(normal_profile))
+if cs or profile_mode == 'use':
+    provenance = json.loads((BUILD / 'pgo-training/provenance.json').read_text())
+    trained = provenance['build']
+    if (trained['sources']['emacs']['sha256'] != manifest['emacs']['sha256'] or
+            trained['compiler'] != compiler or trained['cflags'] != env['CFLAGS'] or
+            provenance['profile_sha256'] != hashlib.sha256(normal_profile.read_bytes()).hexdigest()):
+        raise RuntimeError('Ordinary profile does not match this source/toolchain; retrain in this build root')
 pgo_flags = (' -fprofile-generate=' + str(work / 'profiles') if profile_mode == 'generate' else
              ' -fprofile-use=' + str(profile) if profile_mode in ('use', 'cs-use') else '')
 compile_pgo_flags = pgo_flags
@@ -148,9 +81,14 @@ if cs:
 if profile_mode in ('use', 'cs-use'):
     variant += '-' + hashlib.sha256(profile.read_bytes()).hexdigest()[:12]
 obj = work / ('emacs-build-' + variant)
-obj.mkdir(exist_ok=True)
 log = logs / ('emacs-' + variant + '.log')
 stage = work / ('stage-' + variant)
+if a.rebuild:
+    for directory in (obj, stage):
+        if directory.exists():
+            shutil.rmtree(directory)
+    (work / ('emacs-' + variant + '.done')).unlink(missing_ok=True)
+obj.mkdir(exist_ok=True)
 options = ['--prefix=/opt/emacs', '--without-all', '--without-x', '--without-native-compilation',
            '--with-modules', '--with-threads', '--with-file-notification=inotify',
            '--with-gnutls', '--with-libgmp', '--with-xml2', '--with-sqlite3',
@@ -218,5 +156,9 @@ info = {'emacs': manifest['emacs']['version'], 'sources': manifest,
         'cpu_baseline': 'x86-64-v3', 'cflags': env['CFLAGS'], 'ldflags': env['LDFLAGS'],
         'packages': packages}
 (bundle / 'BUILD-INFO.json').write_text(json.dumps(info, indent=2) + '\n')
-(ROOT / 'build/current-bundle').write_text(str(bundle.relative_to(ROOT)) + '\n')
+# Stable, explicit stage entries; relative symlinks work both on host and in /work.
+entry = BUILD / 'bundles' / profile_mode
+entry.parent.mkdir(parents=True, exist_ok=True)
+entry.unlink(missing_ok=True)
+entry.symlink_to(os.path.relpath(bundle, entry.parent), target_is_directory=True)
 print('Bundle staged at ' + str(bundle), flush=True)

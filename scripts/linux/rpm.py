@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Wrap the verified portable archive in an RPM without modifying its payload."""
+import argparse
+import os
 import hashlib
 import json
 import pathlib
@@ -8,8 +10,12 @@ import subprocess
 import tempfile
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-dist = ROOT / 'dist'
-bundle = ROOT / (ROOT / 'build/current-bundle').read_text().strip()
+BUILD = pathlib.Path(os.environ.get('EMACS_BUILD_ROOT', ROOT / 'build')).resolve()
+dist = pathlib.Path(os.environ.get('EMACS_DIST_ROOT', ROOT / 'dist')).resolve()
+p = argparse.ArgumentParser()
+p.add_argument('bundle', type=pathlib.Path)
+a = p.parse_args()
+bundle = a.bundle.resolve()
 info = json.loads((bundle / 'BUILD-INFO.json').read_text())
 if info['cpu_baseline'] != 'x86-64-v3':
     raise SystemExit('RPM spec requires an x86-64-v3 build')
@@ -18,7 +24,12 @@ expected = archive.with_name(archive.name + '.sha256').read_text().split()[0]
 if hashlib.sha256(archive.read_bytes()).hexdigest() != expected:
     raise SystemExit('Portable archive checksum mismatch')
 
-with tempfile.TemporaryDirectory(prefix='rpm-', dir=ROOT / 'build') as tmp:
+packed_info = json.loads(subprocess.check_output(['tar', '--zstd', '-xOf', str(archive),
+                        archive.name.removesuffix('.tar.zst') + '/BUILD-INFO.json'], text=True))
+if packed_info != info:
+    raise SystemExit('Archive belongs to a different build; package the selected bundle first')
+
+with tempfile.TemporaryDirectory(prefix='rpm-', dir=BUILD) as tmp:
     top = pathlib.Path(tmp)
     (top / 'SOURCES').mkdir()
     shutil.copy2(archive, top / 'SOURCES' / archive.name)
@@ -34,5 +45,5 @@ with tempfile.TemporaryDirectory(prefix='rpm-', dir=ROOT / 'build') as tmp:
     rpm.with_name(rpm.name + '.sha256').write_text(digest + '  ' + rpm.name + '\n')
     requires = subprocess.check_output(['rpm', '-qp', '--requires', str(rpm)], text=True)
     rpm.with_name(rpm.name + '.requires.txt').write_text(requires)
-    (ROOT / 'build/current-rpm').write_text(str(rpm.relative_to(ROOT)) + '\n')
+    (BUILD / 'current-rpm').write_text(str(rpm.relative_to(ROOT)) + '\n')
     print(rpm)

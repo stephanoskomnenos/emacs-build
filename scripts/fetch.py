@@ -6,6 +6,7 @@ import hashlib
 import json
 import pathlib
 import subprocess
+from sources import load_sources
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 p = argparse.ArgumentParser()
@@ -13,9 +14,10 @@ p.add_argument('--lock', action='store_true')
 group = p.add_mutually_exclusive_group()
 group.add_argument('--tests', action='store_true')
 group.add_argument('--benchmarks', action='store_true')
+group.add_argument('--macos', action='store_true', help='fetch macOS dependencies')
 args = p.parse_args()
 manifest_path = ROOT / ('benchmarks/sources.json' if args.benchmarks else 'test-sources.json' if args.tests else 'sources.json')
-manifest = json.loads(manifest_path.read_text())
+manifest = load_sources('macos') if args.macos else json.loads(manifest_path.read_text())
 cache = ROOT / 'cache' / 'sources'
 cache.mkdir(parents=True, exist_ok=True)
 
@@ -39,6 +41,13 @@ def fetch(item):
 with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
     hashes = dict(pool.map(fetch, manifest.items()))
 if args.lock:
+    if args.macos:
+        manifest_path = ROOT / 'sources-macos.json'
+        manifest = json.loads(manifest_path.read_text())
+        for name, spec in manifest['extra'].items():
+            spec['sha256'] = hashes[name]
+        manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')
+        raise SystemExit(0)
     for name, digest in hashes.items():
         manifest[name]['sha256'] = digest
     manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')

@@ -1,0 +1,61 @@
+{
+  "shared": [
+    "libunistring",
+    "ncurses",
+    "zlib",
+    "libxml2",
+    "gmp",
+    "nettle",
+    "libidn2",
+    "gnutls",
+    "tree-sitter",
+    "sqlite"
+  ],
+  "extra": {
+    "m4": {
+      "version": "1.4.21",
+      "url": "https://ftp.gnu.org/gnu/m4/m4-1.4.21.tar.xz",
+      "sha256": "f25c6ab51548a73a75558742fb031e0625d6485fe5f9155949d6486a2408ab66"
+    },
+    "autoconf": {
+      "version": "2.73",
+      "url": "https://ftp.gnu.org/gnu/autoconf/autoconf-2.73.tar.xz",
+      "sha256": "9fd672b1c8425fac2fa67fa0477b990987268b90ff36d5f016dae57be0d6b52e"
+    },
+    "automake": {
+      "version": "1.19",
+      "url": "https://ftp.gnu.org/gnu/automake/automake-1.19.tar.xz",
+      "sha256": "e3e2c2e3abf37898138db5b6c1d1dc35c9160c5978be7947d2c741705251d445"
+    },
+    "libtool": {
+      "version": "2.6.2",
+      "url": "https://ftp.gnu.org/gnu/libtool/libtool-2.6.2.tar.xz",
+      "sha256": "2ef1067c16c97db930fd740cc9bc3d3ba9a583804ae5ac42cc3e8719e49e191e"
+    },
+    "pkgconf": {
+      "version": "3.0.7",
+      "url": "https://github.com/pkgconf/pkgconf/archive/refs/tags/pkgconf-3.0.7.tar.gz",
+      "sha256": "a9ae678879771fcf15247ac2435e7ad8308be8a5921898e6720b3b8949410f73"
+    },
+    "texinfo": {
+      "version": "7.3",
+      "url": "https://ftp.gnu.org/gnu/texinfo/texinfo-7.3.tar.xz",
+      "sha256": "51f74eb0f51cfa9873b85264dfdd5d46e8957ec95b88f0fb762f63d9e164c72e"
+    },
+    "libiconv": {
+      "version": "1.19",
+      "url": "https://ftp.gnu.org/gnu/libiconv/libiconv-1.19.tar.gz",
+      "sha256": "88dd96a8c0464eca144fc791ae60cd31cd8ee78321e67397e25fc095c4a19aa6"
+    },
+    "gettext": {
+      "version": "1.0",
+      "url": "https://ftp.gnu.org/gnu/gettext/gettext-1.0.tar.xz",
+      "sha256": "71132a3fb71e68245b8f2ac4e9e97137d3e5c02f415636eb508ae607bc01add7"
+    },
+    "gzip": {
+      "version": "1.14",
+      "url": "https://ftp.gnu.org/gnu/gzip/gzip-1.14.tar.xz",
+      "sha256": "01a7b881bd220bfdf615f97b8718f80bdfd3f6add385b993dcf6efd14e8c0ac6"
+    }
+  }
+}

@@ -2,7 +2,7 @@
 # Run as container root in a disposable Fedora image, with /work read-only.
 set -euo pipefail
 cd /work
-rpm_file=$(cat build/current-rpm)
+rpm_file=$(cat "${EMACS_BUILD_ROOT:-/work/build}/current-rpm")
 system_emacs=$(rpm -q --whatprovides emacs-nox --qf '%{NAME}\n')
 rpm -q "$system_emacs" emacs-common emacsclient
 dnf --disablerepo='*' install --allowerasing -y "/work/$rpm_file"

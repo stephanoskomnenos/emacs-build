@@ -2,6 +2,10 @@ name: Build and verify Emacs nox
 on:
   workflow_dispatch:
     inputs:
+      emacs_ref:
+        description: Upstream branch, tag or full commit
+        type: string
+        default: master
       cspgo:
         description: Add context-sensitive PGO training
         type: boolean
@@ -15,6 +19,8 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     timeout-minutes: 120
+    env:
+      FINAL_STAGE: ${{ (github.event_name == 'schedule' || inputs.cspgo) && 'cs-use' || 'use' }}
     steps:
       - uses: actions/checkout@v4
       - name: Install Podman
@@ -25,8 +31,10 @@ jobs:
           echo "JOBS=$(nproc)" >> "$GITHUB_ENV"
       - name: Resolve and lock Emacs master
         id: sources
+        env:
+          EMACS_REF: ${{ inputs.emacs_ref || 'master' }}
         run: |
-          python3 scripts/update-master.py
+          python3 scripts/update-master.py --ref "$EMACS_REF"
           python3 - <<'PYTHON' >> "$GITHUB_OUTPUT"
           import hashlib, json
           sources = json.load(open('sources.json'))
@@ -48,7 +56,7 @@ jobs:
         id: dependencies
         with:
           path: build/dependencies
-          key: linux-deps-v2-${{ runner.arch }}-${{ steps.toolchain.outputs.identity }}-${{ steps.sources.outputs.dependencies }}-${{ hashFiles('scripts/linux/build.py', 'containers/Containerfile') }}
+          key: linux-deps-v3-${{ runner.arch }}-${{ steps.toolchain.outputs.identity }}-${{ steps.sources.outputs.dependencies }}-${{ hashFiles('scripts/linux/dependencies.py', 'containers/Containerfile') }}
       - name: Build instrumented Emacs with Clang and ThinLTO
         run: PGO=generate bash scripts/linux/container.sh build
       - uses: actions/cache/save@v4
@@ -58,24 +66,24 @@ jobs:
           key: ${{ steps.dependencies.outputs.cache-primary-key }}
       - name: Train on generic terminal workflows and ELPA benchmarks
         timeout-minutes: 25
-        run: bash scripts/linux/container.sh train
+        run: bash scripts/linux/container.sh train generate
       - name: Build context-sensitive instrumentation
         if: github.event_name == 'schedule' || inputs.cspgo
         run: PGO=cs-generate bash scripts/linux/container.sh build
       - name: Train context-sensitive profile
         if: github.event_name == 'schedule' || inputs.cspgo
         timeout-minutes: 25
-        run: bash scripts/linux/container.sh train
+        run: bash scripts/linux/container.sh train cs-generate
       - name: Build optimized Emacs
         env:
-          PGO: ${{ (github.event_name == 'schedule' || inputs.cspgo) && 'cs-use' || 'use' }}
+          PGO: ${{ env.FINAL_STAGE }}
         run: bash scripts/linux/container.sh build
       - name: Verify in builder and clean Debian 13
-        run: bash scripts/linux/container.sh test
+        run: bash scripts/linux/container.sh test "$FINAL_STAGE"
       - name: Package binary and sources
-        run: bash scripts/linux/container.sh package
+        run: bash scripts/linux/container.sh package "$FINAL_STAGE"
       - name: Package RPM
-        run: bash scripts/linux/container.sh rpm
+        run: bash scripts/linux/container.sh rpm "$FINAL_STAGE"
       - name: Verify RPM replaces Fedora Emacs and can be removed
         run: bash scripts/linux/container.sh test-rpm
       - uses: actions/upload-artifact@v4
@@ -114,3 +122,4 @@ jobs:
             build/pgo-training/*/terminal.log
             build/interactive-validation/*/terminal.log
             build/*/logs/*.log
+            build/dependencies/*/logs/*.log

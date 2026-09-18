@@ -14,12 +14,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from pty_driver import Session
 
 ROOT=Path(__file__).resolve().parents[2]
+BUILD=Path(os.environ.get('EMACS_BUILD_ROOT', ROOT/'build')).resolve()
 p=argparse.ArgumentParser()
 p.add_argument('bundle',type=Path)
 p.add_argument('--label',required=True)
 p.add_argument('--runs',type=int,default=7)
 p.add_argument('--cpu',type=int,default=0)
-p.add_argument('--workspace',type=Path,default=ROOT/'build/interactive-validation')
+p.add_argument('--workspace',type=Path,default=BUILD/'interactive-validation')
 a=p.parse_args()
 if a.runs<1:p.error('--runs must be positive')
 a.bundle=a.bundle.resolve();a.workspace=a.workspace.resolve()
@@ -33,7 +34,7 @@ values=list(range(spec['rows']));random.Random(spec['seed']).shuffle(values)
 text_path=a.workspace/'held-out.txt';json_path=a.workspace/'held-out.json'
 text_path.write_text(''.join(f'item-{i} description=验证 value={v}\n' for i,v in enumerate(values)))
 json_path.write_text(json.dumps({'items':[{'value':v,'label':'测试-'+str(v)} for v in values]},ensure_ascii=False))
-env=dict(os.environ,GIT_AUTHOR_DATE='2025-01-02T03:04:05Z',GIT_COMMITTER_DATE='2025-01-02T03:04:05Z',GIT_CEILING_DIRECTORIES=str(ROOT),GIT_CONFIG_NOSYSTEM='1',GIT_CONFIG_GLOBAL='/dev/null',WORKLOAD_PACKAGES=str(ROOT/'build/workload-packages/paths.json'),HOME=str(a.workspace/'home'),WORKLOAD_SPEC=str(spec_path),WORKLOAD_TEXT=str(text_path),WORKLOAD_JSON=str(json_path),WORKLOAD_PRODUCER=str(ROOT/'benchmarks/interactive/producer.py'))
+env=dict(os.environ,GIT_AUTHOR_DATE='2025-01-02T03:04:05Z',GIT_COMMITTER_DATE='2025-01-02T03:04:05Z',GIT_CEILING_DIRECTORIES=str(ROOT),GIT_CONFIG_NOSYSTEM='1',GIT_CONFIG_GLOBAL='/dev/null',WORKLOAD_PACKAGES=str(BUILD/'workload-packages/paths.json'),HOME=str(a.workspace/'home'),WORKLOAD_SPEC=str(spec_path),WORKLOAD_TEXT=str(text_path),WORKLOAD_JSON=str(json_path),WORKLOAD_PRODUCER=str(ROOT/'benchmarks/interactive/producer.py'))
 Path(env['HOME']).mkdir(exist_ok=True)
 for key in ('LLVM_PROFILE_FILE','EMACSLOADPATH','EMACSDATA','EMACSDOC','EMACSPATH','LD_LIBRARY_PATH'):
     env.pop(key,None)

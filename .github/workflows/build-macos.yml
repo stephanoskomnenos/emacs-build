@@ -2,6 +2,10 @@ name: Build macOS Emacs
 on:
   workflow_dispatch:
     inputs:
+      emacs_ref:
+        description: Upstream branch, tag or full commit
+        type: string
+        default: master
       compare:
         description: Build a no-PGO baseline and measure GUI performance
         type: boolean
@@ -21,11 +25,18 @@ jobs:
       - uses: actions/checkout@v4
       - name: Lock master and fetch training fixtures
         id: sources
+        env:
+          EMACS_REF: ${{ inputs.emacs_ref || 'master' }}
         run: |
           echo "JOBS=$(sysctl -n hw.logicalcpu)" >> "$GITHUB_ENV"
-          python3 scripts/update-master.py
+          python3 scripts/update-master.py --ref "$EMACS_REF"
           python3 scripts/fetch.py --benchmarks
-          python3 -c 'import json; print("sqlite=" + json.load(open("sources.json"))["sqlite"]["sha256"])' >> "$GITHUB_OUTPUT"
+          python3 - <<'PYTHON' >> "$GITHUB_OUTPUT"
+          import hashlib, json, sys
+          sys.path.insert(0, 'scripts')
+          from sources import load_sources
+          print('dependencies=' + hashlib.sha256(json.dumps(load_sources('macos'), sort_keys=True).encode()).hexdigest())
+          PYTHON
           echo "LLVM_PROFDATA=$(xcrun --find llvm-profdata)" >> "$GITHUB_ENV"
       - name: Verify Apple Clang ThinLTO and PGO
         id: toolchain
@@ -43,7 +54,7 @@ jobs:
         id: dependencies
         with:
           path: build/macos/dependencies.tar
-          key: macos-deps-v1-${{ steps.toolchain.outputs.identity }}-${{ steps.sources.outputs.sqlite }}-${{ hashFiles('scripts/macos/dependencies.sh', 'scripts/macos/dependency-cache.py') }}
+          key: macos-deps-v2-${{ steps.toolchain.outputs.identity }}-${{ steps.sources.outputs.dependencies }}-${{ hashFiles('scripts/macos/dependencies.sh', 'scripts/macos/dependency-cache.py', 'scripts/sources.py', 'scripts/fetch.py') }}
       - name: Install static dependencies
         env:
           CACHE_HIT: ${{ steps.dependencies.outputs.cache-hit }}

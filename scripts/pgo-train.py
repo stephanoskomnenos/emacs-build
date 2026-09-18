@@ -14,9 +14,10 @@ from training_fixtures import prepare
 from training_scenarios import GROUPS, exercise
 
 ROOT=Path(__file__).resolve().parents[1]
-BUILD=Path(os.environ.get('EMACS_BUILD_ROOT',ROOT/'build'))
+BUILD=Path(os.environ.get('EMACS_BUILD_ROOT',ROOT/'build')).resolve()
 p=argparse.ArgumentParser();p.add_argument('bundle',type=Path)
 p.add_argument('--check-workloads',action='store_true',help='Check PTY assertions with a non-instrumented build; never produce profiles')
+p.add_argument('--restart',action='store_true',help='discard this training stage and its generated profiles before retraining')
 a=p.parse_args()
 a.bundle=a.bundle.resolve();info=json.loads((a.bundle/'BUILD-INFO.json').read_text())
 if a.check_workloads:
@@ -24,8 +25,15 @@ if a.check_workloads:
 elif info.get('pgo') not in ('generate','cs-generate'):raise SystemExit('An instrumented build is required')
 cs=info.get('pgo')=='cs-generate'
 base=BUILD/('workload-checks' if a.check_workloads else 'pgo-training-cs' if cs else 'pgo-training');profiles=base/'profiles';corpus=base/'corpus'
-if profiles.exists() and list(profiles.glob('*.profraw')):
-    raise SystemExit('Raw profiles already exist; use a fresh build/pgo-training directory')
+if a.restart:
+    if base.exists():shutil.rmtree(base)
+    if not a.check_workloads:
+        for name in (('cs.profdata','combined.profdata') if cs else ('merged.profdata','cs.profdata','combined.profdata')):
+            (BUILD/name).unlink(missing_ok=True)
+        if os.environ.get('EMACS_TRAIN_GUI')=='1' and (BUILD/'gui-train').exists():
+            shutil.rmtree(BUILD/'gui-train')
+if base.exists():
+    raise SystemExit('Training directory already exists; use --restart to rerun this stage')
 for directory in (profiles,corpus,base/'home'):directory.mkdir(parents=True,exist_ok=True)
 source=Path(os.environ.get('EMACS_TRAIN_SOURCE',a.bundle.parents[2]/'src/emacs'))
 profdata=os.environ.get('LLVM_PROFDATA','llvm-profdata-23')
