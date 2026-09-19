@@ -9,9 +9,10 @@
 %global __provides_exclude_from ^/opt/emacs-nox/.*$
 
 Name:           emacs-nox
+Epoch:          1
 Version:        %{emacs_version}
-Release:        1.v3
-Summary:        Terminal GNU Emacs with static third-party libraries (x86-64-v3)
+Release:        1
+Summary:        Terminal GNU Emacs with static third-party libraries
 License:        GPL-3.0-or-later
 URL:            https://www.gnu.org/software/emacs/
 Source0:        emacs-%{version}-linux-x86-64-v3.tar.zst
@@ -21,8 +22,8 @@ Requires:       coreutils
 Requires(posttrans): coreutils
 Requires:       ncurses-base
 Requires:       ca-certificates
-Provides:       emacs = %{version}-%{release}
-Provides:       emacsclient = %{version}-%{release}
+Provides:       emacs = %{epoch}:%{version}-%{release}
+Provides:       emacsclient = %{epoch}:%{version}-%{release}
 Conflicts:      emacs
 Conflicts:      emacs-nw
 Conflicts:      emacs-common
@@ -32,7 +33,7 @@ Conflicts:      emacsclient
 
 %description
 GNU Emacs for terminals, built with Clang, ThinLTO and PGO and without native compilation.
-Requires an x86-64-v3 CPU. Foundation libraries are statically linked;
+Foundation libraries are statically linked;
 glibc, terminfo, CA certificates, modules and language grammars use the host.
 Component license notices are included under the installation's licenses tree.
 

@@ -5,7 +5,7 @@
 
 | 平台 | 版本 | 编译器 | 要求 |
 | --- | --- | --- | --- |
-| Linux | 终端 nox | Clang 23 | x86-64-v3、glibc ≥ 2.41 |
+| Linux | 终端 nox | Clang 23 | x86_64-v3、glibc ≥ 2.41 |
 | macOS | Cocoa `Emacs.app` | LLVM Clang 23 | Apple Silicon |
 
 ## 下载与安装
