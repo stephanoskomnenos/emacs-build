@@ -24,7 +24,8 @@ def build_environment(lto=True):
         flags += ' -flto=thin'
     return dict(CC=clang, CXX=str(tools / 'clang++'), OBJC=clang,
                 AR=str(tools / 'llvm-ar'), RANLIB=str(tools / 'llvm-ranlib'),
-                NM=str(tools / 'llvm-nm'), CFLAGS=flags, CXXFLAGS=flags,
+                NM=str(tools / 'llvm-nm'), CPPFLAGS='-isysroot ' + shlex.quote(sdk),
+                CFLAGS=flags, CXXFLAGS=flags,
                 OBJCFLAGS=flags, LDFLAGS=flags + ' ' + shlex.join(linker))
 
 

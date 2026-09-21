@@ -69,7 +69,7 @@ compile_flags = flags + ' ' + shlex.join(compile_profile)
 link_flags = flags + ' ' + shlex.join(linker_flags + link_profile)
 env = dict(os.environ, **toolchain)
 env.update(CFLAGS=compile_flags, OBJCFLAGS=compile_flags,
-           CPPFLAGS='-I/usr/local/include', LDFLAGS=link_flags + ' -L/usr/local/lib', PKG_CONFIG='pkgconf -static',
+           CPPFLAGS=toolchain['CPPFLAGS'] + ' -I/usr/local/include', LDFLAGS=link_flags + ' -L/usr/local/lib', PKG_CONFIG='pkgconf -static',
            PKG_CONFIG_LIBDIR='/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig',
            LC_ALL='en_US.UTF-8')
 for key in ('LLVM_PROFILE_FILE', 'CPATH', 'LIBRARY_PATH', 'DYLD_LIBRARY_PATH', 'PKG_CONFIG_PATH'):

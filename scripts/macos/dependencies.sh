@@ -17,7 +17,7 @@ use_toolchain() {
 
 install_package() {
   sudo make install CC="$CC" CXX="$CXX" AR="$AR" RANLIB="$RANLIB" NM="$NM" \
-    CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" "$@"
+    CPPFLAGS="$CPPFLAGS" CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" "$@"
 }
 
 use_toolchain --no-lto
@@ -90,6 +90,8 @@ echo "::group::Install GNU Texinfo"
 )
 echo "::endgroup::"
 
+# Darwin C symbols use an underscore; ThinLTO -S emits IR rather than assembly.
+export gl_cv_prog_as_underscore=yes
 use_toolchain
 
 echo "::group::Install GNU Libiconv"

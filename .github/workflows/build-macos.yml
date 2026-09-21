@@ -144,6 +144,7 @@ jobs:
         with:
           name: macos-build-report
           path: |
+            build/macos/dependencies/**/config.log
             dist/macos/*.json
             /tmp/emacs-build/comparison.json
             /tmp/emacs-build/toolchain/result.json
