@@ -16,7 +16,7 @@ p = argparse.ArgumentParser()
 p.add_argument('mode', choices=['train', 'compare', 'smoke'])
 p.add_argument('bundle', type=Path)
 p.add_argument('--baseline', type=Path)
-p.add_argument('--runs', type=int, default=10)
+p.add_argument('--runs', type=int, default=24)
 p.add_argument('--restart', action='store_true', help='replace results for this GUI mode')
 a = p.parse_args()
 training_cs = a.mode == 'train' and json.loads((a.bundle / 'BUILD-INFO.json').read_text())['pgo'] == 'cs-generate'
@@ -86,9 +86,39 @@ else:
                 samples[label].append(run(bundles[label],label,index))
     summary = {}
     for metric in samples[baseline_mode][0]:
-        medians = {label:statistics.median(s[metric] for s in values) for label,values in samples.items()}
-        summary[metric] = dict(medians, improvement_percent=100*(1-medians[final_mode]/medians[baseline_mode]))
-    report = dict(units='milliseconds', method='alternating warm-cache NS sessions; -Q fixed held-out fixtures; ready after first redisplay, before smoke checks; no personal configuration',
-                  builds=info, samples=samples, summary=summary)
+        series = {label:[sample[metric] for sample in values]
+                  for label,values in samples.items()}
+        medians = {label:statistics.median(values)
+                   for label,values in series.items()}
+        dispersion = {}
+        for label,values in series.items():
+            median = medians[label]
+            mad = statistics.median(abs(value - median) for value in values)
+            dispersion[label] = dict(
+                mad_ms=mad,
+                mad_percent=100 * mad / median if median else 0.0,
+                min_ms=min(values),
+                max_ms=max(values))
+        paired = [100 * (1 - final / baseline)
+                  for baseline,final in zip(series[baseline_mode], series[final_mode])]
+        paired_median = statistics.median(paired)
+        paired_mad = statistics.median(abs(value - paired_median)
+                                       for value in paired)
+        summary[metric] = dict(
+            medians,
+            improvement_percent=100 * (1 - medians[final_mode] / medians[baseline_mode]),
+            dispersion=dispersion,
+            paired_improvement_percent=paired_median,
+            paired_mad_percentage_points=paired_mad,
+            final_wins=sum(value > 0 for value in paired),
+            runs=len(paired))
+    report = dict(
+        units='milliseconds',
+        method=('alternating warm-cache NS sessions; 24 runs by default; -Q fixed '
+                'held-out fixtures; short compare workloads amplified within each '
+                'process and reported per original workload unit; first-open and '
+                'steady reopen reported separately; ready after first redisplay, '
+                'before smoke checks; no personal configuration'),
+        builds=info, samples=samples, summary=summary)
     (BUILD / 'comparison.json').write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps(summary,indent=2))
