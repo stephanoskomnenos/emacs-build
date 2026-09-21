@@ -148,6 +148,7 @@ jobs:
             dist/macos/*.json
             /tmp/emacs-build/comparison.json
             /tmp/emacs-build/toolchain/result.json
+            /tmp/emacs-build/toolchain/driver-link.txt
             /tmp/emacs-build/toolchain/cs-link.log
             /tmp/emacs-build/pgo-training*/gui-profile.txt
             /tmp/emacs-build/*/build.log
