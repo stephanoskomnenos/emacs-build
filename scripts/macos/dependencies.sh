@@ -13,6 +13,8 @@ use_toolchain() {
   local settings
   settings=$(python3 "$project_root/scripts/macos/pgo.py" "$@")
   eval "$settings"
+  export CPPFLAGS="$CPPFLAGS -I/usr/local/include"
+  export LDFLAGS="$LDFLAGS -L/usr/local/lib"
 }
 
 install_package() {
