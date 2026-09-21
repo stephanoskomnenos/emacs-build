@@ -1,18 +1,16 @@
-FROM docker.io/library/debian:trixie-slim@sha256:abc9cb88a5587630d7f915f47b23b0668fe250fbfc6457aa4d52b534c1bbf73f
+FROM docker.io/library/debian:trixie-slim
 RUN sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/debian.sources \
     && apt-get update && apt-get install -y --no-install-recommends \
     make autoconf automake libtool pkg-config texinfo gettext meson ninja-build \
     python3 python3-pexpect git curl ca-certificates xz-utils zstd patch file \
     libgcc-14-dev libstdc++-14-dev libc6-dev dpkg-dev \
     && rm -rf /var/lib/apt/lists/*
-# Versioned LLVM 23 packages from the upstream Debian repository (prebuilt).
-ARG LLVM_PACKAGE_VERSION=1:23.1.2~++20260910044214+069ef0e7cb36-1~exp1~20260910044225.69
+# Install LLVM 23 from apt.llvm.org.
 RUN curl -fsSL https://apt.llvm.org/llvm-snapshot.gpg.key -o /usr/share/keyrings/llvm.asc \
     && echo 'deb [signed-by=/usr/share/keyrings/llvm.asc] https://apt.llvm.org/trixie/ llvm-toolchain-trixie-23 main' > /etc/apt/sources.list.d/llvm.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-       clang-23=${LLVM_PACKAGE_VERSION} lld-23=${LLVM_PACKAGE_VERSION} \
-       llvm-23=${LLVM_PACKAGE_VERSION} libclang-rt-23-dev=${LLVM_PACKAGE_VERSION} \
+       clang-23 lld-23 llvm-23 libclang-rt-23-dev \
     && mkdir -p /opt/gcc-runtime-source \
     && cd /opt/gcc-runtime-source \
     && apt-get source --download-only "gcc-14=$(dpkg-query -W -f='${source:Version}' libgcc-14-dev)" \

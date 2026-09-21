@@ -30,17 +30,10 @@ jobs:
           /lib64/ld-linux-x86-64.so.2 --help | grep -F 'x86-64-v3 (supported, searched)'
           echo "JOBS=$(nproc)" >> "$GITHUB_ENV"
       - name: Resolve and lock Emacs master
-        id: sources
         env:
           EMACS_REF: ${{ inputs.emacs_ref || 'master' }}
         run: |
           python3 scripts/update-master.py --ref "$EMACS_REF"
-          python3 - <<'PYTHON' >> "$GITHUB_OUTPUT"
-          import hashlib, json
-          sources = json.load(open('sources.json'))
-          sources.pop('emacs')
-          print('dependencies=' + hashlib.sha256(json.dumps(sources, sort_keys=True).encode()).hexdigest())
-          PYTHON
       - name: Fetch locked sources and fixtures
         run: |
           python3 scripts/fetch.py
@@ -50,13 +43,13 @@ jobs:
         id: toolchain
         run: |
           bash scripts/linux/container.sh image
-          identity=$(podman run --rm localhost/emacs-builder:clang23 dpkg-query -W | sha256sum | cut -d ' ' -f 1)
+          identity=$(podman run --rm -v "$PWD:/work:Z" -w /work localhost/emacs-builder:clang23 python3 scripts/linux/dependencies.py)
           echo "identity=$identity" >> "$GITHUB_OUTPUT"
       - uses: actions/cache/restore@v4
         id: dependencies
         with:
           path: build/dependencies
-          key: linux-deps-v3-${{ runner.arch }}-${{ steps.toolchain.outputs.identity }}-${{ steps.sources.outputs.dependencies }}-${{ hashFiles('scripts/linux/dependencies.py', 'containers/Containerfile') }}
+          key: linux-deps-v4-${{ runner.arch }}-${{ steps.toolchain.outputs.identity }}
       - name: Build instrumented Emacs with Clang and ThinLTO
         run: PGO=generate bash scripts/linux/container.sh build
       - uses: actions/cache/save@v4

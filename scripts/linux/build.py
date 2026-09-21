@@ -8,7 +8,7 @@ import os
 import pathlib
 import shutil
 import subprocess
-from dependencies import build_dependencies, run_command, source as extract_source, toolchain_env
+from dependencies import build_dependencies, run_command, source as extract_source, toolchain_env, dependency_identity
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 BUILD = pathlib.Path(os.environ.get('EMACS_BUILD_ROOT', ROOT / 'build')).resolve()
@@ -23,12 +23,10 @@ if profile_mode not in ('off', 'generate', 'use', 'cs-generate', 'cs-use'):
     raise RuntimeError('PGO must be off, generate, use, cs-generate or cs-use')
 compiler = subprocess.check_output(['clang-23', '--version'], text=True).splitlines()[0]
 packages = subprocess.check_output(['dpkg-query', '-W'], text=True)
-dependency_settings = (str(lto) + compiler + packages + (ROOT / 'scripts/linux/dependencies.py').read_text()
-                  + (ROOT / 'containers/Containerfile').read_text())
-build_settings = dependency_settings + pathlib.Path(__file__).read_text()
-identity = hashlib.sha256((json.dumps(manifest, sort_keys=True) + build_settings).encode()).hexdigest()[:12]
 dependency_manifest = {name: spec for name, spec in manifest.items() if name != 'emacs'}
-dependency_id = hashlib.sha256((json.dumps(dependency_manifest, sort_keys=True) + dependency_settings).encode()).hexdigest()[:12]
+dependency_id = dependency_identity(manifest, lto)
+build_settings = dependency_id + pathlib.Path(__file__).read_text()
+identity = hashlib.sha256((json.dumps(manifest, sort_keys=True) + build_settings).encode()).hexdigest()[:12]
 work = BUILD / identity
 dependency_work = ROOT / 'build/dependencies' / dependency_id
 prefix = dependency_work / 'prefix'

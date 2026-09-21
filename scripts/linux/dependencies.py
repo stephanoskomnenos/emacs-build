@@ -1,5 +1,7 @@
 """Linux static dependency recipes and toolchain flags; cache independently of Emacs."""
 import hashlib
+import json
+import os
 import pathlib
 import shutil
 import subprocess
@@ -116,3 +118,23 @@ def build_dependencies(manifest, work, env, jobs):
         raise RuntimeError('Compiler static atomic runtime missing')
     if not (prefix / 'lib/libatomic.a').exists():
         shutil.copy2(atomic, prefix / 'lib/libatomic.a')
+
+
+def dependency_identity(manifest, lto):
+    packages = subprocess.check_output([
+        'dpkg-query', '-W', '-f=${binary:Package}=${Version}\n',
+        'clang-23', 'lld-23', 'llvm-23', 'libclang-rt-23-dev',
+        'libgcc-14-dev', 'libstdc++-14-dev', 'libc6-dev', 'linux-libc-dev',
+    ], text=True)
+    inputs = {
+        'sources': {name: spec['sha256'] for name, spec in manifest.items() if name != 'emacs'},
+        'toolchain': sorted(packages.splitlines()),
+        'flags': toolchain_env(pathlib.Path('/dependency-prefix'), lto),
+        'recipe': hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),
+    }
+    return hashlib.sha256(json.dumps(inputs, sort_keys=True).encode()).hexdigest()[:12]
+
+
+if __name__ == '__main__':
+    manifest = json.loads((ROOT / 'sources.json').read_text())
+    print(dependency_identity(manifest, os.environ.get('LTO', '1') == '1'))
