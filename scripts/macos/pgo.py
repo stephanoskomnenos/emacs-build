@@ -12,7 +12,9 @@ def compiler_tools():
     bin_dir = Path(prefix) / 'bin'
     # Name the linker kind explicitly so the driver forwards Mach-O LLD options.
     return str(bin_dir / 'clang'), str(bin_dir / 'llvm-profdata'), [
-        '-fuse-ld=lld', '--ld-path=' + str(bin_dir / 'ld64.lld')]
+        '-fuse-ld=lld', '--ld-path=' + str(bin_dir / 'ld64.lld'),
+        # Preserve cross-module references through LLVM 23 Mach-O ThinLTO.
+        '-Wl,-mllvm,-enable-lto-internalization=false']
 
 
 def build_environment(lto=True):
