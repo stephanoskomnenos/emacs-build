@@ -32,12 +32,8 @@ jobs:
           cat salsa20-crypt.ll
           grep 'salsa20_crypt' symbols.txt
           "$EMACS_LLVM_ROOT/bin/llvm-dis" non-nettle.o -o non-nettle.ll
-          make -C examples nettle-benchmark LDFLAGS="$LDFLAGS -Wl,-save-temps" > saved.log 2>&1 || tail -30 saved.log
-          python3 - <<'PYTHON'
-          import pathlib, subprocess, os
-          for path in pathlib.Path('.').rglob('*salsa20*bc'):
-              subprocess.run([os.environ['EMACS_LLVM_ROOT']+'/bin/llvm-dis', str(path), '-o', str(path)+'.ll'], check=True)
-          PYTHON
+          make -j3 LDFLAGS="$LDFLAGS -Wl,-mllvm,-enable-lto-internalization=false" > preserve.log 2>&1
+          make check -j3 LDFLAGS="$LDFLAGS -Wl,-mllvm,-enable-lto-internalization=false" > check.log 2>&1
       - uses: actions/upload-artifact@v4
         if: always()
         with:
