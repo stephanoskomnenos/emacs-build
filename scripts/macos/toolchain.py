@@ -96,8 +96,7 @@ if a.cspgo:
 print(json.dumps(report, indent=2))
 if os.environ.get('GITHUB_OUTPUT'):
     # Static dependency recipes continue to use Apple Clang, independently of Emacs.
-    identity = dict(compiler=subprocess.check_output([xcrun('--find', 'clang'), '--version'], text=True), sdk=report['sdk'], architecture=os.uname().machine,
-                    system=subprocess.check_output(['sw_vers', '-buildVersion'], text=True).strip())
+    identity = dict(compiler=subprocess.check_output([xcrun('--find', 'clang'), '--version'], text=True), sdk=report['sdk'], architecture=os.uname().machine)
     digest = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
     with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
         output.write('identity=' + digest + '\n')

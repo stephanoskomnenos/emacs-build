@@ -78,7 +78,7 @@ jobs:
         id: dependencies
         with:
           path: build/macos/dependencies.tar
-          key: macos-deps-v2-${{ steps.toolchain.outputs.identity }}-${{ steps.sources.outputs.dependencies }}-${{ hashFiles('scripts/macos/dependencies.sh', 'scripts/macos/dependency-cache.py', 'scripts/sources.py', 'scripts/fetch.py') }}
+          key: macos-deps-v2-${{ steps.toolchain.outputs.identity }}-${{ steps.sources.outputs.dependencies }}-${{ hashFiles('scripts/macos/dependencies.sh', 'scripts/macos/dependency-cache.py', 'scripts/sources.py') }}
       - name: Install static dependencies
         env:
           CACHE_HIT: ${{ steps.dependencies.outputs.cache-hit }}
