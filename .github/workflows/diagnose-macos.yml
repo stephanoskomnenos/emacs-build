@@ -32,8 +32,9 @@ jobs:
           cat salsa20-crypt.ll
           grep 'salsa20_crypt' symbols.txt
           "$EMACS_LLVM_ROOT/bin/llvm-dis" non-nettle.o -o non-nettle.ll
-          make -C examples nettle-benchmark LDFLAGS="$LDFLAGS -Wl,-export_dynamic" > exported.log 2>&1 || tail -30 exported.log
-          make -C examples nettle-benchmark LDFLAGS="$LDFLAGS -Wl,--lto-O0" > unoptimized.log 2>&1 || tail -30 unoptimized.log
+          make -C examples nettle-benchmark LDFLAGS="$LDFLAGS -Wl,-save-temps" > saved.log 2>&1 || tail -30 saved.log
+          find . -name '*salsa20*bc' -print
+          find . -name '*salsa20*bc' -exec sh -c '"$EMACS_LLVM_ROOT/bin/llvm-dis" "$1" -o "$1.ll"' sh {} \\;
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -45,3 +46,4 @@ jobs:
             /tmp/nettle-source/**/symbols.txt
             /tmp/nettle-source/**/*.ll
             /tmp/nettle-source/**/*.a
+            /tmp/nettle-source/**/*.resolution.txt
