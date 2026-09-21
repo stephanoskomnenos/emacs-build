@@ -6,9 +6,10 @@ import hashlib
 import os
 from pathlib import Path
 import re
+import shlex
 import shutil
 import subprocess
-from pgo import compiler_tools, profile_flags
+from pgo import compiler_tools, profile_flags, build_environment
 
 p = argparse.ArgumentParser()
 p.add_argument('--cspgo', action='store_true', help='also verify CS generation and final-link profile use')
@@ -22,10 +23,25 @@ base.mkdir(parents=True, exist_ok=False)
 def xcrun(*args):
     return subprocess.check_output(['xcrun', *args], text=True).strip()
 clang, profdata, linker_flags = compiler_tools()
+environment = build_environment()
+archive_source = base / 'library.c'
+archive_source.write_text('int library_value(void) { return 42; }\n')
+archive_obj = base / 'library.o'
+archive = base / 'libprobe.a'
+subprocess.run([clang, *shlex.split(environment['CFLAGS']), '-c', str(archive_source), '-o', str(archive_obj)], check=True)
+subprocess.run([environment['AR'], 'rcs', str(archive), str(archive_obj)], check=True)
+subprocess.run([environment['RANLIB'], str(archive)], check=True)
+subprocess.run([environment['NM'], str(archive)], check=True)
+main = base / 'main.c'
+main.write_text('int library_value(void); int main(void) { return library_value() != 42; }\n')
+subprocess.run([clang, *shlex.split(environment['CFLAGS']), str(main), str(archive),
+                *linker_flags, '-o', str(base / 'archive-probe')], check=True)
+subprocess.run([str(base / 'archive-probe')], check=True)
 source = base / 'probe.m'
 source.write_text('#import <Foundation/Foundation.h>\nint main(int argc, char **argv) {\n'
                   '  @autoreleasepool { NSLog(@"PGO probe: %d", argc); }\n  return 0;\n}\n')
-flags = [clang, '-isysroot', xcrun('--sdk', 'macosx', '--show-sdk-path'), '-O2', '-g0', '-flto=thin']
+environment = build_environment()
+flags = [clang, *shlex.split(environment['CFLAGS'])]
 subprocess.run([*flags, *linker_flags, '-fprofile-generate', str(source), '-framework', 'Foundation', '-o', str(base / 'generate')], check=True)
 subprocess.run([str(base / 'generate')], env=dict(os.environ, LLVM_PROFILE_FILE=str(base / 'probe-%m-%p.profraw')), check=True)
 profile = base / 'merged.profdata'
@@ -95,8 +111,11 @@ if a.cspgo:
 (base / 'result.json').write_text(json.dumps(report, indent=2) + '\n')
 print(json.dumps(report, indent=2))
 if os.environ.get('GITHUB_OUTPUT'):
-    # Static dependency recipes continue to use Apple Clang, independently of Emacs.
-    identity = dict(compiler=subprocess.check_output([xcrun('--find', 'clang'), '--version'], text=True), sdk=report['sdk'], architecture=os.uname().machine)
+    spec = json.loads((ROOT / 'scripts/macos/llvm.json').read_text())
+    normalized = {k: v.replace(os.environ['EMACS_LLVM_ROOT'], '/llvm').replace(
+        xcrun('--sdk', 'macosx', '--show-sdk-path'), '/sdk') for k, v in environment.items()}
+    identity = dict(llvm=spec['sha256'], sdk=report['sdk'], architecture=os.uname().machine,
+                    deployment_target=os.environ.get('MACOSX_DEPLOYMENT_TARGET', ''), flags=normalized)
     digest = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
     with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
         output.write('identity=' + digest + '\n')

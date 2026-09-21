@@ -1,5 +1,7 @@
 """Paired compile/link flags for macOS Clang ordinary and context-sensitive PGO."""
 import os
+import shlex
+import subprocess
 from pathlib import Path
 
 
@@ -11,6 +13,19 @@ def compiler_tools():
     # Name the linker kind explicitly so the driver forwards Mach-O LLD options.
     return str(bin_dir / 'clang'), str(bin_dir / 'llvm-profdata'), [
         '-fuse-ld=lld', '--ld-path=' + str(bin_dir / 'ld64.lld')]
+
+
+def build_environment(lto=True):
+    clang, _, linker = compiler_tools()
+    tools = Path(clang).parent
+    sdk = subprocess.check_output(['xcrun', '--sdk', 'macosx', '--show-sdk-path'], text=True).strip()
+    flags = '-O2 -g0 -isysroot ' + shlex.quote(sdk)
+    if lto:
+        flags += ' -flto=thin'
+    return dict(CC=clang, CXX=str(tools / 'clang++'), OBJC=clang,
+                AR=str(tools / 'llvm-ar'), RANLIB=str(tools / 'llvm-ranlib'),
+                NM=str(tools / 'llvm-nm'), CFLAGS=flags, CXXFLAGS=flags,
+                OBJCFLAGS=flags, LDFLAGS=flags + ' ' + shlex.join(linker))
 
 
 def profile_flags(mode, build, raw):
@@ -40,3 +55,9 @@ def profile_flags(mode, build, raw):
         combined = str(build / 'combined.profdata')
         return compile_flags, ['-fprofile-use=' + combined, strict]
     raise ValueError('Unknown PGO mode: ' + mode)
+
+
+if __name__ == '__main__':
+    import sys
+    for name, value in build_environment(lto='--no-lto' not in sys.argv).items():
+        print('export ' + name + '=' + shlex.quote(value))

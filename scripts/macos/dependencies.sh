@@ -9,6 +9,19 @@ build_jobs=${JOBS:-$(sysctl -n hw.logicalcpu)}
 mkdir -p "$project_root/build/macos/dependencies"
 cd "$project_root/build/macos/dependencies"
 
+use_toolchain() {
+  local settings
+  settings=$(python3 "$project_root/scripts/macos/pgo.py" "$@")
+  eval "$settings"
+}
+
+install_package() {
+  sudo make install CC="$CC" CXX="$CXX" AR="$AR" RANLIB="$RANLIB" NM="$NM" \
+    CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" "$@"
+}
+
+use_toolchain --no-lto
+
 unpack() {
   local archive
   archive=$(python3 - "$project_root" "$1" <<'PYTHON'
@@ -32,7 +45,7 @@ echo "::group::Install GNU M4"
 (
   unpack m4
   ./configure && make -j"$build_jobs"
-  sudo make install
+  install_package
 )
 echo "::endgroup::"
 
@@ -40,7 +53,7 @@ echo "::group::Install GNU Autoconf"
 (
   unpack autoconf
   ./configure && make -j"$build_jobs"
-  sudo make install
+  install_package
 )
 echo "::endgroup::"
 
@@ -48,7 +61,7 @@ echo "::group::Install GNU Automake"
 (
   unpack automake
   ./configure && make -j"$build_jobs"
-  sudo make install
+  install_package
 )
 echo "::endgroup::"
 
@@ -56,7 +69,7 @@ echo "::group::Install GNU Libtool"
 (
   unpack libtool
   ./configure --disable-shared && make -j"$build_jobs"
-  sudo make install
+  install_package
 )
 echo "::endgroup::"
 
@@ -64,7 +77,7 @@ echo "::group::Install Pkgconf"
 (
   unpack pkgconf
   ./autogen.sh && ./configure --disable-shared && make -j"$build_jobs"
-  sudo make install
+  install_package
   sudo ln -sf /usr/local/bin/pkgconf /usr/local/bin/pkg-config
 )
 echo "::endgroup::"
@@ -73,15 +86,17 @@ echo "::group::Install GNU Texinfo"
 (
   unpack texinfo
   ./configure && make -j"$build_jobs"
-  sudo make install
+  install_package
 )
 echo "::endgroup::"
+
+use_toolchain
 
 echo "::group::Install GNU Libiconv"
 (
   unpack libiconv
   ./configure --disable-shared && make -j"$build_jobs"
-  sudo make install
+  install_package
 )
 echo "::endgroup::"
 
@@ -89,7 +104,7 @@ echo "::group::Install GNU Libunistring"
 (
   unpack libunistring
   ./configure --disable-shared && make -j"$build_jobs"
-  sudo make install
+  install_package
 )
 echo "::endgroup::"
 
@@ -97,7 +112,7 @@ echo "::group::Install GNU Gettext"
 (
   unpack gettext
   ./configure --disable-shared && make -j"$build_jobs"
-  sudo make install
+  install_package
 )
 echo "::endgroup::"
 
@@ -105,15 +120,16 @@ echo "::group::Install GNU Ncurses"
 (
   unpack ncurses
   ./configure --prefix=/usr/local --disable-shared --disable-widec --enable-overwrite && make -j"$build_jobs"
-  sudo make install
+  install_package
 )
 echo "::endgroup::"
 
 echo "::group::Install Zlib"
 (
   unpack zlib
-  ./configure --static && make -j"$build_jobs"
-  sudo make install
+  ./configure --static
+  make -j"$build_jobs" AR="$AR" ARFLAGS=rcs
+  install_package ARFLAGS=rcs
 )
 echo "::endgroup::"
 
@@ -121,15 +137,16 @@ echo "::group::Install Libxml2"
 (
   unpack libxml2
   ./configure --disable-shared && make -j"$build_jobs"
-  sudo make install
+  install_package
 )
 echo "::endgroup::"
 
 echo "::group::Install GNU Libgmp"
 (
   unpack gmp
+  export CFLAGS="$CFLAGS -std=gnu17"
   ./configure --disable-shared && make -j"$build_jobs"
-  sudo make install
+  install_package
 )
 echo "::endgroup::"
 
@@ -137,7 +154,7 @@ echo "::group::Install Libnettle"
 (
   unpack nettle
   ./configure --disable-shared && make -j"$build_jobs"
-  sudo make install
+  install_package
 )
 echo "::endgroup::"
 
@@ -145,7 +162,7 @@ echo "::group::Install Libidn2"
 (
   unpack libidn2
   ./configure --disable-shared && make -j"$build_jobs"
-  sudo make install
+  install_package
 )
 echo "::endgroup::"
 
@@ -153,24 +170,27 @@ echo "::group::Install GnuTLS"
 (
   unpack gnutls
   ./configure --disable-shared --with-included-libtasn1 --without-p11-kit && make -j"$build_jobs"
-  sudo make install
+  install_package
 )
 echo "::endgroup::"
 
 echo "::group::Install Libtreesitter"
 (
   unpack tree-sitter
-  make -j"$build_jobs"
-  sudo make install
-  sudo find /usr/local/lib -name 'libtree-sitter*.dylib' -delete
+  make -j"$build_jobs" libtree-sitter.a tree-sitter.pc CC="$CC" AR="$AR" CFLAGS="$CFLAGS"
+  sudo install -d /usr/local/include/tree_sitter /usr/local/lib/pkgconfig
+  sudo install -m644 libtree-sitter.a /usr/local/lib/
+  sudo install -m644 tree-sitter.pc /usr/local/lib/pkgconfig/
+  sudo install -m644 lib/include/tree_sitter/api.h /usr/local/include/tree_sitter/
 )
 echo "::endgroup::"
 
 echo "::group::Install GNU Gzip"
 (
   unpack gzip
+  use_toolchain --no-lto
   ./configure && make -j"$build_jobs"
-  sudo make install
+  install_package
 )
 echo "::endgroup::"
 
@@ -178,8 +198,8 @@ echo "::endgroup::"
 echo "::group::Install SQLite"
 (
   unpack sqlite
-  CC=/usr/bin/clang CFLAGS='-O2 -g0' ./configure --prefix=/usr/local --disable-shared --enable-static
+  ./configure --prefix=/usr/local --disable-shared --enable-static
   make -j"$build_jobs"
-  sudo make install
+  install_package
 )
 echo "::endgroup::"

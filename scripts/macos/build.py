@@ -11,7 +11,7 @@ import subprocess
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from sources import load_sources
-from pgo import compiler_tools, profile_flags
+from pgo import compiler_tools, profile_flags, build_environment
 
 ROOT = Path(__file__).resolve().parents[2]
 BUILD = Path(os.environ.get('EMACS_BUILD_ROOT', ROOT / 'build/macos')).resolve()
@@ -41,7 +41,8 @@ subprocess.run(['tar', '-xf', str(archive), '--strip-components=1', '-C', str(so
 def xcrun(*args):
     return subprocess.check_output(['xcrun', *args], text=True).strip()
 clang, profdata, linker_flags = compiler_tools()
-flags = '-O2 -g0 -flto=thin -isysroot ' + shlex.quote(xcrun('--sdk', 'macosx', '--show-sdk-path'))
+toolchain = build_environment()
+flags = toolchain['CFLAGS']
 profile = BUILD / 'merged.profdata'
 if a.mode in ('use', 'cs-generate', 'cs-use'):
     if not profile.is_file():
@@ -66,14 +67,11 @@ if a.mode == 'cs-use':
 compile_profile, link_profile = profile_flags(a.mode, BUILD, stage / 'bootstrap-profiles')
 compile_flags = flags + ' ' + shlex.join(compile_profile)
 link_flags = flags + ' ' + shlex.join(linker_flags + link_profile)
-env = dict(os.environ, CC=clang, OBJC=clang, CFLAGS=compile_flags, OBJCFLAGS=compile_flags,
+env = dict(os.environ, **toolchain)
+env.update(CFLAGS=compile_flags, OBJCFLAGS=compile_flags,
            CPPFLAGS='-I/usr/local/include', LDFLAGS=link_flags + ' -L/usr/local/lib', PKG_CONFIG='pkgconf -static',
            PKG_CONFIG_LIBDIR='/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig',
            LC_ALL='en_US.UTF-8')
-if os.environ.get('EMACS_LLVM_ROOT'):
-    # Archive indexes must understand the same LLVM bitcode as the compiler.
-    llvm_bin = Path(clang).parent
-    env.update(AR=str(llvm_bin / 'llvm-ar'), RANLIB=str(llvm_bin / 'llvm-ranlib'))
 for key in ('LLVM_PROFILE_FILE', 'CPATH', 'LIBRARY_PATH', 'DYLD_LIBRARY_PATH', 'PKG_CONFIG_PATH'):
     env.pop(key, None)
 args = ['--prefix=' + str(BUILD / 'cs-install' if cs else stage / 'install'), '--disable-build-details', '--disable-gc-mark-trace',

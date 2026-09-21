@@ -37,3 +37,16 @@ else:
         for path in sorted(changed):
             cache.add(path, arcname=str(path.relative_to('/')), recursive=False)
     print(f'Cached {len(changed)} installed files ({archive.stat().st_size // 1048576} MiB before cache compression)')
+
+llvm_ar = str(Path(os.environ['EMACS_LLVM_ROOT']) / 'bin/llvm-ar')
+for name in ('libiconv', 'libunistring', 'libncurses', 'libz', 'libxml2', 'libgmp',
+             'libnettle', 'libhogweed', 'libidn2', 'libgnutls', 'libtree-sitter', 'libsqlite3'):
+    library = Path('/usr/local/lib') / (name + '.a')
+    members = subprocess.check_output([llvm_ar, 't', str(library)], text=True).splitlines()
+    for member in members:
+        data = subprocess.check_output([llvm_ar, 'p', str(library), member])
+        if data[:4] in (b'BC\xc0\xde', b'\xde\xc0\x17\x0b'):
+            break
+    else:
+        raise SystemExit(f'{library}: no LLVM bitcode members')
+    print(f'PASS: {library.name} contains LLVM bitcode')
