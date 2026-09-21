@@ -5,16 +5,28 @@ import subprocess
 from pathlib import Path
 
 
+def linker_configuration():
+    prefix = os.environ.get('EMACS_LLVM_ROOT')
+    if not prefix:
+        raise RuntimeError('Set EMACS_LLVM_ROOT to the prebuilt LLVM installation')
+    llvm = Path(prefix)
+    path = Path(subprocess.check_output(['xcrun', '--find', 'ld'], text=True).strip())
+    liblto = llvm / 'lib/libLTO.dylib'
+    if not liblto.is_file():
+        raise RuntimeError('Matching LLVM libLTO.dylib is missing: ' + str(liblto))
+    # Select Apple's linker explicitly. Clang's Darwin driver supplies the
+    # matching LLVM libLTO.dylib and object_path_lto for ThinLTO links.
+    return dict(path=str(path), liblto=str(liblto),
+                flags=['--ld-path=' + str(path)])
+
+
 def compiler_tools():
     prefix = os.environ.get('EMACS_LLVM_ROOT')
     if not prefix:
         raise RuntimeError('Set EMACS_LLVM_ROOT to the prebuilt LLVM installation')
     bin_dir = Path(prefix) / 'bin'
-    # Name the linker kind explicitly so the driver forwards Mach-O LLD options.
-    return str(bin_dir / 'clang'), str(bin_dir / 'llvm-profdata'), [
-        '-fuse-ld=lld', '--ld-path=' + str(bin_dir / 'ld64.lld'),
-        # Preserve cross-module references through LLVM 23 Mach-O ThinLTO.
-        '-Wl,-mllvm,-enable-lto-internalization=false']
+    linker = linker_configuration()
+    return str(bin_dir / 'clang'), str(bin_dir / 'llvm-profdata'), linker['flags']
 
 
 def build_environment(lto=True):
