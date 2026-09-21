@@ -9,7 +9,7 @@ import re
 import shlex
 import shutil
 import subprocess
-from pgo import compiler_tools, profile_flags, build_environment
+from pgo import compiler_tools, profile_flags, build_environment, linker_configuration
 
 p = argparse.ArgumentParser()
 p.add_argument('--cspgo', action='store_true', help='also verify CS generation and final-link profile use')
@@ -23,6 +23,7 @@ base.mkdir(parents=True, exist_ok=False)
 def xcrun(*args):
     return subprocess.check_output(['xcrun', *args], text=True).strip()
 clang, profdata, linker_flags = compiler_tools()
+linker = linker_configuration()
 environment = build_environment()
 archive_source = base / 'library.c'
 archive_source.write_text('int library_value(void) { return 42; }\n')
@@ -34,6 +35,15 @@ subprocess.run([environment['RANLIB'], str(archive)], check=True)
 subprocess.run([environment['NM'], str(archive)], check=True)
 main = base / 'main.c'
 main.write_text('int library_value(void); int main(void) { return library_value() != 42; }\n')
+driver = subprocess.run([clang, *shlex.split(environment['CFLAGS']), str(main), str(archive),
+                         *linker_flags, '-###', '-o', str(base / 'archive-probe')],
+                        text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+driver_trace = driver.stdout + driver.stderr
+(base / 'driver-link.txt').write_text(driver_trace)
+if linker['path'] not in driver_trace:
+    raise SystemExit('Clang did not select the requested Apple linker; see driver-link.txt')
+if '-lto_library' not in driver_trace or linker['liblto'] not in driver_trace:
+    raise SystemExit('Clang did not select matching LLVM libLTO.dylib; see driver-link.txt')
 subprocess.run([clang, *shlex.split(environment['CFLAGS']), str(main), str(archive),
                 *linker_flags, '-o', str(base / 'archive-probe')], check=True)
 subprocess.run([str(base / 'archive-probe')], check=True)
@@ -56,7 +66,9 @@ ir = (base / 'probe.ll').read_text()
 if 'function_entry_count' not in ir or 'ProfileSummary' not in ir:
     raise SystemExit('Clang did not consume the generated profile')
 report = dict(compiler=subprocess.check_output([clang, '--version'], text=True),
-              profdata=subprocess.check_output([profdata, '--version'], text=True), linker_flags=linker_flags, sdk=xcrun('--show-sdk-version'),
+              profdata=subprocess.check_output([profdata, '--version'], text=True),
+              linker=linker, linker_flags=linker_flags, driver_link=driver_trace,
+              sdk=xcrun('--show-sdk-version'),
               objective_c_thinlto_pgo=True, profile_summary=summary)
 (base / 'result.json').write_text(json.dumps(report, indent=2) + '\n')
 if a.cspgo:
@@ -121,7 +133,7 @@ if os.environ.get('GITHUB_OUTPUT'):
         output.write('identity=' + digest + '\n')
 # Retain only the small diagnostic report.
 for path in base.iterdir():
-    if path.name not in ('result.json', 'cs-link.log'):
+    if path.name not in ('result.json', 'cs-link.log', 'driver-link.txt'):
         if path.is_dir():
             shutil.rmtree(path)
         else:
