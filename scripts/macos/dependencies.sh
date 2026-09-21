@@ -158,7 +158,10 @@ echo "::group::Install Libnettle"
 (
   unpack nettle
   export CC_FOR_BUILD="$CC $CPPFLAGS ${CFLAGS/ -flto=thin/} ${LDFLAGS/ -flto=thin/}"
-  ./configure --disable-shared && make -j"$build_jobs"
+  ./configure --disable-shared
+  # Mach-O ThinLTO loses the exported Salsa20 wrapper; keep this object native.
+  make salsa20-crypt.o CFLAGS="${CFLAGS/ -flto=thin/}"
+  make -j"$build_jobs"
   install_package
 )
 echo "::endgroup::"
