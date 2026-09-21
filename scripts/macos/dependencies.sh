@@ -157,6 +157,7 @@ echo "::endgroup::"
 echo "::group::Install Libnettle"
 (
   unpack nettle
+  export CC_FOR_BUILD="$CC $CPPFLAGS ${CFLAGS/ -flto=thin/} ${LDFLAGS/ -flto=thin/}"
   ./configure --disable-shared && make -j"$build_jobs"
   install_package
 )
