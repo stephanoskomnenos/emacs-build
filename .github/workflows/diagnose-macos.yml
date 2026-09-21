@@ -30,7 +30,10 @@ jobs:
           "$NM" libnettle.a > symbols.txt
           "$EMACS_LLVM_ROOT/bin/llvm-dis" salsa20-crypt.o -o salsa20-crypt.ll
           cat salsa20-crypt.ll
-          rg 'salsa20_crypt' symbols.txt
+          grep 'salsa20_crypt' symbols.txt
+          "$EMACS_LLVM_ROOT/bin/llvm-dis" non-nettle.o -o non-nettle.ll
+          make -C examples nettle-benchmark LDFLAGS="$LDFLAGS -Wl,-u,_nettle_salsa20_crypt" > forced.log 2>&1 || tail -30 forced.log
+          make -C examples nettle-benchmark LDFLAGS="$LDFLAGS -Wl,-all_load" > all-load.log 2>&1 || tail -30 all-load.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -38,7 +41,7 @@ jobs:
           path: |
             /tmp/nettle-source/**/config.log
             /tmp/nettle-source/**/config.h
-            /tmp/nettle-source/**/build.log
+            /tmp/nettle-source/**/*.log
             /tmp/nettle-source/**/symbols.txt
             /tmp/nettle-source/**/*.ll
             /tmp/nettle-source/**/*.a
