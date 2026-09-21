@@ -27,8 +27,12 @@ if digest.hexdigest() != spec['sha256']:
 prefix = Path(os.environ['RUNNER_TEMP']) / 'emacs-llvm'
 prefix.mkdir(parents=True, exist_ok=True)
 subprocess.run(['tar', '-xf', str(archive), '--strip-components=1', '-C', str(prefix)], check=True)
-for tool in ('clang', 'ld64.lld', 'llvm-profdata', 'llvm-ar', 'llvm-ranlib'):
+for tool in ('clang', 'llvm-profdata', 'llvm-ar', 'llvm-ranlib'):
     subprocess.run([str(prefix / 'bin' / tool), '--version'], check=True)
+liblto = prefix / 'lib/libLTO.dylib'
+if not liblto.is_file():
+    raise SystemExit('Pinned LLVM archive does not contain lib/libLTO.dylib')
+print(f'Matching libLTO: {liblto}')
 with open(os.environ['GITHUB_ENV'], 'a') as output:
     output.write(f'EMACS_LLVM_ROOT={prefix}\nLLVM_PROFDATA={prefix}/bin/llvm-profdata\n')
 print(f'Installed verified LLVM {spec["version"]}: {prefix}')
