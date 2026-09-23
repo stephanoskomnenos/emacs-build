@@ -36,7 +36,7 @@ jobs:
         run: |
           echo "JOBS=$(sysctl -n hw.logicalcpu)" >> "$GITHUB_ENV"
           python3 scripts/update-master.py --ref "$EMACS_REF"
-          python3 scripts/fetch.py --benchmarks
+          python3 scripts/fetch.py --benchmarks --lock
           python3 - <<'PYTHON' >> "$GITHUB_OUTPUT"
           import hashlib, json, sys
           sys.path.insert(0, 'scripts')

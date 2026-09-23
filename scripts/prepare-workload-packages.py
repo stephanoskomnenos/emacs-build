@@ -11,7 +11,7 @@ ROOT=Path(__file__).resolve().parents[1]
 BUILD=Path(os.environ.get('EMACS_BUILD_ROOT',ROOT/'build'))
 p=argparse.ArgumentParser();p.add_argument('bundle',type=Path);a=p.parse_args()
 lock=json.loads((ROOT/'benchmarks/sources.json').read_text())
-names=['compat','cond-let','llama','transient','with-editor','magit']
+names=['compat','cond-let','llama','transient','with-editor','magit','evil']
 identity=hashlib.sha256(json.dumps({n:lock[n] for n in names},sort_keys=True).encode()).hexdigest()[:12]
 base=BUILD/'workload-packages'/identity;base.mkdir(parents=True,exist_ok=True)
 paths=[]

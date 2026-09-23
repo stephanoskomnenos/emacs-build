@@ -38,7 +38,7 @@ jobs:
         run: |
           python3 scripts/fetch.py
           python3 scripts/fetch.py --tests
-          python3 scripts/fetch.py --benchmarks
+          python3 scripts/fetch.py --benchmarks --lock
       - name: Build Clang image
         id: toolchain
         run: |

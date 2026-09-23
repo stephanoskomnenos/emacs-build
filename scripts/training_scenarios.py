@@ -39,21 +39,28 @@ def exercise(name, session, corpus, fixtures, repos, git, producer):
         state=open_file(fixtures/filename)
         assert state['size']==len(text)
         mode='emacs-lisp-mode' if name=='editing-code' else 'text-mode'
-        action(command(mode),lambda s:s['mode']==mode)
-        # Different positions and line lengths, using actual terminal events.
-        action(b'\x1b<')
+        action(command(mode),lambda s:s['mode']==mode and s['evil_state']=='normal')
+        # Keep the editing workload compact, but balance Evil's paired paths:
+        # short/medium/long motion, forward/backward operators, visual types,
+        # yank/paste, and undo/redo.  The fixtures differ by scenario.
+        action(b'0llhjjk',lambda s:s['evil_state']=='normal')
+        action(b'wwb',lambda s:s['evil_state']=='normal')
+        action(b'Gkkgg',lambda s:s['evil_state']=='normal')
+        action(b'i',lambda s:s['evil_state']=='insert')
         inserted=';; temporary edit\n' if name=='editing-code' else '临时 edit\n'
-        action(inserted.encode(),lambda s:s['size']==len(text)+len(inserted))
-        action(b'\x15' + b'2\x1f',lambda s:s['size']==len(text))
+        action(inserted.encode()+b'\x1b',lambda s:s['size']==len(text)+len(inserted) and s['evil_state']=='normal')
+        action(b'0w',lambda s:s['evil_state']=='normal')
+        action(b'dw',lambda s:s['size']<len(text)+len(inserted))
+        action(b'u',lambda s:s['size']==len(text)+len(inserted))
+        action(b'0w',lambda s:s['evil_state']=='normal')
+        action(b'caw'+b'changed'+b'\x1b',lambda s:s['evil_state']=='normal')
+        action(b'yy$p',lambda s:s['size']>len(text)+len(inserted))
+        action(b'Vj',lambda s:s['evil_state']=='visual-line')
+        action(b'd',lambda s:s['evil_state']=='normal')
+        action(b'u\x12',lambda s:s['evil_state']=='normal')
         target='training-value-12' if name=='editing-code' else 'needle'
-        search(target)
-        action(b'\x01\x00\x05\x17',lambda s:s['size']<len(text))  # Select a line, kill it.
-        action(b'\x19',lambda s:s['size']==len(text))
-        action(b'\x1b>')
-        action(b'end-marker',lambda s:s['size']==len(text)+10)
-        action(b'\x15' + b'10\x7f',lambda s:s['size']==len(text))
-        for _ in range(4):
-            action(b'\x10\x01\x05\x0e',lambda s:s['size']==len(text))
+        action(b'/'+target.encode()+b'\r',lambda s:s['evil_state']=='normal')
+        action(b'?'+target.encode()+b'\r',lambda s:s['evil_state']=='normal')
         open_file(corpus/'files.el')
         action(b'\x18b'+filename.encode()+b'\r',lambda s:s['buffer']==filename and s['size']==len(text))
     elif name=='minibuffer-commands':

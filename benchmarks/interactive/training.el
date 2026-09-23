@@ -2,6 +2,8 @@
 (require 'json)
 (require 'cl-lib)
 (dolist (library '(project xref compile recentf savehist icomplete)) (require library))
+(require 'evil)
+(evil-mode 1)
 (load (expand-file-name "../files.el" (file-name-directory load-file-name)) nil t)
 (setq inhibit-startup-screen t make-backup-files nil auto-save-default nil
       enable-local-variables nil ring-bell-function #'ignore)
@@ -42,6 +44,7 @@
                                                (buffer-substring-no-properties (point-min) (min (point-max) (+ (point-min) 4096))))
                                            ""))
                   (value . ,train-value) (frames . ,train-lines)
+                  (evil_state . ,(when (boundp 'evil-state) (symbol-name evil-state)))
                   (retained . ,(hash-table-count train-documents)) (filter_calls . ,train-filter-calls)
                   (error . ,(or train-error :null))))))
 (defun train-checkpoint ()

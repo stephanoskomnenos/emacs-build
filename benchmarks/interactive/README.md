@@ -1,10 +1,15 @@
 # Training and validation
 
-Training covers 12 real-PTY subscenarios: file opening, varied editing and
+Training covers 12 real-PTY subscenarios: file opening, Evil-based editing and
 completion inputs, Org, asynchronous JSON/compile output, and small/medium
 Magit repositories. Outer group weights are unchanged; subscenarios split
 execution-count shares equally within each group. Personal configuration
 is never used for training.
+
+The editing scenarios load the pinned Evil package in a private `-Q` session.
+They balance short/medium/long motion, forward/backward operators, visual
+selection, yank/paste, undo/redo, and forward/backward search without making
+any one command family dominate the profile.
 
 `pgo-train.py BUNDLE --check-workloads` verifies actions with a non-instrumented
 build without producing profiles. `EMACS_TRAIN_SOURCE` selects the Emacs source;
@@ -13,11 +18,14 @@ build without producing profiles. `EMACS_TRAIN_SOURCE` selects the Emacs source;
 Terminal sessions use Pexpect. Emacs emits completion messages through the
 terminal; no separate acknowledgement socket is needed.
 
-Held-out validation inputs and scripts are pinned by `validation-lock.json`.
+Held-out validation inputs and external dependency metadata are pinned by
+`validation-lock.json`; validation scripts are versioned by Git.
 The regexp item splits 60 scans equally between gap positions at the beginning
 and end of the same text. Use the same validation lock and driver for both variants.
 
-Validation rejects instrumented builds and uses a private HOME. PTY actions
+Validation rejects instrumented builds and uses a private HOME. When the
+workload package set contains Evil, held-out editing actions also exercise its
+normal, insert, visual, operator, undo/redo and search paths. PTY actions
 check results after command execution and redisplay; process and Magit checks
 also verify asynchronous output and Git state. Timings include acknowledgement
 and scheduling, but exclude terminal-emulator rendering. Typing bursts and

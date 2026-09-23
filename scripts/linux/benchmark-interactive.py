@@ -86,6 +86,21 @@ for index in range(a.runs+1):
         action('magit-revision',b'\r',lambda s:s['mode']=='magit-revision-mode')
         result['magit-workflow']={'seconds':sum(result[k]['seconds'] for k in ('magit-status','magit-expand','magit-stage','magit-unstage','magit-log','magit-revision'))}
         action('return-to-edit',b'\x18bpgo-edit\r',lambda s:s['buffer']=='pgo-edit')
+        # Held-out Evil editing: same broad behavior as training, with a
+        # different command order and a different starting position.
+        action('evil-normal',b'0',lambda s:s['evil_state']=='normal')
+        action('evil-motion',b'wwbllhjjk',lambda s:s['evil_state']=='normal')
+        action('evil-insert',b'iValidation edit\x1b',lambda s:s['evil_state']=='normal')
+        action('evil-operator-position',b'0w',lambda s:s['evil_state']=='normal')
+        action('evil-operator',b'daw',lambda s:s['evil_state']=='normal')
+        action('evil-change-position',b'0w',lambda s:s['evil_state']=='normal')
+        action('evil-change',b'ciwheld-out\x1b',lambda s:s['evil_state']=='normal')
+        action('evil-yank-paste',b'yyGpk',lambda s:s['evil_state']=='normal')
+        action('evil-visual-char',b'0vllly',lambda s:s['evil_state']=='normal')
+        action('evil-visual-line',b'0Vjy',lambda s:s['evil_state']=='normal')
+        action('evil-undo-redo',b'u\x12',lambda s:s['evil_state']=='normal')
+        action('evil-search-forward',b'/held-out\r',lambda s:s['evil_state']=='normal')
+        action('evil-search-backward',b'?held-out\r',lambda s:s['evil_state']=='normal')
         # Separate stop-and-wait latency from queued typing throughput.
         latency=[]
         before=session.action(b'\x1b>')['state']['size']
@@ -98,5 +113,5 @@ for index in range(a.runs+1):
     (a.workspace/f'{a.label}-{index}.json').write_text(json.dumps(result,indent=2)+'\n')
     print(a.label,index,{k:round(v['seconds']*1000,3) for k,v in result.items()},flush=True)
     if index:runs.append(result)
-report={'label':a.label,'build':{k:v for k,v in info.items() if k!='packages'},'cpu':a.cpu,'warmup_runs':1,'runs':runs,'validation_sha256':hashlib.sha256(spec_path.read_bytes()).hexdigest(),'observer_sha256':hashlib.sha256((ROOT/'benchmarks/interactive/observer.el').read_bytes()).hexdigest(),'medians':{name:statistics.median(run[name]['seconds'] for run in runs) for name in runs[0]}}
+report={'label':a.label,'build':{k:v for k,v in info.items() if k!='packages'},'cpu':a.cpu,'warmup_runs':1,'runs':runs,'validation_sha256':hashlib.sha256(spec_path.read_bytes()).hexdigest(),'medians':{name:statistics.median(run[name]['seconds'] for run in runs) for name in runs[0]}}
 (a.workspace/f'{a.label}-summary.json').write_text(json.dumps(report,indent=2)+'\n')

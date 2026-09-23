@@ -1,6 +1,7 @@
 ;;; observer.el --- PTY workload acknowledgements -*- lexical-binding: t; -*-
 (require 'json)
 (require 'cl-lib)
+(when (require 'evil nil t) (evil-mode 1))
 (setq inhibit-startup-screen t make-backup-files nil auto-save-default nil
       ring-bell-function #'ignore enable-local-variables nil)
 (defvar workload-spec (json-parse-string (with-temp-buffer
@@ -26,6 +27,7 @@
                     (commands . ,workload-command-count) (buffer . ,(buffer-name))
                     (mode . ,(symbol-name major-mode)) (point . ,(point))
                     (text . ,(buffer-substring-no-properties (point-min) (min (point-max) (+ (point-min) 4096))))
+                    (evil_state . ,(when (boundp 'evil-state) (symbol-name evil-state)))
                     (size . ,(buffer-size)) (value . ,workload-value)
                     (frames . ,workload-frames) (error . ,(or workload-process-error :null))))))
 (defun workload-checkpoint ()

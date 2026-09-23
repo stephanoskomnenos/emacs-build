@@ -4,6 +4,11 @@
     "url": "https://codeload.github.com/emacs-straight/elisp-benchmarks/tar.gz/3d917d38d778f9577a2467c74f3b6b820b7926c4",
     "sha256": "875c2b88f792fb946067c09c80f822944ffebe55975404fb69e7181a080fc8ab"
   },
+  "evil": {
+    "version": "1.15.0-1.6a3e1dd",
+    "url": "https://codeload.github.com/emacs-evil/evil/tar.gz/6a3e1ddd04ac504a016590940d0af2a3361b9efd",
+    "sha256": "04ff370868722ad9ca82f6f26ddb3214a1a72ce4e208b46d4b15e70fad34ae15"
+  },
   "magit": {
     "version": "83ba66c8ab6fcdbd809077ae4db1f7e2ed832655",
     "url": "https://codeload.github.com/magit/magit/tar.gz/83ba66c8ab6fcdbd809077ae4db1f7e2ed832655",
