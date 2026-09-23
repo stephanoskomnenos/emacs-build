@@ -2,8 +2,6 @@
 (require 'json)
 (require 'cl-lib)
 (dolist (library '(project xref compile recentf savehist icomplete)) (require library))
-(require 'evil)
-(evil-mode 1)
 (load (expand-file-name "../files.el" (file-name-directory load-file-name)) nil t)
 (setq inhibit-startup-screen t make-backup-files nil auto-save-default nil
       enable-local-variables nil ring-bell-function #'ignore)
@@ -108,6 +106,15 @@
                                        (insert-file-contents (getenv "TRAIN_PACKAGES"))
                                        (buffer-string))) nil)))
   (add-to-list 'load-path directory))
+(when (equal (getenv "TRAIN_EVIL") "1")
+  (require 'evil)
+  (when (fboundp 'undo-redo)
+    (setq evil-undo-system 'undo-redo)
+    (evil-set-undo-system evil-undo-system))
+  (evil-mode 1)
+  (dolist (map (list evil-normal-state-map evil-insert-state-map
+                     evil-visual-state-map evil-motion-state-map))
+    (define-key map (kbd "<f12>") #'train-checkpoint)))
 (autoload 'magit-status "magit" nil t)
 (add-hook 'window-setup-hook
           (lambda ()

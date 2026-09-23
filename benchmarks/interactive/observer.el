@@ -1,7 +1,6 @@
 ;;; observer.el --- PTY workload acknowledgements -*- lexical-binding: t; -*-
 (require 'json)
 (require 'cl-lib)
-(when (require 'evil nil t) (evil-mode 1))
 (setq inhibit-startup-screen t make-backup-files nil auto-save-default nil
       ring-bell-function #'ignore enable-local-variables nil)
 (defvar workload-spec (json-parse-string (with-temp-buffer
@@ -105,6 +104,20 @@
                                         (buffer-string))) nil)))
     (add-to-list 'load-path directory))
   (autoload 'magit-status "magit" nil t))
+(defun workload-enable-evil ()
+  (interactive)
+  (require 'evil)
+  (when (fboundp 'undo-redo)
+    (setq evil-undo-system 'undo-redo)
+    (evil-set-undo-system evil-undo-system))
+  (evil-mode 1)
+  ;; Evil's state maps are installed after the initial harness bindings.
+  ;; Reassert the acknowledgement key so every Evil action can complete.
+  (global-set-key (kbd "<f12>") #'workload-checkpoint)
+  (dolist (map (list evil-normal-state-map evil-insert-state-map
+                     evil-visual-state-map evil-motion-state-map))
+    (define-key map (kbd "<f12>") #'workload-checkpoint)))
+(global-set-key (kbd "<f11>") #'workload-enable-evil)
 (icomplete-mode 1)
 (add-hook 'window-setup-hook
           (lambda ()

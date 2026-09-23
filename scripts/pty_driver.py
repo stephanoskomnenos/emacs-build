@@ -54,7 +54,15 @@ class Session:
     def action(self, keys):
         self.sequence += 1
         start = time.perf_counter_ns()
-        self.send(keys + b'\x1b[24~')  # F12 acknowledges preceding commands.
+        # A trailing ESC starts a Meta-key sequence in the terminal.  Give
+        # Emacs enough time to dispatch it as Evil's state transition before
+        # sending the F12 acknowledgement.
+        if keys.endswith(b'\x1b'):
+            self.send(keys)
+            time.sleep(0.6)
+            self.send(b'\x1b[24~')
+        else:
+            self.send(keys + b'\x1b[24~')  # F12 acknowledges preceding commands.
         result = self.receive('checkpoint')
         elapsed = (time.perf_counter_ns()-start)/1e9
         if result['sequence'] != self.sequence:

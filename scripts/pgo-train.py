@@ -60,7 +60,8 @@ checks={}
 for group,names in GROUPS.items():
     for name in names:
         print('Starting training scenario',name,flush=True)
-        session_env=dict(env,TRAIN_PROCESS_VARIANT=name.removeprefix('process-'))
+        session_env=dict(env,TRAIN_PROCESS_VARIANT=name.removeprefix('process-'),
+                         TRAIN_EVIL='1' if name.startswith('editing-') else '0')
         if not a.check_workloads:
             session_env['LLVM_PROFILE_FILE']=str(profiles/(name+'-%m-%p.profraw'))
         session=Session(a.bundle/'bin/emacs',base/name,ROOT/'benchmarks/interactive/training.el',session_env)

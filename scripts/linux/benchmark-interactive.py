@@ -88,8 +88,9 @@ for index in range(a.runs+1):
         action('return-to-edit',b'\x18bpgo-edit\r',lambda s:s['buffer']=='pgo-edit')
         # Held-out Evil editing: same broad behavior as training, with a
         # different command order and a different starting position.
-        action('evil-normal',b'0',lambda s:s['evil_state']=='normal')
-        action('evil-motion',b'wwbllhjjk',lambda s:s['evil_state']=='normal')
+        action('evil-enable',b'\x1b[23~',lambda s:s['evil_state']=='normal')
+        action('evil-normal',b'Gk0',lambda s:s['evil_state']=='normal')
+        action('evil-motion',b'0wwbllh',lambda s:s['evil_state']=='normal')
         action('evil-insert',b'iValidation edit\x1b',lambda s:s['evil_state']=='normal')
         action('evil-operator-position',b'0w',lambda s:s['evil_state']=='normal')
         action('evil-operator',b'daw',lambda s:s['evil_state']=='normal')

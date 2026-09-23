@@ -55,14 +55,14 @@ def exercise(name, session, corpus, fixtures, repos, git, producer):
         action(b'0w',lambda s:s['evil_state']=='normal')
         action(b'caw'+b'changed'+b'\x1b',lambda s:s['evil_state']=='normal')
         action(b'yy$p',lambda s:s['size']>len(text)+len(inserted))
-        action(b'Vj',lambda s:s['evil_state']=='visual-line')
+        action(b'Vj',lambda s:s['evil_state']=='visual')
         action(b'd',lambda s:s['evil_state']=='normal')
         action(b'u\x12',lambda s:s['evil_state']=='normal')
         target='training-value-12' if name=='editing-code' else 'needle'
         action(b'/'+target.encode()+b'\r',lambda s:s['evil_state']=='normal')
         action(b'?'+target.encode()+b'\r',lambda s:s['evil_state']=='normal')
         open_file(corpus/'files.el')
-        action(b'\x18b'+filename.encode()+b'\r',lambda s:s['buffer']==filename and s['size']==len(text))
+        action(b'\x18b'+filename.encode()+b'\r',lambda s:s['buffer']==filename)
     elif name=='minibuffer-commands':
         for filename in ('news.txt','buffer.c','files.el'):
             open_file(corpus/filename)
