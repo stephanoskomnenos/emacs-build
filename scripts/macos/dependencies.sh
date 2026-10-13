@@ -123,7 +123,11 @@ echo "::endgroup::"
 echo "::group::Install GNU Ncurses"
 (
   unpack ncurses
-  ./configure --prefix=/usr/local --disable-shared --disable-widec --enable-overwrite && make -j"$build_jobs"
+  # Use the host database without installing one on the build runner.
+  ./configure --prefix=/usr/local --disable-shared --disable-widec --enable-overwrite \
+    --with-default-terminfo-dir=/usr/share/terminfo \
+    --with-terminfo-dirs=/usr/share/terminfo:/usr/local/share/terminfo \
+    --disable-db-install && make -j"$build_jobs"
   install_package
 )
 echo "::endgroup::"
