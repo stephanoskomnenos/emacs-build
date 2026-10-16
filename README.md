@@ -29,6 +29,7 @@ macOS 的静态 ncurses 使用系统 terminfo 数据库，不随应用打包；�
 
 每周一北京时间 **01:23** 自动构建，也支持手动触发；**push 不触发**。
 默认通过 Git 锁定 master commit；手动构建可用 `emacs_ref` 指定上游 commit 以复现构建。训练版、最终版和对照版使用同一份源码。
+保留 Emacs 默认构建信息，包括 `emacs-build-time`，供 Elpaca 等包管理器判断开发版日期；源码提交日期另记于 `BUILD-INFO.json`。不保证产物字节级一致。
 两平台默认启用 CSPGO；手动取消 `cspgo` 即使用普通 PGO，省去第二轮插桩构建和训练。
 macOS 的两种模式均使用锁定的预编译 LLVM 工具链；静态依赖沿用 Apple Clang 配方。
 性能数据见[同机对比](benchmarks/results/macos-llvm-pgo-20260918/README.md)。

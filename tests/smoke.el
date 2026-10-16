@@ -17,6 +17,8 @@
   (should-not (display-graphic-p)))
 
 (ert-deftest portable-runtime-data ()
+  (should emacs-build-time)
+  (should (> (float-time emacs-build-time) 0))
   (should (file-directory-p data-directory))
   (should (file-directory-p doc-directory))
   (should (documentation 'car))

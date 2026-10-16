@@ -98,6 +98,8 @@
         (eb-write "ready.json"
                   `((time . ,(float-time)) (window_system . ,window-system)))
         (when (equal (getenv "GUI_MODE") "smoke")
+          (unless (and emacs-build-time (> (float-time emacs-build-time) 0))
+            (error "Missing Emacs build date"))
           (when (and (fboundp 'native-comp-available-p)
                      (native-comp-available-p))
             (error "Native compilation must be disabled"))

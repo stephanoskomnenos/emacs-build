@@ -74,7 +74,7 @@ env.update(CFLAGS=compile_flags, OBJCFLAGS=compile_flags,
            LC_ALL='en_US.UTF-8')
 for key in ('LLVM_PROFILE_FILE', 'CPATH', 'LIBRARY_PATH', 'DYLD_LIBRARY_PATH', 'PKG_CONFIG_PATH'):
     env.pop(key, None)
-args = ['--prefix=' + str(BUILD / 'cs-install' if cs else stage / 'install'), '--disable-build-details', '--disable-gc-mark-trace',
+args = ['--prefix=' + str(BUILD / 'cs-install' if cs else stage / 'install'), '--disable-gc-mark-trace',
         '--without-all', '--without-native-compilation', '--with-compress-install', '--with-file-notification=kqueue',
         '--with-libgmp', '--with-gnutls', '--with-modules', '--with-native-image-api', '--with-ns',
         '--with-threads', '--with-toolkit-scroll-bars', '--with-tree-sitter',
