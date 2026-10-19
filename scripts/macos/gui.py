@@ -63,8 +63,8 @@ else:
         p.error('--baseline is required for compare')
     baseline_mode = json.loads((a.baseline / 'BUILD-INFO.json').read_text())['pgo']
     final_mode = json.loads((a.bundle / 'BUILD-INFO.json').read_text())['pgo']
-    if (baseline_mode, final_mode) not in (('off', 'use'), ('use', 'cs-use')):
-        raise RuntimeError('Expected off/use or use/cs-use comparison')
+    if (baseline_mode, final_mode) not in (('off', 'use'), ('off', 'cs-use'), ('use', 'cs-use')):
+        raise RuntimeError('Expected off/use, off/cs-use or use/cs-use comparison')
     bundles = {baseline_mode: a.baseline.resolve(), final_mode: a.bundle.resolve()}
     info = {label: json.loads((bundle / 'BUILD-INFO.json').read_text()) for label,bundle in bundles.items()}
     for key in ('source', 'compiler', 'sdk', 'architecture', 'dependency_recipe', 'extra_dependencies'):

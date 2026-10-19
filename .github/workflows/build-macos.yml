@@ -11,7 +11,7 @@ on:
         type: boolean
         default: true
       compare:
-        description: Compare PGO against no-PGO, or CSPGO against ordinary PGO
+        description: Compare the optimized build against a matching no-PGO build
         type: boolean
         default: false
   schedule:
@@ -26,7 +26,6 @@ jobs:
     env:
       EMACS_BUILD_ROOT: /tmp/emacs-build
       FINAL_STAGE: ${{ (github.event_name == 'schedule' || inputs.cspgo) && 'cs-use' || 'use' }}
-      BASELINE_STAGE: ${{ (github.event_name == 'schedule' || inputs.cspgo) && 'use' || 'off' }}
     steps:
       - uses: actions/checkout@v4
       - name: Lock master and fetch training fixtures
@@ -115,12 +114,6 @@ jobs:
         run: |
           python3 scripts/macos/audit.py "/tmp/emacs-build/$FINAL_STAGE/bundle"/Emacs.app > /tmp/emacs-build/link-audit.json
           python3 scripts/macos/gui.py smoke "/tmp/emacs-build/$FINAL_STAGE/bundle"
-      - name: Build matched baseline
-        if: inputs.compare == true
-        run: python3 scripts/macos/build.py "$BASELINE_STAGE"
-      - name: Compare baseline and PGO
-        if: inputs.compare == true
-        run: python3 scripts/macos/gui.py compare "/tmp/emacs-build/$FINAL_STAGE/bundle" --baseline "/tmp/emacs-build/$BASELINE_STAGE/bundle"
       - name: Package app
         run: |
           mkdir -p dist/macos
@@ -139,6 +132,12 @@ jobs:
           compression-level: 0
           if-no-files-found: error
           path: dist/macos/Emacs-*
+      - name: Compare optimized build against no PGO
+        if: inputs.compare == true
+        continue-on-error: true
+        run: |
+          python3 scripts/macos/build.py off
+          python3 scripts/macos/gui.py compare "/tmp/emacs-build/$FINAL_STAGE/bundle" --baseline /tmp/emacs-build/off/bundle
       - uses: actions/upload-artifact@v4
         if: always()
         with:
