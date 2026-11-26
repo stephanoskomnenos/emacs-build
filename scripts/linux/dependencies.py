@@ -66,15 +66,17 @@ def build_dependencies(manifest, work, env, jobs):
         'nettle': ['--disable-shared', '--enable-static', '--disable-documentation', '--disable-openssl'],
         'libunistring': ['--disable-shared', '--enable-static'],
         'libidn2': ['--disable-shared', '--enable-static', '--disable-doc', '--disable-nls', '--with-libunistring-prefix=' + str(prefix)],
+        'libtasn1': ['--disable-shared', '--enable-static'],
         'gnutls': ['--disable-shared', '--enable-static', '--disable-doc', '--disable-tests',
                    '--disable-tools', '--disable-cxx', '--disable-nls',
-                   '--with-included-libtasn1', '--without-p11-kit', '--without-tpm', '--without-tpm2',
+                   '--without-p11-kit', '--without-tpm', '--without-tpm2',
                    '--without-brotli', '--without-zstd', '--with-default-trust-store-file=/etc/ssl/certs/ca-certificates.crt'],
         'libxml2': ['--disable-shared', '--enable-static', '--without-python', '--without-lzma', '--without-iconv'],
         'sqlite': ['--disable-shared', '--enable-static'],
     }
 
-    for name in ['ncurses', 'zlib', 'gmp', 'nettle', 'libunistring', 'libidn2', 'gnutls', 'libxml2', 'sqlite', 'tree-sitter', 'dbus']:
+    for name in ('ncurses', 'zlib', 'gmp', 'nettle', 'libunistring', 'libidn2',
+                 'libtasn1', 'gnutls', 'libxml2', 'sqlite', 'tree-sitter', 'dbus'):
         log = logs / (name + '.log')
         stamp = work / (name + '.done')
         if stamp.exists():

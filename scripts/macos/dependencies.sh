@@ -176,10 +176,18 @@ echo "::group::Install Libidn2"
 )
 echo "::endgroup::"
 
+echo "::group::Install LibTASN1"
+(
+  unpack libtasn1
+  ./configure --disable-shared --enable-static && make -j"$build_jobs"
+  install_package
+)
+echo "::endgroup::"
+
 echo "::group::Install GnuTLS"
 (
   unpack gnutls
-  ./configure --disable-shared --with-included-libtasn1 --without-p11-kit && make -j"$build_jobs"
+  ./configure --disable-shared --without-p11-kit && make -j"$build_jobs"
   install_package
 )
 echo "::endgroup::"

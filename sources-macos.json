@@ -7,6 +7,7 @@
     "gmp",
     "nettle",
     "libidn2",
+    "libtasn1",
     "gnutls",
     "tree-sitter",
     "sqlite"
