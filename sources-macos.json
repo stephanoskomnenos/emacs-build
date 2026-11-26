@@ -14,22 +14,22 @@
   "extra": {
     "m4": {
       "version": "1.4.21",
-      "url": "https://mirrors.kernel.org/gnu/m4/m4-1.4.21.tar.xz",
-      "sha256": "f25c6ab51548a73a75558742fb031e0625d6485fe5f9155949d6486a2408ab66"
+      "url": "https://distfiles.macports.org/m4/m4-1.4.21.tar.bz2",
+      "sha256": "dc487e11d2f0c9e01555bb1af26be4eae983ec8f0726746505b4327186eb21fc"
     },
     "autoconf": {
       "version": "2.73",
-      "url": "https://mirrors.kernel.org/gnu/autoconf/autoconf-2.73.tar.xz",
+      "url": "https://distfiles.macports.org/autoconf/autoconf-2.73.tar.xz",
       "sha256": "9fd672b1c8425fac2fa67fa0477b990987268b90ff36d5f016dae57be0d6b52e"
     },
     "automake": {
-      "version": "1.19",
-      "url": "https://mirrors.kernel.org/gnu/automake/automake-1.19.tar.xz",
-      "sha256": "e3e2c2e3abf37898138db5b6c1d1dc35c9160c5978be7947d2c741705251d445"
+      "version": "1.20",
+      "url": "https://distfiles.macports.org/automake/automake-1.20.tar.xz",
+      "sha256": "f6f34dad4cbe395715762b0710f7c511e39bd5cf777e6b95818ccbecf7714248"
     },
     "libtool": {
       "version": "2.6.2",
-      "url": "https://mirrors.kernel.org/gnu/libtool/libtool-2.6.2.tar.xz",
+      "url": "https://distfiles.macports.org/libtool/libtool-2.6.2.tar.xz",
       "sha256": "2ef1067c16c97db930fd740cc9bc3d3ba9a583804ae5ac42cc3e8719e49e191e"
     },
     "pkgconf": {
@@ -39,23 +39,23 @@
     },
     "texinfo": {
       "version": "7.3",
-      "url": "https://mirrors.kernel.org/gnu/texinfo/texinfo-7.3.tar.xz",
+      "url": "https://distfiles.macports.org/texinfo/texinfo-7.3.tar.xz",
       "sha256": "51f74eb0f51cfa9873b85264dfdd5d46e8957ec95b88f0fb762f63d9e164c72e"
     },
     "libiconv": {
       "version": "1.19",
-      "url": "https://mirrors.kernel.org/gnu/libiconv/libiconv-1.19.tar.gz",
+      "url": "https://distfiles.macports.org/libiconv/libiconv-1.19.tar.gz",
       "sha256": "88dd96a8c0464eca144fc791ae60cd31cd8ee78321e67397e25fc095c4a19aa6"
     },
     "gettext": {
       "version": "1.0",
-      "url": "https://mirrors.kernel.org/gnu/gettext/gettext-1.0.tar.xz",
+      "url": "https://distfiles.macports.org/gettext/gettext-1.0.tar.xz",
       "sha256": "71132a3fb71e68245b8f2ac4e9e97137d3e5c02f415636eb508ae607bc01add7"
     },
     "gzip": {
       "version": "1.14",
-      "url": "https://mirrors.kernel.org/gnu/gzip/gzip-1.14.tar.xz",
-      "sha256": "01a7b881bd220bfdf615f97b8718f80bdfd3f6add385b993dcf6efd14e8c0ac6"
+      "url": "https://distfiles.macports.org/gzip/gzip-1.14.tar.gz",
+      "sha256": "613d6ea44f1248d7370c7ccdeee0dd0017a09e6c39de894b3c6f03f981191c6b"
     }
   }
 }

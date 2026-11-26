@@ -10,7 +10,7 @@
   },
   "ncurses": {
     "version": "6.6",
-    "url": "https://mirrors.kernel.org/gnu/ncurses/ncurses-6.6.tar.gz",
+    "url": "https://distfiles.macports.org/ncurses/ncurses-6.6.tar.gz",
     "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
   },
   "zlib": {
@@ -20,8 +20,8 @@
   },
   "gmp": {
     "version": "6.3.0",
-    "url": "https://mirrors.kernel.org/gnu/gmp/gmp-6.3.0.tar.xz",
-    "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+    "url": "https://distfiles.macports.org/gmp/gmp-6.3.0.tar.bz2",
+    "sha256": "ac28211a7cfb609bae2e2c8d6058d66c8fe96434f740cf6fe2e47b000d1c20cb"
   },
   "nettle": {
     "version": "4.0",
@@ -30,12 +30,12 @@
   },
   "libunistring": {
     "version": "1.4.2",
-    "url": "https://mirrors.kernel.org/gnu/libunistring/libunistring-1.4.2.tar.xz",
-    "sha256": "5b46e74377ed7409c5b75e7a96f95377b095623b689d8522620927964a41499c"
+    "url": "https://distfiles.macports.org/libunistring/libunistring-1.4.2.tar.gz",
+    "sha256": "e82664b170064e62331962126b259d452d53b227bb4a93ab20040d846fec01d8"
   },
   "libidn2": {
     "version": "2.3.8",
-    "url": "https://mirrors.kernel.org/gnu/libidn/libidn2-2.3.8.tar.gz",
+    "url": "https://distfiles.macports.org/libidn2/libidn2-2.3.8.tar.gz",
     "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
   },
   "gnutls": {
