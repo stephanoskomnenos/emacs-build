@@ -33,9 +33,9 @@
       "sha256": "2ef1067c16c97db930fd740cc9bc3d3ba9a583804ae5ac42cc3e8719e49e191e"
     },
     "pkgconf": {
-      "version": "3.0.7",
-      "url": "https://codeload.github.com/pkgconf/pkgconf/tar.gz/refs/tags/pkgconf-3.0.7",
-      "sha256": "a9ae678879771fcf15247ac2435e7ad8308be8a5921898e6720b3b8949410f73"
+      "version": "3.0.11",
+      "url": "https://codeload.github.com/pkgconf/pkgconf/tar.gz/refs/tags/pkgconf-3.0.11",
+      "sha256": "d2c8a0965d5b80dcc454cc999ad5edb8bfbc4d8e65cde7a6f19a5cb7ecaf3377"
     },
     "texinfo": {
       "version": "7.3",
@@ -53,9 +53,9 @@
       "sha256": "71132a3fb71e68245b8f2ac4e9e97137d3e5c02f415636eb508ae607bc01add7"
     },
     "gzip": {
-      "version": "1.14",
-      "url": "https://distfiles.macports.org/gzip/gzip-1.14.tar.gz",
-      "sha256": "613d6ea44f1248d7370c7ccdeee0dd0017a09e6c39de894b3c6f03f981191c6b"
+      "version": "1.15",
+      "url": "https://distfiles.macports.org/gzip/gzip-1.15.tar.gz",
+      "sha256": "545886cf57fa88a65e967fbf705903d7fcb2567c82c7342493e82e8d7b1a210b"
     }
   }
 }

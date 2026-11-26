@@ -14,9 +14,9 @@
     "sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
   },
   "zlib": {
-    "version": "1.3.2",
-    "url": "https://github.com/madler/zlib/releases/download/v1.3.2/zlib-1.3.2.tar.gz",
-    "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+    "version": "1.4",
+    "url": "https://github.com/madler/zlib/releases/download/v1.4/zlib-1.4.tar.gz",
+    "sha256": "02dd159783677a749c04adbdd02b55b8a2bcc7e054f51b76b549199a916ad584"
   },
   "gmp": {
     "version": "6.3.0",
@@ -29,9 +29,9 @@
     "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094"
   },
   "libunistring": {
-    "version": "1.4.2",
-    "url": "https://distfiles.macports.org/libunistring/libunistring-1.4.2.tar.gz",
-    "sha256": "e82664b170064e62331962126b259d452d53b227bb4a93ab20040d846fec01d8"
+    "version": "1.5",
+    "url": "https://distfiles.macports.org/libunistring/libunistring-1.5.tar.gz",
+    "sha256": "5b0ecd46cbf225375f20ab4056197e66a7ac590e2684c069af407ae3383c9d81"
   },
   "libidn2": {
     "version": "2.3.8",
@@ -39,9 +39,9 @@
     "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
   },
   "gnutls": {
-    "version": "3.8.13",
-    "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz",
-    "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e"
+    "version": "3.8.14",
+    "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.14.tar.xz",
+    "sha256": "7e2d258071f5db9620aa7ff34259331d004f7beafa3eb18560cfaf60acfbf02a"
   },
   "libxml2": {
     "version": "2.15.4",
@@ -49,18 +49,18 @@
     "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821"
   },
   "sqlite": {
-    "version": "3.53.4",
-    "url": "https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz",
-    "sha256": "0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c"
+    "version": "3.54.1",
+    "url": "https://www.sqlite.org/2026/sqlite-autoconf-3540100.tar.gz",
+    "sha256": "926ef8d3eab93fbf6e06011901273eec076b25594a4e1cdadd50c987f4f6d64e"
   },
   "tree-sitter": {
-    "version": "0.27.0",
-    "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.0",
-    "sha256": "d35c96e68736bd9569d2757c3cc71052485f33082c3825f1aed9d0e86013a159"
+    "version": "0.27.2",
+    "url": "https://codeload.github.com/tree-sitter/tree-sitter/tar.gz/refs/tags/v0.27.2",
+    "sha256": "356528363bf7fbad12a2cfeb5a2678c0118ef886a4d69ad9a379db5fdef0735f"
   },
   "dbus": {
-    "version": "1.16.2",
-    "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz",
-    "sha256": "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
+    "version": "1.16.4",
+    "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.4.tar.xz",
+    "sha256": "d08b05526c2cb7966a5fb79210d6112b1aca3d135f315c1b302e14b4b0297dac"
   }
 }
